@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bluekid</title>
+
+    <style>
+        body {
+            font-family: 'Ubuntu', sans-serif;
+          }
+    </style>
+</head>
+<header>
+    <style>
+        header {
+            font-family: 'Comfortaa', cursive;
+            font-weight: 400;
+        }
+        
+        h1 {
+            font-weight: 700;
+        }
+        
+        header {
+            display: flex;
+            user-select: none;
+            text-align: center;
+        
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        
+        #titlelink {
+            text-decoration: none;
+        }
+        
+        #pron {
+            position: absolute;
+            margin-top: 35px;
+            /* left: 10px; */
+        }
+        
+        h1#title{
+            color: turquoise;
+            margin-top: 0;
+        
+            -webkit-text-stroke-color: black;
+            -webkit-text-stroke-width: 2px;
+        }
+    </style>
+
+    <a id="titlelink" href="../index.html"> <h1 id="title">Bluekid</h1> </a>
+    <h4 id="pron">(pronounced: blue-ked)</h4>
+    <a style="position:fixed; right: 10px;" href="./login.html"><button>Login</button></a>
+
+    <!-- <a id="join" href="https://www.youtube.com/watch?v=mGE7Q9GfdjY"> <button>Join a game</button> </a> -->
+</header>
+<body>
+    <hr>
+    <input placeholder="Enter email..." type="email" rows="1" cols="30" spellcheck="false" style="resize: none;" id="email">
+    <input placeholder="Enter password..." type="password" rows="1" cols="30" spellcheck="false" style="resize: none;" id="password">
+    <input placeholder="Confirm password..." type="password" rows="1" cols="30" spellcheck="false" style="resize: none;" id="confirm_password">
+    <button id="signup" onclick="EmailPass()">Sign up</button>
+    <p id="output_message_login"></p>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script>
+      // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+      const firebaseConfig = {
+        apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+        authDomain: "bluekid-303db.firebaseapp.com",
+        databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+        projectId: "bluekid-303db",
+        storageBucket: "bluekid-303db.appspot.com",
+        messagingSenderId: "207140973406",
+        appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        window.onload = function() {
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                document.getElementById("confirm_password").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("email").disabled = true;
+                document.getElementById("signup").disabled = true;
+                document.getElementById("output_message_login").innerHTML = "You are already logged in!";
+            }
+        }
+
+        function EmailPass() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm_password").value;
+
+            if (password == confirm) {
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // signed in
+                    var user = userCredential.user;
+
+                    document.location.href = "./login.html"
+                }).catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+
+                    console.log(errorCode);
+                    if (errorCode == "auth/invalid-email") {
+                        document.getElementById("output_message_login").innerHTML = "Please use a real email."
+                    }
+                    if (errorCode == "auth/email-already-in-use") {
+                        document.getElementById("output_message_login").innerHTML = "Email already in use. Maybe you had a google account?"
+                    }
+                    if (errorCode == "auth/weak-password") {
+                        document.getElementById("output_message_login").innerHTML = "The password you entered is weak. Try again."
+                    }
+
+                })
+            } else {
+                document.getElementById("output_message_login").innerHTML = "Passwords do not match.";
+            }
+        }
+    </script>
+</body>
+</html>
