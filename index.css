@@ -51,7 +51,11 @@ body {
     width: 30vh;
     padding: 5px;
     font-size: 40px;
-    cursor: pointer;
+    cursor:pointer;
+    user-select: none;
+}
+#SignUpNow_A {
+    width: 30vh;
 }
 
 #SignUpNow:hover {
@@ -68,6 +72,10 @@ body {
     padding: 5px;
     font-size: 40px;
     cursor:pointer;
+    user-select: none;
+}
+#LearnMore_A {
+    width: 30vh;
 }
 
 #LearnMore:hover {
