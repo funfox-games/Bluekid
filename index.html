@@ -7,9 +7,7 @@
     <title>Bluekid</title>
 
     <link rel="stylesheet" type="text/css" href="./index.css">
-    <noscript>Sorry, your browser does not support JavaScript!</noscript>
-
-    <link rel="icon" type="image/png" href="favicon.png">
+    <noscript><div style="padding: 5px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center;">YOUR BROWSER DOESN'T SUPPORT JAVASCRIPT! PLEASE SWITCH TO A DIFFERENT BROWSER!!</div><hr></noscript>
 
     <style>
         body {
@@ -17,15 +15,41 @@
           }
     </style>
 </head>
+<!-- <div style="padding: 5px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center;">BLUEKID IS IN DEVELOPMENT. BUGS MAY HAPPEN AT ANY TIME. YOU HAVE BEEN WARNED!</div>
+<hr> -->
 <header>
     <a id="titlelink" href="./index.html"> <h1 id="title">Bluekid</h1> </a>
     <h4 id="pron">(pronounced: blue-ked)</h4>
-    <a style="position:fixed; right: 10px;" href="./auth_pages/login.html"><button>Login</button></a>
+    <div style="position:fixed;right: 10px; font-size: 24px;" id="actions">
+        <!-- style="position:fixed; right: 10px;" -->
+        <a style="color:inherit;" href="./about.html">About</a>
+        <a style="color:inherit;" href="./join.html">Join</a>
+        <a style="color:inherit;" href="./auth_pages/login.html">Login</a>
+    </div>
 
     <!-- <a id="join" href="https://www.youtube.com/watch?v=mGE7Q9GfdjY"> <button>Join a game</button> </a> -->
 </header>
 <body>
-    <a id="join" href="./join.html"> <button>Join a game</button> </a>
+    <hr>
+    <div style="position:relative;width:100%; height:50vh; overflow:hidden; background-image: linear-gradient(90deg, #00a2ff 5.66%, #003a92 94.35%); border: 5px solid black; border-radius: 20px;" id="FirstPart">
+        <img style="position:absolute; right: 0px; width:60%; user-select: none;" draggable="false"  src="./assets/bg.png" id="Names">
+        <div style="display: flex; flex-direction: column; position:absolute;left:10px;" id="SideText">
+        <div id="WelcomeText" style="font-family: 'Comfortaa', cursive; font-weight: bold; font-size: 60px; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2.75px;">
+            Help
+            <br>
+            Students
+            <br>
+            Learn
+        </div>
+        <br>
+        <a href="./auth_pages/signup.html"><button id="SignUpNow">Sign up now</button></a>
+        <br>
+        <a href="./about.html"><button id="LearnMore">About Us</button></a>
+        <br>
+        <p style="font-weight:bold; font-size: 20px; width:80%;">Please note: this site is <span style="color: darkred;">still in development</span>. Please check the About Us page for more information.</p>
+        </div>
+    </div>
+    <!-- <a id="join" href="./join.html"> <button>Join a game</button> </a> -->
 
     <script src="./index.js"></script>
 </body>

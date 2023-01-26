@@ -39,3 +39,84 @@ h1#title{
     -webkit-text-stroke-width: 2px;
 }
 /*****************************/
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#SignUpNow {
+    transition-duration: 0.35s;
+    background: #0bc2cf;
+    border: 5px solid black;
+    border-radius: 20px;
+    width: 30vh;
+    padding: 5px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+#SignUpNow:hover {
+    font-size: 45px;
+    background: transparent;
+}
+
+#LearnMore {
+    transition-duration: 0.35s;
+    background: #0bc2cf;
+    border: 5px solid black;
+    border-radius: 20px;
+    width: 30vh;
+    padding: 5px;
+    font-size: 40px;
+    cursor:pointer;
+}
+
+#LearnMore:hover {
+    font-size: 45px;
+    background: transparent;
+}
+
+@media screen and (max-width: 500px) {
+    #FirstPart {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #LearnMore {
+        transition-duration: 0.35s;
+        background: #0bc2cf;
+        border: 5px solid black;
+        border-radius: 20px;
+        width: 30vh;
+        padding: 0px;
+        font-size: 35px;
+        cursor:pointer;
+    }
+
+    #LearnMore:hover {
+        font-size: 40px;
+        background: transparent;
+    }
+
+    #SignUpNow {
+        transition-duration: 0.35s;
+        background: #0bc2cf;
+        border: 5px solid black;
+        border-radius: 20px;
+        width: 30vh;
+        padding: 0px;
+        font-size: 35px;
+        cursor: pointer;
+    }
+    
+    #SignUpNow:hover {
+        font-size: 40px;
+        background: transparent;
+    }
+
+    #Names {
+        transition-duration: 0.35s;
+        display: none !important;
+    }
+}
