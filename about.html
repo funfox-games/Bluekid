@@ -6,24 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Bluekid</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
     <link rel="icon" type="image/png" href="info.png">
     <style>
         body {
             font-family: 'Ubuntu', sans-serif;
-          }
+        }
         header {
-            font-family: 'Comfortaa', cursive;
-            font-weight: 400;
+            font-family: 'Titan One', cursive;
         }
         
         h1 {
             font-weight: 700;
+            font-size: 45px;
+        }
+        
+        .vert {
+            border-left: 5px solid black;
+            height: 200px;
         }
         
         header {
             display: flex;
             user-select: none;
             text-align: center;
+            align-items: center;
         
             -webkit-user-select: none;
             -khtml-user-select: none;
@@ -32,38 +42,55 @@
             -o-user-select: none;
             user-select: none;
         }
-
-        #pron {
-            position: absolute;
-            margin-top: 35px;
-            /* left: 10px; */
-        }
         
         #titlelink {
             text-decoration: none;
+            height: 5vh;
+            margin-right: 10px;
         }
-
+        
+        /* #pron {
+            position: absolute;
+            margin-top: 35px;
+        } */
+        
         h1#title{
-
             color: turquoise;
             margin-top: 0;
         
             -webkit-text-stroke-color: black;
             -webkit-text-stroke-width: 2px;
         }
+        
+        @media screen and (max-width: 550px) {
+            #header_about {
+                display: none;
+            }
+            #header_login {
+                display: none;
+            }
+        }
     </style>
 </head>
 <header>
+    <img src="./assets/Bluekid.png" style="padding-right: 10px;" draggable="false" width="50vh">
     <a id="titlelink" href="./index.html"> <h1 id="title">Bluekid</h1> </a>
-    <h4 id="pron">(pronounced: blue-ked)</h4>
+    
     <div style="position:fixed;right: 10px; font-size: 24px;" id="actions">
         <!-- style="position:fixed; right: 10px;" -->
-        <a style="color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;" href="">About</a>
-        <a style="color:inherit;" href="./join.html">Join</a>
-        <a style="color:inherit;" href="./auth_pages/login.html">Login</a>
+        <a style="color:inherit;" id="header_about" href="./about.html">About</a>
+        <a style="color:inherit;" id="header_join" href="./join.html">Join a game</a>
+        <a style="color:inherit;" id="header_login" href="./auth_pages/login.html">Login</a>
     </div>
 
-    <!-- <a id="join" href="https://www.youtube.com/watch?v=mGE7Q9GfdjY"> <button>Join a game</button> </a> -->
+    <script>
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            const login = document.getElementById("header_login")
+            //login.style = "color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"
+            login.href = "./profile.html";
+            login.innerHTML = "Profile"
+        }
+    </script>
 </header>
 <body>
     <hr>

@@ -121,11 +121,9 @@ function initWait(player, playerref) {
                 gameRef.onDisconnect().remove();
 
                 document.getElementById("name").innerHTML = "Hello, " + snapshot.child("name").val() + "!";
-                document.getElementById("status").innerHTML = "You are the host.";
+                document.getElementById("status").innerHTML = "You are the host. Game ID: <span style='font-weight: bold;'>" + id + "</span>";
 
                 document.body.appendChild(div);
-            } else { // NOT HOST
-                document.getElementById("status").innerHTML = "See your self?";
             }
         })
     });
@@ -164,35 +162,15 @@ function copyInvite() {
 }
 
 function relog() {
-    if (localStorage.getItem("provider") === "google.com") {
-        var provider = new firebase.auth.GoogleAuthProvider();
+    const email = localStorage.getItem("email");
+    const password = localStorage.getItem("pass");
 
-        firebase.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-            var credential = result.credential;
-
-            // use this to access google api
-            var token = credential.accessToken;
-            // the signed-in user info
-            var user = result.user;
-
-            // whatever
-            console.log("google logged in")
-            document.getElementById("relog").disabled = true
-        });
-    } else if (localStorage.getItem("provider") === "password") {
-        const email = localStorage.getItem("email");
-        const password = localStorage.getItem("pass");
-
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // signed in
-            var user = userCredential.user;
-            console.log("signed in password")
-            document.getElementById("relog").disabled = true
-        });
-    }
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        // signed in
+        var user = userCredential.user;
+        console.log("signed in password")
+    });
 }
 
 (function() {
@@ -210,7 +188,7 @@ function relog() {
             console.log(errorCode, errorMsg);
         })   
     } else { // IS LOGGED IN
-        document.getElementById("relog").disabled = false;
+        relog();
     }
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -223,6 +201,7 @@ function relog() {
                 console.log("logged in")
                 playerid = user.uid;
                 playerref = firebase.database().ref("game/"+ id +"/players/"+playerid);
+                document.getElementById("status").style.opacity = "1";
 
                 client_ref = playerref;
 

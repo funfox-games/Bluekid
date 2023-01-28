@@ -8,6 +8,10 @@
 
     <link rel="stylesheet" type="text/css" href="./index.css">
     <noscript><div style="padding: 5px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center;">YOUR BROWSER DOESN'T SUPPORT JAVASCRIPT! PLEASE SWITCH TO A DIFFERENT BROWSER!!</div><hr></noscript>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -18,20 +22,28 @@
 <!-- <div style="padding: 5px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center;">BLUEKID IS IN DEVELOPMENT. BUGS MAY HAPPEN AT ANY TIME. YOU HAVE BEEN WARNED!</div>
 <hr> -->
 <header>
+    <img src="./assets/Bluekid.png" style="padding-right: 10px;" draggable="false" width="50vh">
     <a id="titlelink" href="./index.html"> <h1 id="title">Bluekid</h1> </a>
-    <h4 id="pron">(pronounced: blue-ked)</h4>
+    
     <div style="position:fixed;right: 10px; font-size: 24px;" id="actions">
         <!-- style="position:fixed; right: 10px;" -->
-        <a style="color:inherit;" href="./about.html">About</a>
-        <a style="color:inherit;" href="./join.html">Join</a>
-        <a style="color:inherit;" href="./auth_pages/login.html">Login</a>
+        <a style="color:inherit;" id="header_about" href="./about.html">About</a>
+        <a style="color:inherit;" id="header_join" href="./join.html">Join a game</a>
+        <a style="color:inherit;" id="header_login" href="./auth_pages/login.html">Login</a>
     </div>
 
-    <!-- <a id="join" href="https://www.youtube.com/watch?v=mGE7Q9GfdjY"> <button>Join a game</button> </a> -->
+    <script>
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            const login = document.getElementById("header_login");
+            //login.style = "color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"
+            login.href = "./profile.html";
+            login.innerHTML = "Profile"
+        }
+    </script>
 </header>
 <body>
     <hr>
-    <div style="position:relative;width:100%; height:80vh; overflow:hidden; background-image: linear-gradient(90deg, #00a2ff 5.66%, #003a92 94.35%); border: 5px solid black; border-radius: 20px;" id="FirstPart">
+    <div style="position:relative;width:100%; height:80vh; overflow:hidden; background-image: linear-gradient(-90deg, #00a2ff 5.66%, #003a92 94.35%); border: 5px solid black; border-radius: 20px;" id="FirstPart">
         <img style="position:absolute; right: 0px; width:60%; user-select: none;" draggable="false"  src="./assets/bg.png" id="Names">
         <div style="display: flex; flex-direction: column; position:absolute;left:10px;" id="SideText">
         <div id="WelcomeText" style="font-family: 'Comfortaa', cursive; font-weight: bold; font-size: 60px; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2.75px;">

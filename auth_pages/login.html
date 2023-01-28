@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Bluekid</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Ubuntu', sans-serif;
@@ -15,18 +19,24 @@
 <header>
     <style>
         header {
-            font-family: 'Comfortaa', cursive;
-            font-weight: 400;
+            font-family: 'Titan One', cursive;
         }
         
         h1 {
             font-weight: 700;
+            font-size: 45px;
+        }
+        
+        .vert {
+            border-left: 5px solid black;
+            height: 200px;
         }
         
         header {
             display: flex;
             user-select: none;
             text-align: center;
+            align-items: center;
         
             -webkit-user-select: none;
             -khtml-user-select: none;
@@ -38,13 +48,14 @@
         
         #titlelink {
             text-decoration: none;
+            height: 5vh;
+            margin-right: 10px;
         }
         
-        #pron {
+        /* #pron {
             position: absolute;
             margin-top: 35px;
-            /* left: 10px; */
-        }
+        } */
         
         h1#title{
             color: turquoise;
@@ -53,22 +64,38 @@
             -webkit-text-stroke-color: black;
             -webkit-text-stroke-width: 2px;
         }
+        
+        @media screen and (max-width: 550px) {
+            #header_about {
+                display: none;
+            }
+            #header_login {
+                display: none;
+            }
+        }
     </style>
 
+    <img src="../assets/Bluekid.png" style="padding-right: 10px;" draggable="false" width="50vh">
     <a id="titlelink" href="../index.html"> <h1 id="title">Bluekid</h1> </a>
-    <h4 id="pron">(pronounced: blue-ked)</h4>
+    
     <div style="position:fixed;right: 10px; font-size: 24px;" id="actions">
         <!-- style="position:fixed; right: 10px;" -->
-        <a style="color:inherit;" href="../about.html">About</a>
-        <a style="color:inherit;" href="../join.html">Join</a>
-        <a style="color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;" href="">Login</a>
+        <a style="color:inherit;" id="header_about" href="../about.html">About</a>
+        <a style="color:inherit;" id="header_join" href="../join.html">Join a game</a>
+        <a style="color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;" id="header_login" href="./login.html">Login</a>
     </div>
 
-    <!-- <a id="join" href="https://www.youtube.com/watch?v=mGE7Q9GfdjY"> <button>Join a game</button> </a> -->
+    <script>
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            const login = document.getElementById("header_login")
+            //login.style = "color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"
+            login.href = "#";
+            //login.innerHTML = "Profile"
+        }
+    </script>
 </header>
 <body>
     <hr>
-    <button id="googlelogin" onclick="loginGoogle()">Login with Google</button>
     <a href="./signup.html"><button>Sign up</button></a>
     <button id="logout" onclick="logout()">Logout</button>
     <hr>
@@ -133,7 +160,6 @@
                       // User is signed in, see docs for a list of available properties
                       // https://firebase.google.com/docs/reference/js/firebase.User
                       var uid = user.uid;
-                      window.location.reload();
 
                       user.providerData.forEach((profile) => {
                         localStorage.setItem("uid", uid);
@@ -142,9 +168,8 @@
                         localStorage.setItem("email", profile.email);
                         localStorage.setItem("isLoggedIn", true);
 
-                        console.log("  Name: " + profile.displayName);
-                        console.log("  Email: " + profile.email);
-                        console.log("  Photo URL: " + profile.photoURL);
+                        console.log("logged in");
+                        window.location.href = "../profile.html"
                       })
                     } else {
                       // User is signed out
@@ -166,57 +191,6 @@
                     document.getElementById("output_message_login").innerHTML = "This account does not exist. Maybe you need to sign up?";
                 }
 
-            })
-        }
-
-        function loginGoogle() {
-            var provider = new firebase.auth.GoogleAuthProvider();
-
-            firebase.auth()
-            .signInWithPopup(provider)
-            .then((result) => {
-                var credential = result.credential;
-
-                // use this to access google api
-                var token = credential.accessToken;
-                // the signed-in user info
-                var user = result.user;
-
-                // whatever
-                firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                      // User is signed in, see docs for a list of available properties
-                      // https://firebase.google.com/docs/reference/js/firebase.User
-                      var uid = user.uid;
-                      window.location.reload();
-
-                      user.providerData.forEach((profile) => {
-                        localStorage.setItem("uid", uid);
-                        localStorage.setItem("provider", profile.providerId);
-                        localStorage.setItem("pass", "");
-                        localStorage.setItem("email", profile.email);
-                        localStorage.setItem("isLoggedIn", true);
-
-                        console.log("  Name: " + profile.displayName);
-                        console.log("  Email: " + profile.email);
-                        console.log("  Photo URL: " + profile.photoURL);
-                      })
-                    } else {
-                      // User is signed out
-                      // ...
-                    }
-                  });
-                
-            }).catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-
-                console.log("failed to login to: " + email + ". Error: " + errorCode + ", " + errorMessage)
             })
         }
     </script>
