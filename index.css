@@ -1,4 +1,8 @@
 /* TITLE */
+* {
+    scroll-behavior: smooth;
+}
+
 header {
     font-family: 'Titan One', cursive;
 }
@@ -114,6 +118,46 @@ body {
     -webkit-text-stroke-color: black;
     -webkit-text-stroke-width: 1.5px;
     /* background: transparent; */
+}
+
+.reveal.up {
+    /* position: relative; */
+    transform: translateY(150px);
+    opacity: 0;
+    transition: all 1.5s ease;
+}
+.reveal.right {
+    /* position: relative; */
+    transform: translateX(150px);
+    opacity: 0;
+    transition: all 1.5s ease;
+}
+.reveal.left {
+    /* position: relative; */
+    transform: translateX(-150px);
+    opacity: 0;
+    transition: all 1.5s ease;
+}
+.reveal.fade {
+    /* position: relative; */
+    opacity: 0;
+    transition: all 1.5s ease;
+}
+
+.reveal.up.active {
+    transform: translateY(0px);
+    opacity: 1;
+}
+.reveal.right.active {
+    transform: translateX(0px);
+    opacity: 1;
+}
+.reveal.left.active {
+    transform: translateX(0px);
+    opacity: 1;
+}
+.reveal.fade.active {
+    opacity: 1;
 }
 
 @media screen and (max-width: 500px) {
