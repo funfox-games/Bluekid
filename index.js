@@ -1,3 +1,4 @@
+document.cookie = "Set-Cookie: promo_shown=1; SameSite=None; Secure;"
 if (localStorage.getItem("isLoggedIn") === null) {
     localStorage.setItem("isLoggedIn", false);
 }
