@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My profile - Bluekid</title>
+    <title>Loading...</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,20 +13,37 @@
     <link rel="icon" type="image/png" href="./assets/Bluekid.png">
 
     <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
+        div#sidenav {
             width: 12.5%;
-            background-color: #98deff;
-            outline: 2px solid black;
             border-radius: 5px;
             position: fixed;
             height: 98%;
             overflow: auto;
             text-align: center;
-            justify-content: center;
+            background-color: #98deff;
+            outline: 2px solid black;
         }
+
+        #bottomnav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+        }
+        
+        #updates {
+            text-decoration: none;
+        }
+
+        div ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
         ul li {
             padding-bottom: 10px;
         }
@@ -62,6 +79,41 @@
             text-decoration: none; font-family: 'Titan One', cursive; margin: 0%; margin-top:5px; font-size:4vh; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2px;
         }
 
+        /* CONTEXT MENU */
+        .context-menu {
+            position: absolute;
+            text-align: center;
+            background: lightgray;
+            border: 1px solid black;
+
+            transition-duration: 500ms;
+        }
+      
+        .context-menu ul {
+            padding: 0px;
+            margin: 0px;
+            min-width: 150px;
+            list-style: none;
+        }
+      
+        .context-menu ul li {
+            padding-bottom: 7px;
+            padding-top: 7px;
+            border: 1px solid black;
+
+            transition-duration: 250ms;
+        }
+      
+        .context-menu ul li a {
+            text-decoration: none;
+            color: black;
+        }
+      
+        .context-menu ul li:hover {
+            background: darkgray;
+        }
+        /****************************/
+
         @media screen and (max-width: 800px) {
             li a {
                 font-size: 0;
@@ -75,20 +127,30 @@
 </head>
 <body>
     <!-- Side nav -->
-    <ul>
-        <a href="./index.html"><img id="imgtitle" src="./assets/Bluekid.png" width="50"></a>
-        <a id="title" href="./index.html">Bluekid</a>
-        <hr>
-        <!-- UL means unordered list -->
-        <!-- LI means list item -->
+    <div id="sidenav">
+        <ul>
+            <a href="./index.html"><img id="imgtitle" src="./assets/Bluekid.png" width="50"></a>
+            <a id="title" href="./index.html">Bluekid</a>
+            <hr>
+            <!-- UL means unordered list -->
+            <!-- LI means list item -->
+    
+            <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="./assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
+            <li> <a href="./profile/blues.html"> <img src="./assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
+            <li> <a href="./profile/buy.html"> <img src="./assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
+            <li> <a href="./profile/kits.html"> <img src="./assets/set.svg" draggable="false" width="30"> Kits</a> </li>
+            <li> <a href="#config"> <img src="./assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
+            <!-- <li> <a href="#updates"> <img src="./assets/update.svg" draggable="false" width="30"> Updates</a> </li> -->
+            
+            <!-- <li><a>Favorites</a></li> -->
+        </ul>
+        <ul id="bottomnav">
+            <li><a title="See updates" id="updates" href="#updates"> <img src="./assets/update.svg" draggable="false" width="30"></a></li>
+            <li><a id="Logout" href="#logout"> <img src="./assets/logout.svg" draggable="false" width="30"></a></li>
+        </ul>
+    </div>
 
-        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="./assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
-        <li> <a href="./profile/blues.html"> <img src="./assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
-        <li> <a href="./profile/buy.html"> <img src="./assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
-        <li> <a href="#kits"> <img src="./assets/set.svg" draggable="false" width="30"> Kits</a> </li>
-        <li> <a href="#config"> <img src="./assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
-        <!-- <li><a>Favorites</a></li> -->
-    </ul>
+    <div id="notverify" style="display:none;margin-left: 12.5%; padding: 10px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center; margin-bottom: 1vh;">YOUR ACCOUNT IS NOT VERIFIED! <a style="color:black; text-decoration: underline;" href="./verify.html">VERIFY NOW!</a></div>
 
     <div style="margin-left:12.5%;padding:1px 16px;">
         <h1 id="name">Loading profile...</h1>
@@ -104,12 +166,18 @@
             <hr>
             <button onclick="logout()">Log out</button>
         </div>
+        <div id="contextMenu" class="context-menu" style="display: none">
+            <ul>
+                <li><a href="#newname">Change name</a></li>
+            </ul>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- SETUP FIREBASE -->
     <script>
       // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
       const firebaseConfig = {
@@ -123,6 +191,7 @@
       };
       firebase.initializeApp(firebaseConfig);
     </script>
+    <!-- SCRIPT -->
     <script>
         let loggedinuser;
         let username;
@@ -137,12 +206,23 @@
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
 
+            if (user.emailVerified) {
+                document.getElementById("notverify").remove();
+            } else {
+                document.getElementById("notverify").style.display = "inline";
+            }
+
             const playerData = firebase.firestore().collection("users").doc(user.uid);
             playerData.get().then((doc) => {
                 username = doc.data().username;
 
                 document.getElementById("name").innerHTML = "Hello, " + doc.data().username + "!";
-                document.getElementById("creation-date").innerHTML = "User since: " + doc.data().creation;
+
+                var time = (Date.parse(doc.data().creation) - new Date()); // milliseconds between now & user creation
+                var diffDays = -Math.floor(time / 86400000); // days
+
+                document.getElementById("creation-date").innerHTML = "Been a user for " + diffDays + " days. (Created on " + doc.data().creation + ")";
+                document.title = doc.data().username + " - Bluekid";
 
                 document.getElementById("profile").style.display = "";
             })
@@ -186,6 +266,43 @@
             console.log("logged out:logoutfunction");
             alert("You have been logged out.");
             window.location.href = "./auth_pages/login.html";
+        }
+    </script>
+
+    <!-- CONTEXT MENU -->
+    <script>
+        document.onclick = hideMenu;
+        document.oncontextmenu = rightClick;
+
+        let isMouseOverText = false;
+        let text = document.getElementById("name");
+        
+        function hideMenu() {
+            document.getElementById("contextMenu").style.display = "none"
+        }
+
+        text.addEventListener("mouseleave", function(event) {
+            isMouseOverText = false;
+        })
+
+        text.addEventListener("mouseover", function(event) {
+            isMouseOverText = true;
+        })
+    
+        function rightClick(e) {
+            if (isMouseOverText) {
+                e.preventDefault();
+    
+                if (document.getElementById("contextMenu").style.display == "block")
+                    hideMenu();
+                else {
+                    var menu = document.getElementById("contextMenu")
+        
+                    menu.style.display = 'block';
+                    menu.style.left = e.pageX + "px";
+                    menu.style.top = e.pageY + "px";
+                }
+            }
         }
     </script>
 </body>

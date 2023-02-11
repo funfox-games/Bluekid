@@ -14,6 +14,67 @@
         body {
             font-family: 'Ubuntu', sans-serif;
         }
+
+        #loginform {
+            position:absolute;
+            display: flex;
+            flex-direction: column;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            gap: 1vh;
+            padding: 2.5vh;
+            border: 5px solid black;
+            border-radius: 15px;
+
+            background-image: linear-gradient(45deg, #00e1ff, #0084ff);
+        }
+
+        #loginform button#login {
+            border-radius: 25px;
+            font-size: 3vh;
+            border: 1px solid black;
+            padding: 5px;
+            background-image: linear-gradient(45deg, #74ff87, #4fc05e);
+            cursor: pointer;
+
+            transition-duration: 500ms;
+        }
+
+        #loginform input {
+            font-size: 3vh;
+            border-radius: 5px;
+            border: 1px solid black;
+            padding: 5px;
+            background-image: linear-gradient(45deg, #ebebeb, #9e9e9e);
+            cursor:text;
+
+            transition-duration: 500ms;
+        }
+
+        #loginform input:focus {
+            border: 1px solid black;
+            padding: 7px;
+            background-image: linear-gradient(-45deg, #96e4f3, #5b86bb);
+            cursor:text;
+        }
+
+        #loginform button#login:hover {
+            border: 3px solid black;
+            font-size: 3.5vh;
+        }
+
+        #loginform #output_message_login {
+            margin: 0;
+            padding: 10px;
+            display: none;
+
+            text-align: center;
+            font-size: 3vh;
+            background-color: red;
+            border: 3px solid black;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <header>
@@ -96,13 +157,20 @@
 </header>
 <body>
     <hr>
-    <a href="./signup.html"><button>Sign up</button></a>
-    <button id="logout" onclick="logout()">Logout</button>
-    <hr>
-    <input placeholder="Enter email..." type="email" rows="1" cols="30" spellcheck="false" style="resize: none;" id="email">
-    <input placeholder="Enter password..." type="password" rows="1" cols="30" spellcheck="false" style="resize: none;" id="password">
-    <button id="login" onclick="loginEmailPass()">Login</button>
-    <p id="output_message_login"></p>
+    <form id="loginform">
+        <div style="display: flex;">
+            <img draggable="false" src="../assets/user-solid.svg" width="30" style="padding-right: 5px;">
+            <input placeholder="Enter email..." type="email" rows="1" cols="30" spellcheck="false" style="resize: none;" id="email">
+        </div>
+        <div style="display: flex;">
+            <img src="../assets/pass.svg" width="30" draggable="false" style="padding-right: 5px;">
+            <input placeholder="Enter password..." type="password" rows="1" cols="30" spellcheck="false" style="resize: none;" id="password">
+            <img id="passToggle" src="../assets/hide.svg" draggable="false" width="30" style="padding-left: 5px; cursor: pointer;" onclick="togglePass()">
+        </div>
+        <button id="login" onclick="loginEmailPass()" type="button">Login</button>
+        <a style="text-align:center; text-decoration: underline; color: black;" href="./signup.html">Dont have an account?</a>
+        <p id="output_message_login"></p>
+    </form>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -122,7 +190,6 @@
     </script>
     <script>
         window.onload = function() {
-
             if (localStorage.getItem("email")) {
                 document.getElementById("email").value = localStorage.getItem("email");
             }
@@ -130,13 +197,25 @@
                 document.getElementById("password").value = localStorage.getItem("pass")
             }
             if (localStorage.getItem("isLoggedIn") === "true") {
-                document.getElementById("googlelogin").disabled = true;
                 document.getElementById("login").disabled = true;
-                document.getElementById("output_message_login").innerHTML = "You are logged in!";
+                document.getElementById("output_message_login").innerHTML = "You are already logged in! <a style='text-decoration: underline; color:black;' href='../profile.html'>Go to profile</a>";
+                document.getElementById("output_message_login").style.display = "inline";
             } else if(localStorage.getItem("isLoggedIn") === "false") {
                 document.getElementById("login").disabled = false;
                 document.getElementById("logout").disabled = true;
-                document.getElementById("googlelogin").disabled = false;
+            }
+        }
+
+        function togglePass() {
+            const password = document.getElementById("password")
+            const eyeicon = document.getElementById("passToggle")
+
+            if (password.type == "password") {
+                password.type = "text";
+                eyeicon.src = "../assets/see.svg"
+            } else {
+                password.type = "password";
+                eyeicon.src = "../assets/hide.svg"
             }
         }
 
@@ -183,12 +262,15 @@
 
                 console.log(errorCode);
                 if (errorCode == "auth/invalid-email") {
+                    document.getElementById("output_message_login").style.display = "inline";
                     document.getElementById("output_message_login").innerHTML = "Please use a real email."
                 }
                 if (errorCode == "auth/wrong-password") {
-                    document.getElementById("output_message_login").innerHTML = "Wrong email or password. (or you logged in with Google?)";
+                    document.getElementById("output_message_login").style.display = "inline";
+                    document.getElementById("output_message_login").innerHTML = "Wrong email or password.";
                 }
                 if (errorCode == "auth/user-not-found") {
+                    document.getElementById("output_message_login").style.display = "inline";
                     document.getElementById("output_message_login").innerHTML = "This account does not exist. Maybe you need to sign up?";
                 }
 
