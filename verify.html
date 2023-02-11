@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify email</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="./assets/Bluekid.png">
+
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h1>To contiune, Please verify your email address.</h1>
+    <button onclick="sendemail()">Send verification email</button>
+    <button onclick="history.back()">Go back</button>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+      // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+      const firebaseConfig = {
+        apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+        authDomain: "bluekid-303db.firebaseapp.com",
+        databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+        projectId: "bluekid-303db",
+        storageBucket: "bluekid-303db.appspot.com",
+        messagingSenderId: "207140973406",
+        appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        let loggedinuser;
+        let username;
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("pass");
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // signed in
+            var user = userCredential.user;
+            console.log("signed in password: " + user.uid)
+            loggedinuser = user;
+
+            console.log("Person is verifed: " + user.emailVerified)
+            //if (user.emailVerified) {
+            //    history.back()
+            //}
+
+            const playerData = firebase.firestore().collection("users").doc(user.uid);
+            playerData.get().then((doc) => {
+                username = doc.data().username;
+            })
+        })
+        .catch((error) => {
+            console.log(error.message)
+
+            document.getElementById("name").innerHTML = "Error: " + error.message;
+        });
+
+        function sendemail() {
+            firebase.auth().currentUser.sendEmailVerification()
+            .then(() => {
+                console.log("Email verification sent. less gooo");
+            })
+        }
+
+        function logout() {
+            localStorage.setItem("isLoggedIn", "false");
+            firebase.auth().signOut();
+            console.log("logged out:logoutfunction");
+            alert("You have been logged out.");
+            window.location.href = "./auth_pages/login.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kits - Bluekid</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../assets/Bluekid.png">
+
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 12.5%;
+            background-color: #98deff;
+            outline: 2px solid black;
+            border-radius: 5px;
+            position: fixed;
+            height: 98%;
+            overflow: auto;
+            text-align: center;
+            justify-content: center;
+        }
+        ul li {
+            padding-bottom: 10px;
+        }
+        li a { /* List element */
+            display: block;
+            color: #000;
+            padding: 4px 8px;
+            text-decoration: none;
+            font-size: 3vh;
+            display: inline-flex;
+        }
+
+        #imgtitle {
+            display: none;
+        }
+
+        @media screen and (max-width: 1000px) {
+            #imgtitle {
+                padding-top: 10px;
+                display: inline;
+            }
+
+            #title {
+                display: none;
+            }
+        }
+
+        li a img {
+            padding-right: 10px;
+        }
+
+        @media screen and (max-width: 800px) {
+            li a {
+                font-size: 0;
+            }
+
+            li a img {
+                padding-right: 0px;
+            }
+        }
+
+        div#topnav {
+            background-color: #9bffab;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 10px;
+            border: 2px solid black;
+        }
+
+        div#topnav button#createkit {
+            padding: 5px;
+            background-color: #ffffff77;
+            border-radius: 10px;
+            display: inline-block;
+
+            transition-duration: 300ms;
+            cursor:pointer;
+        }
+
+        div#topnav button#createkit:hover {
+            padding: 6.5px;
+            background-color: #b1b1b1a2;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        div#topnav button#deletekits {
+            padding: 5px;
+            background-color: #ff000077;
+            border-radius: 10px;
+            display: inline-block;
+
+            transition-duration: 300ms;
+            cursor:pointer;
+        }
+
+        div#topnav button#deletekits:hover {
+            padding: 6.5px;
+            background-color: #c00000a2;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        div#allKits {
+            background-color: #a0a0a075;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 10px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Side nav -->
+    <ul>
+        <a href="./index.html"><img id="imgtitle" src="../assets/Bluekid.png" width="50"></a>
+        <a id="title" style="text-decoration: none; font-family: 'Titan One', cursive; margin: 0%; margin-top:5px; font-size:4vh; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2px;" href="./index.html">Bluekid</a>
+        <hr>
+        <!-- UL means unordered list -->
+        <!-- LI means list item -->
+
+        <li> <a href="../profile.html"> <img src="../assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
+        <li> <a href="./blues.html"> <img src="../assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
+        <li> <a href="./buy.html"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
+        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/set.svg" draggable="false" width="30"> Kits</a> </li>
+        <li> <a href="#config"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
+        <!-- <li><a>Favorites</a></li> -->
+    </ul>
+
+    <div style="margin-left:12.5%;padding:1px 16px;">
+        
+
+        <p id="status">Loading data...</p>
+        <div id="loaded" style="display: none;">
+            <hr>
+            <div id="topnav">
+                <button id="createkit">Create kit</button>
+                <button id="deletekits">Delete kits</button>
+            </div>
+            <div id="allKits">Test test test</div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+      // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+      const firebaseConfig = {
+        apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+        authDomain: "bluekid-303db.firebaseapp.com",
+        databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+        projectId: "bluekid-303db",
+        storageBucket: "bluekid-303db.appspot.com",
+        messagingSenderId: "207140973406",
+        appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        let loggedinuser;
+        let username;
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("pass");
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // signed in
+            var user = userCredential.user;
+            console.log("signed in password: " + user.uid)
+            loggedinuser = user;
+
+            const playerData = firebase.firestore().collection("users").doc(user.uid);
+            playerData.get().then((doc) => {
+                username = doc.data().username;
+
+                document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
+                document.getElementById("loaded").style.display = "";
+            })
+        })
+        .catch((error) => {
+            console.log(error.message)
+
+            document.getElementById("status").innerHTML = "Error: " + error.message;
+        });
+    </script>
+</body>
+</html>
