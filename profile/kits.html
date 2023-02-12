@@ -13,6 +13,12 @@
     <link rel="icon" type="image/png" href="../assets/Bluekid.png">
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
         ul {
             list-style-type: none;
             margin: 0;
@@ -111,11 +117,45 @@
         }
 
         div#allKits {
-            background-color: #a0a0a075;
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #63636375;
             margin-bottom: 10px;
             padding: 5px;
             border-radius: 10px;
             border: 2px solid black;
+            gap: 5px;
+        }
+
+        .kit {
+            background-color: lightgray;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 15px;
+        }
+
+        .kit h1 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .kitbutton {
+            border: 2px solid black;
+            border-radius: 15px;
+            font-size: 15px;
+            padding: 5px;
+            cursor:pointer;
+
+            transition-duration: 500ms;
+        }
+
+        .kitbutton:hover {
+            font-size: 16px;
+            rotate:5deg;
+        }
+
+        #examplekit {
+            display: none;
         }
     </style>
 </head>
@@ -143,10 +183,19 @@
         <div id="loaded" style="display: none;">
             <hr>
             <div id="topnav">
-                <button id="createkit">Create kit</button>
-                <button id="deletekits">Delete kits</button>
+                <a href="./create.html"><button id="createkit">Create kit</button></a>
+                <!-- <button id="deletekits">Delete kits</button> -->
+                <p id="kitsfound" style="margin: 2px; padding: 0;">0 kits found.</p>
             </div>
-            <div id="allKits">Test test test</div>
+            <div id="allKits">
+                <div class="kit" id="examplekit">
+                    <h1 class="kittitle">Title</h1>
+                    <p class="kitdesc">Description | Author</p>
+                    <button class="kitbutton" style="background-color:#82fc9d;">Create game</button>
+                    <button class="kitbutton" style="background-color:#98deff;">Edit kit</button>
+                    <button class="kitbutton" style="background-color:#ff9898;">Delete kit</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -170,9 +219,24 @@
     <script>
         let loggedinuser;
         let username;
+        var kitindex = 0;
 
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("pass");
+
+        function deleteKit(idname, alert, refesh, display) {
+            firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(idname).delete().then(() => {
+                console.log("successfully deleted " + idname);
+                if (alert) {
+                    window.alert("Deleted kit: " + display + ".");
+                    if (refesh) {
+                        location.reload();
+                    }
+                }
+            }).catch((error) => {
+                console.error("err removing doc: " + error);
+            })
+        }
 
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
@@ -187,7 +251,60 @@
 
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
                 document.getElementById("loaded").style.display = "";
-            })
+
+                firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").get().then((q) => {
+                    q.forEach((doc) => {
+                        if (!doc.exists) {
+                            console.log("no exist");
+                            return;
+                        }
+
+                        kitindex++;
+
+                        let id = doc.id;
+                        let data = doc.data();
+                        let example = document.getElementById("examplekit");
+                        let clone = example.cloneNode(true);
+
+                        clone.id = ""
+                        clone.children[0].innerHTML = data.displayname;
+                        clone.children[1].innerHTML = data.description + " | Made by: " + data.author;
+                        clone.children[3].onclick = function() {
+                            location.href = "./edit.html?kit="+id;
+                        }
+                        clone.children[4].onclick = function() {
+                            deleteKit(id, true, true, data.displayname);
+                        }
+
+                        //ADD IT
+                        document.getElementById("allKits").appendChild(clone);
+
+                        
+                        let amountfound = document.getElementById("kitsfound")
+    
+                        if (kitindex == 1) {
+                            amountfound.innerHTML = "1 kit found.";
+
+                            document.getElementById("nokits").remove();
+                        } else {
+                            amountfound.innerHTML = kitindex + " kit found.";
+
+                            document.getElementById("nokits").remove();
+                        }
+                    });
+                });
+
+                if (document.getElementById("allKits").children.length-1 == 0) {
+                    let noKits = document.createElement("p");
+                    noKits.innerHTML = "No kits... yet... ;)";
+                    noKits.style.margin = "0";
+                    noKits.style.padding = "0";
+                    noKits.style.fontSize = "2vh";
+                    noKits.id = "nokits";
+
+                    document.getElementById("allKits").appendChild(noKits);
+                }
+            });
         })
         .catch((error) => {
             console.log(error.message)

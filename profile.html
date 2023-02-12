@@ -114,6 +114,26 @@
         }
         /****************************/
 
+        .message {
+            padding: 10px;
+            border: 5px solid black;
+            border-radius: 10px;
+            background-color: rgb(85, 85, 85);
+            -webkit-text-fill-color: white;
+        }
+
+        .message > * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #messages {
+            display: flex;
+            margin-bottom: 10px;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
         @media screen and (max-width: 800px) {
             li a {
                 font-size: 0;

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit kit - Bluekid</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../assets/Bluekid.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        img#back {
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: red;
+            cursor:pointer;
+
+            transition-duration: 500ms;
+        }
+
+        img#back:hover {
+            border: 3px solid black;
+            border-radius: 25px;
+        }
+
+        div#top {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+        }
+
+        .textfeild {
+            border-radius: 10px;
+            padding: 5px;
+            border: 3px solid rgb(187, 187, 187);
+            outline-width: 0;
+
+            transition-duration: 500ms;
+        }
+
+        .textfeild:focus {
+            border-color:rgb(23, 209, 255);
+        }
+
+        .textfeild.error {
+            border-color: rgb(255, 102, 102);
+        }
+
+        #createerror {
+            display: flex;
+            opacity:0;
+            padding: 5px;
+            font-size: 15px;
+            align-items:center;
+            gap: 4px;
+            font-weight: 600;
+            background-color: red;
+            color:white;
+            border: 2px solid black;
+            border-radius: 20px;
+            text-align:center;
+
+            transition-duration: 250ms;
+        }
+
+        #create {
+            border-radius: 10px;
+            border: 2px solid black;
+            background-color: lime;
+            cursor:pointer;
+            font-size: 20px;
+            width: 10vh;
+
+            transition-duration: 500ms;
+        }
+
+        #create:hover {
+            font-size: 22px;
+            background-color: rgb(0, 230, 0);
+            border-width: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Side nav -->
+    <!-- <ul>
+        <a href="./index.html"><img id="imgtitle" src="../assets/Bluekid.png" width="50"></a>
+        <a id="title" style="text-decoration: none; font-family: 'Titan One', cursive; margin: 0%; margin-top:5px; font-size:4vh; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2px;" href="./index.html">Bluekid</a>
+        <hr>
+
+        <li> <a href="../profile.html"> <img src="../assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
+        <li> <a href="./blues.html"> <img src="../assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
+        <li> <a href="./buy.html"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
+        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/set.svg" draggable="false" width="30"> Kits</a> </li>
+        <li> <a href="#config"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
+    </ul> -->
+
+    <div id="top">
+        <a href="./kits.html"><img id="back" src="../assets/x.svg" width="25" title="Go Back" style="margin-right: 10px;"></a>
+        <p id="status" style="font-size: 20px; padding:0; margin:0;">Loading data...</p>
+    </div>
+    <div id="loaded" style="display: none;">
+        <hr>
+        <!-- EVERYTHING BEOND THIS IS WHEN PROFILE HAS BEEN SIGNED IN AND IS READY TO USE -->
+        <div style="display: flex; text-align: center; align-items: center;">
+            <h1 style="padding:0; margin:0; margin-right: 20px;">Kit Editor</h1>
+            <p style="padding:0; margin:0;">Edit a pre existing kit from your collection!</p>
+        </div>
+
+        <div style="padding: 5px;background-color: rgb(112, 199, 117); border: 2px solid black; border-radius: 10px;">
+            <div id="left">
+                <div style="display: flex; gap:20px;">
+                    <h2 id="titledisplay" style="margin:0; padding:0;">Title: {...}</h2>
+                    <img style="cursor:pointer;" id="title_toggle" onclick="toggleTitle()" src="../assets/editpen.svg" width="30">
+                    <input class="textfeild" style="display: none;" type="text" id="kit_title" maxlength="24" placeholder="Edit title..">
+                </div>
+                <br>
+                <div style="display: flex; gap:10px;">
+                    <h2>Description</h2>
+                    <img style="cursor:pointer;" id="desc_toggle" onclick="toggleDesc()" src="../assets/editpen.svg" width="30">
+                    <textarea class="textfeild" type="text" id="kit_desc" rows="3" cols="50" maxlength="500" style="display:none;resize:none;" placeholder="Remind yourself or others what this kit is about! (optional)"></textarea>
+                    <p id="charleft" style="display:none; margin:0; padding:0; font-size:12px;">500 characters left</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+      // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+      const firebaseConfig = {
+        apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+        authDomain: "bluekid-303db.firebaseapp.com",
+        databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+        projectId: "bluekid-303db",
+        storageBucket: "bluekid-303db.appspot.com",
+        messagingSenderId: "207140973406",
+        appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        let loggedinuser;
+        let username;
+        let currentKitDesc;
+        let currentKitName;
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("pass");
+
+        const kit_title_display = document.getElementById("titledisplay")
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // signed in
+            if (urlParams.get("kit") == null) {
+                alert("Please enter this page with a kit to edit. You will now be sent back a page.");
+                history.back();
+            }
+
+            var user = userCredential.user;
+            console.log("signed in password: " + user.uid)
+            loggedinuser = user;
+
+            const playerData = firebase.firestore().collection("users").doc(user.uid);
+            playerData.get().then((doc) => {
+                username = doc.data().username;
+
+                document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
+                document.getElementById("loaded").style.display = "";
+            })
+        })
+        .catch((error) => {
+            console.log(error.message)
+
+            document.getElementById("status").innerHTML = "Error: " + error.message;
+        });
+
+        firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit")).get().then((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                console.log(data);
+                kit_title_display.innerHTML = "Title: " + data.displayname;
+                currentKitName = data.displayname;
+                currentKitDesc = data.description;
+                document.getElementById("kit_desc").value = data.description;
+            } else {
+                alert("the kit you requested doesn't exist. :(");
+                history.back();
+            }
+        })
+
+        function changeName(newname) {
+            firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit")).update({displayname: newname}).then((doc) => {
+                currentKitName = newname;
+                kit_title_display.innerHTML = "Title: " + newname;
+            })
+        }
+
+        function changeDesc(newdesc) {
+            firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit")).update({description: newdesc}).then((doc) => {
+                currentKitDesc = newdesc;
+                document.getElementById("kit_desc").value = newdesc;
+            })
+        }
+
+        function toggleTitle() {
+            const titleedit = document.getElementById('kit_title');
+            const titletoggle = document.getElementById("title_toggle");
+
+            if (titleedit.style.display == "none") {
+                titleedit.style.display = 'inline'
+                titletoggle.src = "../assets/checkcircle.svg"
+            } else {
+                titleedit.style.display = 'none'
+                titletoggle.src = "../assets/editpen.svg"
+
+                const newname = document.getElementById("kit_title").value;
+                if (newname.length > 0 && newname != currentKitName) {
+                    changeName(newname);
+                }
+            }
+        }
+
+        function toggleDesc() {
+            const descedit = document.getElementById('kit_desc');
+            const desctoggle = document.getElementById("desc_toggle");
+
+            if (descedit.style.display == "none") {
+                descedit.style.display = 'inline'
+                desctoggle.src = "../assets/checkcircle.svg"
+            } else {
+                descedit.style.display = 'none'
+                desctoggle.src = "../assets/editpen.svg"
+
+                const newdesc = document.getElementById("kit_desc").value;
+                if (newdesc.length > 0 && newdesc != currentKitDesc) {
+                    changeDesc(newdesc);
+                }
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

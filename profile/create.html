@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kits - Bluekid</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="../assets/Bluekid.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        img#back {
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: red;
+            cursor:pointer;
+
+            transition-duration: 500ms;
+        }
+
+        img#back:hover {
+            border: 3px solid black;
+            border-radius: 25px;
+        }
+
+        div#top {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+        }
+
+        .textfeild {
+            border-radius: 10px;
+            padding: 5px;
+            border: 3px solid rgb(187, 187, 187);
+            outline-width: 0;
+
+            transition-duration: 500ms;
+        }
+
+        .textfeild:focus {
+            border-color:rgb(23, 209, 255);
+        }
+
+        .textfeild.error {
+            border-color: rgb(255, 102, 102);
+        }
+
+        #createerror {
+            display: flex;
+            opacity:0;
+            padding: 5px;
+            font-size: 15px;
+            align-items:center;
+            gap: 4px;
+            font-weight: 600;
+            background-color: red;
+            color:white;
+            border: 2px solid black;
+            border-radius: 20px;
+            text-align:center;
+
+            transition-duration: 250ms;
+        }
+
+        #create {
+            border-radius: 10px;
+            border: 2px solid black;
+            background-color: lime;
+            cursor:pointer;
+            font-size: 20px;
+            width: 10vh;
+
+            transition-duration: 500ms;
+        }
+
+        #create:hover {
+            font-size: 22px;
+            background-color: rgb(0, 230, 0);
+            border-width: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Side nav -->
+    <!-- <ul>
+        <a href="./index.html"><img id="imgtitle" src="../assets/Bluekid.png" width="50"></a>
+        <a id="title" style="text-decoration: none; font-family: 'Titan One', cursive; margin: 0%; margin-top:5px; font-size:4vh; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2px;" href="./index.html">Bluekid</a>
+        <hr>
+
+        <li> <a href="../profile.html"> <img src="../assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
+        <li> <a href="./blues.html"> <img src="../assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
+        <li> <a href="./buy.html"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
+        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/set.svg" draggable="false" width="30"> Kits</a> </li>
+        <li> <a href="#config"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
+    </ul> -->
+
+    <div id="top">
+        <a href="./kits.html"><img id="back" src="../assets/x.svg" width="25" title="Go Back" style="margin-right: 10px;"></a>
+        <p id="status" style="font-size: 20px; padding:0; margin:0;">Loading data...</p>
+    </div>
+    <div id="loaded" style="display: none;">
+        <hr>
+        <!-- EVERYTHING BEOND THIS IS WHEN PROFILE HAS BEEN SIGNED IN AND IS READY TO USE -->
+        <div style="display: flex; text-align: center; align-items: center;">
+            <h1 style="padding:0; margin:0; margin-right: 20px;">Kit Creator</h1>
+            <p style="padding:0; margin:0;">Make a kit right inside of Bluekid to make your job easier!</p>
+        </div>
+
+        <div style="padding: 5px;background-color: rgb(112, 199, 117); border: 2px solid black; border-radius: 10px;">
+            <div>
+                <h2 style="margin:0; padding:0;">Title*</h2>
+                <input class="textfeild" type="text" id="kit_title" maxlength="24" placeholder="Add a title... (required)">
+            </div>
+            <br>
+            <div>
+                <h2 style="margin:0; padding:0;">Description</h2>
+                <textarea class="textfeild" type="text" id="kit_desc" rows="10" cols="50" maxlength="500" style="resize:none;" placeholder="Remind yourself or others what this kit is about! (optional)"></textarea>
+                <p id="charleft" style="margin:0; padding:0; font-size:12px;">500 characters left</p>
+            </div>
+            <br>
+            <div style="display:flex; gap: 5px;">
+                <button id="create" onclick="create()">Create</button>
+                <div id="createerror">
+                    <img draggable="false" src="../assets/filledx-white.svg" width="15">
+                    <p style="margin:0; padding:0;">Where's the title?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+      // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+      const firebaseConfig = {
+        apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+        authDomain: "bluekid-303db.firebaseapp.com",
+        databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+        projectId: "bluekid-303db",
+        storageBucket: "bluekid-303db.appspot.com",
+        messagingSenderId: "207140973406",
+        appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        let loggedinuser;
+        let username;
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("pass");
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // signed in
+            var user = userCredential.user;
+            console.log("signed in password: " + user.uid)
+            loggedinuser = user;
+
+            const playerData = firebase.firestore().collection("users").doc(user.uid);
+            playerData.get().then((doc) => {
+                username = doc.data().username;
+
+                document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
+                document.getElementById("loaded").style.display = "";
+            })
+        })
+        .catch((error) => {
+            console.log(error.message)
+
+            document.getElementById("status").innerHTML = "Error: " + error.message;
+        });
+
+        const title = document.getElementById("kit_title");
+        const desc = document.getElementById("kit_desc");
+
+        title.onfocus = resetError;
+        title.oninput = resetError;
+
+        desc.oninput = function() {
+            const descLength = desc.value.length;
+            const charleft = 500-descLength;
+            document.getElementById("charleft").innerHTML = charleft + " characters left";
+
+            if (charleft < 100) {
+                if (charleft < 50) {
+                    document.getElementById("charleft").style.color = "red";
+                } else {
+                    document.getElementById("charleft").style.color = "darkred";
+                }
+            } else {
+                document.getElementById("charleft").style.color = "black";
+            }
+        }
+
+        function resetError() {
+            title.className = "textfeild";
+            document.getElementById("createerror").style.opacity = "0";
+        }
+
+        function create() {
+            document.getElementById("create").innerHTML = "...";
+
+            if (title.value.length == 0) {
+                document.getElementById("create").innerHTML = "Create";
+                console.log("no title")
+                title.className = "textfeild error";
+
+                document.getElementById("createerror").style.opacity = "1";
+                return;
+            }
+
+            let kitname = title.value;
+            let kitdesc = "No description provided.";
+            if (desc.value.length > 0) {
+                kitdesc = desc.value;
+            }
+
+            let kitData = {
+                displayname: kitname,
+                description: kitdesc,
+                author: username,
+                creationdate: new Date(),
+                questions: {}
+            }
+
+            firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(kitname).set(kitData).then((res) => {
+                console.log("successfully created kit!");
+                document.getElementById("create").innerHTML = "Created! Waiting...";
+                location.href = "./edit.html?kit=" + kitname;
+            })
+        }
+    </script>
+</body>
+</html>
