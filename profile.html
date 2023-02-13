@@ -13,6 +13,12 @@
     <link rel="icon" type="image/png" href="./assets/Bluekid.png">
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
         div#sidenav {
             width: 12.5%;
             border-radius: 5px;
@@ -159,15 +165,15 @@
             <li> <a href="./profile/blues.html"> <img src="./assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
             <li> <a href="./profile/buy.html"> <img src="./assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
             <li> <a href="./profile/kits.html"> <img src="./assets/set.svg" draggable="false" width="30"> Kits</a> </li>
-            <li> <a href="#config"> <img src="./assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
+            <li> <a href="./profile/settings.html"> <img src="./assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
             <!-- <li> <a href="#updates"> <img src="./assets/update.svg" draggable="false" width="30"> Updates</a> </li> -->
             
             <!-- <li><a>Favorites</a></li> -->
         </ul>
-        <ul id="bottomnav">
+        <!-- <ul id="bottomnav">
             <li><a title="See updates" id="updates" href="#updates"> <img src="./assets/update.svg" draggable="false" width="30"></a></li>
             <li><a id="Logout" href="#logout"> <img src="./assets/logout.svg" draggable="false" width="30"></a></li>
-        </ul>
+        </ul> -->
     </div>
 
     <div id="notverify" style="display:none;margin-left: 12.5%; padding: 10px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center; margin-bottom: 1vh;">YOUR ACCOUNT IS NOT VERIFIED! <a style="color:black; text-decoration: underline;" href="./verify.html">VERIFY NOW!</a></div>
@@ -177,12 +183,6 @@
         <p id="creation-date">Please be paitent. If this takes more then 5 minutes, try to refresh. If refreshing does not work, check your wifi.<br>If everything else is checked, report the issue to me. Find my contact in the "About us" page.</p>
         <div id="profile" style="display: none;">
             <button onclick="creategame()">Create test game</button>
-            <h2>Settings</h2>
-            <hr>
-            <input id="newname" placeholder="Enter new name...">
-            <input id="confirmnewname" placeholder="Confirm new name...">
-            <button id="changename" onclick="changename()">Change name</button>
-            <p id="result_text"></p>
             <hr>
             <button onclick="logout()">Log out</button>
         </div>
@@ -252,29 +252,6 @@
 
             document.getElementById("name").innerHTML = "Error: " + error.message;
         });
-
-        function changename() {
-            const newname = document.getElementById("newname").value;
-            const confirm = document.getElementById("confirmnewname").value;
-            let output = document.getElementById("result_text");
-
-            if (newname != confirm) {
-                output.innerHTML = "The usernames entered dont match."
-                return;
-            }
-            if (newname == "") {
-                output.innerHTML = "Your new name cant be blank!"
-                return;
-            }
-
-            let playerData = firebase.firestore().collection("users").doc(loggedinuser.uid);
-            playerData.update({
-                username: newname
-            }).then((doc) => {
-                output.innerHTML = "Username has been switched to " + newname + "!"
-                //window.location.reload();
-            })
-        }
 
         function creategame() {
             window.location.href = "./game.html?id="+Math.floor(Math.random()*100000)+"&name="+username;

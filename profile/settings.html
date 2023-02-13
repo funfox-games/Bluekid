@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Packs - Bluekid</title>
+    <title>Blues - Bluekid</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,6 +72,18 @@
             li a img {
                 padding-right: 0px;
             }
+            
+        }
+
+        .property {
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .property > span {
+            font-weight: normal;
+            font-style: italic;
         }
     </style>
 </head>
@@ -86,9 +98,9 @@
 
         <li> <a href="../profile.html"> <img src="../assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
         <li> <a href="./blues.html"> <img src="../assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
-        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
+        <li> <a href="./buy.html"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
         <li> <a href="./kits.html"> <img src="../assets/set.svg" draggable="false" width="30"> Kits</a> </li>
-        <li> <a href="./settings.html"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
+        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
         <!-- <li><a>Favorites</a></li> -->
     </ul>
 
@@ -96,7 +108,18 @@
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
             <hr>
-            <div style="padding: 5px; background-color: rgb(255, 175, 175); font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center; font-size: 3vh;">Hey! This area is not finished yet. Please check again later!</div>
+            <h1 id="data">Account data</h1>
+            <p class="property">Username: <span id="username">Bluekid_User</span> <a style="font-size: 12.5px;" href="#newname">Change name</a></p>
+            <p class="property">Email: <span id="email">example@example.org</span></p>
+            <p class="property">Account type: <span id="type">Student</span></p>
+            <p class="property">Joined: <span id="join">0/0/0000 0:00 PM</span></p>
+
+
+            <h1 id="account">Account options</h1>
+            <input id="newname" placeholder="Enter new name...">
+            <input id="confirmnewname" placeholder="Confirm new name...">
+            <button id="changename" onclick="changename()">Change name</button>
+            <p id="result_text"></p>
         </div>
     </div>
 
@@ -131,12 +154,38 @@
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
 
+            var hash = location.hash;
+            if (hash) {
+                hash = hash.replace("#", "");
+                console.log(hash);
+                var originalColor = document.getElementById(hash).style.backgroundColor;
+
+                document.getElementById(hash).style.backgroundColor = "#008cff8f";
+                document.getElementById(hash).style.transitionDuration = "3s";
+                setTimeout(() => {
+                    document.getElementById(hash).style.backgroundColor = originalColor;
+
+                    setTimeout(() => {document.getElementById(hash).style.transitionDuration = "0s";}, 50);
+                }, 1000);
+            }
+
             const playerData = firebase.firestore().collection("users").doc(user.uid);
             playerData.get().then((doc) => {
+
                 username = doc.data().username;
 
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
                 document.getElementById("loaded").style.display = "";
+
+                const usernamedisplay = document.getElementById("username");
+                const email = document.getElementById("email");
+                const type = document.getElementById("type");
+                const joindate = document.getElementById("join");
+
+                usernamedisplay.innerHTML = username;
+                email.innerHTML = doc.data().email;
+                type.innerHTML = doc.data().accounttype;
+                joindate.innerHTML = doc.data().creation;
             })
         })
         .catch((error) => {
@@ -144,6 +193,33 @@
 
             document.getElementById("status").innerHTML = "Error: " + error.message;
         });
+
+        function changename() {
+            const newname = document.getElementById("newname").value;
+            const confirm = document.getElementById("confirmnewname").value;
+            let output = document.getElementById("result_text");
+
+            if (newname == username) {
+                output.innerHTML = "Your new name cant be the same as your old name!"
+                return;
+            }
+            if (newname != confirm) {
+                output.innerHTML = "The usernames entered dont match."
+                return;
+            }
+            if (newname == "") {
+                output.innerHTML = "Your new name cant be blank!"
+                return;
+            }
+
+            let playerData = firebase.firestore().collection("users").doc(loggedinuser.uid);
+            playerData.update({
+                username: newname
+            }).then((doc) => {
+                output.innerHTML = "Username has been switched to " + newname + "!"
+                //window.location.reload();
+            })
+        }
     </script>
 </body>
 </html>
