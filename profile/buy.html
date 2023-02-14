@@ -73,6 +73,44 @@
                 padding-right: 0px;
             }
         }
+
+        #allPacks {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .pack {
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .pack p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .pack button {
+            border-radius: 20px;
+            cursor: pointer;
+
+            transition-duration: 500ms;
+        }
+
+        .pack button:hover {
+            font-size: 20px;
+            rotate: 2.5deg;
+            background-color: #d4ffd0;
+            font-weight: 700;
+        }
+
+        .pack#meme {
+            background-image: radial-gradient(#fff, #b1b1b1);
+        }
     </style>
 </head>
 <body>
@@ -96,7 +134,14 @@
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
             <hr>
-            <div style="padding: 5px; background-color: rgb(255, 175, 175); font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center; font-size: 3vh;">Hey! This area is not finished yet. Please check again later!</div>
+            <div id="allPacks">
+                <div class="pack" id="meme">
+                    <img src="../assets/packs/memepack.png" draggable="false" width="128">
+                    <p>0 Coins</p>
+                    <button onclick="buyPack('meme')">Buy</button>
+                    <p id="memepackoutput"></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -124,6 +169,44 @@
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("pass");
 
+        const memepack = {
+            allBlues: [
+                {
+                    name: "Borzi",
+                    chance: "50%",
+                    rarity: "Uncommon"
+                },
+                {
+                    name: "Quandale Dingle",
+                    chance: "25%",
+                    rarity: "Uncommon"
+                },
+                {
+                    name: "Baller",
+                    chance: "7%",
+                    rarity: "Rare"
+                },
+                {
+                    name: "Troll",
+                    chance: "5%",
+                    rarity: "Rare"
+                },
+                {
+                    name: "Rick Astley",
+                    chance: "1%",
+                    rarity: "Lengendary"
+                },
+                {
+                    name: "Jack",
+                    chance: "0.05%",
+                    rarity: "Mythsical"
+                },
+            ],
+            allRarities: [50, 25, 7, 5, 1, 0.05]
+        };
+
+        //memepackBlues[Math.floor(Math.random() * (5 - 0 + 1)) + 0];
+
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // signed in
@@ -144,6 +227,30 @@
 
             document.getElementById("status").innerHTML = "Error: " + error.message;
         });
+
+        function buyPack(pack) {
+            if (pack == "meme") {
+                let item = weighted_random(memepack.allBlues, memepack.allRarities);
+                console.log(item);
+
+                document.getElementById("memepackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")"
+            }
+        }
+
+        function weighted_random(items, weights) {
+            var i;
+        
+            for (i = 1; i < weights.length; i++)
+                weights[i] += weights[i - 1];
+            
+            var random = Math.random() * weights[weights.length - 1];
+            
+            for (i = 0; i < weights.length; i++)
+                if (weights[i] > random)
+                    break;
+            
+            return items[i];
+        }
     </script>
 </body>
 </html>
