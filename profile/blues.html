@@ -73,6 +73,41 @@
                 padding-right: 0px;
             }
         }
+
+        #allBlues {
+            padding: 5px;
+            background-color: #006effab;
+            border-radius: 15px;
+        }
+
+        .blues {
+            display: grid;
+            grid-template-columns:repeat(auto-fill, 60px);
+            grid-gap: 10px;
+        }
+
+        .blue {
+            filter:brightness(0);
+            cursor: pointer;
+        }
+
+        .blue.unlocked {
+            filter:brightness(1);
+        }
+
+        .pack h2 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .divider {
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 2px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +131,16 @@
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
             <hr>
-            <div style="padding: 5px; background-color: rgb(255, 175, 175); font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center; font-size: 3vh;">Hey! This area is not finished yet. Please check again later!</div>
+            <div id="allBlues">
+                <div class="pack" id="memepack">
+                    <h2>Meme Pack</h2>
+                    <div class="divider"></div>
+                    <p id="memepacktext"></p>
+                    <!-- <div class="blues" id="memeblues">
+                        <img title="Borzi" class="blue" src="../assets/char/meme/blue_borzi.png" width="64">
+                    </div> -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -137,6 +181,15 @@
 
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
                 document.getElementById("loaded").style.display = "";
+
+                playerData.collection("blues").get().then((q) => {
+                    q.forEach((doc) => {
+                        if (doc.data().pack == "meme") {
+                            console.log("yes");
+                            document.getElementById("memepacktext").innerHTML += "<span style='font-weight: bold;'>" + doc.id + "</span> (" + doc.data().rarity + ") x" + doc.data().amount +", ";
+                        }
+                    })
+                })
             })
         })
         .catch((error) => {

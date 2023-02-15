@@ -173,12 +173,17 @@
             allBlues: [
                 {
                     name: "Borzi",
-                    chance: "50%",
-                    rarity: "Uncommon"
+                    chance: "25%",
+                    rarity: "Common"
                 },
                 {
                     name: "Quandale Dingle",
-                    chance: "25%",
+                    chance: "15%",
+                    rarity: "Uncommon"
+                },
+                {
+                    name: "Among Us",
+                    chance: "10%",
                     rarity: "Uncommon"
                 },
                 {
@@ -193,16 +198,16 @@
                 },
                 {
                     name: "Rick Astley",
-                    chance: "1%",
+                    chance: "2%",
                     rarity: "Lengendary"
                 },
                 {
                     name: "Jack",
-                    chance: "0.05%",
-                    rarity: "Mythsical"
+                    chance: "1%",
+                    rarity: "Mystical"
                 },
             ],
-            allRarities: [50, 25, 7, 5, 1, 0.05]
+            allRarities: [25, 15, 10, 7, 5, 2, 1]
         };
 
         //memepackBlues[Math.floor(Math.random() * (5 - 0 + 1)) + 0];
@@ -230,26 +235,84 @@
 
         function buyPack(pack) {
             if (pack == "meme") {
+                console.log("yessir")
+
                 let item = weighted_random(memepack.allBlues, memepack.allRarities);
                 console.log(item);
 
-                document.getElementById("memepackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")"
+                if (item == null) {
+                    buyPack(pack);
+                    return;
+                }
+
+                document.getElementById("memepackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")";
+
+                // SAVE BLUE TO ACCOUNT
+                const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
+
+                const blueName = item.name;
+                const blueToAdd = {
+                    chance: item.chance,
+                    rarity: item.rarity,
+                    amount: 1,
+                    pack: "meme"
+                }
+
+                playerData.collection("blues").doc(blueName).get().then((doc) => {
+                    if (!doc.exists) {
+                        playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
+                            console.log("successfully saved blue!");
+                        }).catch((error) => {
+                            console.error("Error: " + error);
+                        })
+                    } else {
+                        const blueToAdd_Amount = {
+                            chance: item.chance,
+                            rarity: item.rarity,
+                            amount: doc.data().amount + 1,
+                            pack: "meme"
+                        }
+
+                        playerData.collection("blues").doc(blueName).update(blueToAdd_Amount).then(() => {
+                            console.log("successfully saved blue! + added amount");
+                        }).catch((error) => {
+                            console.error("Error: " + error);
+                        })
+                    }
+                })
+
+
+                //setTimeout(() => {
+                //    document.location.reload();
+                //}, 1000);
             }
         }
 
-        function weighted_random(items, weights) {
-            var i;
-        
-            for (i = 1; i < weights.length; i++)
-                weights[i] += weights[i - 1];
-            
-            var random = Math.random() * weights[weights.length - 1];
-            
-            for (i = 0; i < weights.length; i++)
-                if (weights[i] > random)
+        function weighted_random(items, chance) {
+            const randomValue = Math.random() * 100;
+            let runningSum = 0;
+            let choice;
+            for (let i = 0; i < chance.length ; i ++) {
+                runningSum += chance[i];
+                if (randomValue <= runningSum) {
+                    choice = items[i];
                     break;
+                }
+            }
+            return choice;
+
+            //var i;
+        
+            //for (i = 1; i < weights.length; i++)
+                //weights[i] += weights[i - 1];
             
-            return items[i];
+            //var random = Math.random() * weights[weights.length - 1];
+            
+            //for (i = 0; i < weights.length; i++)
+                //if (weights[i] > random)
+                    //break;
+            
+            //return items[i];
         }
     </script>
 </body>

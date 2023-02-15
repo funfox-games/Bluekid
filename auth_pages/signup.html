@@ -237,6 +237,8 @@
       firebase.initializeApp(firebaseConfig);
     </script>
     <script>
+        var hasClickedSignUp = false;
+
         window.onload = function() {
             if (localStorage.getItem("isLoggedIn") === "true") {
                 document.getElementById("confirm_password").disabled = true;
@@ -257,23 +259,6 @@
                 firebase.auth().onAuthStateChanged((user) => {
                     if (user != null) {
                         console.log("user")
-                        const db = firebase.firestore();
-                        var time = new Date()
-                        console.log(time.toLocaleString())
-                        db.collection("users").doc(user.uid).set({
-                            email: user.email,
-                            username: "Bluekid_User",
-                            creation: time.toLocaleString(),
-                            accounttype: document.getElementById("acctype").value
-                        })
-                        .catch((error) => {
-                            console.error("Error adding doc: ", error);
-                            alert("Sign up failed. Please try again later.");
-                            return;
-                        })
-
-                        alert("You have successfully signed up! Please verify your email.")
-                        window.location.href = "./verify.html"
                     } else {
                         console.log("no user")
                     }
@@ -294,16 +279,42 @@
             }
         }
 
+        console.log("example@example.org".includes("@"));
+
         function EmailPass() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const confirm = document.getElementById("confirm_password").value;
 
             if (password == confirm) {
+                if (!email.includes("@")) {
+                    document.getElementById("output_message_login").style.display = "inline";
+                    document.getElementById("output_message_login").innerHTML = "Please use a vaild email."
+                    return;
+                }
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // signed in
                     var user = userCredential.user;
+
+                    const db = firebase.firestore();
+                    var time = new Date()
+                    console.log(time.toLocaleString())
+                    db.collection("users").doc(user.uid).set({
+                        email: user.email,
+                        username: "Bluekid_User",
+                        creation: time.toLocaleString(),
+                        accounttype: document.getElementById("acctype").value
+                    })
+                    .catch((error) => {
+                        console.error("Error adding doc: ", error);
+                        alert("Sign up failed. Please try again later.");
+                        return;
+                    });
+
+                    alert("You have successfully signed up! Please verify your email.");
+                    window.location.href = "./verify.html";
+
                 }).catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
@@ -319,7 +330,7 @@
                     }
                     if (errorCode == "auth/weak-password") {
                         document.getElementById("output_message_login").style.display = "inline";
-                        document.getElementById("output_message_login").innerHTML = "The password you entered is weak. Try again."
+                        document.getElementById("output_message_login").innerHTML = "The password is invalid. Try again."
                     }
 
                 })
