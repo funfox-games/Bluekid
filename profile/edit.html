@@ -92,6 +92,106 @@
             background-color: rgb(0, 230, 0);
             border-width: 4px;
         }
+
+        #questions_top {
+            display: flex;
+            gap: 5px;
+        }
+
+        #questions_top > button {
+            border-radius: 10px;
+            border: 2px solid black;
+            background-color: lime;
+            cursor:pointer;
+
+            transition-duration: 500ms;
+        }
+
+        #questions_top > button:hover {
+            border-radius: 12px;
+            font-size:medium;
+            background-color: rgb(0, 182, 0);
+            rotate: 5deg;
+        }
+
+        #questions_top > h2 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .popup_BG {
+            z-index: 18;
+            position:absolute;
+            background-color: rgba(0, 0, 0, .6);
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+        }
+
+        .popup {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            gap: 5px;
+            text-align: center;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(197, 197, 197);
+        }
+
+        .popup input {
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 3px;
+            text-align: center;
+
+            transition-duration: 500ms;
+        }
+
+        .popup input:focus {
+            border-radius: 12px;
+            padding: 4px;
+            rotate: 2.5deg;
+            scale: 1.1;
+        }
+
+        .popup > h1,
+        .popup > p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .QCheck:hover > img{
+            opacity: 1;
+        }
+
+        .QCheck > img {
+            opacity: 0;
+
+            transition-duration: 500ms;
+        }
+
+        .QCheck {
+            cursor:pointer;
+            background-color:transparent;
+
+            transition-duration: 500ms;
+        }
+
+        .QCheck.checked {
+            background-color: rgb(91, 255, 91);
+        }
+
+        .QCheck.checked > img {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -120,14 +220,13 @@
             <p style="padding:0; margin:0;">Edit a pre existing kit from your collection!</p>
         </div>
 
-        <div style="padding: 5px;background-color: rgb(112, 199, 117); border: 2px solid black; border-radius: 10px;">
-            <div id="left">
-                <div style="display: flex; gap:20px;">
+        <div style="display: flex; flex-direction: row; gap: 5px;">
+            <div id="left" style="width: 50%; padding: 5px;background-color: rgba(138, 138, 138, 0.5); border: 2px solid black; border-radius: 10px;">
+                <div style="display: flex; gap:10px; margin-bottom: 5px;">
                     <h2 id="titledisplay" style="margin:0; padding:0;">Title: {...}</h2>
                     <img style="cursor:pointer;" id="title_toggle" onclick="toggleTitle()" src="../assets/editpen.svg" width="30">
                     <input class="textfeild" style="display: none;" type="text" id="kit_title" maxlength="24" placeholder="Edit title..">
                 </div>
-                <br>
                 <div style="display: flex; gap:10px;">
                     <h2>Description</h2>
                     <img style="cursor:pointer;" id="desc_toggle" onclick="toggleDesc()" src="../assets/editpen.svg" width="30">
@@ -135,6 +234,70 @@
                     <p id="charleft" style="display:none; margin:0; padding:0; font-size:12px;">500 characters left</p>
                 </div>
             </div>
+
+            <div style="width: 50%; padding: 5px;background-color: rgba(221, 221, 221, 0.5); border: 2px solid black; border-radius: 10px;"> <!-- Questions -->
+                <!--TOP-->
+                <div id="questions_top">
+                    <h2 id="questionAmount">0 Questions</h2>
+                    <button onclick="initPopup('addQuestion')">Add question</button>
+                </div>
+                <hr>
+
+                <!-- CORRECT: <li style="background-color: lime; border-radius: 15px; font-weight: 700;">Correct Answer1</li> -->
+                <div id="questions" style="display:flex; flex-direction:column; gap: 5px;">
+                    <div id="example" data-question="1" style="display:flex; gap: 5px; flex-direction:column; background-color:darkgray; padding:5px; border-radius: 10px; border: 2px solid black; text-align:center;">
+                        <h1 style="margin: 0;">Question</h1>
+                        <ul style="margin: 0; padding:0; list-style:none;">
+                            <li>Answer1</li>
+                            <li>Answer2</li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <button>Delete</button>
+                        <button disabled="true">Edit (not currently available)</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup_BG" id="addQuestion">
+        <div class="popup">
+            <div style="margin-bottom:10px; display:flex; gap: 10px; background-color:rgb(241, 241, 241); padding: 5px; border-radius: 10px; box-shadow: 0px 1px 2.5px 2px rgba(0, 0, 0, 0.575);">
+                <h1 style="margin: 0; font-size: 1.5vh;">Add Question</h1>
+                <hr>
+                <button onclick="createQuestion()">Save</button>
+                <button onclick="hidePopup('addQuestion')">Discard</button>
+            </div>
+            <input id="questionText" style="width: 90%;" placeholder="*Enter question text..." maxlength="60">
+            <hr style="width:85%;">
+            <div id="A1" data-correct="false" style="display: flex; gap: 5px;">
+                <div class="QCheck" id="Question1" onclick="toggleQCheck(1)" style="border: 2px solid black; align-items:center; display: flex; padding: 5px; border-radius: 5px;">
+                    <img src="../assets/check.svg" width="16">
+                </div>
+                <input placeholder="*Answer 1">
+            </div>
+            <div id="A2" data-correct="false" style="display: flex; gap: 5px;">
+                <div class="QCheck" id="Question2" onclick="toggleQCheck(2)" style="border: 2px solid black; align-items:center; display: flex; padding: 5px; border-radius: 5px;">
+                    <img src="../assets/check.svg" width="16">
+                </div>
+                <input placeholder="*Answer 2">
+            </div>
+            <div id="A3" data-correct="false" style="display: flex; gap: 5px;">
+                <div class="QCheck" id="Question3" onclick="toggleQCheck(3)" style="border: 2px solid black; align-items:center; display: flex; padding: 5px; border-radius: 5px;">
+                    <img src="../assets/check.svg" width="16">
+                </div>
+                <input placeholder="Answer 3">
+            </div>
+            <div id="A4" data-correct="false" style="display: flex; gap: 5px;">
+                <div class="QCheck" id="Question4" onclick="toggleQCheck(4)" style="border: 2px solid black; align-items:center; display: flex; padding: 5px; border-radius: 5px;">
+                    <img src="../assets/check.svg" width="16">
+                </div>
+                <input placeholder="Answer 4">
+            </div>
+
+            <p style="font-weight: 700; margin-top: 10px;">THIS IS TEMPORARILY HERE! UPDATE WILL COME SOON!</p>
         </div>
     </div>
 
@@ -197,7 +360,6 @@
         firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit")).get().then((doc) => {
             if (doc.exists) {
                 const data = doc.data();
-                console.log(data);
                 kit_title_display.innerHTML = "Title: " + data.displayname;
                 currentKitName = data.displayname;
                 currentKitDesc = data.description;
@@ -207,6 +369,198 @@
                 history.back();
             }
         })
+
+        function initPopup(id) {
+            document.getElementById(id).style.visibility = 'visible';
+        }
+
+        window.onload = getQuestions();
+
+        function getQuestions() {
+            let kitDoc = firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit"));
+            
+            kitDoc.get().then((doc) => {
+                const data = doc.data();
+                const questions = data.questions;
+
+                document.getElementById("questionAmount").innerHTML = data.QLength + " Questions";
+                if (data.QLength == 1) {
+                    document.getElementById("questionAmount").innerHTML = data.QLength + " Question";
+                }
+
+                for (let i=1; i <= data.QLength; i++) {
+                    const question = questions["Q"+i];
+
+                    // ADD QUESTION DIVS
+                    let clone = document.getElementById("example").cloneNode(true);
+                    let questiontext = clone.children[0];
+                    let As = clone.children[1];
+                    let A1 = As.children[0];
+                    let A2 = As.children[1];
+                    let A3 = As.children[2];
+                    let A4 = As.children[3];
+
+                    questiontext.innerHTML = question.question;
+
+                    // <li style="background-color: lime; border-radius: 15px; font-weight: 700;">
+
+                    A1.innerHTML = question["1"];
+                    A2.innerHTML = question["2"];
+                    if (question["3"] != null) {
+                        A3.innerHTML = question["3"];
+                    }
+                    if (question["4"] != null) {
+                        A4.innerHTML = question["4"];
+                    }
+
+                    question.correctA.forEach((value) => {
+                        if (value == "1") {
+                            A1.style.backgroundColor = "lime";
+                            A1.style.borderRadius = "15px";
+                            A1.style.fontWeight = "700";
+                        }
+                        if (value == "2") {
+                            A2.style.backgroundColor = "lime";
+                            A2.style.borderRadius = "15px";
+                            A2.style.fontWeight = "700";
+                        }
+                        if (value == "3") {
+                            A3.style.backgroundColor = "lime";
+                            A3.style.borderRadius = "15px";
+                            A3.style.fontWeight = "700";
+                        }
+                        if (value == "4") {
+                            A4.style.backgroundColor = "lime";
+                            A4.style.borderRadius = "15px";
+                            A4.style.fontWeight = "700";
+                        }
+                    })
+
+                    clone.children[2].onclick = function() {
+                        let questionData = "Q"+i;
+
+                        kitDoc.update({
+                            ["questions." + questionData]: firebase.firestore.FieldValue.delete(),
+                            "QLength": data.QLength - 1
+                        }).then(() => {
+                            location.reload();
+                        }).catch((error) => {
+                            console.error(error);
+                            alert(error);
+                        })
+                    }
+
+                    document.getElementById("questions").appendChild(clone);
+                }
+
+                document.getElementById("example").remove();
+            });
+        }
+
+        function hidePopup(id) {
+            document.getElementById(id).style.visibility = 'hidden';
+        }
+
+        function createQuestion() {
+            let question = document.getElementById("questionText").value;
+            let A1 = document.getElementById("A1");
+            let A2 = document.getElementById("A2");
+            let A3 = document.getElementById("A3");
+            let A4 = document.getElementById("A4");
+
+            if (A3.children[1].value.length == 0) {
+                A3 = null;
+            }
+            if (A4.children[1].value.length == 0) {
+                A4 = null;
+            }
+
+            if (A1.children[1].value.length == 0 || A2.children[1].value.length == 0) {
+                console.error("need question 1 & 2");
+                return;
+            }
+
+            let correctAwnsers = new Array();
+
+            if (A1.getAttribute("data-correct") == "true") {
+                correctAwnsers += 1;
+            }
+            if (A2.getAttribute("data-correct") == "true") {
+                correctAwnsers += 2;
+            }
+
+            if (A3 != null && A3.getAttribute("data-correct") == "true") {
+                correctAwnsers += 3;
+            }
+
+            if (A4 != null && A4.getAttribute("data-correct") == "true") {
+                correctAwnsers += 4;
+            }
+
+            if (correctAwnsers.length == 0) {
+                console.error("need at least one correct anwser!");
+                return;
+            }
+
+            let firebaseData = {
+                1: A1.children[1].value,
+                2: A2.children[1].value,
+                correctA: [...correctAwnsers],
+                question
+            }
+            if (A3 != null) {
+                firebaseData["3"] = A3.children[1].value;
+            }
+            if (A4 != null) {
+                firebaseData["4"] = A4.children[1].value;
+            }
+
+            let kitDoc = firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit"));
+
+            kitDoc.get().then((doc) => {
+                const data = doc.data();
+
+                let i = 0;
+                let slotQ = "Q-";
+
+                while (true) {
+                    i++;
+                    if (data.questions["Q"+i] == null) {
+                        break;
+                    }
+                }
+
+                slotQ = "Q"+i;
+
+                let thing = "questions."+slotQ;
+
+                kitDoc.update({
+                    [thing]: firebaseData,
+                    QLength: i
+                }).then(() => {
+                    location.reload();
+                }).catch((error) => {
+                    console.error(error);
+                    alert("Something went wrong: " + error);
+                });
+                
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+
+        function toggleQCheck(num) {
+            let q = document.getElementById("Question"+num)
+
+            q.classList.toggle("checked");
+
+            if (q.classList.contains("checked")) {
+                q.parentElement.setAttribute("data-correct", "true");
+            } else {
+                q.parentElement.setAttribute("data-correct", "false");
+            }
+
+        }
 
         function changeName(newname) {
             firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit")).update({displayname: newname}).then((doc) => {
