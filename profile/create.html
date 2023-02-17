@@ -238,7 +238,8 @@
                 description: kitdesc,
                 author: username,
                 creationdate: new Date(),
-                questions: {}
+                questions: {},
+                QLength: 0
             }
 
             firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(kitname).set(kitData).then((res) => {
