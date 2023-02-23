@@ -10,12 +10,63 @@
         * {
             font-family: 'Ubuntu', sans-serif;
         }
+
+        body {
+            background-image:url("assets/space.jpg");
+            background-repeat: no-repeat;
+            background-size: 185vh;
+
+        }
+
+        .box {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: rgba(255,255,255,.75);
+            position:absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 20px;
+            border: 5px solid white;
+        }
+
+        .box > p {
+            margin:0;
+            padding:0;
+        }
+        .box > h1 {
+            margin:0;
+            padding:0;
+        }
+
+        button {
+            border-radius: 10px;
+            padding: 5px;
+            background-image: linear-gradient(#fff, rgb(141, 141, 141));
+            cursor: pointer;
+
+            transition-duration: 500ms;
+        }
+
+        button:hover {
+            background-image: linear-gradient(#bdbdbd, rgb(116, 116, 116));
+            scale: 1.2;
+            rotate: 5deg;
+        }
     </style>
 </head>
 <body>
-    <h1>Oops!</h1>
-    <h2>Page not found! (Error: 404)</h2>
-
-    <a href="./index.html"> <button>Back to home</button> </a>
+    <div class="box">
+        <h1>Secret page!</h1>
+        <p>You found a secret page! But... you just relised it was a 404 page. :'(</p>
+        <p>Or this page is locked.</p>
+        <img draggable="false" src="./assets/lock.svg" width="128">
+    
+        <button onclick="history.back()">Go back a page</button>
+        <a href="./index.html"> <button>Back to home</button> </a>
+    </div>
 </body>
 </html>

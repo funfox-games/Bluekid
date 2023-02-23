@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host - Bluekid</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        #gamemodes {
+            display:flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap:10px;
+        }
+
+        .gamemode {
+            cursor: pointer;
+            transition-duration: 250ms;
+            animation: rotate 3s infinite ease-in-out;
+
+            border:2px solid black;
+            border-radius: 10px;
+        }
+
+        .gamemode:hover{
+            scale: 0.95;
+            opacity: 0.7;
+        }
+
+        .gamemode.disabled {
+            cursor:not-allowed;
+            animation: none;
+            opacity: 0.5;
+            scale: 0.95;
+        }
+
+        @keyframes rotate {
+            0% {transform: rotate(-5deg);}
+            50% {transform: rotate(5deg);}
+            100% {transform: rotate(-5deg);}
+        }
+
+        #bottom {
+            width: 100%;
+            padding: 5px;
+            position:fixed;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            bottom: 0;
+            left:0;
+            border-top: 5px solid black;
+            background-color: rgb(185, 185, 185);
+        }
+
+        #bottom > button {
+            border-radius: 10px;
+            border: 2px solid black;
+
+            font-size: 2vh;
+
+            cursor:pointer;
+            transition-duration: 250ms;
+        }
+        #bottom > button:hover {
+            scale: 0.95;
+            background-color: rgb(204, 204, 204);
+        }
+
+        #bottom > h1 {
+            margin: 0;
+            padding: 0;
+        }
+
+        #bottom > p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Pick a gamemode.</h1>
+    <hr>
+    <div id="gamemodes">
+        <img class="gamemode" id="classic" src="../assets/gamemodes/classic.png" width="128" draggable="false" onclick="selectGamemode('classic')">
+        <img class="gamemode" id="football" src="../assets/gamemodes/football.png" width="128" draggable="false" onclick="selectGamemode('football')">
+        <img class="gamemode" id="test" src="../assets/gamemodes/test.png" width="128" draggable="false" onclick="selectGamemode('test')">
+    </div>
+
+    <div id="bottom">
+        <img id="host_image" src="../assets/load.svg" width="64">
+        <h1 id="host_title">Title</h1>
+        <p id="host_desc">desc</p>
+        <button id="host">Host Game</button>
+        <button id="cancel" disabled="true" onclick="deselectGamemode(true)">Cancel</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- SETUP FIREBASE -->
+    <script>
+      // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+      const firebaseConfig = {
+        apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+        authDomain: "bluekid-303db.firebaseapp.com",
+        databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+        projectId: "bluekid-303db",
+        storageBucket: "bluekid-303db.appspot.com",
+        messagingSenderId: "207140973406",
+        appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        var currentGamemode = {
+            name: "Classic",
+            desc: "Battle against eachother in the heart-racing minigame!",
+            iconpath: "../assets/gamemodes/classic.png",
+            isLocked: false,
+            id: "classic"
+        }
+        var bottomIsShown = false;
+        var isTester = false;
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("pass");
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // signed in
+            var user = userCredential.user;
+            console.log("signed in password: " + user.uid)
+            loggedinuser = user;
+
+            if (!user.emailVerified) {
+                console.log("no")
+            }
+
+            firebase.firestore().collection("users").doc(localStorage.getItem("uid")).get().then((doc) => { //GET PLAYER DATA
+                console.log("get player data")
+                if (doc.data().tester == true) {
+                    isTester = true;
+                    console.log("yessir")
+                }
+            }).catch((error)=>{
+                alert(error);
+            });
+        })
+        .catch((error) => {
+            console.log(error.message)
+        });
+
+        function selectGamemode(id) {
+            deselectGamemode(false);
+
+            document.getElementById("bottom").style.visibility = "visible";
+            const obj = document.getElementById(id);
+            obj.className = "gamemode disabled";
+
+            if (id == "classic") {
+                currentGamemode = {
+                    name: "Classic",
+                    desc: "Battle against eachother in the heart-racing minigame!",
+                    iconpath: "../assets/gamemodes/classic.png",
+                    isLocked: false,
+                    id
+                }
+            }
+            if (id == "football") {
+                currentGamemode = {
+                    name: "Football",
+                    desc: "Throw a football around a feild!",
+                    iconpath: "../assets/gamemodes/football.png",
+                    isLocked: true,
+                    id
+                }
+            }
+            if (id == "test") {
+                currentGamemode = {
+                    name: "Test",
+                    desc: "Take one of the most classical ways to learn, a test.",
+                    iconpath: "../assets/gamemodes/test.png",
+                    isLocked: true,
+                    id
+                }
+            }
+
+            console.log(currentGamemode)
+
+            document.getElementById("host_image").src = currentGamemode.iconpath;
+
+            document.getElementById("host_title").innerHTML = currentGamemode.name;
+
+            document.getElementById("host_desc").innerHTML = currentGamemode.desc;
+
+            document.getElementById("cancel").disabled = false;
+
+            if (currentGamemode.isLocked) {
+                document.getElementById("host").innerHTML = "Host Game (Testers only)"
+                if (!isTester) {
+                    document.getElementById("host").disabled = false
+                }
+            } else {
+                document.getElementById("host").innerHTML = "Host Game"
+            }
+        }
+
+        function hostGame() {
+
+        }
+
+        function deselectGamemode(hideBottom) {
+            const obj = document.getElementById(currentGamemode.id);
+
+            obj.className = "gamemode";
+
+            document.getElementById("cancel").disabled = true;
+
+            document.getElementById("host_image").src = "../assets/load.svg";
+
+            document.getElementById("host_title").innerHTML = "Title";
+
+            document.getElementById("host_desc").innerHTML = "desc";
+
+            if (hideBottom) {
+                document.getElementById("bottom").style.visibility = "hidden";
+            }
+        }
+
+        document.getElementById("bottom").style.visibility = "hidden";
+    </script>
+</body>
+</html>
