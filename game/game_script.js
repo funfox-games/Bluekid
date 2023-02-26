@@ -161,18 +161,6 @@ function copyInvite() {
     navigator.clipboard.writeText(invite);
 }
 
-function relog() {
-    const email = localStorage.getItem("email");
-    const password = localStorage.getItem("pass");
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-        // signed in
-        var user = userCredential.user;
-        console.log("signed in password")
-    });
-}
-
 (function() {
 
     let playerid;
@@ -187,8 +175,6 @@ function relog() {
             //////////////////////
             console.log(errorCode, errorMsg);
         })   
-    } else { // IS LOGGED IN
-        relog();
     }
 
     firebase.auth().onAuthStateChanged((user) => {

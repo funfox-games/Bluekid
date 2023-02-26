@@ -212,10 +212,8 @@
 
         //memepackBlues[Math.floor(Math.random() * (5 - 0 + 1)) + 0];
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
+        firebase.auth().onAuthStateChanged((user) => {
             // signed in
-            var user = userCredential.user;
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
 

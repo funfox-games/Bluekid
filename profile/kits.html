@@ -238,10 +238,8 @@
             })
         }
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
+        firebase.auth().onAuthStateChanged((user) => {
             // signed in
-            var user = userCredential.user;
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
 
@@ -269,6 +267,9 @@
                         clone.id = ""
                         clone.children[0].innerHTML = data.displayname;
                         clone.children[1].innerHTML = data.description + " | Made by: " + data.author;
+                        clone.children[2].onclick = function() { //HOST
+                            sessionStorage.setItem("kitName", id);
+                        }
                         clone.children[3].onclick = function() {
                             location.href = "./edit.html?kit="+id;
                         }
@@ -306,11 +307,6 @@
                 }
             });
         })
-        .catch((error) => {
-            console.log(error.message)
-
-            document.getElementById("status").innerHTML = "Error: " + error.message;
-        });
     </script>
 </body>
 </html>

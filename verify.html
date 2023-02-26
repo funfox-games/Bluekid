@@ -44,10 +44,8 @@
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("pass");
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
+        firebase.auth().onAuthStateChanged((user) => {
             // signed in
-            var user = userCredential.user;
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
 

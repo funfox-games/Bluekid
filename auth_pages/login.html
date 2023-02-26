@@ -203,7 +203,6 @@
                 document.getElementById("output_message_login").style.display = "inline";
             } else if(localStorage.getItem("isLoggedIn") === "false") {
                 document.getElementById("login").disabled = false;
-                document.getElementById("logout").disabled = true;
             }
         }
 
@@ -231,37 +230,33 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
+            firebase.auth().signInWithEmailAndPassword(email, password).then((userCred) => {
                 // signed in
-                var user = userCredential.user;
+                var user = userCred.user;
+                if (user) {
+                    // User is signed in, see docs for a list of available properties
+                    // https://firebase.google.com/docs/reference/js/firebase.User
+                    var uid = user.uid;
 
-                firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                      // User is signed in, see docs for a list of available properties
-                      // https://firebase.google.com/docs/reference/js/firebase.User
-                      var uid = user.uid;
+                    user.providerData.forEach((profile) => {
+                    localStorage.setItem("uid", uid);
+                    localStorage.setItem("provider", profile.providerId);
+                    localStorage.setItem("pass", password);
+                    localStorage.setItem("email", profile.email);
+                    localStorage.setItem("isLoggedIn", true);
 
-                      user.providerData.forEach((profile) => {
-                        localStorage.setItem("uid", uid);
-                        localStorage.setItem("provider", profile.providerId);
-                        localStorage.setItem("pass", password);
-                        localStorage.setItem("email", profile.email);
-                        localStorage.setItem("isLoggedIn", true);
-
-                        console.log("logged in");
-                        window.location.href = "../profile.html"
-                      })
-                    } else {
-                      // User is signed out
-                      // ...
-                    }
-                  });
+                    console.log("logged in");
+                    window.location.href = "../profile.html"
+                    })
+                } else {
+                    // User is signed out
+                    // ...
+                }
             }).catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
 
-                console.log(errorCode);
+                console.log(errorCode, error, errorMessage);
                 if (errorCode == "auth/invalid-email") {
                     document.getElementById("output_message_login").style.display = "inline";
                     document.getElementById("output_message_login").innerHTML = "Please use a real email."

@@ -279,8 +279,6 @@
             }
         }
 
-        console.log("example@example.org".includes("@"));
-
         function EmailPass() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -312,8 +310,15 @@
                         return;
                     });
 
+                    if (email.includes("libertyunion")) {
+                        localStorage.setItem("isSchoolEmail", true);
+                        alert("You have successfully signed up! Because you are a liberty union user, no verification is needed!");
+                        window.location.href = "../profile.html";
+                        return;
+                    }
+                    localStorage.setItem("isSchoolEmail", false);
                     alert("You have successfully signed up! Please verify your email.");
-                    window.location.href = "./verify.html";
+                    window.location.href = "../verify.html";
 
                 }).catch((error) => {
                     var errorCode = error.code;

@@ -331,15 +331,12 @@
 
         const kit_title_display = document.getElementById("titledisplay")
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
+        firebase.auth().onAuthStateChanged((user) => {
             // signed in
             if (urlParams.get("kit") == null) {
                 alert("Please enter this page with a kit to edit. You will now be sent back a page.");
                 history.back();
             }
-
-            var user = userCredential.user;
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
 
