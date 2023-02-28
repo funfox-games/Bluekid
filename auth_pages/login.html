@@ -161,6 +161,7 @@
         <div style="display: flex;">
             <img draggable="false" src="../assets/user-solid.svg" width="30" style="padding-right: 5px;">
             <input placeholder="Enter email..." type="email" rows="1" cols="30" spellcheck="false" style="resize: none;" id="email">
+            <img width="26" draggable="false" style="padding-left: 5px; cursor: pointer;" src="../assets/qmark.svg" onclick="location.href = '../emailhowto.html'">
         </div>
         <div style="display: flex;">
             <img src="../assets/pass.svg" width="30" draggable="false" style="padding-right: 5px;">
@@ -191,6 +192,12 @@
     </script>
     <script>
         window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('email')) {
+                console.log("email included");
+                document.getElementById("email").value = urlParams.get('email');
+            }
+
             if (localStorage.getItem("email")) {
                 document.getElementById("email").value = localStorage.getItem("email");
             }

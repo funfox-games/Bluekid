@@ -195,6 +195,7 @@
         <div style="display: flex;">
             <img draggable="false" src="../assets/user-solid.svg" width="30" style="padding-right: 5px;">
             <input placeholder="Enter email..." type="email" rows="1" cols="30" spellcheck="false" style="resize: none;" id="email">
+            <img width="26" draggable="false" style="padding-left: 5px; cursor: pointer;" src="../assets/qmark.svg" onclick="location.href = '../emailhowto.html'">
         </div>
         <div style="display: flex;">
             <img src="../assets/pass.svg" width="30" draggable="false" style="padding-right: 5px;">
@@ -240,6 +241,13 @@
         var hasClickedSignUp = false;
 
         window.onload = function() {
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('email')) {
+                console.log("email included");
+                document.getElementById("email").value = urlParams.get('email');
+            }
+
             if (localStorage.getItem("isLoggedIn") === "true") {
                 document.getElementById("confirm_password").disabled = true;
                 document.getElementById("password").disabled = true;
@@ -313,7 +321,7 @@
                     if (email.includes("libertyunion")) {
                         localStorage.setItem("isSchoolEmail", true);
                         alert("You have successfully signed up! Because you are a liberty union user, no verification is needed!");
-                        window.location.href = "../profile.html";
+                        window.location.href = "../login.html";
                         return;
                     }
                     localStorage.setItem("isSchoolEmail", false);

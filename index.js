@@ -7,7 +7,9 @@ window.onload = (() => {
 });
 
 firebase.auth().onAuthStateChanged((user) => {
-    console.log(user.uid)
+    if (user) {
+        console.log(user.uid)
+    }
 });
 
 document.cookie = "Set-Cookie: promo_shown=1; SameSite=None; Secure;"

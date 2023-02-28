@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Usage - Bluekid</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            border-radius: 15px;
+            padding: 5px;
+            width: 40vh;
+
+            transition-duration: 500ms;
+        }
+        input:focus {
+            scale: 1.025;
+            rotate: 2deg;
+            background-color: rgb(173, 173, 173);
+        }
+        button {
+            border-radius: 15px;
+            padding: 5px;
+
+            cursor:pointer;
+            transition-duration: 500ms;
+        }
+        button:hover {
+            scale: 1.1;
+            rotate: 5deg;
+
+            background-color: rgb(173, 173, 173);
+        }
+
+    </style>
+</head>
+<body>
+    <button onclick="history.back()">Back</button>
+    <h1>Need help with email?</h1>
+    <p>Alrighty, here are some steps!</p>
+    <br>
+    <h2>School users</h2>
+    <hr>
+    <p>If you are in school and want to use Bluekid, every school district has a different way of doing this. Here are some school districts I know (or online searched):</p>
+    <br>
+    <h3>Liberty Union:</h3>
+    <ol>
+        <li>Type what you use to login to your chrombook/machine</li>
+        <li>Add @libertyunion.org at the end of your email.</li>
+    </ol>
+
+    <h3>South West Licking:</h3>
+    <ol>
+        <li>Type what you use to login to your chrombook/machine</li>
+        <li>Add @swl.k12.oh.us at the end of your email.</li>
+    </ol>
+
+    <h3>Others:</h3>
+    <ol>
+        <li>Type what you use to login to your chrombook/machine</li>
+        <li>Add your school's website url at the end of your email. (ex. name@school.domain)</li>
+    </ol>
+    <br>
+    <h2>Last step</h2>
+    <hr>
+    <p>When you know your email, you can enter it in this box and then click the button below to get sent to the sign up page. (If you already have an account you can click the login button)</p>
+    <br>
+    <input type="email" id="email" placeholder="Follow the steps above if you dont know what to do here!">
+    <button onclick="signup()">Sign up</button>
+    <button onclick="login()">Login</button>
+
+    <script>
+        function signup() {
+            if (document.getElementById("email").value.length > 0) {
+                location.href = "./auth_pages/signup.html?email=" + document.getElementById("email").value;
+            }
+        }
+
+        function login() {
+            if (document.getElementById("email").value.length > 0) {
+                location.href = "./auth_pages/login.html?email=" + document.getElementById("email").value;
+            }
+        }
+    </script>
+</body>
+</html>
