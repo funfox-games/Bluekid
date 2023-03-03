@@ -179,11 +179,6 @@
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
                 document.getElementById("loaded").style.display = "";
             })
-        })
-        .catch((error) => {
-            console.log(error.message)
-
-            document.getElementById("status").innerHTML = "Error: " + error.message;
         });
 
         const title = document.getElementById("kit_title");
@@ -214,6 +209,9 @@
         }
 
         function create() {
+			const title = document.getElementById("kit_title");
+			const desc = document.getElementById("kit_desc");
+		
             document.getElementById("create").innerHTML = "...";
 
             if (title.value.length == 0) {
