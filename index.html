@@ -4,10 +4,145 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERROR 403</title>
+    <title>Bluekid</title>
+
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <noscript><div style="padding: 5px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center;">YOUR BROWSER DOESN'T SUPPORT JAVASCRIPT! PLEASE SWITCH TO A DIFFERENT BROWSER!!</div><hr></noscript>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Ubuntu', sans-serif;
+        }
+    </style>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4594092710428205"
+     crossorigin="anonymous"></script>
 </head>
-<body>
-    <h1>Bluekid is down.</h1>
-    <p>Reason: Servers are overloaded.</p>
+<!-- <div style="padding: 5px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center;">BLUEKID IS IN DEVELOPMENT. BUGS MAY HAPPEN AT ANY TIME. YOU HAVE BEEN WARNED!</div>
+<hr> -->
+<header style="z-index: 2;">
+    <img src="./assets/Bluekid.png" style="padding-right: 10px;" draggable="false" width="50vh">
+    <a id="titlelink" href="./index.html"> <h1 id="title">Bluekid</h1> </a>
+    
+    <div style="position:absolute; right: 10px; font-size: 24px;" id="actions">
+        <!-- style="position:fixed; right: 10px;" -->
+        <a style="color:inherit;" id="header_about" href="./about.html">About</a>
+        <a style="color:inherit;" id="header_join" href="./join.html">Join a game</a>
+        <a style="color:inherit;" id="header_login" href="./auth_pages/login.html">Login</a>
+    </div>
+
+    <script>
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            const login = document.getElementById("header_login");
+            //login.style = "color:inherit;color: currentColor;cursor: not-allowed;opacity: 0.5;text-decoration: none;"
+            login.href = "./profile.html";
+            login.innerHTML = "Profile"
+        }
+    </script>
+</header>
+<body style="overflow-x: hidden;">
+    <hr>
+    <div style="position:relative;width:100%; height:80vh; overflow:hidden; background-image: linear-gradient(-90deg, #00a2ff 5.66%, #003a92 94.35%); border: 5px solid black; border-radius: 20px;" id="FirstPart">
+        <img style="position:absolute; right: 0px; width:60%; user-select: none;" draggable="false"  src="./assets/bg.png" id="Names">
+        <div style="display: flex; flex-direction: column; position:absolute;left:10px;" id="SideText">
+        <div id="WelcomeText" style="font-family: 'Comfortaa', cursive; font-weight: bold; font-size: 60px; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2.75px;">
+            Help
+            <br>
+            Students
+            <br>
+            Learn
+        </div>
+        <br>
+        <a id="SignUpNow_A" href="./auth_pages/signup.html"><button id="SignUpNow">Sign up now</button></a>
+        <br>
+        <a id="LearnMore_A" href="./about.html"><button id="LearnMore">About Us</button></a>
+        <br>
+        <p style="font-weight:bold; font-size: 20px; width:80%;">Please note: this site is <span style="color: darkred;">still in development</span>. Please check the About Us page for more information. <span id="usercount">-</span> users use Bluekid.</p>
+        </div>
+        <h1 style="position:absolute; left: 2.5vh; bottom: 0; text-align: center;">Scroll down to see more details</h1>
+    </div>
+    <!-- <a id="join" href="./join.html"> <button>Join a game</button> </a> -->
+    <div style="padding-top:20px; text-align: center;">
+        <h1>Why Bluekid?</h1>
+        <p>Bluekid is an online learning platform very simular to <a href="https://blooket.com">Blooket</a> and <a href="https://kahoot.com">Kahoot</a>. It helps kids learn and be more engaged then listen to someone talk. Bluekid is designed to be easy to use and fun.</p>
+        <br>
+
+        <div style="display:flex;">
+            <div class="reveal left" id="why_one" style="width: 33%; background-color:skyblue; border: 5px solid black; border-radius: 20px; margin-right:2.5px;">
+                <img src="./assets/gamepad-solid.svg" style="padding-top: 10px; padding-bottom: 0;" width="300vh">
+                <h1>Fun</h1>
+                <p style="padding: 15px; padding-top: 0px;">Us at Bluekid want students to have fun but secretly be learning at the same time. That is where our gamemodes and blues come into play. Blues are a fun way for children to customize their apperence. Gamemodes bring differnt fun for each time you play!</p>
+            </div>
+            <div class="reveal up" id="why_two" style="width: 34%; background-color:rgb(197, 48, 48); border: 5px solid black; border-radius: 20px; margin-right:2.5px;">
+                <img src="./assets/chalkboard-user-solid.svg" style="padding-top: 10px; padding-bottom: 0;" width="300vh">
+                <h1>Learning</h1>
+                <p style="padding: 15px; padding-top: 0px;">You choose what and how the students learn. You can find, create, and use sets to play games! If the students want to go even father, they can host their own games with their own sets!</p>
+            </div>
+            <div class="reveal right" id="why_three" style="width: 33%; background-color:pink; border: 5px solid black; border-radius: 20px;margin-right:2.5px;">
+                <img src="./assets/user-group-solid.svg" style="padding-top: 10px; padding-bottom: 0;" width="300vh">
+                <h1>Everyone can play!</h1>
+                <p style="padding: 15px; padding-top: 0px;">Everyone, even yourself can play! Do you want to have fun with the students? Just make sure you turn on the setting!</p>
+            </div>
+        </div>
+
+        <br>
+        <h2>Bluekid has a currency.</h2>
+        <p>Bluekid has a currency for children to buy packs and receive new characters. The currency is not obtainable with real money. You earn this currency by playing games and participating.</p>
+        <br>
+        <h2>Bluekid is managed by one person.</h2>
+        <p>Yes. I made Bluekid myself with a little bit of help over at <a href="https://firebase.google.com/">Firebase</a>. If any servers do not work or are down, please let me handle the situation. After about 3:00 PM EST I can fix these issues. <a href="./about.html">See more info</a></p>
+    </div>
+    <div style="padding-top:20px; text-align: center; align-items: center; justify-content: center;">
+        <h1>What are blues?</h1>
+        <img class="reveal left" style="background-color: skyblue; padding: 5px; border: 2px solid black; border-radius: 10px;" src="./assets/char/Blue_Dog.png" width="100vh">
+        <img class="reveal right" style="background-color: rgb(235, 135, 135); padding: 5px; border: 2px solid black; border-radius: 10px;" src="./assets/char/Blue_Cat.png" width="100vh">
+        <p class="reveal fade">Blues are fun characters that love to play games! You can collect blues with buying packs. You can buy them when you <a href="./auth_pages/signup.html">sign up</a>!</p>
+    </div>
+    <div style="padding-top:20px; text-align: center; align-items: center; justify-content: center;">
+        <h1>What's next?</h1>
+        <p>For you to sign up and play with the rest of your class!</p>
+        <a href="./auth_pages/signup.html"><button style="cursor:pointer; border: 2.5px solid black;font-size:30px; border-radius: 20px; width: 33vh; background-image: linear-gradient(45deg, #00bfd8 5.66%, #0087e0 94.35%);">Get Started</button></a>
+    </div>
+    <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4594092710428205"
+     data-ad-slot="5320418901"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+        const firebaseConfig = {
+          apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+          authDomain: "bluekid-303db.firebaseapp.com",
+          databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+          projectId: "bluekid-303db",
+          storageBucket: "bluekid-303db.appspot.com",
+          messagingSenderId: "207140973406",
+          appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+        firebase.initializeApp(firebaseConfig);
+      </script>
+
+    <script src="./index.js"></script>
 </body>
+<footer style="margin-top: 5vh; text-align: center; justify-content: center;">
+    <hr>
+    <h2>Made by Dalton D.</h2>
+    <a style="text-decoration: underline; color: black; font-weight: bold; margin-right: 10px;" href="./about.html">About me</a>
+    <a style="text-decoration: underline; color: black; font-weight: bold; margin-right: 10px;" href="./auth_pages/signup.html">Sign up</a>
+    <a style="text-decoration: underline; color: black; font-weight: bold; margin-right: 10px;" href="https://github.com/funtime-foxy1/Bluekid">Github Page</a>
+    <a style="text-decoration: underline; color: black; font-weight: bold; margin-right: 10px; cursor: pointer;" onclick="scrollToTop()">Go to top</a>
+</footer>
 </html>
