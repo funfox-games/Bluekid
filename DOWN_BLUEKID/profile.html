@@ -178,15 +178,15 @@
 
     <div id="notverify" style="display:none;margin-left: 12.5%; padding: 10px; background-color: red; font-weight: 700; border: 2px solid black; border-radius: 20px; text-align:center; margin-bottom: 1vh;">YOUR ACCOUNT IS NOT VERIFIED! <a style="color:black; text-decoration: underline;" href="./verify.html">VERIFY NOW!</a></div>
 
-    <div style="margin-left:12.5%;padding:1px 16px;">
+    <div id="all" style="margin-left:12.5%;padding:1px 16px;">
         <h1 id="name">Loading profile...</h1>
         <p id="creation-date">Please be paitent. If this takes more then 5 minutes, try to refresh. If refreshing does not work, check your wifi.<br>If everything else is checked, report the issue to me. Find my contact in the "About us" page.</p>
         <div id="profile" style="display: none;">
             <!-- <button onclick="creategame()">Create test game</button> -->
             <p>i didnt get to work on this because I was sick.</p>
             <hr>
-            <button onclick="logout()">Log out</button>
         </div>
+        <button onclick="logout()">Log out</button>
         <div id="contextMenu" class="context-menu" style="display: none">
             <ul>
                 <li><a href="#newname">Change name</a></li>
@@ -213,7 +213,8 @@
       firebase.initializeApp(firebaseConfig);
     </script>
     <!-- SCRIPT -->
-    <script>
+    <script type="module">
+        import data from "./banned.json" assert {"type": "json"};
         let loggedinuser;
         let username;
 
@@ -254,6 +255,16 @@
                 document.title = doc.data().username + " - Bluekid";
 
                 document.getElementById("profile").style.display = "";
+
+                var bannedEmails = data.bannedEmailaddresses
+                for (var i = 0; i < data.bannedEmailaddresses.length; i++) {
+                    if (bannedEmails[i].email == firebase.auth().currentUser.email) {
+                        document.getElementById("name").innerHTML = "You have been banned.";
+                        document.getElementById("creation-date").innerHTML = "Reason: " + bannedEmails[i].reason;
+
+                        document.getElementById("profile").remove();
+                    }
+                }
             })
         })
         .catch((error) => {
@@ -267,7 +278,6 @@
         }
 
         function logout() {
-            localStorage.setItem("isLoggedIn", "false");
             firebase.auth().signOut();
             console.log("logged out:logoutfunction");
             alert("You have been logged out.");

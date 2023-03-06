@@ -162,7 +162,8 @@
       };
       firebase.initializeApp(firebaseConfig);
     </script>
-    <script>
+    <script type="module">
+        import data from "../banned.json" assert {"type": "json"};
         let loggedinuser;
         let username;
 
@@ -223,6 +224,14 @@
 
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
                 document.getElementById("loaded").style.display = "";
+
+                var bannedEmails = data.bannedEmailaddresses
+                for (var i = 0; i < data.bannedEmailaddresses.length; i++) {
+                    if (bannedEmails[i].email == firebase.auth().currentUser.email) {
+                        document.getElementById("status").innerHTML = "You have been banned. Reason: " + bannedEmails[i].reason;
+                        document.getElementById("loaded").style.display = "none";
+                    }
+                }
             })
         })
         .catch((error) => {
