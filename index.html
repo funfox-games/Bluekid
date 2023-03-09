@@ -9,5 +9,31 @@
 <body>
     <h1>Bluekid is down.</h1>
     <p>Reason: Overload... Give me a few weeks.</p>
+    <hr>
+    <textarea id="feature" placeholder="Send a feature request..." rows="10" cols="50"></textarea>
+    <br>
+    <input id="name" placeholder="Enter your name...">
+    <br>
+    <button onclick="sendRequest()">Send feature request</button>
+
+    <script>
+        function sendRequest() {
+            if (document.getElementById("name").value.length < 1 || document.getElementById("feature").value.length < 1) {
+                return;
+            }
+
+            var request = new XMLHttpRequest();
+            request.open("POST", "https://discord.com/api/webhooks/1083353417562456097/3YtHEq7vZCMr8uWuwE5NwjsS7siifkaZTG9dmj6Tq3KkAh4qsjBg8idNunZYG8LgUBKh");
+    
+            request.setRequestHeader('Content-type', 'application/json');
+
+            var params = {
+                username: document.getElementById("name").value + " - Bluekid Request",
+                content: document.getElementById("feature").value
+            }
+    
+            request.send(JSON.stringify(params));
+        }
+    </script>
 </body>
 </html>
