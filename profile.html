@@ -244,6 +244,13 @@
         let loggedinuser;
         let username;
 
+        function logout() {
+            firebase.auth().signOut();
+            console.log("logged out:logoutfunction");
+            alert("You have been logged out.");
+            window.location.href = "./auth_pages/login.html";
+        }
+
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("pass");
 
@@ -321,13 +328,6 @@
 
         function creategame() {
             window.location.href = "./game.html?id="+Math.floor(Math.random()*100000)+"&name="+username;
-        }
-
-        function logout() {
-            firebase.auth().signOut();
-            console.log("logged out:logoutfunction");
-            alert("You have been logged out.");
-            window.location.href = "./auth_pages/login.html";
         }
     </script>
 
