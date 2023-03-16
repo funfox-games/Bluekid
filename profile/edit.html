@@ -347,11 +347,6 @@
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ".";
                 document.getElementById("loaded").style.display = "";
             })
-        })
-        .catch((error) => {
-            console.log(error.message)
-
-            document.getElementById("status").innerHTML = "Error: " + error.message;
         });
 
         firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(urlParams.get("kit")).get().then((doc) => {

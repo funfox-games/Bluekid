@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options - Bluekid</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .settingsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform:translate(-50%,  -50%);
+            padding: 10px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 3px 5px 5px 3px rgba(0, 0, 0, 0.5);
+            border: 3px solid black;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .background{
+            z-index: -1;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(#0bc2cf,#349aef);
+        }
+
+        p {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            padding: 0;
+            margin: 0;
+        }
+
+        .backgroundImg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 200%;
+            height: 200%;
+            background-repeat: repeat;
+            opacity: .1;
+            transform: translate(-50%,  -50%) rotate(15deg);
+            background-size: 1000px;
+            background-position: -100px -100px;
+            background-image: url("https://ac.blooket.com/play/65a43218fd1cabe52bdf1cda34613e9e.png");
+        }
+
+        .line {
+            height: 3px;
+            width: 100%;
+            margin: 10 auto;
+            background-color: #d3d3d3c5;
+            border-radius: 5px;
+        }
+
+        .input {
+            display: flex;
+            font-size: 20px;
+            gap: 5px;
+
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input.slider {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            border-radius: 15px;
+            background-color: #0fdae9;
+            font-size: 2vh;
+            width: 75%;
+            cursor: pointer;
+
+            transition-duration: 250ms;
+        }
+
+        button:hover {
+            scale: 0.925;
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+        }
+
+        #error {
+            color: red;
+            font-weight: bold;
+        }
+        
+        #error a {
+            color: red;
+            text-decoration: underline;
+        }
+
+        #settings {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="settingsContainer">
+        <h1 id="gamemode_name"></h1>
+        <div class="line header"></div>
+        <div id="settings">
+            <div class="input">
+                <p>Allow late joinning</p>
+                <input type="checkbox" id="allowLateJoinning" checked="true">
+            </div>
+            <div class="line"></div>
+            <div class="input">
+                <p>Force random names</p>
+                <input type="checkbox" id="forceRandomNames">
+            </div>
+            <div class="line"></div>
+            <div class="input slider">
+                <p>Amonut of questions</p>
+                <div>
+                    <input id="questions" type="range" min="1" max="30">
+                    <input id="questions_number" type="number" min="1" max="30" style="width: 30px;">
+                </div>
+            </div>
+        </div>
+
+        <button style="margin-top: 5px;" id="hostGame" onclick="hostGame()">Host game</button>
+        <p id="error"></p>
+    </div>
+
+    <div class="background">
+        <div class="backgroundImg"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <!-- SETUP FIREBASE -->
+    <script>
+        // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+        const firebaseConfig = {
+          apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+          authDomain: "bluekid-303db.firebaseapp.com",
+          databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+          projectId: "bluekid-303db",
+          storageBucket: "bluekid-303db.appspot.com",
+          messagingSenderId: "207140973406",
+          appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+        var slider_QAmount = document.getElementById("questions");
+        var number_QAmount = document.getElementById("questions_number");
+        var errorMsg = document.getElementById("error");
+
+        document.getElementById("gamemode_name").innerHTML = "Gamemode: " + sessionStorage.getItem("gamemode");
+
+        slider_QAmount.oninput = function() {
+            number_QAmount.value = slider_QAmount.value;
+        }
+
+        number_QAmount.onchange = function() {
+            slider_QAmount.value = number_QAmount.value;
+        }
+
+        firebase.auth().onAuthStateChanged((user) => {
+            // signed in
+            console.log("signed in password: " + user.uid)
+            loggedinuser = user;
+
+            if (!user.emailVerified && localStorage.getItem("isStudentEmail") != "true") {
+                let hostGame = document.getElementById("hostGame");
+
+                hostGame.disabled = true;
+
+                errorMsg.innerHTML = "Please <a href='../verify.html'>verify</a> your email adress."
+            }
+
+            firebase.firestore().collection("users").doc(localStorage.getItem("uid")).get().then((doc) => { //GET PLAYER DATA
+                setGamemodeSettings();
+
+                console.log("get player data")
+                if (doc.data().tester == true) {
+                    isTester = true;
+                    console.log("yessir")
+                }
+            }).catch((error)=>{
+                alert(error);
+            });
+        });
+
+        function setGamemodeSettings() {
+            const gamemode = sessionStorage.getItem("gamemode");
+            let questionsRef = firebase.firestore().collection("users").doc(localStorage.getItem("uid")).collection("kits").doc(sessionStorage.getItem("kitName"));
+
+            if (gamemode == "Classic") {
+                questionsRef.get().then((doc) => {
+                    const data = doc.data();
+                    slider_QAmount.max = data.QLength;
+                    number_QAmount.value = data.QLength;
+                })
+            }
+        }
+
+        function hostGame() {
+            let lateJoinning = document.getElementById("allowLateJoinning");
+            let forceRandomNames = document.getElementById("forceRandomNames");
+
+            // CHECK THIS VALUE BELOW: JSON.parse(sessionStorage.getItem("settings"))
+            let gameId = Math.floor(Math.random()*100000)
+            sessionStorage.setItem("settings", `{"allowLateJoinning": ${lateJoinning.checked}, "forceRandomNames": ${forceRandomNames.checked}, "amountOfQuestions": ${number_QAmount.value}, "gameId": ${gameId}}`);
+
+            location.href = "./game.html?rel=options";
+        }
+    </script>
+</body>
+</html>

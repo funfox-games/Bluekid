@@ -102,7 +102,7 @@
         <img id="host_image" src="../assets/load.svg" width="64">
         <h1 id="host_title">Title</h1>
         <p id="host_desc">desc</p>
-        <button id="host">Host Game</button>
+        <button id="host" onclick="hostGame()">Host Game</button>
         <button id="cancel" disabled="true" onclick="deselectGamemode(true)">Cancel</button>
     </div>
 
@@ -156,9 +156,6 @@
             }).catch((error)=>{
                 alert(error);
             });
-        })
-        .catch((error) => {
-            console.log(error.message)
         });
 
         function selectGamemode(id) {
@@ -217,7 +214,8 @@
         }
 
         function hostGame() {
-
+            sessionStorage.setItem("gamemode", currentGamemode.name);
+            setTimeout(() => {location.href = "./gamemode_options.html";}, 500)
         }
 
         function deselectGamemode(hideBottom) {

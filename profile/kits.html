@@ -276,9 +276,11 @@
                         clone.id = ""
                         clone.children[0].innerHTML = data.displayname;
                         clone.children[1].innerHTML = data.description + " | Made by: " + data.author;
-                        clone.children[2].onclick = function() { //HOST
-                            sessionStorage.setItem("kitName", id);
-                        }
+                        clone.children[2].disabled = true;
+                        //clone.children[2].onclick = function() { //HOST
+                        //    sessionStorage.setItem("kitName", id);
+                        //    location.href = "../game/gamemode.html";
+                        //}
                         clone.children[3].onclick = function() {
                             location.href = "./edit.html?kit="+id;
                         }

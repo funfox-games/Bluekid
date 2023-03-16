@@ -138,8 +138,9 @@
                 <div class="pack" id="meme">
                     <img src="../assets/packs/memepack.png" draggable="false" width="128">
                     <p>0 Coins</p>
-                    <button onclick="buyPack('meme')">Buy</button>
-                    <p id="memepackoutput"></p>
+                    <!-- onclick="buyPack('meme')" -->
+                    <button disabled="true">Buy</button>
+                    <p id="memepackoutput">Packs temporarly disabled.</p>
                 </div>
             </div>
         </div>
@@ -233,11 +234,6 @@
                     }
                 }
             })
-        })
-        .catch((error) => {
-            console.log(error.message)
-
-            document.getElementById("status").innerHTML = "Error: " + error.message;
         });
 
         function buyPack(pack) {
