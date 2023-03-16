@@ -260,6 +260,11 @@
         }
 
         firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                alert("You are not logged in!");
+                localStorage.setItem("isLoggedIn", false);
+                location.href = "./auth_pages/login.html";
+            }
             // signed in
             console.log("signed in password: " + user.uid)
             loggedinuser = user;
