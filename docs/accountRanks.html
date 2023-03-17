@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About account ranks | Bluekid</title>
+
+    <link rel="icon" type="image/svg" href="../assets/qmark.svg">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .allRanks {
+            display:flex;
+            gap: 10px;
+
+            justify-content:space-evenly;
+        }
+
+        .rank {
+            background-color: rgb(214, 214, 214);
+            padding: 5px;
+            border-radius: 15px;
+            border: 2px solid #000;
+
+            transition-duration: 250ms;
+        }
+
+        .rank:hover {
+            scale: 1.05;
+            cursor:help;
+            background-color: rgb(187, 187, 187);
+        }
+
+        .rank h1 {
+            margin: 0;
+        }
+
+        body{text-align: center;}
+
+        ul {text-align: left;}
+    </style>
+</head>
+<body>
+    <h1>Account Ranks and their upgrades</h1>
+    <p>Ever heard of the feature called... <strong>account ranks?</strong> Account ranks are used for security purposes and give you access more and more as you use Bluekid.<br>
+    Now the reason you are here is probley because you are asking this: "What does this feature do and why is it important?"
+    Well, below, you will find all the perks to having these ranks!</p>
+
+    <h2>All features!</h2>
+    <div class="allRanks">
+        <div class="rank" id="newbie">
+            <h1 style="text-align:center;">Newbie</h1>
+            <ul>
+                <li>Get access to account</li>
+                <li>Create kits</li>
+                <li>Restricted Game hosting (teachers: Full game hosting)</li>
+                <li>Full game joinning</li>
+            </ul>
+        </div>
+
+        <div class="rank" id="interm">
+            <h1 style="text-align:center;">Intermediate</h1>
+            <ul>
+                <li>Everything from Newbie</li>
+                <li>Full game hosting</li>
+                <li>Unlock other special features</li>
+            </ul>
+        </div>
+
+        <div class="rank" id="advanced">
+            <h1 style="text-align:center;">Advanced</h1>
+            <ul>
+                <li>Everything from Intermediate</li>
+                <li>Get a special badge (once verified by owner)</li>
+                <li>Get access to WIP features</li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <button onclick="history.back()">Go back</button>
+
+    <script>
+        for (var i = 0; i < document.getElementsByClassName("rank").length; i++) {
+            document.getElementsByClassName("rank")[i].onclick = () => {
+                location.href = "../profile/settings.html#rankbutton";
+            }
+        }
+
+        window.onload = () => {
+            var hash = location.hash;
+            if (hash) {
+                hash = hash.replace("#", "");
+                console.log(hash);
+                var originalColor = document.getElementById(hash).style.backgroundColor;
+    
+                var originalTransitionDuration = document.getElementById(hash).style.transitionDuration;
+
+                if (!document.getElementById(hash)) {return;}
+                document.getElementById(hash).style.backgroundColor = "#008cff8f";
+                document.getElementById(hash).style.transitionDuration = "3s";
+                setTimeout(() => {
+                    document.getElementById(hash).style.backgroundColor = originalColor;
+    
+                    setTimeout(() => {document.getElementById(hash).style.transitionDuration = originalTransitionDuration;}, 50);
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
