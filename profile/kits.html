@@ -157,6 +157,12 @@
         #examplekit {
             display: none;
         }
+
+        .corner {
+            position: fixed;
+            right: 0px; bottom: 0px;
+            opacity: .75;
+        }
     </style>
 </head>
 <body>
@@ -175,6 +181,10 @@
         <li> <a href="./settings.html"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
         <!-- <li><a>Favorites</a></li> -->
     </ul>
+
+    <div class="corner" title="When is easter?">
+        <img onclick="window.open(`https://www.google.com/search?client=opera-gx&q=when+is+easter&sourceid=opera&ie=UTF-8&oe=UTF-8`)" src="../assets/eggcorner.png" width="256">
+    </div>
 
     <div style="margin-left:12.5%;padding:1px 16px;">
         

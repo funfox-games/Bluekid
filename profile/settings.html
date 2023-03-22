@@ -281,7 +281,8 @@
                 if (!doc.data().rank) {
                     console.log("no rank, creating rank...");
 
-                    playerData.update({rank: "Newbie"}).then(() => {console.log("rank updated!")})
+                    playerData.update({rank: "Newbie"}).then(() => {console.log("rank updated!")});
+                    location.reload();
                 } else {
                     console.log("rank found:", doc.data().rank)
 

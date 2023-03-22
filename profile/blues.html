@@ -108,6 +108,16 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
+        #secretblues {
+            display: none;
+        }
+
+        .corner {
+            position: fixed;
+            right: 0px; bottom: 0px;
+            opacity: .75;
+        }
     </style>
 </head>
 <body>
@@ -127,6 +137,10 @@
         <!-- <li><a>Favorites</a></li> -->
     </ul>
 
+    <div class="corner" title="When is easter?">
+        <img onclick="window.open(`https://www.google.com/search?client=opera-gx&q=when+is+easter&sourceid=opera&ie=UTF-8&oe=UTF-8`)" src="../assets/eggcorner.png" width="256">
+    </div>
+
     <div style="margin-left:12.5%;padding:1px 16px;">
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
@@ -136,6 +150,14 @@
                     <h2>Meme Pack</h2>
                     <div class="divider"></div>
                     <p id="memepacktext"></p>
+                    <!-- <div class="blues" id="memeblues">
+                        <img title="Borzi" class="blue" src="../assets/char/meme/blue_borzi.png" width="64">
+                    </div> -->
+                </div>
+                <div class="pack" id="secretblues">
+                    <h2>Secret / Limited Time</h2>
+                    <div class="divider"></div>
+                    <p id="secretpacktext"></p>
                     <!-- <div class="blues" id="memeblues">
                         <img title="Borzi" class="blue" src="../assets/char/meme/blue_borzi.png" width="64">
                     </div> -->
@@ -181,8 +203,11 @@
                 playerData.collection("blues").get().then((q) => {
                     q.forEach((doc) => {
                         if (doc.data().pack == "meme") {
-                            console.log("yes");
                             document.getElementById("memepacktext").innerHTML += "<span style='font-weight: bold;'>" + doc.id + "</span> (" + doc.data().rarity + ") x" + doc.data().amount +", ";
+                        }
+                        if (doc.data().pack == "secret") {
+                            document.getElementById("secretblues").style.display = "inline";
+                            document.getElementById("secretpacktext").innerHTML += "<span style='font-weight: bold;'>" + doc.id + "</span> (" + doc.data().rarity + ") x" + doc.data().amount +", ";
                         }
                     })
                 })

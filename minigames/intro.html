@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        .text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position:absolute;
+            left: 50%;
+            top: 50%;
+            color: white;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="text">
+        <h1 id="messageh1"></h1>
+    </div>
+
+    <script>
+        const h1 = document.getElementById("messageh1");
+
+        const messages = [
+            "Oh, your here now. Great.",
+            "I just finished setting things up.",
+            "This is just small, fun games.",
+            "I'm going to call it \"minigames\". Now, lets see what you think!"
+        ]
+
+        function startTextChanges(texts, idx) {
+            h1.style.transitionDuration = "2s";
+            h1.style.opacity = "0";
+            setTimeout(() => {
+                h1.innerHTML = texts[idx];
+            }, 2000);
+            setTimeout(() => {
+                h1.style.opacity = "1";
+                setTimeout(() => {
+                    if (idx+1 < texts.length) {
+                        startTextChanges(texts, idx+1);
+                    } else {
+                        localStorage.setItem("minigamesIntro", true);
+                        console.log("done");
+                        h1.innerHTML = "Loading...";
+                        location.href = "./selecter.html";
+                    }
+                    
+                }, 4000);// reading time
+            }, 2000);
+        }
+
+        window.onload = () => {
+            h1.style.opacity = "0";
+            setTimeout(() => {
+                startTextChanges(messages, 0);
+            }, 100);
+        }
+    </script>
+</body>
+</html>

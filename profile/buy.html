@@ -77,6 +77,7 @@
         #allPacks {
             display: flex;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
         .pack {
@@ -111,6 +112,17 @@
         .pack#meme {
             background-image: radial-gradient(#fff, #b1b1b1);
         }
+
+        .pack#easter {
+            background-image: radial-gradient(#fff, #b1b1b1);
+            visibility: hidden;
+        }
+
+        .corner {
+            position: fixed;
+            right: 0px; bottom: 0px;
+            opacity: .75;
+        }
     </style>
 </head>
 <body>
@@ -130,6 +142,10 @@
         <!-- <li><a>Favorites</a></li> -->
     </ul>
 
+    <div class="corner" title="When is easter?">
+        <img onclick="window.open(`https://www.google.com/search?client=opera-gx&q=when+is+easter&sourceid=opera&ie=UTF-8&oe=UTF-8`)" src="../assets/eggcorner.png" width="256">
+    </div>
+
     <div style="margin-left:12.5%;padding:1px 16px;">
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
@@ -141,6 +157,13 @@
                     <!-- onclick="buyPack('meme')" -->
                     <button disabled="true">Buy</button>
                     <p id="memepackoutput">Packs temporarly disabled.</p>
+                </div>
+                <div class="pack" id="easter">
+                    <img src="../assets/char/secret/EasterBun_Blue.png" draggable="false" width="128">
+                    <p>FREE!</p>
+                    <!-- onclick="buyPack('meme')" -->
+                    <button id="easterButton">Buy</button>
+                    <p id="easterpackoutput"></p>
                 </div>
             </div>
         </div>
@@ -234,11 +257,18 @@
                     }
                 }
             })
+            playerData.collection("blues").get().then((qs) => {
+                qs.forEach((doc) => {
+                    if (doc.id == "Rainbow Bunny") {
+                        document.getElementById("easterButton").disabled = true;
+                        document.getElementById("easterpackoutput").innerHTML = "You already have it!";
+                    }
+                });
+            })
         });
 
         function buyPack(pack) {
             if (pack == "meme") {
-                console.log("yessir")
 
                 let item = weighted_random(memepack.allBlues, memepack.allRarities);
                 console.log(item);
@@ -288,8 +318,44 @@
                 //setTimeout(() => {
                 //    document.location.reload();
                 //}, 1000);
+            } else if (pack == "easter") {
+                let item = {
+                    name: "Rainbow Bunny",
+                    chance: "???",
+                    rarity: "Mystical"
+                }
+                console.log(item);
+
+                document.getElementById("easterButton").disabled = true;
+
+                // SAVE BLUE TO ACCOUNT
+                const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
+
+                const blueName = item.name;
+                const blueToAdd = {
+                    chance: item.chance,
+                    rarity: item.rarity,
+                    amount: 1,
+                    pack: "secret"
+                }
+
+                playerData.collection("blues").doc(blueName).get().then((doc) => {
+                    if (!doc.exists) {
+                        playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
+                            document.getElementById("easterpackoutput").innerHTML = "You got it!";
+                            console.log("successfully saved blue!");
+                        }).catch((error) => {
+                            document.getElementById("easterpackoutput").innerHTML = "Error: " + error;
+                            console.error("Error: " + error);
+                        })
+                    }
+                })
             }
         }
+
+        document.getElementById("easterButton").onclick = function() {
+            buyPack("easter");
+        };
 
         function weighted_random(items, chance) {
             const randomValue = Math.random() * 100;
