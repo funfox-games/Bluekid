@@ -1,5 +1,8 @@
 {
     "bannedEmailaddresses": [
-        
+        {
+            "email": "0zahlere@libertyunion.org",
+            "reason": "Spam? I dont know, you wanted it deleted did you?"
+        }
     ]
 }
