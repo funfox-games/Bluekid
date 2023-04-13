@@ -142,10 +142,6 @@
         <!-- <li><a>Favorites</a></li> -->
     </ul>
 
-    <div class="corner" title="When is easter?">
-        <img onclick="window.open(`https://www.google.com/search?client=opera-gx&q=when+is+easter&sourceid=opera&ie=UTF-8&oe=UTF-8`)" src="../assets/eggcorner.png" width="256">
-    </div>
-
     <div style="margin-left:12.5%;padding:1px 16px;">
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
@@ -158,15 +154,15 @@
                     <button disabled="true">Buy</button>
                     <p id="memepackoutput">Packs temporarly disabled.</p>
                 </div>
-                <div class="pack" id="easter">
+                <!-- <div class="pack" id="easter">
                     <img src="../assets/char/secret/EasterBun_Blue.png" draggable="false" width="128">
                     <p>FREE!</p>
-                    <!-- onclick="buyPack('meme')" -->
+                    onclick="buyPack('meme')"
                     <button id="easterButton">Buy</button>
                     <p id="easterpackoutput"></p>
-                </div>
+                </div> -->
             </div>
-            <h1 id="timer">0:00:00:00 until new easter blue!</h1>
+            <!-- <h1 id="timer">0:00:00:00 until new easter blue!</h1> -->
         </div>
     </div>
 
@@ -354,37 +350,37 @@
             }
         }
 
-        setInterval(() => {
-            var countDownDate = new Date("4/7/2023");
+        //setInterval(() => {
+        //    var countDownDate = new Date("4/7/2023");
 
-            var now = new Date().getTime();
-            var timeleft = countDownDate - now;
+        //    var now = new Date().getTime();
+        //    var timeleft = countDownDate - now;
                 
-            var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+        //    var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+        //    var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        //    var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+        //    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
 
-            var daysS = days + "";
-            var hoursS = hours + "";
-            var mintuesS = minutes + "";
-            var secondsS = seconds + "";
+        //    var daysS = days + "";
+        //    var hoursS = hours + "";
+        //    var mintuesS = minutes + "";
+        //    var secondsS = seconds + "";
+        //
+        //    if (seconds < 10) {
+        //        secondsS = "0" + secondsS;
+        //    }
+        //    if (minutes < 10) {
+        //        mintuesS = "0" + mintuesS;
+        //    }
+        //    if (hours < 10) {
+        //        hoursS = "0" + hoursS;
+        //    }
+        //    if (days < 10) {
+        //        daysS = "0" + daysS;
+        //    }
 
-            if (seconds < 10) {
-               secondsS = "0" + secondsS;
-            }
-            if (minutes < 10) {
-                mintuesS = "0" + mintuesS;
-            }
-            if (hours < 10) {
-                hoursS = "0" + hoursS;
-            }
-            if (days < 10) {
-                daysS = "0" + daysS;
-            }
-
-            document.getElementById("timer").innerHTML = daysS + ":" + hoursS + ":" + mintuesS + ":" + secondsS + " until new easter blue!";
-        }, 1000);
+        //    document.getElementById("timer").innerHTML = daysS + ":" + hoursS + ":" + mintuesS + ":" + secondsS + " until new easter blue!";
+        //}, 1000);
 
         document.getElementById("easterButton").onclick = function() {
             buyPack("easter");
