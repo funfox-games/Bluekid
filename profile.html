@@ -155,11 +155,22 @@
             display: flex;
             align-items: center;
             gap: 10px;
+
+            background-color: #98deff;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .profile_name_div h1 {
+            margin: 0;
         }
 
         #badges {
             display: flex;
             gap: 5px;
+            flex-wrap: wrap;
+
+            margin-left:auto;
         }
 
         .badge {
@@ -178,6 +189,19 @@
             position: fixed;
             right: 0px; bottom: 0px;
             opacity: .75;
+        }
+
+        .verifiedAcc {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .verifiedAcc .accname {
+            font-weight: bold;
+        }
+
+        .verifiedAcc p {
+            margin: 0;
         }
     </style>
 </head>
@@ -214,12 +238,13 @@
     <div id="all" style="margin-left:12.5%;padding:1px 16px;">
         <div class="profile_name_div">
             <h1 id="name">Loading profile...</h1>
+            <a href="./profile/settings.html#newname"><img width="32"  src="./assets/editpen.svg"></a>
             <div id="badges"></div>
         </div>
+        <hr style="width: 99%;">
         <p id="creation-date">Please be paitent. If this takes more then 5 minutes, try to refresh. If refreshing does not work, check your wifi.<br>If everything else is checked, report the issue to me. Find my contact in the "About us" page.</p>
         <div id="profile" style="display: none;">
             <!-- <button onclick="creategame()">Create test game</button> -->
-
             <hr>
         </div>
         <button id="logout">Log out</button>

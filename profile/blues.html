@@ -78,6 +78,8 @@
             padding: 5px;
             background-color: #006effab;
             border-radius: 15px;
+
+            width:80%;
         }
 
         .blues {
@@ -86,12 +88,12 @@
             grid-gap: 10px;
         }
 
-        .blue {
+        .blueimg {
             filter:brightness(0);
             cursor: pointer;
         }
 
-        .blue.unlocked {
+        .blueimg.unlocked {
             filter:brightness(1);
         }
 
@@ -118,6 +120,97 @@
             right: 0px; bottom: 0px;
             opacity: .75;
         }
+
+        .blue {
+            position:relative;
+        }
+
+        .number {
+            margin:0;
+            position:absolute;
+            font-size: 12px;
+            right: 2px;
+            bottom: 10px;
+            font-weight: bold;
+            z-index: 1;
+            color: white;
+
+            border-radius: 100%;
+            text-align: center;
+            width: 15px;
+            border: 1px solid black;
+        }
+
+        .number[data-rarity="Common"] {
+            color:white;
+            background-color: grey;
+        }
+        .number[data-rarity="Uncommon"] {
+            color:black;
+            background-color: greenyellow;
+        }
+        .number[data-rarity="Rare"] {
+            color:white;
+            background-color: rgb(0, 89, 255);
+        }
+        .number[data-rarity="Lengendary"] {
+            color:black;
+            background-color: gold;
+        }
+        .number[data-rarity="Mystical"] {
+            color:black;
+            background-color: rgb(0, 204, 255);
+        }
+
+        #sideBlueShow {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            width:18%;
+            position:absolute;
+            right:0;
+            font-size: 24px;
+            overflow:hidden;
+
+            background-image: url();
+        }
+
+        #sideBlueShow h1, #sideBlueShow p {
+            margin: 0;
+        }
+
+        #displayname {
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            display: block;
+            line-height: 1em; /* a */
+            max-height: 2em; /* a x number of line to show (ex : 2 line)  */
+        }
+
+        #sellPopup {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid black;
+            background-color: white;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        #black {
+            visibility: hidden;
+            width: 100%;
+            height: 100%;
+            top:0;
+            left:0;
+            background-color: #00000091;
+            position:fixed;
+
+            z-index: 9;
+        }
     </style>
 </head>
 <body>
@@ -137,7 +230,22 @@
         <!-- <li><a>Favorites</a></li> -->
     </ul>
 
-     
+    <div id="black">
+        <div id="sellPopup">
+
+            <h2 style="margin:0;">Sell blue for 0 tokens each</h2>
+            <div style="display:flex;gap:10px;text-align:center;align-items:center;justify-content:center;">
+                <input onkeyup="onlyNumbers(this)" min="0" value="1" style="width:45px;" type="number">
+                <p>/0</p>
+            </div>
+
+            <div style="display:flex;gap:10px;text-align:center;align-items:center;justify-content:center;">
+                <button onclick="sellBlueForTokens()">Sell</button>
+                <button onclick="document.getElementById('black').style.visibility = 'hidden'">Cancel</button>
+            </div>
+    
+        </div>
+    </div>
 
     <div style="margin-left:12.5%;padding:1px 16px;">
         <p id="status">Loading data...</p>
@@ -147,19 +255,55 @@
                 <div class="pack" id="memepack">
                     <h2>Meme Pack</h2>
                     <div class="divider"></div>
-                    <p id="memepacktext"></p>
-                    <!-- <div class="blues" id="memeblues">
-                        <img title="Borzi" class="blue" src="../assets/char/meme/blue_borzi.png" width="64">
-                    </div> -->
+                    <!-- <p id="memepacktext"></p> -->
+                    <div class="blues" id="memeblues">
+                        <div class="blue" id="borzi" data-name="Borzi" onclick="clickBlue('borzi')">
+                            <p class="number" data-rarity="Common">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/meme/blue_borzi.png" width="64">
+                        </div>
+                        <div class="blue" id="quandale_dingle" data-name="Quandale Dingle" onclick="clickBlue('quandale_dingle')">
+                            <p class="number" data-rarity="Uncommon">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/meme/blue_dingle.png" width="64">
+                        </div>
+                        <div class="blue" id="among_us" data-name="Among Us" onclick="clickBlue('among_us')">
+                            <p class="number" data-rarity="Uncommon">0</p>
+                            <img class="blueimg" draggable="false"  src="../assets/char/meme/blue_amongus.png" width="64">
+                        </div>
+                        <div class="blue" id="baller" data-name="Baller" onclick="clickBlue('baller')">
+                            <p class="number" data-rarity="Rare">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/meme/blue_baller.png" width="64">
+                        </div>
+                        <div class="blue" id="troll" data-name="Troll" onclick="clickBlue('troll')">
+                            <p class="number" data-rarity="Rare">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
+                        </div>
+                        <div class="blue" id="rick_astley" data-name="Rick Astley" onclick="clickBlue('rick_astley')">
+                            <p class="number" data-rarity="Lengendary">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
+                        </div>
+                        <div class="blue" id="jack" data-name="Jack" onclick="clickBlue('jack')">
+                            <p class="number" data-rarity="Mystical">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
+                        </div>
+                    </div>
                 </div>
                 <div class="pack" id="secretblues">
                     <h2>Secret / Limited Time</h2>
                     <div class="divider"></div>
-                    <p id="secretpacktext"></p>
-                    <!-- <div class="blues" id="memeblues">
-                        <img title="Borzi" class="blue" src="../assets/char/meme/blue_borzi.png" width="64">
-                    </div> -->
+                    <div class="blues" id="secretallblues">
+                        <div class="blue" id="rainbow_bunny" data-name="Rainbow Bunny" onclick="clickBlue('rainbow_bunny')">
+                            <p class="number" data-rarity="Mystical">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/secret/EasterBun_Blue.png" width="64">
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div id="sideBlueShow">
+                <h1 id="displayname">None</h1>
+                <p data-rarity="Common">Choose one!</p>
+                <img id="blueicon" width="128" src="../assets/char/blue_notexture.png">
+                <p></p>
+                <button style="font-size:24px;" onclick="sellBlue()">Sell</button>
             </div>
         </div>
     </div>
@@ -183,8 +327,143 @@
     </script>
     <script type="module">
         import data from "../banned.json" assert {"type": "json"};
+        import blueJSON from "../blues.json" assert {"type": "json"}; 
+
+        window.bannedData = data;
+        window.blueJSON = blueJSON;
+    </script>
+    <script>
         let loggedinuser;
         let username;
+
+        const sideBlueShow = document.getElementById("sideBlueShow");
+        const name_display = sideBlueShow.children[0];
+        const rarity_display = sideBlueShow.children[1];
+        const img_display = sideBlueShow.children[2];
+        const amount_owned_display = sideBlueShow.children[3];
+
+        var currentBlue_amount;
+
+        function clickBlue(id) {
+            const blueDiv = document.getElementById(id);
+            
+            const img = blueDiv.children[1];
+            const counter = blueDiv.children[0];
+
+            if (!img.className.includes("unlocked")) {return;}
+
+            img_display.src = img.src;
+            name_display.innerHTML = blueDiv.getAttribute("data-name");
+            rarity_display.innerHTML = counter.getAttribute("data-rarity");
+            const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
+            playerData.collection("blues").doc(blueDiv.getAttribute("data-name")).get().then((doc => {
+                const data = doc.data();
+                amount_owned_display.innerHTML = data.amount + " Owned";
+                currentBlue_amount = data.amount;
+            })) 
+        }
+
+        function onlyNumbers(num){
+            if ( /[^0-9]+/.test(num.value) ){
+               num.value = num.value.replace(/[^0-9]*/g,"")
+            }
+         }
+
+        function getTokensFromRarity(rarity) {
+            if (rarity == "Common") {
+                return 1;
+            }
+            if (rarity == "Uncommon") {
+                return 5;
+            }
+            if (rarity == "Rare") {
+                return 15;
+            }
+            if (rarity == "Lengendary") {
+                return 50;
+            }
+            if (rarity == "Mystical") {
+                return 75;
+            }
+
+            return 0;
+        }
+
+        function sellBlueForTokens() {
+            const amountToSell = document.getElementById("sellPopup").children[1].children[0];
+            if (amountToSell.value > amountToSell.max) {
+                console.log("TOO MUCH!");
+                amountToSell.value = amountToSell.max;
+            }
+
+            const rarity = rarity_display.innerHTML;
+            const amount = currentBlue_amount;
+            const amountOfTokensFor1 = getTokensFromRarity(rarity);
+
+            const amountOfTokensForChossenAmount = amountOfTokensFor1 * amountToSell.value;
+
+            console.log(amountOfTokensFor1, amountOfTokensForChossenAmount);
+
+            const userdata = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
+            userdata.get().then((doc) => {
+                const usertokens = doc.data().tokens;
+                if (!usertokens) {
+                    userdata.update({
+                        tokens: amountOfTokensForChossenAmount
+                    }).then(() => {
+                        console.log("Gave a player fresh new tokens!");
+                        userdata.collection("blues").doc(name_display.innerHTML).get().then((doc) => {
+                            const useramount = doc.data().amount;
+
+                            userdata.collection("blues").doc(name_display.innerHTML).update({amount: useramount -  amountToSell.value}).then(() => {
+                                console.log("removed the blue amount for newbie");
+
+                                location.reload();
+                            })
+                        })
+                    });
+                } else {
+                    userdata.update({
+                        tokens: usertokens + amountOfTokensForChossenAmount
+                    }).then(() => {
+
+
+                        userdata.collection("blues").doc(name_display.innerHTML).get().then((doc) => {
+                            const useramount = doc.data().amount;
+
+                            userdata.collection("blues").doc(name_display.innerHTML).update({amount: useramount -  amountToSell.value}).then(() => {
+                                console.log("removed the blue amount");
+
+                                location.reload();
+                            })
+                        })
+
+                    });
+                }
+            })
+        }
+
+        function sellBlue() {
+            if (name_display.innerHTML == "None") {
+                return;
+            }
+
+            const rarity = rarity_display.innerHTML;
+
+            const tokens = getTokensFromRarity(rarity);
+            
+            const amountOfTokensGiven = document.getElementById("sellPopup").children[0];
+            
+            const sellAmount_input = document.getElementById("sellPopup").children[1].children[0];
+            const sellAmountMax = document.getElementById("sellPopup").children[1].children[1];
+
+            sellAmount_input.value = 1
+            sellAmount_input.max = currentBlue_amount
+            sellAmountMax.innerHTML = "/" + currentBlue_amount;
+            amountOfTokensGiven.innerHTML = `Sell ${name_display.innerHTML} for ${tokens} tokens each`;
+
+            document.getElementById("black").style.visibility = "visible";
+        }
 
         firebase.auth().onAuthStateChanged((user) => {
             // signed in
@@ -200,24 +479,45 @@
 
                 playerData.collection("blues").get().then((q) => {
                     q.forEach((doc) => {
-                        if (doc.data().pack == "meme") {
-                            document.getElementById("memepacktext").innerHTML += "<span style='font-weight: bold;'>" + doc.id + "</span> (" + doc.data().rarity + ") x" + doc.data().amount +", ";
+                        //console.log(doc.id)
+
+                        const removeSpace = doc.id.replace(" ", "_");
+                        const removeUppercase = removeSpace.toLowerCase();
+                        console.log(removeUppercase);
+
+                        if (document.getElementById(removeUppercase) != null) document.getElementById(removeUppercase).children[0].innerHTML = doc.data().amount;
+
+                        for (const blue_div of document.getElementById("memepack").children[2].children) { //CLONE THIS FOR EACH PACK
+
+                            if (doc.id == blue_div.getAttribute("data-name"))  {
+                                if (doc.data().amount > 0) {
+                                    blue_div.children[1].className = "blueimg unlocked";
+                                }
+                            }
+
                         }
-                        if (doc.data().pack == "secret") {
-                            document.getElementById("secretblues").style.display = "inline";
-                            document.getElementById("secretpacktext").innerHTML += "<span style='font-weight: bold;'>" + doc.id + "</span> (" + doc.data().rarity + ") x" + doc.data().amount +", ";
+
+                        for (const blue_div of document.getElementById("secretblues").children[2].children) {
+
+                            if (doc.id == blue_div.getAttribute("data-name"))  {
+                                if (doc.data().amount > 0) {
+                                    document.getElementById("secretblues").style.display = "block";
+                                    blue_div.children[1].className = "blueimg unlocked";
+                                }
+                            }
+
                         }
                     })
                 })
 
-                var bannedEmails = data.bannedEmailaddresses
-                for (var i = 0; i < data.bannedEmailaddresses.length; i++) {
+                var bannedEmails = bannedData.bannedEmailaddresses
+                for (var i = 0; i < bannedData.bannedEmailaddresses.length; i++) {
                     if (bannedEmails[i].email == firebase.auth().currentUser.email) {
                         document.getElementById("status").innerHTML = "You have been banned. Reason: " + bannedEmails[i].reason;
                         document.getElementById("loaded").style.display = "none";
                     }
                 }
-            })
+        })
         });
     </script>
 </body>

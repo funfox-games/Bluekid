@@ -2,7 +2,7 @@ window.onload = (() => {
     firebase.firestore().collection("users").get().then((q) => {
         const docs = q.docs.map(doc => doc.data());
 
-        document.getElementById("usercount").innerHTML = docs.length;
+        //document.getElementById("usercount").innerHTML = docs.length;
     });
 });
 
@@ -17,11 +17,11 @@ if (localStorage.getItem("isLoggedIn") === null) {
     localStorage.setItem("isLoggedIn", false);
 }
 
-if (localStorage.getItem("isLoggedIn") === "true") {
-    const signUpNowButton = document.getElementById("SignUpNow");
-    signUpNowButton.disabled = true;
-    signUpNowButton.parentElement.href = "#";
-}
+// if (localStorage.getItem("isLoggedIn") === "true") {
+//     const signUpNowButton = document.getElementById("SignUpNow");
+//     signUpNowButton.disabled = true;
+//     signUpNowButton.parentElement.href = "#";
+// }
 
 function scrollToTop() {
     window.scrollTo({

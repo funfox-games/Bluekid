@@ -1,0 +1,55 @@
+{
+    "iconFolder": "./assets/char/",
+    "blues": [
+        {
+            "name": "Dog",
+            "pack": "Starter",
+            "icon":  "./assets/char/Blue_Dog.png"
+        },
+        {
+            "name": "Cat",
+            "pack": "Starter",
+            "icon":  "./assets/char/Blue_Cat.png"
+        },
+        {
+            "name": "Rainbow Bunny",
+            "pack": "Secret",
+            "icon":  "./assets/char/secret/EasterBun_Blue.png"
+        },
+        {
+            "name": "Borzi",
+            "pack": "Meme",
+            "icon":  "./assets/char/meme/blue_borzi.png"
+        },
+        {
+            "name": "Quandale Dingle",
+            "pack": "Meme",
+            "icon":  "./assets/char/meme/blue_dingle.png"
+        },
+        {
+            "name": "Among Us",
+            "pack": "Meme",
+            "icon":  "./assets/char/meme/blue_amongus.png"
+        },
+        {
+            "name": "Baller",
+            "pack": "Meme",
+            "icon":  "./assets/char/meme/blue_baller.png"
+        },
+        {
+            "name": "Troll",
+            "pack": "Meme",
+            "icon":  ""
+        },
+        {
+            "name": "Rick Astley",
+            "pack": "Meme",
+            "icon":  ""
+        },
+        {
+            "name": "Jack",
+            "pack": "Meme",
+            "icon":  ""
+        }
+    ]
+}
