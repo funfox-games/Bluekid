@@ -13,11 +13,23 @@
     <link rel="icon" type="image/png" href="./assets/Bluekid.png">
 
     <style>
-        
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        #title {
+            margin:0;
+        }
+
+        body{
+            text-align:center;
+        }
     </style>
 </head>
 <body>
-    <h1>To contiune, Please verify your email address.</h1>
+    <h1 id="title">To contiune, please verify your email address.</h1>
     <button onclick="sendemail()">Send verification email</button>
     <button onclick="history.back()">Go back</button>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -68,7 +80,7 @@
         function sendemail() {
             firebase.auth().currentUser.sendEmailVerification()
             .then(() => {
-                console.log("Email verification sent. less gooo");
+                alert("Your email has been sent. Please check: " + firebase.auth().currentUser.email);
             })
         }
 

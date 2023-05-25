@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>storage</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            margin: 0;
+        }
+
+        #ex {
+            display: none;
+        }
+
+        #files {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .file {
+            background-color: grey;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="files">
+        <div class="file" id="ex">
+            <img width="256">
+            <h2>File.name</h2>
+            <a href="#">Open in new tab</a>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <!-- SETUP FIREBASE -->
+    <script>
+        // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf",
+            storageBucket: 'gs://bluekid-303db.appspot.com/'
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        const storage = firebase.storage();
+        const SRef = storage.ref();
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                alert("You are not logged in!");
+                localStorage.setItem("isLoggedIn", false);
+                location.href = "./auth_pages/login.html";
+            }
+            //SRef.child("tutorialintro.png").getDownloadURL().then((url) => {
+            //    document.getElementById("display").src = url;
+            //})
+
+            SRef.listAll()
+                .then((res) => {
+                    res.items.forEach((itemRef) => {
+                        console.log(itemRef)
+                        // All the items under listRef.
+                        const clone = document.getElementById("ex").cloneNode(true);
+                        clone.id = itemRef.name;
+                        console.log(clone.childNodes);
+                        clone.childNodes[3].innerHTML = itemRef.name;
+                        
+                        
+                        itemRef.getDownloadURL().then((url) => {
+                            console.log(url);
+                            clone.childNodes[1].src = url;
+                            clone.childNodes[5].href = url;
+                        })
+                        document.getElementById("files").appendChild(clone);
+                    });
+                }).catch((error) => {
+                    // Uh-oh, an error occurred!
+                });
+                
+            
+        });
+    </script>
+</body>
+</html>

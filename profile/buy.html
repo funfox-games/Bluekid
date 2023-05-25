@@ -145,31 +145,73 @@
         #tokens p {
             margin: 0;
         }
+
+        body {
+            background-image: url("../assets/backgroundpattern.png");
+            background-size: .75%;
+        }
+
+        /* TOPNAV START */
+        #topnav {
+            display:flex;
+            text-align: center;
+            gap: 5px;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid black;
+            justify-content: center;
+        }
+        .topnav_item {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+            border-radius: 10px;
+            gap:5px;
+            padding: 5px;
+            background-color: rgb(231, 231, 231);
+            border: 2px solid black;
+        }
+        .topnav_item[data-navactive] {
+            background-color: rgb(180, 180, 180);
+        }
+        .topnav_item a {
+            color:black !important;
+        }
+        /*************************/
     </style>
 </head>
 <body>
-    <!-- Side nav -->
-    <ul>
-        <a href="./index.html"><img id="imgtitle" src="../assets/Bluekid.png" width="50"></a>
-        <a id="title" style="text-decoration: none; font-family: 'Titan One', cursive; margin: 0%; margin-top:5px; font-size:4vh; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2px;" href="./index.html">Bluekid</a>
-        <hr>
-        <!-- UL means unordered list -->
-        <!-- LI means list item -->
-
-        <li> <a href="../profile.html"> <img src="../assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
-        <li> <a href="./blues.html"> <img src="../assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
-        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
-        <li> <a href="./kits.html"> <img src="../assets/set.svg" draggable="false" width="30"> Kits</a> </li>
-        <li> <a href="./settings.html"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
-        <!-- <li><a>Favorites</a></li> -->
-    </ul>
+    <div id="topnav">
+        <a href="index.html"><img src="../assets/Bluekid.png" width="44"></a>
+        <div class="topnav_item" id="profile_topnav">
+            <img src="../assets/user-solid.svg" width="32">
+            <a href="../profile.html">PROFILE</a>
+        </div>
+        <div class="topnav_item" id="blues_topnav">
+            <img src="../assets/char/blue_notexture.png" width="32">
+            <a href="./blues.html">BLUES</a>
+        </div>
+        <div class="topnav_item" id="buy_topnav" data-navactive>
+            <img src="../assets/cart.svg" width="32">
+            <a href="./buy.html">BUY</a>
+        </div>
+        <div class="topnav_item" id="kits_topnav">
+            <img src="../assets/set.svg" width="32">
+            <a href="./kits.html">KITS</a>
+        </div>
+        <div class="topnav_item" id="settings_topnav">
+            <img src="../assets/settings.svg" width="32">
+            <a href="./settings.html">SETTINGS</a>
+        </div>
+    </div>
 
     <div id="tokens">
         <img draggable="false" style="rotate: 15deg;" src="../assets/bluekid-tokens.png" width="48">
         <strong id="tokenAmount">0</strong>
     </div>
 
-    <div style="margin-left:12.5%;padding:1px 16px;">
+    <div style="padding:1px 16px;">
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
             <hr>

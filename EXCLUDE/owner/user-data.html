@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Bluekid data</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        p {
+            margin:0;
+        }
+
+        body {
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Get player data</h1>
+    <a href="../../profile/settings.html">Go back to profile settings</a>
+
+    <p>UID:</p>
+    <input id="uid" placeholder="Enter UID...">
+    <button onclick="javascript:getdata()">Get data</button>
+    <br><br>
+    <p>Data:</p>
+    <ul style="margin:0;">
+        <li>
+            <p>Email: <strong id="email">-</strong></p>
+        </li>
+        <li>
+            <p>Username: <strong id="username">-</strong></p>
+        </li>
+        <li>
+            <p>Account type: <strong id="type">-</strong></p>
+        </li>
+        <li>
+            <p>Account creation date: <strong id="acd">-</strong></p>
+        </li>
+        <li>
+            <p>Tokens: <strong id="tokens">-</strong></p>
+        </li>
+    </ul>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+        let loggedinuser;
+        let username;
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("pass");
+
+        firebase.auth().onAuthStateChanged((user) => {
+            // signed in
+            console.log("signed in password: " + user.uid)
+        });
+
+        function getdata() {
+            let uidthing = document.getElementById("uid").value;
+            uidthing = uidthing.replace(" ", "");
+            firebase.firestore().collection("users").doc(uidthing).get().then((doc) => {
+                const data = doc.data();
+                const name = document.getElementById("username");
+                const type = document.getElementById("type");
+                const acd = document.getElementById("acd");
+                const email = document.getElementById("email");
+                const tokens = document.getElementById("tokens");
+                const verify = document.getElementById("verify");
+
+                name.innerHTML = data.username;
+                type.innerHTML = data.accounttype;
+                acd.innerHTML = data.creation;
+                email.innerHTML = data.email;
+                tokens.innerHTML = data.tokens.toLocaleString();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -19,7 +19,7 @@
             font-family: 'Nunito', sans-serif;
         }
 
-        ul {
+        /*ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -36,14 +36,14 @@
         ul li {
             padding-bottom: 10px;
         }
-        li a { /* List element */
+        li a {
             display: block;
             color: #000;
             padding: 4px 8px;
             text-decoration: none;
             font-size: 3vh;
             display: inline-flex;
-        }
+        }*/
 
         #imgtitle {
             display: none;
@@ -108,6 +108,11 @@
             transform: translate(-50%, -50%);
         }
 
+        body {
+            background-image: url("../assets/backgroundpattern.png");
+            background-size: .75%;
+        }
+
         .window h1 {
             margin: 0;
         }
@@ -134,24 +139,61 @@
             color: black;
             text-decoration: underline;
         }
+
+        /* TOPNAV START */
+        #topnav {
+            display:flex;
+            text-align: center;
+            gap: 5px;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid black;
+            justify-content: center;
+        }
+        .topnav_item {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: center;
+            border-radius: 10px;
+            gap:5px;
+            padding: 5px;
+            background-color: rgb(231, 231, 231);
+            border: 2px solid black;
+        }
+        .topnav_item[data-navactive] {
+            background-color: rgb(180, 180, 180);
+        }
+        .topnav_item a {
+            color:black !important;
+        }
+        /*************************/
     </style>
 </head>
 <body>
-    <!-- Side nav -->
-    <ul>
-        <a href="./index.html"><img id="imgtitle" src="../assets/Bluekid.png" width="50"></a>
-        <a id="title" style="text-decoration: none; font-family: 'Titan One', cursive; margin: 0%; margin-top:5px; font-size:4vh; color: turquoise; -webkit-text-stroke-color: black; -webkit-text-stroke-width: 2px;" href="./index.html">Bluekid</a>
-        <hr>
-        <!-- UL means unordered list -->
-        <!-- LI means list item -->
-
-        <li> <a href="../profile.html"> <img src="../assets/user-solid.svg" draggable="false" width="30"> Profile </a> </li>
-        <li> <a href="./blues.html"> <img src="../assets/briefcase-solid.svg" draggable="false" width="30"> Blues</a> </li>
-        <li> <a href="./buy.html"> <img src="../assets/cart.svg" draggable="false" width="30"> Buy</a> </li>
-        <li> <a href="./kits.html"> <img src="../assets/set.svg" draggable="false" width="30"> Kits</a> </li>
-        <li> <a style="opacity: 0.5; cursor: default;" href="#"> <img src="../assets/settings.svg" draggable="false" width="30"> Settings</a> </li>
-        <!-- <li><a>Favorites</a></li> -->
-    </ul>
+    <div id="topnav">
+        <a href="index.html"><img src="../assets/Bluekid.png" width="44"></a>
+        <div class="topnav_item" id="profile_topnav" >
+            <img src="../assets/user-solid.svg" width="32">
+            <a href="../profile.html">PROFILE</a>
+        </div>
+        <div class="topnav_item" id="blues_topnav">
+            <img src="../assets/char/blue_notexture.png" width="32">
+            <a href="./blues.html">BLUES</a>
+        </div>
+        <div class="topnav_item" id="buy_topnav">
+            <img src="../assets/cart.svg" width="32">
+            <a href="./buy.html">BUY</a>
+        </div>
+        <div class="topnav_item" id="kits_topnav">
+            <img src="../assets/set.svg" width="32">
+            <a href="./kits.html">KITS</a>
+        </div>
+        <div class="topnav_item" id="settings_topnav" data-navactive>
+            <img src="../assets/settings.svg" width="32">
+            <a href="./settings.html">SETTINGS</a>
+        </div>
+    </div>
 
     <div id="changeAccountType" style="visibility:hidden;">
         <div class="window">
@@ -192,7 +234,7 @@
         </div>
     </div>
 
-    <div style="margin-left:12.5%;padding:1px 16px;">
+    <div style="padding:1px 16px;">
         <p id="status">Loading data...</p>
         <div id="loaded" style="display: none;">
             <hr>
@@ -201,12 +243,31 @@
             <p class="property">Email: <span id="email">example@example.org</span></p>
             <p class="property">Account type: <span id="type">Student</span></p>
             <p class="property">Joined: <span id="join">0/0/0000 0:00 PM</span></p>
+            <p class="property">Email verified: <span id="verified">false</span></p>
+            <p class="property">UID: <span id="uid">waiting...</span> <strong style="color:red;">Share this with only with the Bluekid Team. If someone got
+                into the database and wants YOUR account, they will ask for your UID, which is where all your data is.</strong></p>
 
-
+            <h1>Resources</h1>
+            <ul>
+                <li> <a href="https://forms.gle/5rSzyNMfdTfnP9S68" style="color:black;">Verification/Content Creator Form</a> </li>
+                <li> <p style="margin:0;">More coming soon!</p> </li>
+            </ul>
             <h1 id="account">Account options</h1>
-            <input id="newname" placeholder="Enter new name...">
-            <input id="confirmnewname" placeholder="Confirm new name...">
-            <button id="changename" onclick="changename()">Change name</button>
+                <fieldset>
+                    <legend>Change name</legend>
+                    <input id="newname" placeholder="Enter new name...">
+                    <input id="confirmnewname" placeholder="Confirm new name...">
+                    <button id="changename">Change name</button>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Change password</legend>
+                    <button id="changepass">Send Email</button>
+                </fieldset>
+                <fieldset style="background-color:rgba(255,0,0,.1);">
+                    <legend>DANGER ZONE</legend>
+                    <button id="DELETE">Delete account</button>
+                </fieldset>
             <br> <br>
             <button onclick="document.getElementById('changeAccountType').style.visibility = 'visible'" id="rankbutton">Change Account Rank</button>
             <p id="result_text"></p>
@@ -258,6 +319,8 @@
                     setTimeout(() => {document.getElementById(hash).style.transitionDuration = "0s";}, 50);
                 }, 1000);
             }
+
+            document.getElementById("changename").addEventListener("click", changename)
 
             const playerData = firebase.firestore().collection("users").doc(user.uid);
             playerData.get().then((doc) => {
@@ -331,13 +394,62 @@
                 const email = document.getElementById("email");
                 const type = document.getElementById("type");
                 const joindate = document.getElementById("join");
+                const verified = document.getElementById("verified");
+                const uid = document.getElementById("uid");
 
                 usernamedisplay.innerHTML = username;
                 email.innerHTML = doc.data().email;
                 type.innerHTML = doc.data().accounttype;
                 joindate.innerHTML = doc.data().creation;
+                if (user.emailVerified) {
+                    verified.innerHTML = `Yes! <a target="_blank" href="https://forms.gle/5rSzyNMfdTfnP9S68">Get Verified/Become a creator!</a>`;
+                } else {
+                    verified.innerHTML = `No <a href="../verify.html">Verify now!</a>`;
+                }
+                uid.innerHTML = user.uid;
             })
         });
+        
+        document.getElementById("changepass").addEventListener("click", changepassword);
+        function changepassword() {
+            firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email).then(() => {
+                alert("Check " + firebase.auth().currentUser.email + "'s inbox.");
+            }).catch((err) => {
+                alert(err);
+            });
+        }
+
+        document.getElementById("DELETE").addEventListener("click", Deleteacc);
+        function Deleteacc() {
+            if (confirm("Are you sure you WANT TO DELETE THIS ACCOUNT?")) {
+                const user = firebase.auth().currentUser;
+
+                const password = prompt("Enter your password to contiune...");
+                // TODO(you): prompt the user to re-provide their sign-in credentials
+                const credential = firebase.auth.EmailAuthProvider.credential(
+                    user.email,
+                    password
+                );
+
+                user.reauthenticateWithCredential(credential).then(() => {
+                    // User re-authenticated.
+                    console.log("asdad")
+                }).catch((error) => {
+                    alert(error);
+                });
+
+                firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).delete().then(() => {
+                    firebase.auth().currentUser.delete().then(() => {
+                        alert("Account deleted. Sorry to see you go!");
+
+                    }).catch((err) => {
+                        alert("Error deleting auth account: " + err);
+                    })
+                }).catch((err) => {
+                    alert("Error deleting firestore data: " + err);
+                })
+            }
+        }
 
         function setRank(rankType) {
             const playerData = firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid);

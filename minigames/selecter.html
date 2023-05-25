@@ -5,9 +5,151 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minigames - Bluekid</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            margin: 0;
+        }
+
+        .minigame {
+            width: 250px;
+            height: 250px;
+            display: flex;
+            border-radius: 15px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini_title {
+            width: 100%;
+            text-align: center;
+            background-color: #0000007a;
+            font-size: 35px;
+            font-weight: bold;
+            color:white;
+        }
+        .minigame#clicker {
+            background-image: url("../assets/minigames/clickerimg.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            color:white;
+        }
+
+        .mini_img {
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        #blackBackground {
+            display: flex;
+            position: absolute;
+            left: 0;
+            top:0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000007a;
+            z-index: 3;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #popup {
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+            border: 2px solid black;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        #tokens {
+            position: fixed;
+            top:-10px;
+            right:20px;
+
+            display:flex;
+            gap: 10px;
+            text-align: center;
+            align-items: center;
+
+            font-size: 32px;
+
+            background-color: #b1b1b1;
+            padding: 5px;
+            padding-top: 15px;
+            border-radius: 10px;
+        }
+
+        #tokens p {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>This area is not complete!</h1>
+    <div id="tokens">
+        <img draggable="false" style="rotate: 15deg;" src="../assets/bluekid-tokens.png" width="48">
+        <strong id="tokenAmount">0</strong>
+    </div>
+
+    <div id="blackBackground">
+        <div id="popup">
+            <p>If this is wrong, please wait for the page to load.</p>
+            <h1>To be able to play these,</h1>
+            <p>you need to login!</p>
+            <a href="../auth_pages/login.html"><button>Login</button></a>
+        </div>
+    </div>
+
+    <div id="clicker" class="minigame">
+        <!-- <img class="mini_img" src="../assets/minigames/clickerimg.png" id="clickerImg"> -->
+        <a href="clicker.html" class="mini_title" id="clickerTitle">Clicker</a>
+    </div>
     <button onclick="location.href = '../profile.html'">Go back</button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- SETUP FIREBASE -->
+    <script>
+        // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        var tokens = 0;
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById("blackBackground").remove();
+            }
+
+            const playerData = firebase.firestore().collection("users").doc(user.uid);
+            playerData.get().then((doc) => {
+                username = doc.data().username;
+
+                tokens = doc.data().tokens;
+                document.getElementById("tokenAmount").innerHTML = doc.data().tokens.toLocaleString();
+            })
+        });
+
+        
+    </script>
 </body>
 </html>

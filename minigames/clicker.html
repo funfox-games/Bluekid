@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker | Bluekid Minigames</title>
+
+    <link rel="icon" href="../assets/minigames/clickerimg.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            margin: 0;
+        }
+
+        #blackBackground {
+            display: none;
+            position: absolute;
+            left: 0;
+            top:0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000007a;
+            z-index: 3;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #popup {
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+            border: 2px solid black;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        #tokens {
+            position: fixed;
+            top:-10px;
+            right:20px;
+
+            display:flex;
+            gap: 10px;
+            text-align: center;
+            align-items: center;
+
+            font-size: 32px;
+
+            background-color: #b1b1b1;
+            padding: 5px;
+            padding-top: 15px;
+            border-radius: 10px;
+        }
+
+        #tokens p {
+            margin: 0;
+        }
+
+        #points {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        #button {
+            background-color: aquamarine;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+
+            transition-duration: 250ms;
+        }
+        #button:hover, #button:focus {
+            scale: 1.1;
+            background-color: rgb(109, 223, 185);
+        }
+
+
+        #trade {
+            display: flex;
+            justify-content:space-evenly;
+            align-items: center;
+            text-align: center;
+            width: 35%;
+
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+
+            border: 2px solid  black;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        #tokensToTrade {
+            display:flex;
+            align-items: center;
+            width: fit-content;
+            text-align: center;
+
+            gap: 10px;
+
+            font-size: 32px;
+
+            background-color: #b1b1b1;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        #clicksToTrade {
+            display:flex;
+            align-items: center;
+            width: fit-content;
+            text-align: center;
+
+            gap: 10px;
+
+            font-size: 32px;
+
+            background-color: #b1b1b1;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        #buyTrade {
+            background-color: aquamarine;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: bold;
+
+            transition-duration: 250ms;
+        }
+        #buyTrade:hover, #buyTrade:focus {
+            scale: 1.1;
+            background-color: rgb(109, 223, 185);
+            rotate: 5deg;
+        }
+    </style>
+</head>
+<body>
+    <div id="tokens">
+        <img draggable="false" style="rotate: 15deg;" src="../assets/bluekid-tokens.png" width="48">
+        <strong id="tokenAmount">0</strong>
+        <a style="color:white;font-size:15px;font-weight:bold;" href="../profile/buy.html">Go to<br>shop</a>
+    </div>
+    
+    <div id="blackBackground">
+        <div id="popup">
+            <p>If this is wrong, please wait for the page to load.</p>
+            <h1>To be able to play this minigame,</h1>
+            <p>you need to login!</p>
+            <a href="../auth_pages/login.html"><button>Login</button></a>
+        </div>
+    </div>
+    
+    <div id="points">0</div>
+    <button id="button" tabindex="-1" onclick="javascript:clickd();" >Click me</button>
+    <br><br>
+    <div id="trade">
+        <button tabindex="0" id="buyTrade" onclick="javascript:buyTrade();">Buy</button>
+        <br>
+        <div id="clicksToTrade">
+            <img draggable="false" src="../assets/minigames/clicks.png" width="48">
+            <strong id="clicksNeeded">100</strong>
+        </div>
+        <h1>for</h1>
+        <div id="tokensToTrade">
+            <img draggable="false" style="rotate: 15deg;" src="../assets/bluekid-tokens.png" width="48">
+            <strong id="tokensWillGet">10</strong>
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- SETUP FIREBASE -->
+    <script>
+        // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        var points = 0;
+        var tokens = 0;
+        
+        var tradeOffer = new Map([
+            ["points", 100],
+            ["coins", 10]
+        ]);
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById("blackBackground").remove();
+            } else {
+                document.getElementById("blackBackground").style.display = "flex";
+            }
+
+            const playerData = firebase.firestore().collection("users").doc(user.uid);
+            playerData.get().then((doc) => {
+                username = doc.data().username;
+
+                tokens = doc.data().tokens;
+                document.getElementById("tokenAmount").innerHTML = doc.data().tokens.toLocaleString();
+            })
+        });
+
+        function clickd() {
+            points += 1;
+            console.log("yoo");
+        }
+
+        function buyTrade() {
+            if (points >= tradeOffer.get("points")) {
+                points -= tradeOffer.get("points");
+                const playerData = firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid);
+                playerData.update({ tokens: tokens + tradeOffer.get("coins") }).then(() => {
+                    tokens += tradeOffer.get("coins");
+                    tradeOffer.set("points", tradeOffer.get("points") * 2);
+                    tradeOffer.set("coins", tradeOffer.get("coins") + 10);
+
+                    document.getElementById("clicksNeeded").innerHTML = tradeOffer.get("points");
+                    document.getElementById("tokensWillGet").innerHTML = tradeOffer.get("coins");
+                }).catch((error) => {
+                    alert("Something went wrong saving. Please try again later. Error: " + error);
+                })
+            }
+        }
+
+        setInterval(() => {
+            document.getElementById("points").innerHTML = points.toLocaleString();
+            document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
+        }, 150)
+    </script>
+</body>
+</html>
