@@ -111,6 +111,9 @@
         body {
             background-image: url("../assets/backgroundpattern.png");
             background-size: .75%;
+            /* HALLOWOWWOWOWOWWOWOWOWWOWOWOWOWOWOWOWOWOWOWOWWOWOWOWOWOWOOWOWOWOWOWOWOWOOWWOWOWOOWWOWOWOWOWOWOOWWOOWOWOWOWOWOWOWOOWOWOWOWOWOEOEEEEEEEEEEEEEEEEEEEEEN */
+            background-color: rgb(0,0,0);
+            
         }
 
         .window h1 {
@@ -168,9 +171,19 @@
             color:black !important;
         }
         /*************************/
+        #cnv {
+            position:absolute;
+            left:0;
+            top:0;
+            z-index: -9;
+        }
+        body{ color:white;}
+        a {color:white!important;}
     </style>
 </head>
 <body>
+    <canvas id="cnv"></canvas>
+
     <div id="topnav">
         <a href="index.html"><img src="../assets/Bluekid.png" width="44"></a>
         <div class="topnav_item" id="profile_topnav" >
@@ -202,7 +215,7 @@
             <hr>
 
             <div class="option">
-                <button disabled="true" id="newbiebutton" onclick="setRank('Newbie')">Choose</button>
+                <button disabled="true" id="newbiebutton">Choose</button>
                 <hr>
                 <div class="option innerdiv">
                     <h2>Newbie</h2>
@@ -211,7 +224,7 @@
             </div>
             <br>
             <div class="option">
-                <button disabled="true" id="intermbutton" onclick="setRank('Interm')">Choose</button>
+                <button disabled="true" id="intermbutton">Choose</button>
                 <hr>
                 <div class="option innerdiv">
                     <h2>Intermediate</h2>
@@ -220,7 +233,7 @@
             </div>
             <br>
             <div class="option">
-                <button disabled="true" id="advancedbutton" onclick="setRank('Advanced')">Choose</button>
+                <button disabled="true" id="advancedbutton">Choose</button>
                 <hr>
                 <div class="option innerdiv">
                     <h2>Advanced</h2>
@@ -278,6 +291,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="../snow.js"></script>
+
     <script>
       // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
       const firebaseConfig = {
@@ -320,6 +336,10 @@
                 }, 1000);
             }
 
+            document.getElementById("newbiebutton").onclick = () => {setRank("Newbie")};
+            document.getElementById("intermbutton").onclick = () => { setRank("Interm") };
+            document.getElementById("advancedbutton").onclick = () => { setRank("Advanced") };
+
             document.getElementById("changename").addEventListener("click", changename)
 
             const playerData = firebase.firestore().collection("users").doc(user.uid);
@@ -355,6 +375,7 @@
                         document.getElementById("daysUntilNextRank").innerHTML = 121 - accountCreationDifference;
 
                         document.getElementById("newbiebutton").innerHTML = "Using";
+                        document.getElementById("intermbutton").disabled = true;
                     } else {
                         if (accountCreationDifference >= 0) {
                             document.getElementById("newbiebutton").disabled = false;
@@ -365,6 +386,7 @@
                         document.getElementById("daysUntilNextRank").innerHTML = 365 - accountCreationDifference;
 
                         document.getElementById("intermbutton").innerHTML = "Using";
+                        document.getElementById("intermbutton").disabled = true;
                     } else {
                         if (accountCreationDifference >= 121) {
                             document.getElementById("intermbutton").disabled = false;
@@ -375,6 +397,7 @@
                         document.getElementById("daysUntilNextRank").parentElement.innerHTML = "Your maxed out!";
 
                         document.getElementById("advancedbutton").innerHTML = "Using";
+                        document.getElementById("intermbutton").disabled = true;
                     } else {
                         if (accountCreationDifference >= 365) {
                             document.getElementById("advancedbutton").disabled = false;

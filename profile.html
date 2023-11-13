@@ -207,6 +207,10 @@
         body {
             background-image: url("../assets/backgroundpattern.png");
             background-size: .75%;
+
+            /* HALLOWOWWOWOWOWWOWOWOWWOWOWOWOWOWOWOWOWOWOWOWWOWOWOWOWOWOOWOWOWOWOWOWOWOOWWOWOWOOWWOWOWOWOWOWOOWWOOWOWOWOWOWOWOWOOWOWOWOWOWOEOEEEEEEEEEEEEEEEEEEEEEN */
+            background-color: rgb(0,0,0);
+            
         }
 
         #infos {
@@ -261,7 +265,7 @@
             flex-direction: row;
             text-align: center;
             align-items: center;
-            border-radius: 10px;
+            border-radius: 10px; 
             gap:5px;
             padding: 5px;
             background-color: rgb(231, 231, 231);
@@ -302,12 +306,20 @@
         #notice::backdrop {
             background-color: rgba(0, 0, 0, 0.541);
         }
+        #cnv {
+            position:absolute;
+            left:0;
+            top:0;
+            z-index: -9;
+        }
     </style>
 </head>
 <body>
+    <canvas id="cnv"></canvas>
+
     <dialog id="notice">
-        <h1 style="margin:0;">Big changes are coming soon!</h1>
-        <p>Expect some big updates coming! Such as Game Hosting, More blues, More minigames, etc! (hehe... soon...)</p>
+        <h1 style="margin:0;">Its only getting closer...</h1>
+        <p><b>THE</b> big update is coming soon...</p>
         <img src="assets/woah.png" alt="bluekid sneak peak">
         <br>
         <button id="closenotice">Ok</button>
@@ -383,6 +395,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="snow.js"></script>
+
     <!-- SETUP FIREBASE -->
     <script>
       // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
