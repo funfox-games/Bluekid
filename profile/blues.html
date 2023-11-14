@@ -342,6 +342,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="pack" id="memespack">
+                    <h2>Expensive Meme Pack</h2>
+                    <div class="divider"></div>
+                    <!-- <p id="memepacktext"></p> -->
+                    <div class="blues" id="memeblues">
+                        <div class="blue" id="expensive_borzi" data-name="Expensive Borzi" onclick="clickBlue('expensive_borzi')">
+                            <p class="number" data-rarity="Lengendary">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
+                        </div>
+                        <div class="blue" id="expensive_troll" data-name="Expensive Troll" onclick="clickBlue('expensive_troll')">
+                            <p class="number" data-rarity="Lengendary">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
+                        </div>
+                        <div class="blue" id="expensive_rick" data-name="Expensive Rick" onclick="clickBlue('expensive_rick')">
+                            <p class="number" data-rarity="Mystical">0</p>
+                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
+                        </div>
+                    </div>
+                </div>
                 <div class="pack" id="secretblues">
                     <h2>Secret / Limited Time</h2>
                     <div class="divider"></div>
@@ -544,6 +563,16 @@
                         if (document.getElementById(removeUppercase) != null) document.getElementById(removeUppercase).children[0].innerHTML = doc.data().amount;
 
                         for (const blue_div of document.getElementById("memepack").children[2].children) { //CLONE THIS FOR EACH PACK
+
+                            if (doc.id == blue_div.getAttribute("data-name"))  {
+                                if (doc.data().amount > 0) {
+                                    blue_div.children[1].className = "blueimg unlocked";
+                                }
+                            }
+
+                        }
+
+                        for (const blue_div of document.getElementById("memespack").children[2].children) { //CLONE THIS FOR EACH PACK
 
                             if (doc.id == blue_div.getAttribute("data-name"))  {
                                 if (doc.data().amount > 0) {
