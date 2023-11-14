@@ -382,6 +382,10 @@
             meme: {
                 cost: 20,
                 ratelimit: 50
+            },
+            meme_expens: {
+                cost: 1000000,
+                ratelimit: 5
             }
         }
 
@@ -491,6 +495,16 @@
                     })
                 } else if (pack == "meme_expens") {
     
+                    let item = weighted_random(memepack.allBlues, memepack.allRarities);
+                    console.log(item);
+    
+                    if (item == null) {
+                        buyPack(pack);
+                        return;
+                    }
+    
+                    document.getElementById("meme_expenspackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")";
+    
                     // SAVE BLUE TO ACCOUNT
                     const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
     
@@ -499,17 +513,29 @@
                         chance: item.chance,
                         rarity: item.rarity,
                         amount: 1,
-                        pack: "memes"
+                        pack: "meme"
                     }
+    
+                    currentAmountOfLimit += 1;
     
                     playerData.collection("blues").doc(blueName).get().then((doc) => {
                         if (!doc.exists) {
-                            // TODO
                             playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
-                                document.getElementById("easterpackoutput").innerHTML = "You got it!";
                                 console.log("successfully saved blue!");
                             }).catch((error) => {
-                                document.getElementById("easterpackoutput").innerHTML = "Error: " + error;
+                                console.error("Error: " + error);
+                            })
+                        } else {
+                            const blueToAdd_Amount = {
+                                chance: item.chance,
+                                rarity: item.rarity,
+                                amount: doc.data().amount + 1,
+                                pack: "memes"
+                            }
+    
+                            playerData.collection("blues").doc(blueName).update(blueToAdd_Amount).then(() => {
+                                console.log("successfully saved blue! + added amount");
+                            }).catch((error) => {
                                 console.error("Error: " + error);
                             })
                         }
