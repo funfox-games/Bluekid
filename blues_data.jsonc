@@ -1,0 +1,49 @@
+{
+    "packs": {
+        "memepack_cost": 20,
+        "memepack": [ //SHOULD MATCH DIV ID
+            {
+                "name": "Borzi",
+                "chance": "25%",
+                "rarity": "Common",
+                "percent": 25
+            },
+            {
+                "name": "Quandale Dingle",
+                "chance": "15%",
+                "rarity": "Uncommon",
+                "percent": 15
+            },
+            {
+                "name": "Among Us",
+                "chance": "10%",
+                "rarity": "Uncommon",
+                "percent": 10
+            },
+            {
+                "name": "Baller",
+                "chance": "7%",
+                "rarity": "Rare",
+                "percent": 7
+            },
+            {
+                "name": "Troll",
+                "chance": "5%",
+                "rarity": "Rare",
+                "percent": 5
+            },
+            {
+                "name": "Rick Astley",
+                "chance": "2%",
+                "rarity": "Lengendary",
+                "percent": 2
+            },
+            {
+                "name": "Jack",
+                "chance": "0.05%",
+                "rarity": "Mystical",
+                "percent": 0.05
+            }
+        ]
+    }
+}

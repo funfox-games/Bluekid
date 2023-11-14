@@ -427,15 +427,7 @@
 
             if (!img.className.includes("unlocked")) {return;}
 
-            img_display.src = img.src;
-            name_display.innerHTML = blueDiv.getAttribute("data-name");
-            rarity_display.innerHTML = counter.getAttribute("data-rarity");
-            const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
-            playerData.collection("blues").doc(blueDiv.getAttribute("data-name")).get().then((doc => {
-                const data = doc.data();
-                amount_owned_display.innerHTML = data.amount + " Owned";
-                currentBlue_amount = data.amount;
-            })) 
+            // TODO
         }
 
         function onlyNumbers(num){
@@ -553,56 +545,8 @@
                 document.getElementById("loaded").style.display = "";
 
                 playerData.collection("blues").get().then((q) => {
-                    q.forEach((doc) => {
-                        //console.log(doc.id)
-
-                        const removeSpace = doc.id.replace(" ", "_");
-                        const removeUppercase = removeSpace.toLowerCase();
-                        console.log(removeUppercase);
-
-                        if (document.getElementById(removeUppercase) != null) document.getElementById(removeUppercase).children[0].innerHTML = doc.data().amount;
-
-                        for (const blue_div of document.getElementById("memepack").children[2].children) { //CLONE THIS FOR EACH PACK
-
-                            if (doc.id == blue_div.getAttribute("data-name"))  {
-                                if (doc.data().amount > 0) {
-                                    blue_div.children[1].className = "blueimg unlocked";
-                                }
-                            }
-
-                        }
-
-                        for (const blue_div of document.getElementById("memespack").children[2].children) { //CLONE THIS FOR EACH PACK
-
-                            if (doc.id == blue_div.getAttribute("data-name"))  {
-                                if (doc.data().amount > 0) {
-                                    blue_div.children[1].className = "blueimg unlocked";
-                                }
-                            }
-
-                        }
-
-                        for (const blue_div of document.getElementById("secretblues").children[2].children) {
-
-                            if (doc.id == blue_div.getAttribute("data-name"))  {
-                                if (doc.data().amount > 0) {
-                                    document.getElementById("secretblues").style.display = "block";
-                                    blue_div.children[1].className = "blueimg unlocked";
-                                }
-                            }
-
-                        }
-                    })
-                })
-
-                var bannedEmails = bannedData.bannedEmailaddresses
-                for (var i = 0; i < bannedData.bannedEmailaddresses.length; i++) {
-                    if (bannedEmails[i].email == firebase.auth().currentUser.email) {
-                        document.getElementById("status").innerHTML = "You have been banned. Reason: " + bannedEmails[i].reason;
-                        document.getElementById("loaded").style.display = "none";
-                    }
-                }
-        })
+                    //TODO
+            })
         });
     </script>
 </body>
