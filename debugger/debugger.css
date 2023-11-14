@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+:root {
+    --debugger-height: 200px;
+    --o-debugger-height: -200px;
+}
+.consoleLog {
+    padding: 5px;
+    border-radius: 15px;
+    background-color: rgb(100, 100, 100);
+    width: 100%;
+    padding-left:15px;
+    font-size: 20px;
+}
+#console_ex {
+    display: none !important;
+}
+#console {
+    display:flex;
+    align-items: center;
+    gap:5px;
+    flex-direction: column;
+    width: 99%;
+}
+#debugger {
+    position: fixed;
+    bottom:0;
+    left:0;
+    transform: translateY(var(--debugger-height));
+    width:100%;
+    background-color: rgb(50, 50, 50);
+    height: var(--debugger-height);
+    color:white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 5px;
+    z-index: 99;
+
+    transition-duration: 500ms;
+}
+#debugger h1,h2,h3,h4,h5,h6,p {
+    margin: 0;
+}
+#debugger * {
+    font-family: 'Rubik', sans-serif;
+}
+#debugger[open] {
+    transform: translateY(0px);
+}
+#commandDiv{
+    display:flex;
+    gap:15px;
+    align-items: center;
+}
+#sendCom {
+    background-color: rgb(50, 50, 50);
+    border-radius: 5px;
+    padding: 5px;
+    border:2px solid white;
+}
+#clear {
+    background-color: rgb(50, 50, 50);
+    border-radius: 5px;
+    padding: 5px;
+    border:2px solid white;
+}
+#command {
+    padding: 5px;
+    background-color: rgb(50,50,50);
+    border-radius: 5px;
+    border: 2px solid white;
+    outline:none;
+    color:white;
+    font-size: 17px;
+}
+#debugger_opener {
+    z-index: 98;
+    position: fixed;
+    bottom:0;
+    left:25px;
+    width:50px;
+    background-color: rgb(50, 50, 50);
+    height: 30px;
+    display:flex;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    color:white;
+
+    transition-duration: 500ms;
+}
+#debugger_opener[open] {
+    transform: translateY(var(--o-debugger-height));
+}
