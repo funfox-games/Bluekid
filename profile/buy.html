@@ -233,6 +233,13 @@
                     <button onclick="buyPack('meme')">Buy</button>
                     <p id="memepackoutput"></p>
                 </div>
+                <div class="pack" id="meme">
+                    <img src="../assets/packs/memepack.png" draggable="false" width="128">
+                    <p>More then you can afford lol</p>
+                    <!-- onclick="buyPack('meme')" -->
+                    <button onclick="buyPack('meme_expens')">Buy</button>
+                    <p id="meme_expenspackoutput"></p>
+                </div>
                 <!-- <div class="pack" id="easter">
                     <img src="../assets/char/secret/EasterBun_Blue.png" draggable="false" width="128">
                     <p>FREE!</p>
@@ -317,6 +324,16 @@
             ],
             allRarities: [25, 15, 10, 7, 5, 2, 0.05]
         };
+        const meme_expens = {
+            allBlues: [
+                {
+                    name: "Expensive Borzi",
+                    change: "25%",
+                    rarity: "Lengendary"
+                }
+            ],
+            allRarities: [25]
+        }
 
         var tokens = 0;
 
@@ -463,6 +480,31 @@
     
                     playerData.collection("blues").doc(blueName).get().then((doc) => {
                         if (!doc.exists) {
+                            playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
+                                document.getElementById("easterpackoutput").innerHTML = "You got it!";
+                                console.log("successfully saved blue!");
+                            }).catch((error) => {
+                                document.getElementById("easterpackoutput").innerHTML = "Error: " + error;
+                                console.error("Error: " + error);
+                            })
+                        }
+                    })
+                } else if (pack == "meme_expens") {
+    
+                    // SAVE BLUE TO ACCOUNT
+                    const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
+    
+                    const blueName = item.name;
+                    const blueToAdd = {
+                        chance: item.chance,
+                        rarity: item.rarity,
+                        amount: 1,
+                        pack: "memes"
+                    }
+    
+                    playerData.collection("blues").doc(blueName).get().then((doc) => {
+                        if (!doc.exists) {
+                            // TODO
                             playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
                                 document.getElementById("easterpackoutput").innerHTML = "You got it!";
                                 console.log("successfully saved blue!");
