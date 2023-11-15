@@ -555,6 +555,7 @@
                     q.forEach((result) => {
                         console.log("ok " + result.id);
                         const docElem = document.getElementsByName(result.id)[0];
+                        console.log("ok2: " + docElem);
                         docElem.children[1].classList.add("unlocked");
                     })
                 })
