@@ -554,7 +554,7 @@
                     //TODO
                     q.forEach((result) => {
                         const docElem = document.getElementsByName(result.id)[0];
-                        if (result.data().amount == 0) {
+                        if (result.data().amount != 0) {
                             docElem.children[1].classList.add("unlocked");
                         }
                         docElem.children[0].innerHTML = result.data().amount;
