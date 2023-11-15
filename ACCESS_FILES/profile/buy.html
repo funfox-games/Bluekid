@@ -323,15 +323,15 @@
 
         var currentAmountOfLimit = 0;
 
-        setInterval(() => {currentAmountOfLimit = 0}, 60000)
+        setInterval(() => {currentAmountOfLimit = 0}, 60 * 1000)
 
         function buyPack(pack) {
             if (currentAmountOfLimit >= ratelimit) {
                 alert("You have reached your limit of packs for this minute. Please come back in a minute.");
                 return;
             }
-
-            if (tokens < packDetails[pack].cost) {
+            console.log(window.blues[pack].cost);
+            if (tokens < window.blues[pack].cost) {
                 alert("Not enough tokens!");
                 return;
             }
