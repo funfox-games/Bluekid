@@ -333,10 +333,10 @@
                 alert("Not enough tokens!");
                 return;
             }
+            const tokens_old = tokens;
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
             playerData.update({tokens: tokens - blues[pack].cost}).then(() => {
-                const tokens_old = tokens;
                 if (tokens != tokens_old - blues[pack].cost) {
                     tokens -= blues[pack].cost;
                 }
