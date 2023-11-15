@@ -270,7 +270,7 @@
         window.loggedinuser = loggedinuser;
         window.username = username;
         window.data = data;
-        blues = blues;
+        window.blues = blues;
     </script>
     <script>
 
@@ -331,7 +331,7 @@
             }
             LoggingJS.tryFunction(() => {
                 if (!blues) {console.log("waaaaaaaaaaaaa")}
-                console.log(blues);
+                console.log(blues, window.blues);
             })
             if (tokens < blues[pack].cost) {
                 alert("Not enough tokens!");
