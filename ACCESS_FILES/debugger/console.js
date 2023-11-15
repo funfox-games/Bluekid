@@ -32,6 +32,9 @@ class LoggingJS {
             func_();
         } catch (error) {
             console.error(error);
+            return;
         }
+
+        console.log("Test run smoothly!");
     }
 }
