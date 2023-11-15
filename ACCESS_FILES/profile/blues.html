@@ -553,7 +553,7 @@
 
                 playerData.collection("blues").get().then((q) => {
                     //TODO
-                    console.log("ok1.5: " + q);
+                    console.log("ok1.5: " + q.forEach);
                     q.forEach((result) => {
                         const docElem = document.getElementsByName(result.id)[0];
                         docElem.children[1].classList.add("unlocked");
