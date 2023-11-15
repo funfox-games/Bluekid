@@ -270,12 +270,11 @@
         window.loggedinuser = loggedinuser;
         window.username = username;
         window.data = data;
-        window.blues = blues;
+        blues = blues;
     </script>
     <script>
 
         const email = localStorage.getItem("email");
-
         var tokens = 0;
 
         //memepackBlues[Math.floor(Math.random() * (5 - 0 + 1)) + 0];
@@ -330,20 +329,20 @@
                 alert("You have reached your limit of packs for this minute. Please come back in a minute.");
                 return;
             }
-            console.log(window.blues);
-            if (tokens < window.blues[pack].cost) {
+            console.log(blues);
+            if (tokens < blues[pack].cost) {
                 alert("Not enough tokens!");
                 return;
             }
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
-            playerData.update({tokens: tokens - window.blues[pack].cost}).then(() => {
-                tokens -= window.blues[pack].cost;
+            playerData.update({tokens: tokens - blues[pack].cost}).then(() => {
+                tokens -= blues[pack].cost;
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
-                for (let i = 0; i < window.blues.packs.length; i++) {
-                    const element = window.blues.packs[i];
+                for (let i = 0; i < blues.packs.length; i++) {
+                    const element = blues.packs[i];
                     console.log(element);
                     // let item = weighted_random(element, element.percent);
                     // document.getElementById()
