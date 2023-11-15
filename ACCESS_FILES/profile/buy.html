@@ -344,15 +344,16 @@
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
-                LoggingJS.tryFunction(() => {
-                    for (let i = 0; i < blues.packs.length; i++) {
-                        const element = blues.packs[i];
+                for (let i = 0; i < blues.packs.length; i++) {
+                    const element = blues.packs[i];
+                    LoggingJS.tryFunction(() => {
                         console.log(element);
                         let item = weighted_random(element, element.percent);
                         // document.getElementById()
                         console.log(item);
-                    }
-                })
+                    })
+                    
+                }
                
 
                 // if (pack == "meme") {
