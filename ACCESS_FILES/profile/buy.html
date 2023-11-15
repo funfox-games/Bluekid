@@ -329,10 +329,6 @@
                 alert("You have reached your limit of packs for this minute. Please come back in a minute.");
                 return;
             }
-            LoggingJS.tryFunction(() => {
-                // if (!blues) {console.log("waaaaaaaaaaaaa")}
-                console.log(window.blues);
-            })
             if (tokens < blues[pack].cost) {
                 alert("Not enough tokens!");
                 return;
@@ -340,7 +336,8 @@
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
             playerData.update({tokens: tokens - blues[pack].cost}).then(() => {
-                tokens -= blues[pack].cost;
+                // tokens -= blues[pack].cost;
+                console.log("baller")
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
