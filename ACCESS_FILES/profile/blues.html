@@ -544,7 +544,8 @@
             loggedinuser = user;
 
             const playerData = firebase.firestore().collection("users").doc(user.uid);
-            playerData.get().then((doc) => {
+            LoggingJS.tryFunction(() => {
+                playerData.get().then((doc) => {
                 username = doc.data().username;
 
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ". <span style='font-weight:bold;'>(Not seing what you expect? Dont worry, your data is saved in our servers.)</span>";
@@ -558,8 +559,10 @@
                         console.log("ok " + docElem.children[1].classList.toString());
                     })
                     console.log("ok :thumbsup:");
+                    })
                 })
             })
+            
         });
     </script>
 </body>
