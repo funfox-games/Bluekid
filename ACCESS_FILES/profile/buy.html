@@ -331,8 +331,8 @@
             }
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
-            playerData.update({tokens: tokens - packDetails[pack].cost}).then(() => {
-                tokens -= packDetails[pack].cost;
+            playerData.update({tokens: tokens - window.blues[pack].cost}).then(() => {
+                tokens -= window.blues[pack].cost;
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
