@@ -552,6 +552,9 @@
 
                 playerData.collection("blues").get().then((q) => {
                     //TODO
+                    q.forEach((result) => {
+                        console.log(result.data());
+                    })
                 })
             })
         });
