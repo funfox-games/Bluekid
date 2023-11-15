@@ -3,7 +3,7 @@
         "cost": 20
     },
     "packs": {
-        "memepack": [ //SHOULD MATCH DIV ID
+        "memepack": [
             {
                 "name": "Borzi",
                 "chance": "25%",
