@@ -341,16 +341,17 @@
                     tokens -= blues[pack].cost;
                 }
                 
-                console.log("baller")
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
-                for (let i = 0; i < blues.packs.length; i++) {
-                    const element = blues.packs[i];
-                    console.log(element);
-                    // let item = weighted_random(element, element.percent);
-                    // document.getElementById()
-                }
+                LoggingJS.tryFunction(() => {
+                    for (let i = 0; i < blues.packs.length; i++) {
+                        const element = blues.packs[i];
+                        // let item = weighted_random(element, element.percent);
+                        // document.getElementById()
+                    }
+                })
+               
 
                 // if (pack == "meme") {
 
