@@ -329,8 +329,10 @@
                 alert("You have reached your limit of packs for this minute. Please come back in a minute.");
                 return;
             }
-            if (!blues) {console.log("waaaaaaaaaaaaa")}
-            console.log(blues);
+            LoggingJS.tryFunction(() => {
+                if (!blues) {console.log("waaaaaaaaaaaaa")}
+                console.log(blues);
+            })
             if (tokens < blues[pack].cost) {
                 alert("Not enough tokens!");
                 return;
