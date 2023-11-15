@@ -336,7 +336,11 @@
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
             playerData.update({tokens: tokens - blues[pack].cost}).then(() => {
-                tokens -= blues[pack].cost;
+                const tokens_old = tokens;
+                if (tokens != tokens_old - blues[pack].cost) {
+                    tokens -= blues[pack].cost;
+                }
+                
                 console.log("baller")
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
