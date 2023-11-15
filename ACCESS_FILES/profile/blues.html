@@ -549,17 +549,14 @@
 
                 document.getElementById("status").innerHTML = "Logged in as " + doc.data().username + ". <span style='font-weight:bold;'>(Not seing what you expect? Dont worry, your data is saved in our servers.)</span>";
                 document.getElementById("loaded").style.display = "";
-                console.log("ok1");
 
                 playerData.collection("blues").get().then((q) => {
                     //TODO
-                    console.log("ok1.5: " + q.forEach);
                     q.forEach((result) => {
+                        console.log("ok " + result.id);
                         const docElem = document.getElementsByName(result.id)[0];
                         docElem.children[1].classList.add("unlocked");
-                        console.log("ok3 " + docElem.children[1].classList.toString());
                     })
-                    console.log("ok2");
                 })
             })
             
