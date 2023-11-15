@@ -226,27 +226,12 @@
         <div id="loaded" style="display: none;">
             <hr>
             <div id="allPacks">
-                <div class="pack" id="meme">
+                <div class="pack" id="memepack">
                     <img src="../assets/packs/memepack.png" draggable="false" width="128">
                     <p>20 Coins</p>
-                    <!-- onclick="buyPack('meme')" -->
-                    <button onclick="buyPack('meme')">Buy</button>
+                    <button onclick="buyPack('memepack')">Buy</button>
                     <p id="memepackoutput"></p>
                 </div>
-                <div class="pack" id="meme">
-                    <img src="../assets/packs/memepack.png" draggable="false" width="128">
-                    <p>More then you can afford lol</p>
-                    <!-- onclick="buyPack('meme')" -->
-                    <button onclick="buyPack('meme_expens')">Buy</button>
-                    <p id="meme_expenspackoutput"></p>
-                </div>
-                <!-- <div class="pack" id="easter">
-                    <img src="../assets/char/secret/EasterBun_Blue.png" draggable="false" width="128">
-                    <p>FREE!</p>
-                    onclick="buyPack('meme')"
-                    <button id="easterButton">Buy</button>
-                    <p id="easterpackoutput"></p>
-                </div> -->
             </div>
             <!-- <h1 id="timer">0:00:00:00 until new easter blue!</h1> -->
         </div>
@@ -328,24 +313,14 @@
             })
         });
 
-        const packDetails = {
-            meme: {
-                cost: 20,
-                ratelimit: 50
-            },
-            meme_expens: {
-                cost: 1000000,
-                ratelimit: 5
-            }
-        }
+        const ratelimit = 50;
 
         var currentAmountOfLimit = 0;
 
         setInterval(() => {currentAmountOfLimit = 0}, 60000)
 
         function buyPack(pack) {
-            if (currentAmountOfLimit >= packDetails[pack].ratelimit) {
-                console.log("uhoh");
+            if (currentAmountOfLimit >= ratelimit) {
                 alert("You have reached your limit of packs for this minute. Please come back in a minute.");
                 return;
             }
@@ -359,65 +334,70 @@
             playerData.update({tokens: tokens - packDetails[pack].cost}).then(() => {
                 tokens -= packDetails[pack].cost;
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
-                if (pack == "meme") {
 
-                    let item = weighted_random(memepack.allBlues, memepack.allRarities);
-                    console.log(item);
+                ////////////////////////////////////////// TODO: Make new stupid ahh system
+                for (let i = 0; i < window.blues.packs.length; i++) {
+                    const element = window.blues.packs[i];
+                    console.log(element);
+                    // let item = weighted_random(element, element.percent);
+                    // document.getElementById()
+                }
+
+                // if (pack == "meme") {
+
+                //     let item = weighted_random(memepack.allBlues, memepack.allRarities);
+                //     console.log(item);
     
-                    if (item == null) {
-                        buyPack(pack);
-                        return;
-                    }
+                //     if (item == null) {
+                //         buyPack(pack);
+                //         return;
+                //     }
     
-                    document.getElementById("memepackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")";
+                //     document.getElementById("memepackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")";
     
-                    // SAVE BLUE TO ACCOUNT
-                    const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
+                //     // SAVE BLUE TO ACCOUNT
+                //     const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
     
-                    const blueName = item.name;
-                    const blueToAdd = {
-                        chance: item.chance,
-                        rarity: item.rarity,
-                        amount: 1,
-                        pack: "meme"
-                    }
+                //     const blueName = item.name;
+                //     const blueToAdd = {
+                //         amount: 1,
+                //         pack: "meme"
+                //     }
     
-                    currentAmountOfLimit += 1;
+                //     currentAmountOfLimit += 1;
     
-                    playerData.collection("blues").doc(blueName).get().then((doc) => {
-                        if (!doc.exists) {
-                            playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
-                                console.log("successfully saved blue!");
-                            }).catch((error) => {
-                                console.error("Error: " + error);
-                            })
-                        } else {
-                            const blueToAdd_Amount = {
-                                chance: item.chance,
-                                rarity: item.rarity,
-                                amount: doc.data().amount + 1,
-                                pack: "meme"
-                            }
+                //     playerData.collection("blues").doc(blueName).get().then((doc) => {
+                //         if (!doc.exists) {
+                //             playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
+                //                 console.log("successfully saved blue!");
+                //             }).catch((error) => {
+                //                 console.error("Error: " + error);
+                //             })
+                //         } else {
+                //             const blueToAdd_Amount = {
+                //                 amount: doc.data().amount + 1,
+                //                 pack: "meme"
+                //             }
     
-                            playerData.collection("blues").doc(blueName).update(blueToAdd_Amount).then(() => {
-                                console.log("successfully saved blue! + added amount");
-                            }).catch((error) => {
-                                console.error("Error: " + error);
-                            })
-                        }
-                    })
+                //             playerData.collection("blues").doc(blueName).update(blueToAdd_Amount).then(() => {
+                //                 console.log("successfully saved blue! + added amount");
+                //             }).catch((error) => {
+                //                 console.error("Error: " + error);
+                //             })
+                //         }
+                //     })
     
     
-                    //setTimeout(() => {
-                    //    document.location.reload();
-                    //}, 1000);
-                } else if (pack == "easter") {
+                //     //setTimeout(() => {
+                //     //    document.location.reload();
+                //     //}, 1000);
+                
+                if (pack == "easter") {
                     let item = {
                         name: "Rainbow Bunny",
                         chance: "???",
                         rarity: "Mystical"
                     }
-                    console.log(item);
     
                     document.getElementById("easterButton").disabled = true;
     
@@ -439,53 +419,6 @@
                                 console.log("successfully saved blue!");
                             }).catch((error) => {
                                 document.getElementById("easterpackoutput").innerHTML = "Error: " + error;
-                                console.error("Error: " + error);
-                            })
-                        }
-                    })
-                } else if (pack == "meme_expens") {
-    
-                    let item = weighted_random(meme_expens.allBlues, meme_expens.allRarities);
-                    console.log(item);
-    
-                    if (item == null) {
-                        buyPack(pack);
-                        return;
-                    }
-    
-                    document.getElementById("meme_expenspackoutput").innerHTML = "You got a " + item.name + "! (" + item.rarity + " | " + item.chance + ")";
-    
-                    // SAVE BLUE TO ACCOUNT
-                    const playerData = firebase.firestore().collection("users").doc(localStorage.getItem("uid"));
-    
-                    const blueName = item.name;
-                    const blueToAdd = {
-                        chance: item.chance,
-                        rarity: item.rarity,
-                        amount: 1,
-                        pack: "meme"
-                    }
-    
-                    currentAmountOfLimit += 1;
-    
-                    playerData.collection("blues").doc(blueName).get().then((doc) => {
-                        if (!doc.exists) {
-                            playerData.collection("blues").doc(blueName).set(blueToAdd).then(() => {
-                                console.log("successfully saved blue!");
-                            }).catch((error) => {
-                                console.error("Error: " + error);
-                            })
-                        } else {
-                            const blueToAdd_Amount = {
-                                chance: item.chance,
-                                rarity: item.rarity,
-                                amount: doc.data().amount + 1,
-                                pack: "memes"
-                            }
-    
-                            playerData.collection("blues").doc(blueName).update(blueToAdd_Amount).then(() => {
-                                console.log("successfully saved blue! + added amount");
-                            }).catch((error) => {
                                 console.error("Error: " + error);
                             })
                         }
