@@ -434,7 +434,10 @@
             if (!img.className.includes("unlocked")) {return;}
 
             // TODO
-            
+            name_display.innerHTML = blueDiv.getAttribute("name");
+            img_display.src = img.src;
+            rarity_display.innerHTML = blueJSON.packs[counter.getAttribute("data-rarity")];
+            amount_owned_display.innerHTML = counter.innerHTML + " Owned";
         }
 
         function onlyNumbers(num){
@@ -552,7 +555,6 @@
                 document.getElementById("loaded").style.display = "";
 
                 playerData.collection("blues").get().then((q) => {
-                    //TODO
                     q.forEach((result) => {
                         const docElem = document.getElementsByName(result.id)[0];
                         if (result.data().amount != 0) {
