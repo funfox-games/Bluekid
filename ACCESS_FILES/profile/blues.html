@@ -482,6 +482,8 @@
             const amount = currentBlue_amount;
             const amountOfTokensFor1 = getTokensFromRarity(rarity);
 
+            console.log("AAAAAA: " + amountOfTokensFor1);
+
             const amountOfTokensForChossenAmount = amountOfTokensFor1 * amountToSell.value;
 
             console.log(amountOfTokensFor1, amountOfTokensForChossenAmount);
@@ -500,7 +502,8 @@
                             userdata.collection("blues").doc(name_display.innerHTML).update({amount: useramount -  amountToSell.value}).then(() => {
                                 console.log("removed the blue amount for newbie");
 
-                                location.reload();
+                                // location.reload();
+                                console.log("should reload.")
                             })
                         })
                     });
