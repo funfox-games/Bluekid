@@ -472,7 +472,7 @@
         function sellBlueForTokens() {
             const amount_ = document.getElementById("sellPopup").children[1].children[1];
             const amountToSell = document.getElementById("sellPopup").children[1].children[0];
-            amount_.innerHTML = "/" + 
+            amount_.innerHTML = "/" + currentBlue_amount;
             if (amountToSell.value > amountToSell.max) {
                 console.log("TOO MUCH!");
                 amountToSell.value = amountToSell.max;
