@@ -437,10 +437,8 @@
             // TODO
             name_display.innerHTML = blueDiv.getAttribute("name");
             img_display.src = img.src;
-            LoggingJS.tryFunction(() => {
-                rarity_display.innerHTML = counter.getAttribute("data-rarity");
-                amount_owned_display.innerHTML = counter.innerHTML + " Owned";
-            })
+            rarity_display.innerHTML = counter.getAttribute("data-rarity");
+            amount_owned_display.innerHTML = counter.innerHTML + " Owned";
         }
 
         function onlyNumbers(num){
