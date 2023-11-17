@@ -435,6 +435,8 @@
             if (!img.className.includes("unlocked")) {return;}
 
             // TODO
+            currentBlue_amount = counter.innerHTML;
+
             name_display.innerHTML = blueDiv.getAttribute("name");
             img_display.src = img.src;
             rarity_display.innerHTML = counter.getAttribute("data-rarity");
@@ -468,7 +470,9 @@
         }
 
         function sellBlueForTokens() {
+            const amount_ = document.getElementById("sellPopup").children[1].children[1];
             const amountToSell = document.getElementById("sellPopup").children[1].children[0];
+            amount_.innerHTML = "/" + 
             if (amountToSell.value > amountToSell.max) {
                 console.log("TOO MUCH!");
                 amountToSell.value = amountToSell.max;
