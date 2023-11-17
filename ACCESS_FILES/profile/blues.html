@@ -438,7 +438,7 @@
             name_display.innerHTML = blueDiv.getAttribute("name");
             img_display.src = img.src;
             LoggingJS.tryFunction(() => {
-                rarity_display.innerHTML = blueJSON.packs[counter.getAttribute("data-rarity")];
+                rarity_display.innerHTML = counter.getAttribute("data-rarity");
                 amount_owned_display.innerHTML = counter.innerHTML + " Owned";
             })
         }
