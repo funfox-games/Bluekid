@@ -437,8 +437,10 @@
             // TODO
             name_display.innerHTML = blueDiv.getAttribute("name");
             img_display.src = img.src;
-            rarity_display.innerHTML = blueJSON.packs[counter.getAttribute("data-rarity")];
-            amount_owned_display.innerHTML = counter.innerHTML + " Owned";
+            LoggingJS.tryFunction(() => {
+                rarity_display.innerHTML = blueJSON.packs[counter.getAttribute("data-rarity")];
+                amount_owned_display.innerHTML = counter.innerHTML + " Owned";
+            })
         }
 
         function onlyNumbers(num){
