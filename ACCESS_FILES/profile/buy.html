@@ -348,7 +348,9 @@
                 let percents = [];
                 const item = weighted_random(blues.packs[pack], blues[pack].allRarities);
                 console.log("Line 350: " + item.name);
-                document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
+                LoggingJS.tryFunction(() => {
+                    document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
+                })
 
                 // if (pack == "meme") {
 
