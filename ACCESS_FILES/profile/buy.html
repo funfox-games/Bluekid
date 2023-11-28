@@ -334,8 +334,6 @@
                 return;
             }
 
-            console.log(blues[pack].cost);
-
             const tokens_old = tokens;
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
@@ -347,15 +345,13 @@
                 document.getElementById("tokenAmount").innerHTML = tokens.toLocaleString();
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
+                let percents = [];
                 for (let i = 0; i < blues.packs.length; i++) {
                     const element = blues.packs[i];
-                    console.log(element);
-                    let item = weighted_random(element, element.percent);
-                    // document.getElementById()
-                    console.log(item);
-                    
+                    percents.concat(element.percent);
                 }
-               
+                
+                console.log(percents);
 
                 // if (pack == "meme") {
 
