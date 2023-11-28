@@ -21,6 +21,15 @@
             font-family: 'Nunito', sans-serif;
         }
 
+        @keyframes popIn {
+            from {
+                scale:0
+            }
+            to{
+                scale:1;
+            }
+        }
+
         ul {
             list-style-type: none;
             margin: 0;
@@ -348,9 +357,8 @@
                 let percents = [];
                 const item = weighted_random(blues.packs[pack], blues[pack].allRarities);
                 console.log("Line 350: " + item.name);
-                LoggingJS.tryFunction(() => {
-                    document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
-                })
+                document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
+                document.getElementById(pack+"output").style.animation = "popIn 1s forward";
 
                 // if (pack == "meme") {
 
