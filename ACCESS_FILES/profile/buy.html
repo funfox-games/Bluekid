@@ -199,6 +199,9 @@
             top:0;
             z-index: -9;
         }
+        .packoutput.pop {
+            animation: popIn 1s 1s forwards;
+        }
     </style>
 </head>
 <body>
@@ -241,7 +244,7 @@
                     <img src="../assets/packs/memepack.png" draggable="false" width="128">
                     <p>20 Coins</p>
                     <button onclick="buyPack('memepack')">Buy</button>
-                    <p id="memepackoutput"></p>
+                    <p id="memepackoutput" class="packoutput"></p>
                 </div>
             </div>
             <!-- <h1 id="timer">0:00:00:00 until new easter blue!</h1> -->
@@ -358,7 +361,10 @@
                 const item = weighted_random(blues.packs[pack], blues[pack].allRarities);
                 console.log("Line 350: " + item.name);
                 document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
-                document.getElementById(pack+"output").style.animation = "popIn 1s forward";
+                document.getElementById(pack+"output").classList.add("pop");
+                
+                setTimeout(() => document.getElementById(pack+"output").classList.remove("pop"), 100);
+
 
                 // if (pack == "meme") {
 
