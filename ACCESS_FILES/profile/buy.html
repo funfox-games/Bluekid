@@ -333,6 +333,9 @@
                 alert("Not enough tokens!");
                 return;
             }
+
+            console.log(blues[pack].cost);
+
             const tokens_old = tokens;
 
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
@@ -346,12 +349,10 @@
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
                 for (let i = 0; i < blues.packs.length; i++) {
                     const element = blues.packs[i];
-                    LoggingJS.tryFunction(() => {
-                        console.log(element);
-                        let item = weighted_random(element, element.percent);
-                        // document.getElementById()
-                        console.log(item);
-                    })
+                    console.log(element);
+                    let item = weighted_random(element, element.percent);
+                    // document.getElementById()
+                    console.log(item);
                     
                 }
                
