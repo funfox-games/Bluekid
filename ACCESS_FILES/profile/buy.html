@@ -200,7 +200,7 @@
             z-index: -9;
         }
         .pop {
-            animation: 2s popIn normal ease-in-out;
+            animation: 250ms popIn normal ease-in-out;
         }
     </style>
 </head>
@@ -348,6 +348,8 @@
 
             const tokens_old = tokens;
 
+            document.getElementById(pack+"output").classList.remove("pop");
+
             const playerData = firebase.firestore().collection("users").doc( firebase.auth().currentUser.uid );
             playerData.update({tokens: tokens - blues[pack].cost}).then(() => {
                 if (tokens != tokens_old - blues[pack].cost) {
@@ -363,7 +365,7 @@
                 document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
                 document.getElementById(pack+"output").classList.add("pop");
                 
-                setTimeout(() => document.getElementById(pack+"output").classList.remove("pop"), 2025);
+                setTimeout(() => document.getElementById(pack+"output").classList.remove("pop"), 260);
 
 
                 // if (pack == "meme") {
