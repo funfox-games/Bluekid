@@ -1,6 +1,7 @@
 {
     "memepack": {
-        "cost": 20
+        "cost": 20,
+        "allRarities": [25, 15, 10, 7, 5, 2, 0.05]
     },
     "packs": {
         "memepack": [

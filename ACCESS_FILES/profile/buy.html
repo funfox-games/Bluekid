@@ -346,13 +346,8 @@
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
                 let percents = [];
-                for (let i = 0; i < blues.packs[pack].length; i++) {
-                    const element = blues.packs[pack][i];
-                    // console.log("Line 351: " + element.percent);
-                    percents.concat(element.percent);
-                }
-                
-                console.log("Line 355: " + percents);
+                const item = weighted_random(blues.packs[pack], blues[pack].allRarities);
+                console.log("Line 350: " + item);
 
                 // if (pack == "meme") {
 
