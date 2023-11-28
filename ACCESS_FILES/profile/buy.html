@@ -336,6 +336,8 @@
 
         setInterval(() => {currentAmountOfLimit = 0}, 60 * 1000)
 
+        let canOpen = true;
+
         function buyPack(pack) {
             if (currentAmountOfLimit >= ratelimit) {
                 alert("You have reached your limit of packs for this minute. Please come back in a minute.");
@@ -343,6 +345,10 @@
             }
             if (tokens < blues[pack].cost) {
                 alert("Not enough tokens!");
+                return;
+            }
+            if (!canOpen) { 
+                alert("You already opened a pack and is currently trying to save. Please try again.");
                 return;
             }
 
@@ -364,9 +370,26 @@
                 console.log("Line 350: " + item.name);
                 document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
                 document.getElementById(pack+"output").classList.add("pop");
+
+                canOpen = false;
                 
                 setTimeout(() => document.getElementById(pack+"output").classList.remove("pop"), 260);
 
+                playerData.collection("blues").doc(item.name).get((snapshot) => {
+                    if (snapshot.exists()) {
+                        playerData.collection("blues").doc(item.name).update({
+                            amount: snapshot.data().amount + 1
+                        }).then(() => {
+                            canOpen = true;
+                        });
+                    } else {
+                        playerData.collection("bleus").doc(item.name).set({
+                            amount: 1
+                        }).then(() => {
+                            canOpen = true;
+                        })
+                    }
+                })
 
                 // if (pack == "meme") {
 
