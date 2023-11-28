@@ -385,8 +385,13 @@
                     } else {
                         playerData.collection("bleus").doc(item.name).set({
                             amount: 1
-                        }).then(() => {
-                            canOpen = true;
+                        }, (error) => {
+                            if (error) {
+                                // The write failed...
+                            } else {
+                                // Data saved successfully!
+                                canOpen = true;
+                            }
                         })
                     }
                 })
