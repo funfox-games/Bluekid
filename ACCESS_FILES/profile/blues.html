@@ -345,25 +345,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="pack" id="memespack">
-                    <h2>Expensive Meme Pack</h2>
-                    <div class="divider"></div>
-                    <!-- <p id="memepacktext"></p> -->
-                    <div class="blues" id="memeblues">
-                        <div class="blue" id="expensive_borzi" name="Expensive Borzi" onclick="clickBlue('expensive_borzi')">
-                            <p class="number" data-rarity="Lengendary">0</p>
-                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
-                        </div>
-                        <div class="blue" id="expensive_troll" name="Expensive Troll" onclick="clickBlue('expensive_troll')">
-                            <p class="number" data-rarity="Lengendary">0</p>
-                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
-                        </div>
-                        <div class="blue" id="expensive_rick" name="Expensive Rick" onclick="clickBlue('expensive_rick')">
-                            <p class="number" data-rarity="Mystical">0</p>
-                            <img class="blueimg" draggable="false" src="../assets/char/blue_notexture.png" width="64">
-                        </div>
-                    </div>
-                </div>
                 <div class="pack" id="secretblues">
                     <h2>Secret / Limited Time</h2>
                     <div class="divider"></div>
@@ -409,10 +390,10 @@
 
     <script type="module">
         import data from "../banned.json" assert {"type": "json"};
-        import blueJSON from "../blues.json" assert {"type": "json"}; 
+        import blue__ from "../blues_data.json" assert {"type": "json"}; 
 
         window.bannedData = data;
-        window.blueJSON = blueJSON;
+        window.blue__ = blue__;
     </script>
     <script>
         let loggedinuser;
@@ -566,7 +547,11 @@
                     q.forEach((result) => {
                         const docElem = document.getElementsByName(result.id)[0];
                         if (result.data().amount != 0) {
+                            console.log(result.id);
                             docElem.children[1].classList.add("unlocked");
+                        }
+                        if (blue__.secret.names.includes( result.id )) {
+                            document.getElementById("secretblues").style.display = "unset";
                         }
                         docElem.children[0].innerHTML = result.data().amount;
                     })

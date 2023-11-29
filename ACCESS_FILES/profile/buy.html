@@ -114,7 +114,7 @@
         }
 
         .pack button:hover {
-            font-size: 20px;
+            scale:1.1;
             rotate: 2.5deg;
             background-color: #d4ffd0;
             font-weight: 700;
@@ -202,6 +202,9 @@
         .pop {
             animation: 250ms popIn normal ease-in-out;
         }
+        .packoutput {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -230,6 +233,8 @@
         </div>
     </div>
 
+    <!-- <canvas id="confetti"></canvas> -->
+
     <div id="tokens">
         <img draggable="false" style="rotate: 15deg;" src="../assets/bluekid-tokens.png" width="48">
         <strong id="tokenAmount">0</strong>
@@ -241,9 +246,9 @@
             <hr>
             <div id="allPacks">
                 <div class="pack" id="memepack">
-                    <img src="../assets/packs/memepack.png" draggable="false" width="128">
-                    <p>20 Coins</p>
-                    <button onclick="buyPack('memepack')">Buy</button>
+                    <img src="../assets/packs/memepack.png" draggable="false" width="160">
+                    <p style="font-size:26px">20 Coins</p>
+                    <button style="font-size:26px" onclick="buyPack('memepack')">Buy</button>
                     <p id="memepackoutput" class="packoutput"></p>
                 </div>
             </div>
@@ -256,6 +261,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../snow.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script>
       // NOTE - INCLUDE YOUR FIREBASE CONFIG HERE FOR ANYTHING TO WORK:
       const firebaseConfig = {
@@ -288,6 +294,8 @@
 
         const email = localStorage.getItem("email");
         var tokens = 0;
+
+        const jsConfetti = new JSConfetti();
 
         //memepackBlues[Math.floor(Math.random() * (5 - 0 + 1)) + 0];
 
@@ -366,32 +374,40 @@
 
                 ////////////////////////////////////////// TODO: Make new stupid ahh system
                 let percents = [];
-                const item = weighted_random(blues.packs[pack], blues[pack].allRarities);
-                console.log("Line 350: " + item.name);
+                let item = weighted_random(blues.packs[pack], blues[pack].allRarities);
+                while (item == null || item == undefined) {
+                    item = weighted_random(blues.packs[pack], blues[pack].allRarities);
+                }
                 document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
                 document.getElementById(pack+"output").classList.add("pop");
+                if (item.percent < 1) {
+                    //aa
+                    
+                    jsConfetti.addConfetti({
+                        confettiNumber: 250,
+                    });
+                }
 
                 canOpen = false;
                 
                 setTimeout(() => document.getElementById(pack+"output").classList.remove("pop"), 260);
 
-                playerData.collection("blues").doc(item.name).get((snapshot) => {
-                    if (snapshot.exists()) {
+                playerData.collection("blues").doc(item.name).get().then((snapshot) => {
+                    if (snapshot.exists) {
                         playerData.collection("blues").doc(item.name).update({
                             amount: snapshot.data().amount + 1
                         }).then(() => {
                             canOpen = true;
+                        }).catch((err) => {
+                            alert(err);
                         });
                     } else {
                         playerData.collection("bleus").doc(item.name).set({
                             amount: 1
-                        }, (error) => {
-                            if (error) {
-                                // The write failed...
-                            } else {
-                                // Data saved successfully!
-                                canOpen = true;
-                            }
+                        }).then(() => {
+                            canOpen = true;
+                        }).catch((err) => {
+                            alert(err);
                         })
                     }
                 })

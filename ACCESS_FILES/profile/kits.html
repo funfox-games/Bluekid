@@ -90,9 +90,11 @@
             border: 2px solid black;
         }
 
+
+
         div#topnav_ button#createkit {
             padding: 5px;
-            background-color: #ffffff77;
+            background-color: #86868677;
             border-radius: 10px;
             display: inline-block;
 
@@ -102,10 +104,29 @@
 
         div#topnav_ button#createkit:hover {
             padding: 6.5px;
-            background-color: #b1b1b1a2;
+            background-color: #3f3f3fa2;
             border-radius: 10px;
             display: inline-block;
         }
+
+        div#topnav_ button#importkit {
+            padding: 5px;
+            background-color: #ad84c0;
+            border-radius: 10px;
+            display: inline-block;
+
+            transition-duration: 300ms;
+            cursor:pointer;
+        }
+
+        div#topnav_ button#importkit:hover {
+            padding: 6.5px;
+            background-color: #846592;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+
 
         div#topnav_ button#deletekits {
             padding: 5px;
@@ -243,6 +264,7 @@
             <hr>
             <div id="topnav_">
                 <a href="./create.html"><button id="createkit">Create kit</button></a>
+                <button id="importkit">Import Kit</button>
                 <!-- <button id="deletekits">Delete kits</button> -->
                 <p id="kitsfound" style="margin: 2px; padding: 0;">0 kits found.</p>
             </div>
@@ -250,7 +272,7 @@
                 <div class="kit" id="examplekit">
                     <h1 class="kittitle">Title</h1>
                     <p class="kitdesc">Description | Author</p>
-                    <button class="kitbutton" style="background-color:#82fc9d;">Create game</button>
+                    <!-- <button class="kitbutton" style="background-color:#82fc9d;">Create game</button> -->
                     <button class="kitbutton" style="background-color:#98deff;">Edit kit</button>
                     <button class="kitbutton" style="background-color:#ff9898;">Delete kit</button>
                 </div>
@@ -337,14 +359,14 @@
                         clone.children[0].innerHTML = data.displayname;
                         clone.children[1].innerHTML = data.description + " | Made by: " + data.author;
                         //clone.children[2].disabled = true;
-                        clone.children[2].onclick = function() { //HOST
-                            sessionStorage.setItem("kitName", id);
-                            location.href = "../game/gamemode.html";
-                        }
-                        clone.children[3].onclick = function() {
+                        //clone.children[2].onclick = function() { //HOST
+                        //    sessionStorage.setItem("kitName", id);
+                        //    location.href = "../game/gamemode.html";
+                        //}
+                        clone.children[2].onclick = function() {
                             location.href = "./edit.html?kit="+id;
                         }
-                        clone.children[4].onclick = function() {
+                        clone.children[3].onclick = function() {
                             deleteKit(id, true, true, data.displayname);
                         }
 

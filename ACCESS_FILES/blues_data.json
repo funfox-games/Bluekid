@@ -3,6 +3,9 @@
         "cost": 20,
         "allRarities": [25, 15, 10, 7, 5, 2, 0.05]
     },
+    "secret": {
+        "names": ["Rainbow Bunny"]
+    },
     "packs": {
         "memepack": [
             {
