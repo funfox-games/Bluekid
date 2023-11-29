@@ -590,8 +590,9 @@
                 playerData.collection("blues").get().then((q) => {
                     q.forEach((result) => {
                         const docElem = document.getElementsByName(result.id)[0];
+                        console.log(result.id);
                         if (result.data().amount != 0) {
-                            console.log(result.id);
+                            // console.log(result.id);
                             docElem.children[1].classList.add("unlocked");
                         }
                         if (blue__.secret.names.includes( result.id )) {
