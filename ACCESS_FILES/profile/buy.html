@@ -299,6 +299,23 @@
 
         //memepackBlues[Math.floor(Math.random() * (5 - 0 + 1)) + 0];
 
+        function getColorBasedOnRarity(rarity) {
+            switch (rarity) {
+                case "Common":
+                    return "grey";
+                case "Uncommon":
+                    return "greenyellow";
+                case "Rare":
+                    return "rgb(0, 89, 255)";
+                case "Lengendary":
+                    return "gold";
+                case "Mystical":
+                    return "rgb(0, 204, 255)";
+                default:
+                    return "grey";
+            }
+        }
+
         firebase.auth().onAuthStateChanged((user) => {
             // signed in
             console.log("signed in password: " + user.uid)
@@ -378,7 +395,7 @@
                 while (item == null || item == undefined) {
                     item = weighted_random(blues.packs[pack], blues[pack].allRarities);
                 }
-                document.getElementById(pack+"output").innerHTML = "Got \"" + item.name + "\" (" + item.percent +"%)";
+                document.getElementById(pack+"output").innerHTML = "Got <span style='background-color: " + getColorBasedOnRarity(item.rarity) + "'>\"" + item.name + "\"</span> (" + item.percent +"%)";
                 document.getElementById(pack+"output").classList.add("pop");
                 if (item.percent < 1) {
                     //aa
