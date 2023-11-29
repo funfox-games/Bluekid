@@ -395,7 +395,7 @@
                 while (item == null || item == undefined) {
                     item = weighted_random(blues.packs[pack], blues[pack].allRarities);
                 }
-                document.getElementById(pack+"output").innerHTML = "Got <span style='background-color: " + getColorBasedOnRarity(item.rarity) + "'>\"" + item.name + "\"</span> (" + item.percent +"%)";
+                document.getElementById(pack+"output").innerHTML = "Got <span style='padding:5px;border-radius:5px;background-color: " + getColorBasedOnRarity(item.rarity) + "'>\"" + item.name + "\"</span> (" + item.percent +"%)";
                 document.getElementById(pack+"output").classList.add("pop");
                 if (item.percent < 1) {
                     //aa
