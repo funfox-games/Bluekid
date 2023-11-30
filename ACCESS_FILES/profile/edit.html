@@ -370,7 +370,7 @@
 
         function downloadJSONFile() {
 
-            const storageObj = `{"displayname": "${kit_title_display.innerHTML.replace("Title: ")}", "description": "${currentKitDesc}" "questions": ${questions__all}}`;
+            const storageObj = `{"displayname": "${currentKitName}", "description": "${currentKitDesc}" "questions": ${questions__all}}`;
             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageObj));
 
             const element = document.createElement("a");
