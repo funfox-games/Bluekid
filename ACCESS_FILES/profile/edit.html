@@ -324,6 +324,7 @@
         let username;
         let currentKitDesc;
         let currentKitName;
+        var questions__all = [];
 
         const urlParams = new URLSearchParams(window.location.search);
 
@@ -368,12 +369,13 @@
         }
 
         function downloadJSONFile() {
-            const storageObj = `{"hello": "world"}`;
+
+            const storageObj = `{"displayname": "${kit_title_display.innerHTML.replace("Title: ")}", "description": "${currentKitDesc}" "questions": ${questions__all}}`;
             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageObj));
 
             const element = document.createElement("a");
             element.href = dataStr;
-            element.setAttribute("download", kit_title_display.innerHTML+".json");
+            element.setAttribute("download", kit_title_display.innerHTML.replace("Title: ")+".json");
             element.click();
         }
 
@@ -402,6 +404,15 @@
                     let A2 = As.children[1];
                     let A3 = As.children[2];
                     let A4 = As.children[3];
+
+                    questions__all.concat({
+                        qText: question.question,
+                        a1: question["1"],
+                        a2: question["2"],
+                        a3: question["3"],
+                        a4: question["4"],
+                        correct: question.correctA
+                    })
 
                     questiontext.innerHTML = question.question;
 
