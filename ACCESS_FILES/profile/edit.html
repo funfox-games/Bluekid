@@ -369,8 +369,31 @@
         }
 
         function downloadJSONFile() {
+            var AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA = `[`;
+            questions__all.forEach((value, index, questions__all) => {
+                if (index == questions__all.length-1) {
+                    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA += `{
+                        "qText": "${value.qText}",
+                        "a1": "${value.a1}",
+                        "a2": "${value.a2}",
+                        "a3": "${value.a3}",
+                        "a4": "${value.a4}",
+                        "correct": "${value.correct},
+                    }]`;
+                    return;
+                }
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA += `{
+                    "qText": "${value.qText}",
+                    "a1": "${value.a1}",
+                    "a2": "${value.a2}",
+                    "a3": "${value.a3}",
+                    "a4": "${value.a4}",
+                    "correct": "${value.correct},
+                },`
+            })
 
-            const storageObj = `{"displayname": "${currentKitName}", "description": "${currentKitDesc}" "questions": ${questions__all.toString()}}`;
+            const storageObj = `{"displayname": "${currentKitName}", "description": "${currentKitDesc}" "questions": ${AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA}}`;
+
             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageObj));
 
             const element = document.createElement("a");
