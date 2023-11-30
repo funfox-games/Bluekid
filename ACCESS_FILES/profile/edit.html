@@ -240,7 +240,7 @@
                 <div id="questions_top">
                     <h2 id="questionAmount">0 Questions</h2>
                     <button onclick="initPopup('addQuestion')">Add question</button>
-                    <button onclick="alert('aaahhahhhahhahhhahah')">Export Questions</button>
+                    <button style="background-color: #ad84c0;" onclick="downloadJSONFile()">Export Questions</button>
                 </div>
                 <hr>
 
@@ -365,6 +365,11 @@
 
         function initPopup(id) {
             document.getElementById(id).style.visibility = 'visible';
+        }
+
+        function downloadJSONFile() {
+            const element = document.createElement("iframe");
+            element.src = `{"ok": "waht"}`;
         }
 
         window.onload = getQuestions();
