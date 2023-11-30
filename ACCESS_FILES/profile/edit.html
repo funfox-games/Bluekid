@@ -368,8 +368,12 @@
         }
 
         function downloadJSONFile() {
-            const element = document.createElement("iframe");
-            element.src = `{"ok": "waht"}`;
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(storageObj));
+
+            const element = document.createElement("a");
+            element.href = dataStr;
+            element.setAttribute("download", kit_title_display.innerHTML+".json");
+            element.click();
         }
 
         window.onload = getQuestions();
