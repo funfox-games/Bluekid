@@ -375,7 +375,7 @@
 
             const element = document.createElement("a");
             element.href = dataStr;
-            element.setAttribute("download", kit_title_display.innerHTML.replace("Title: ")+".json");
+            element.setAttribute("download", currentKitName+".json");
             element.click();
         }
 
