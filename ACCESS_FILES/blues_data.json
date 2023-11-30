@@ -68,7 +68,7 @@
                 "chance": "20%",
                 "rarity": "Common",
                 "percent": 20,
-                "imgPath": "blue_notexture.png"
+                "imgPath": "christmas/blue_elf.png"
             },
             {
                 "name": "Christmas Tree",
