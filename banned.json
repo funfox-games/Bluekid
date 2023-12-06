@@ -1,4 +1,8 @@
 {
     "bannedEmailaddresses": [
+        {
+            "email": "0gonzalezs@libertyunion.org",
+            "reason": "testing lol"
+        }
     ]
 }
