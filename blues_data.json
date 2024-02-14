@@ -61,57 +61,6 @@
                 "percent": 0.05,
                 "imgPath": "meme/blue_jack"
             }
-        ],
-        "christmaspack": [
-            {
-                "name": "Elf",
-                "chance": "20%",
-                "rarity": "Common",
-                "percent": 20,
-                "imgPath": "christmas/blue_elf.png"
-            },
-            {
-                "name": "Christmas Tree",
-                "chance": "15%",
-                "rarity": "Common",
-                "percent": 15,
-                "imgPath": "blue_notexture.png"
-            },
-            {
-                "name": "Reindeer",
-                "chance": "10%",
-                "rarity": "Uncommon",
-                "percent": 10,
-                "imgPath": "blue_notexture.png"
-            },
-            {
-                "name": "Present",
-                "chance": "5%",
-                "rarity":"Rare",
-                "percent": 5,
-                "imgPath": "blue_notexture.png"
-            },
-            {
-                "name": "Candy Cane",
-                "chance": "3%",
-                "rarity":"Rare",
-                "percent": 3,
-                "imgPath": "blue_notexture.png"
-            },
-            {
-                "name": "The Grinch",
-                "chance": "1%",
-                "rarity": "Lengendary",
-                "percent": 1,
-                "imgPath": "blue_notexture.png"
-            },
-            {
-                "name": "Santa",
-                "chance": "0.03%",
-                "rarity": "Mystical",
-                "percent": 0.03,
-                "imgPath": "blue_notexture.png"
-            }
         ]
     }
 }
