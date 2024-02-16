@@ -14,3 +14,7 @@ body{
     padding: 15px;
     background-color: grey;
 }
+.topnav_item{
+    align-items: center;
+    justify-content: center;
+}
