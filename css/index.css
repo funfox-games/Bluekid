@@ -10,10 +10,7 @@ body{
     top:0;
     width: 100vw;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 15px;
     background-color: grey;
-}
-.topnav_item a{
-    text-align: center;
 }
