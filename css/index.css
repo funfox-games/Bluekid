@@ -17,4 +17,5 @@ body{
 .topnav_item{
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
