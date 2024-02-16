@@ -1,9 +1,6 @@
 h1,h2,h3,h4,h5,h6,p {
     margin: 0;
 }
-body{
-    /* overflow-x: hidden; */
-}
 #topnav {
     position: absolute;
     left:0;
@@ -13,7 +10,4 @@ body{
     justify-content: space-around;
     padding: 15px;
     background-color: grey;
-}
-.topnav_item{
-    width:fit-content + 20px;
 }
