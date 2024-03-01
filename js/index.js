@@ -3,4 +3,4 @@ const onLoad = () => {
     document.getElementById("topnav_blur").style.height = document.getElementById("topnav").clientHeight + " px";
 }
 
-document.body.onload = onLoad;
+document.body.addEventListener("load", onLoad);
