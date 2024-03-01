@@ -2,13 +2,23 @@ h1,h2,h3,h4,h5,h6,p {
     margin: 0;
 }
 #topnav {
-    position: absolute;
+    position: fixed;
     left:0;
     top:0;
     width: 100vw;
     display:flex;
     justify-content: space-around;
     padding: 15px;
-    background-color: grey;
+    height: 100px;
+    z-index: 3;
+    /* background-color: grey; */
+}
+#topnav_blur{
+    z-index: 2;
     filter: blur(6px);
+    position: fixed;
+    left:0;
+    top:0;
+    width:100vw;
+    height: 100px;
 }
