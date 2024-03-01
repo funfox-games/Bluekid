@@ -28,12 +28,6 @@ h1,h2,h3,h4,h5,h6,p {
 #topnav a:hover {
     text-decoration: wavy;
 }
-/* #topnav_blur{
-    z-index: 2;
-    filter: blur(6px);
-    position: fixed;
-    left:0;
-    top:0;
-    width:100vw;
-    padding: 15px;
-} */
+.blue {
+    color: #34c5ff;
+}
