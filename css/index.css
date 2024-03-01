@@ -21,7 +21,7 @@ h1,h2,h3,h4,h5,h6,p {
     transition-duration: 250ms;
 }
 #topnav a:hover {
-    scale: 1.2;
+    text-decoration: wavy;
 }
 /* #topnav_blur{
     z-index: 2;
