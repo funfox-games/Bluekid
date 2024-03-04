@@ -1,8 +1,10 @@
 :root {
     --primary-color: #0073ff;
     --primary-color-hover: #2a8aff;
+    --primary-color-outline: #91c2ff;
     --secondary-color: #d2d2d2;
     --secondary-color-hover: #f0f0f0;
+    --secondary-color-outline: #939393;
 }
 .puffy_button{
     --side-padding: 40px;
@@ -16,6 +18,7 @@
     font-size: 20px;
     color: white;
     cursor:pointer;
+    border-style: solid;
 }
 button,
 button:active,
@@ -24,11 +27,14 @@ button:focus {
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
+    border: 1px solid var(--primary-color-outline);
 }
 .puffy_button.primary:hover{
     background-color: var(--primary-color-hover);
 }
-
+.puffy_button.secondary {
+    background-color: var(--secondary-color-outline);
+}
 .puffy_button.secondary:hover {
     background-color: var(--secondary-color-hover);
 }
