@@ -27,13 +27,16 @@ button:focus {
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
-    border: 1px solid var(--primary-color-outline);
+    border: 3px solid var(--primary-color-outline);
+
 }
 .puffy_button.primary:hover{
     background-color: var(--primary-color-hover);
 }
 .puffy_button.secondary {
-    background-color: var(--secondary-color-outline);
+    background-color: var(--secondary-color);
+    border: 3px solid var(--secondary-color-outline);
+
 }
 .puffy_button.secondary:hover {
     background-color: var(--secondary-color-hover);
