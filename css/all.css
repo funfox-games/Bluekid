@@ -17,6 +17,7 @@
     color: white;
     cursor:pointer;
     border-style: solid;
+    border: 0px transparent black;
 }
 .puffy_button:hover{
     filter:brightness(110%);
