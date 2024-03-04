@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #4681f4;
-    --primary-color-outline: #2b519d;
+    --primary-color: #1677ff;
+    --primary-color-outline: #1154b3;
     --secondary-color: #6b6b6b;
     --secondary-color-outline: #808080;
 }
@@ -19,7 +19,7 @@
     border-style: solid;
 }
 .puffy_button:hover{
-    filter:brightness(120%);
+    filter:brightness(110%);
 }
 button,
 button:active,
@@ -43,7 +43,7 @@ a.primary {
     color: var(--primary-color);
 }
 a:hover{
-    filter:brightness(120%);
+    filter:brightness(110%);
 }
 .white {
     color:white;
