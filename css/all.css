@@ -2,8 +2,8 @@
     --primary-color: #0073ff;
     --primary-color-hover: #2a8aff;
     --primary-color-outline: #006aff;
-    --secondary-color: #b3b3b3;
-    --secondary-color-hover: #aaaaaa;
+    --secondary-color: #6b6b6b;
+    --secondary-color-hover: rgb(91, 91, 91);
     --secondary-color-outline: #808080;
 }
 .puffy_button{
