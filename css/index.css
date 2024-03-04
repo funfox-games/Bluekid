@@ -3,12 +3,12 @@ h1,h2,h3,h4,h5,h6,p {
 }
 body {
     background-image: linear-gradient(#b9e4ff, #83a2b6);
+    background-size: cover;
 }
 section {
     box-shadow: 10px 10px 15px -6px rgba(0,0,0,1);
     padding: 15px;
     border-radius: 5px;
-    border:2px solid black;
 }
 #topnav {
     position: fixed;
