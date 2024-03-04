@@ -41,3 +41,12 @@ button:focus {
 .puffy_button.secondary:hover {
     background-color: var(--secondary-color-hover);
 }
+a {
+    transition-duration: 250ms;
+}
+a.primary {
+    color: var(--primary-color);
+}
+a:hover{
+    filter:brightness(20%);
+}
