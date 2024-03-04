@@ -1,0 +1,23 @@
+:root {
+    --primary-color: #4ecdff;
+    --primary-color-hover: #76dbff;
+    --secondary-color: #d2d2d2;
+    --secondary-color-hover: #f0f0f0;
+}
+.puffy_button{
+    padding: 15px;
+    border-radius: 5px;
+    transition-duration: 250ms;
+    background-color: var(--secondary-color);
+    outline: 1px solid black;
+}
+.puffy_button.primary {
+    background-color: var(--primary-color);
+}
+.puffy_button.primary:hover{
+    background-color: var(--primary-color-hover);
+}
+
+.puffy_button.secondary:hover {
+    background-color: var(--secondary-color-hover);
+}
