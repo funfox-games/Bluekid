@@ -17,8 +17,10 @@
     color: white;
     cursor:pointer;
 }
-.puffy_button:focus {
-    outline: 1px solid black;
+button,
+button:active,
+button:focus {
+  outline: none;
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
