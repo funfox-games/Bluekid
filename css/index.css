@@ -1,6 +1,9 @@
 h1,h2,h3,h4,h5,h6,p {
     margin: 0;
 }
+body {
+    background-image: linear-gradient(#b9e4ff, #83a2b6);
+}
 #topnav {
     position: fixed;
     left:0;
