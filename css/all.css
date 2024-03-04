@@ -28,12 +28,12 @@ button:focus {
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
-    border: 3px solid var(--primary-color-outline);
+    /* border: 3px solid var(--primary-color-outline); */
 
 }
 .puffy_button.secondary {
     background-color: var(--secondary-color);
-    border: 3px solid var(--secondary-color-outline);
+    /* border: 3px solid var(--secondary-color-outline); */
 
 }
 a {
