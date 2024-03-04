@@ -1,9 +1,7 @@
 :root {
-    --primary-color: #0073ff;
-    --primary-color-hover: #2a8aff;
-    --primary-color-outline: #006aff;
+    --primary-color: #00aeff;
+    --primary-color-outline: #006696;
     --secondary-color: #6b6b6b;
-    --secondary-color-hover: rgb(91, 91, 91);
     --secondary-color-outline: #808080;
 }
 .puffy_button{
@@ -20,6 +18,9 @@
     cursor:pointer;
     border-style: solid;
 }
+.puffy_button:hover{
+    filter:brightness(120%);
+}
 button,
 button:active,
 button:focus {
@@ -30,16 +31,10 @@ button:focus {
     border: 3px solid var(--primary-color-outline);
 
 }
-.puffy_button.primary:hover{
-    background-color: var(--primary-color-hover);
-}
 .puffy_button.secondary {
     background-color: var(--secondary-color);
     border: 3px solid var(--secondary-color-outline);
 
-}
-.puffy_button.secondary:hover {
-    background-color: var(--secondary-color-hover);
 }
 a {
     transition-duration: 250ms;
@@ -48,7 +43,7 @@ a.primary {
     color: var(--primary-color);
 }
 a:hover{
-    filter:brightness(20%);
+    filter:brightness(120%);
 }
 .white {
     color:white;
