@@ -46,3 +46,9 @@ section {
 .topnav__link {
     font-size: 19px;
 }
+.section__center {
+    position:absolute;
+    left: 50vw;
+    top: 50vh;
+    text-align: center;
+}
