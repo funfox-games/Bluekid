@@ -1,19 +1,20 @@
 :root {
-    --primary-color: #4e8cff;
-    --primary-color-hover: #81adff;
+    --primary-color: #0059ff;
+    --primary-color-hover: #3c81ff;
     --secondary-color: #d2d2d2;
     --secondary-color-hover: #f0f0f0;
 }
 .puffy_button{
     --side-padding: 40px;
-    padding: 15px;
+    padding: 10px;
     padding-left: var(--side-padding);
     padding-right: var(--side-padding);
     border-radius: 5px;
     transition-duration: 250ms;
     background-color: var(--secondary-color);
     outline: 1px solid black;
-    font-size: 26px;
+    font-size: 20px;
+    color: white;
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
