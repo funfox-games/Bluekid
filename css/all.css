@@ -12,9 +12,13 @@
     border-radius: 5px;
     transition-duration: 250ms;
     background-color: var(--secondary-color);
-    outline: 1px solid black;
+    outline: none;
     font-size: 20px;
     color: white;
+    cursor:pointer;
+}
+.puffy_button:focus {
+    outline: 1px solid black;
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
