@@ -50,3 +50,6 @@ a.primary {
 a:hover{
     filter:brightness(20%);
 }
+.white {
+    color:white;
+}
