@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+*{
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+}
 :root {
     --primary-color: #1677ff;
     --primary-color-outline: #1154b3;
@@ -48,4 +53,9 @@ a:hover{
 }
 .white {
     color:white;
+}
+.flex-center{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }

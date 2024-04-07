@@ -5,12 +5,13 @@ body {
     background-image: linear-gradient(#b9e4ff, #83a2b6);
     background-size:contain;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 100%;
 }
 section {
     box-shadow: 10px 10px 15px -6px rgba(0,0,0,1);
     padding: 15px;
     border-radius: 5px;
+    background-color: #00000021;
 }
 #topnav {
     position: fixed;
@@ -52,4 +53,48 @@ section {
     top: 50vh;
     transform: translate(-50%, -50%);
     text-align: center;
+}
+.left_right {
+    display: flex;
+    justify-content: space-between;
+}
+.topdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.flex_center {
+    display:flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+}
+.bottom {
+    padding-top: 5px;
+}
+.flex_spread {
+    display: flex;
+    justify-content: space-evenly;
+    gap:10px;
+}
+.container {
+    padding: 10px;
+    border-radius: 10px;
+}
+.txtcenter {
+    text-align: center;
+}
+.alignedCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flexColumn {
+    flex-direction: column;
+}
+.midgap {
+    gap: 10px;
+}
+.largegap {
+    gap: 20px;
 }

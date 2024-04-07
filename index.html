@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/all.css">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
-<body onload="onLoad()">
+<body>
     <div id="topnav">
         <div class="topnav_item" id="topnav__left">
             <h2><span class="blue">Blue</span>kid</h2>
@@ -21,21 +22,58 @@
         </div>
     </div>
     <br><br><br>
-    <section class="section__center">
-        <h1>Story behind Bluekid</h1>
-        <p>Created and managed by a single person, designed to be fun for all ages. Cool, but, why?</p>
-        <br>
-        <p>Hi, I'm Dalton. I have wanted to make an online educational game for a while.<br>Motivation wasn't to hard to get either; Blooket, Kahoot, and Gimkit are some simular apps to Bluekid. (very clearly better then mine.)</p>
-        <button class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Sign up</button>
-        <br>
+    <section class="left_right">
+        <div class="topdown">
+            <div>
+                <h1 style="font-size: 3.5rem;">Join fun, free forever!</h1>
+                <p style="font-size: 1.5rem;">Host games, play games, learn something new!</p>
+                <div class="flex_center">
+                    <button class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Sign up</button>
+                    <button class="puffy_button secondary"><i class="fa-solid fa-gamepad"></i> Join Game</button>
+                    <a href="OLD_PROJECT_FILES/home.html"><button class="puffy_button secondary" style="width:100%;"><i class="fa-solid fa-gear"></i> View old project</button></a>
+                </div>
+                
+            </div>
+            <div class="bottom">
+                <p>Created by funfoxrr. Everything is subject to change, as Bluekid is still in the <i>ALPHA</i> stage.</p>
+            </div>
+        </div>
+        
         <div>
-            <a href="#" class="primary white"><i class="fa-solid fa-gamepad"></i> Join game</a>
-            <a href="#" class="primary white"><i class="fa-solid fa-envelope"></i> Contact me</a>
+            <img style="width:100%;height:100%;" src="asset/index/banner.png" alt="banner" width="900">
+        </div>
+    </section>
+    <br>
+    <section>
+        <h1 style="font-size: 3rem;">So what is this, "Bluekid" thing?</h1>
+        <p style="font-size: 1.25rem;">Inspired off of Blooket, Bluekid provides free, fun learning! Here are the essentaials:</p>
+        <div class="flex_spread">
+
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 102, 255, 0.233);">
+                <div>
+                    <i class="fa-solid fa-gamepad fa-xl"></i>
+                    <h2>Play Games</h2>
+                </div>
+                <p>Either hosting or playing,<br>get to participate in serval fun different gamemodes!</p>
+            </div>
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 255, 98, 0.233);">
+                <div>
+                    <i class="fa-solid fa-trophy fa-xl"></i>
+                    <h2>Earn Awards</h2>
+                </div>
+                <p>Get coins, buy packs!<br>Get fun blues, get other awesome treats!</p>
+            </div>
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(255, 0, 255, 0.233);">
+                <div>
+                    <i class="fa-solid fa-face-grin-stars fa-xl"></i>
+                    <h2>Have Fun</h2>
+                </div>
+                <p>Play user created kits,<br>and get awards!</p>
+            </div>
 
         </div>
     </section>
-    <a href="OLD_PROJECT_FILES/home.html">View old project</a>
 
-    <script src="index.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
