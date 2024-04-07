@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Bluekid</title>
+
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/about.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="topnav">
+        <div class="topnav_item" id="topnav__left">
+            <a style="text-decoration: none;" href="index.html">
+                <h2><span class="blue">Blue</span>kid</h2>
+            </a>
+        </div>
+        <div class="topnav_item" id="topnav__right">
+            <a href="join.html" class="topnav__link">Join Game</a>
+        </div>
+    </div>
+    <br><br><br>
+    <section>
+        <h1 style="font-size: 3rem;">About me</h1>
+        <p style="font-size: 1.25rem;">Hi, I'm FunFoxRR. I made countless games before. (Most of which aren't published) I designed and made Bluekid with the best care I could put into it. But, who am I?</p>
+        <p style="font-size: 1.25rem;">I'm a random person who got inspired by Blooket and made this. It's like if Gimkit and Blooket had a baby: you get Bluekid.</p>
+        <br>
+        <h2 style="font-size: 2rem;">Contacts</h2>
+        <button class="puffy_button primary" id="discord" onclick="copy()"><i class="fa-brands fa-discord"></i> Discord</button>
+        <a href="https://gamejolt.com/@FunFoxRR" target="_blank"><button class="puffy_button secondary"><i class="fa-solid fa-bolt"></i> Gamejolt</button></a>
+    </section>
+
+    <script src="js/util/notification.js"></script>
+    <script>
+        function copy() {
+            navigator.clipboard.writeText("funfoxrr");
+            showNotification(4, "Copied Discord @ to clipboard.");
+        }
+    </script>
+</body>
+</html>

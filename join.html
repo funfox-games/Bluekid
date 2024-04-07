@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Bluekid</title>
+
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/join.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div style="background-image: url('asset/join/repeatBg.png');opacity: 0.25;" class="fullscreen"></div>
+    <div id="topnav">
+        <div class="topnav_item" id="topnav__left">
+            <a style="text-decoration: none;" href="index.html"><h2><span class="blue">Blue</span>kid</h2></a>
+        </div>
+    </div>
+    <br><br><br>
+    <section class="section__center container" style="background-color: #0000006b;color:white;font-size: 1.5rem;">
+        <div id="notloggedin" class="warning"><i class="fa-solid fa-warning"></i> You aren't logged in.</div>
+        <h1>Join Game</h1>
+        <div>
+            <input class="input" placeholder="Game ID" id="gid">
+            <button class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Join</button>
+        </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script defer>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script async src="js/join.js"></script>
+    <script src="js/util/notification.js"></script>
+</body>
+</html>

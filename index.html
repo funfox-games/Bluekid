@@ -8,29 +8,43 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/all.css">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- https://animate.style/ -->
 </head>
-<body>
+<body onload="updateScroll()">
     <div id="topnav">
         <div class="topnav_item" id="topnav__left">
-            <h2><span class="blue">Blue</span>kid</h2>
+            <a style="text-decoration: none;" href="index.html">
+                <h2><span class="blue">Blue</span>kid</h2>
+            </a>
         </div>
         <div class="topnav_item" id="topnav__right">
-            <a href="#" class="topnav__link">About</a>
-            <a href="#" class="topnav__link">Join Game</a>
-            <a href="#" class="topnav__link">Sign in</a>
+            <a href="about.html" class="topnav__link">About</a>
+            <a href="join.html" class="topnav__link">Join Game</a>
+            <a href="#" id="signin" class="topnav__link">Sign in</a>
         </div>
     </div>
     <br><br><br>
-    <section class="left_right">
+    <dialog id="yourLoggedIn">
+        <h1>You're logged in!</h1>
+        <p>You're logged in as <i id="login_name">Unknown</i>.</p>
+        <form method="dialog">
+            <button class="puffy_button primary" value="profile" autofocus><i class="fa-solid fa-person"></i> Go to profile</button>
+            <button class="puffy_button secondary" value="home"><i class="fa-solid fa-home"></i> View home</button>
+        </form>
+    </dialog>
+    <section class="left_right" id="top">
         <div class="topdown">
             <div>
                 <h1 style="font-size: 3.5rem;">Join fun, free forever!</h1>
                 <p style="font-size: 1.5rem;">Host games, play games, learn something new!</p>
                 <div class="flex_center">
                     <button class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Sign up</button>
-                    <button class="puffy_button secondary"><i class="fa-solid fa-gamepad"></i> Join Game</button>
-                    <a href="OLD_PROJECT_FILES/home.html"><button class="puffy_button secondary" style="width:100%;"><i class="fa-solid fa-gear"></i> View old project</button></a>
+                    <a href="join.html"><button class="puffy_button secondary" style="width:100%;"><i class="fa-solid fa-gamepad"></i> Join Game</button></a>
+                    <a href="about.html"><button class="puffy_button secondary" style="width: 100%;"><i class="fa-solid fa-address-card"></i> About the creator</button></a>
+                    <a href="OLD_PROJECT_FILES/home.html"><button tabindex="-1" class="puffy_button secondary" style="width:100%;"><i class="fa-solid fa-gear"></i> View old project</button></a>
                 </div>
                 
             </div>
@@ -49,21 +63,21 @@
         <p style="font-size: 1.25rem;">Inspired off of Blooket, Bluekid provides free, fun learning! Here are the essentaials:</p>
         <div class="flex_spread">
 
-            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 102, 255, 0.233);">
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 102, 255, 0.35);">
                 <div>
                     <i class="fa-solid fa-gamepad fa-xl"></i>
                     <h2>Play Games</h2>
                 </div>
                 <p>Either hosting or playing,<br>get to participate in serval fun different gamemodes!</p>
             </div>
-            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 255, 98, 0.233);">
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 255, 98, 0.35);">
                 <div>
                     <i class="fa-solid fa-trophy fa-xl"></i>
                     <h2>Earn Awards</h2>
                 </div>
                 <p>Get coins, buy packs!<br>Get fun blues, get other awesome treats!</p>
             </div>
-            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(255, 0, 255, 0.233);">
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(255, 0, 255, 0.35);">
                 <div>
                     <i class="fa-solid fa-face-grin-stars fa-xl"></i>
                     <h2>Have Fun</h2>
@@ -73,7 +87,72 @@
 
         </div>
     </section>
+    <br>
+    <section>
+        <h1 style="font-size: 3rem;">Customization!</h1>
+        <p style="font-size: 1.5rem;">Bluekid gives the option to customize your character! You can also personalize your experince with the different settings.</p>
+        <br>
+        <div class="flex_spread full_width container">
+            <img class="bounce" src="asset/char/Blue_Dog.png" alt="dog" width="128">
+            <img class="bounce" src="asset/char/Blue_Cat.png" alt="cat" width="128">
+            <img class="bounce" src="asset/char/blue_bunny.png" alt="bunny" width="128">
+            <img class="bounce" src="asset/char/meme/blue_amongus.png" alt="amongus" width="128">
+            <img class="bounce" src="asset/char/meme/blue_borzi.png" alt="borzi" width="128">
+            <img class="bounce" src="asset/char/christmas/blue_elf.png" alt="elf" width="128">
+            <img class="bounce" src="asset/char/meme/blue_troll.png" alt="troll" width="128">
+        </div>
+    </section>
+    <br>
+    <section>
+        <h1 style="font-size: 3rem;">How is it done?</h1>
+        <p style="font-size: 1.5rem;">It's not that hard! Follow the steps below to get a fast kickstart in Bluekid.</p>
+        <br>
+        <div class="container flex_center largegap" style="background-color: #0000001e;">
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-solid fa-person"></i> 1. Create an account</h2>
+                <p style="font-size: 1.25rem;">Create an account to get into the fun! <b>An account is not needed for joinning, but is recommended!</b></p>
+                <a href="#top"><button class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Sign up</button></a>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-solid fa-download"></i> 2. Choose / create a kit</h2>
+                <p style="font-size: 1.25rem;">Kits hold a bunch of settings and questions to play with!</p>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-solid fa-dice"></i> 3. Select a mode</h2>
+                <p style="font-size: 1.25rem;">There is several gamemodes to choose from. New modes are activly being created!</p>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-solid fa-circle-play"></i> 4. Host / Join</h2>
+                <p style="font-size: 1.25rem;">Join your teacher in a game or just have some fun!</p>
+                <a href="#top"></a><button class="puffy_button primary"><i class="fa-solid fa-headset"></i> Join a game</button></a>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-solid fa-chart-simple"></i> 5. See results</h2>
+                <p style="font-size: 1.25rem;">See the players avarage, see what was the most missed, etc.</p>
+            </div>
+        </div>
+    </section>
 
-    <script src="js/index.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script defer>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script async src="js/index.js"></script>
+    <script src="js/util/entrances.js"></script>
 </body>
 </html>

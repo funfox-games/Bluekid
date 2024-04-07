@@ -3,11 +3,73 @@
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
 }
+html {
+    scroll-behavior: smooth;
+}
+body{
+    overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+.topnav__link {
+    font-size: 19px;
+}
+section {
+    box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, 1);
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #00000021;
+}
+.container {
+    padding: 10px;
+    border-radius: 10px;
+}
 :root {
     --primary-color: #1677ff;
     --primary-color-outline: #1154b3;
     --secondary-color: #6b6b6b;
     --secondary-color-outline: #808080;
+}
+.blue {
+    color: #92e0ff;
+}
+#topnav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    z-index: 3;
+    backdrop-filter: blur(5px);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.45);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.738);
+}
+
+#topnav__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#topnav a {
+    color: white;
+    text-align: center;
+    transition-duration: 250ms;
+}
+
+#topnav a:hover {
+    text-decoration: wavy;
 }
 .puffy_button{
     --side-padding: 40px;
@@ -27,10 +89,18 @@
 .puffy_button:hover{
     filter:brightness(110%);
 }
-button,
+.puffy_button:disabled {
+    filter: brightness(70%);
+}
 button:active,
 button:focus {
-  outline: none;
+    filter: brightness(130%);
+    outline: none;
+}
+a:active,
+a:focus {
+    filter: brightness(130%);
+    outline: none;
 }
 .puffy_button.primary {
     background-color: var(--primary-color);
@@ -58,4 +128,100 @@ a:hover{
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+dialog[open] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+dialog::backdrop {
+    background-color: #00000083;
+}
+.input {
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.25rem;
+    border: none;
+}
+.input:active,.input:focus {
+    outline: none;
+}
+.warning{
+    padding: 10px;
+    background-color: #d4bf005e;
+    color: white;
+    border-radius: 10px;
+}
+.caution {
+    padding: 10px;
+    background-color: #d400005e;
+    color: white;
+    border-radius: 10px;
+}
+.info {
+    padding: 10px;
+    background-color: #007fd45e;
+    color: white;
+    border-radius: 10px;
+}
+#notification {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(202, 202, 202);
+
+    display: none;
+    justify-content: center;
+    text-align: left;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 9;
+
+    #notification_icon {
+        margin-left: 15px;
+    }
+}
+
+#notification[show] {
+    animation: showNotif 500ms ease-in-out forwards;
+    display: flex;
+}
+
+.notification_close {
+    display: flex;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+
+@keyframes showNotif {
+    0% {
+        opacity: 0;
+        top: 0;
+    }
+
+    5% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        top: 3rem;
+    }
+}
+.fullscreen {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
 }
