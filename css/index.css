@@ -44,9 +44,3 @@ body {
 .flexColumn {
     flex-direction: column;
 }
-.midgap {
-    gap: 10px;
-}
-.largegap {
-    gap: 20px;
-}

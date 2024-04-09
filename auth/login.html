@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Bluekid</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="topnav">
+        <div class="topnav_item" id="topnav__left">
+            <a style="text-decoration: none;" href="../index.html">
+                <h2><span class="blue">Blue</span>kid</h2>
+            </a>
+        </div>
+        <div class="topnav_item" id="topnav__right">
+            <a href="../join.html" class="topnav__link">Join Game</a>
+        </div>
+    </div>
+    <br><br><br>
+    <form class="section__center container flex-center smallgap" action="#" id="login" style="background-color: #00000025;">
+        <h1>Login</h1>
+        <button class="puffy_button" id="google" type="button" style="align-items: center;display:flex;gap:7px;color: black;background-image: linear-gradient(45deg, #fff, #cfcfcf);"><img src="../asset/google.webp" alt="googleLogo" width="22"> Login with Google</button>
+        <div style="display:flex;width:100%;align-items: center;gap:10px;color:white;">
+            <div style="width:50%;height:5px;background-color: white;border-radius: 3px;"></div>
+            <b>OR</b>
+            <div style="width:50%;height:5px;background-color: white;border-radius: 3px;"></div>
+        </div>
+        <div style="text-align: left;">
+            <div style="display:flex;gap:3px;align-items: center;">
+                <i class="fa-solid fa-envelope"></i>
+                <p>Email</p>
+            </div>
+            <input class="input" id="email" style="text-align: left;" type="email" required placeholder="Enter email...">
+        </div>
+        
+        <div style="text-align: left;">
+            <div style="display:flex;gap:3px;align-items: center;">
+                <i class="fa-solid fa-key"></i>
+                <p>Password</p>
+            </div>
+            <input class="input" id="password" style="text-align: left;" type="password" required placeholder="Enter password...">
+        </div>
+        <button class="puffy_button primary" id="loginbutton"><i class="fa-solid fa-door-open"></i> Log in</button>
+        <a href="#" style="color:white;">Forgot Password?</a>
+        <a href="#" style="color:white;">Don't have an account?</a>
+
+        <script type="module" src="js/login.js"></script>
+        <script src="../js/util/notification.js"></script>
+    </div>
+</body>
+</html>

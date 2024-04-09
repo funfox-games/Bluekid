@@ -40,6 +40,13 @@ section {
 .blue {
     color: #92e0ff;
 }
+.section__center {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
 #topnav {
     position: fixed;
     left: 0;
@@ -224,4 +231,14 @@ dialog::backdrop {
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
+}
+.smallgap {
+    gap: 5px;
+}
+.midgap {
+    gap: 10px;
+}
+
+.largegap {
+    gap: 20px;
 }
