@@ -17,20 +17,26 @@ const auth = getAuth();
 
 document.getElementById("login").addEventListener("submit", async (e) => {
     //TODO: things
+    e.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const confirmpassword = document.getElementById("confirmpassword").value;
+    if (password != confirmpassword) {
+        showNotification(3, "Passwords don't match.");
+        return;
+    }
     document.getElementById("loginbutton").setAttribute("disabled", "");
     document.getElementById("loginbutton").innerHTML = "Logging in...";
     const res = await createUserWithEmailAndPassword(auth, email, password).catch((err) => {
         const code = err.code;
         const msg = err.message;
-        console.error("(" +code + ") LOG IN ERROR: " + msg);
+        console.error("(" +code + ") SIGNUP ERROR: " + msg);
         /////////////////////////////////////////////////////////////////////////////////////////////////// TODO: Make error codes user friendly
-        if (code == "auth/user-not-found") {
-            showNotification(3, "User email doesn't exist. <a href='#'>Need signed up?</a>");
+        if (code == "auth/email-already-in-use") {
+            showNotification(3, "Email in use. Go to the <a href='login.html'>login</a> page to reset password.");
         }
         else if (code == "auth/weak-password") {
-            showNotification(3, "Wrong password.");
+            showNotification(3, "Weak password. Try a longer one.");
         } else {
             showNotification(3, "Something went wrong. Check the console for more details.");
         }
@@ -39,7 +45,7 @@ document.getElementById("login").addEventListener("submit", async (e) => {
         return null;
     });
     if (res == null) {return;}
-    showNotification(4, `Logged in successfully! <a href="#"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
+    showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
 document.getElementById("google").addEventListener("click", async () => {
@@ -65,7 +71,7 @@ document.getElementById("google").addEventListener("click", async () => {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    showNotification(4, `Signed up successfully! <a href="#"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
+    showNotification(4, `Signed up successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
 onAuthStateChanged(auth, (user) => {

@@ -12,10 +12,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
+const urlParams = new URLSearchParams(location.search);
+
 document.getElementById("login").addEventListener("submit", async (e) => {
+    e.preventDefault();
     //TODO: things
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -38,12 +41,12 @@ document.getElementById("login").addEventListener("submit", async (e) => {
         return null;
     });
     if (res == null) {return;}
-    showNotification(4, `Logged in successfully! <a href="#"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
+    showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
 document.getElementById("google").addEventListener("click", async () => {
     var provider = new GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     auth.useDeviceLanguage();
     var res = await signInWithPopup(auth, provider).catch((err) => {
         const code = err.code;
@@ -64,7 +67,7 @@ document.getElementById("google").addEventListener("click", async () => {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    showNotification(4, `Logged in successfully! <a href="#"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
+    showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
 onAuthStateChanged(auth, (user) => {
@@ -72,5 +75,10 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById("loginbutton").setAttribute("disabled", "");
         document.getElementById("loginbutton").innerHTML = "Logged in";
         document.getElementById("google").innerHTML = `<img src="../asset/google.webp" alt="googleLogo" width="22"> Merge with Google`;
+
+        const redirect = urlParams.get("redirect");
+        if (redirect != null) {
+            location.href = decodeURIComponent(redirect);
+        }
     }
 });

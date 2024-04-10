@@ -24,16 +24,20 @@ onAuthStateChanged(auth, async (user) => {
         var uid = user.uid;
         console.log("Logged in: " + uid);
         document.getElementById("signin").innerHTML = "Profile";
+        document.getElementById("signin").href = "profile/index.html";
         var doc_ = doc(db, "users", uid);
-        var data = await getDoc(doc_).then((res) => res.data().username);
+        var data = await getDoc(doc_).then((res) => {
+            if (!res.exists()) {
+                return "UNKNOWN";
+            }
+            return res.data().username;
+        });
         document.getElementById("login_name").innerText = data;
         document.getElementById("yourLoggedIn").showModal();
         document.getElementById("yourLoggedIn").addEventListener("close", (e) => {
-            if (document.getElementById("yourLoggedIn").returnValue === "profile") {
-                alert("Profile doesn't exists");
-            }
             if (document.getElementById("yourLoggedIn").returnValue === "signout"){
                 signOut(auth);
+                location.reload();
             }
             document.getElementById("yourLoggedIn").removeEventListener("close", (e));
         });
@@ -41,3 +45,5 @@ onAuthStateChanged(auth, async (user) => {
 
     }
 })
+
+showNotification(1, "Bluekid is under development mode. Tomarrow may be a little different ;D");

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluekid Transfer</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <style>
+        body {
+            background-image: linear-gradient(#c6caff, #80b5d8);
+            background-size:contain;
+            background-repeat: no-repeat;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="transfere">
+        <h1>You choose</h1>
+        <p>What should carry over?</p>
+        <div style="display:flex;flex-direction:column;gap:5px;width:100%;">
+            <fieldset>
+                <legend>Username</legend>
+                <div>
+                    <input type="radio" value="carry" checked name="username"></option>
+                    <label for="">Carry</label>
+                </div>
+                <div>
+                    <input type="radio" value="none" name="username"></option>
+                    <label for="">None</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Tokens</legend>
+                <div>
+                    <input type="radio" value="carry" checked name="tokens"></option>
+                    <label for="">Carry</label>
+                </div>
+                <div>
+                    <input type="radio" value="none" name="tokens"></option>
+                    <label for="">None</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Badges</legend>
+                <div>
+                    <input type="radio" value="carry" checked name="badges"></option>
+                    <label for="">Carry</label>
+                </div>
+                <div>
+                    <input type="radio" value="none" name="badges"></option>
+                    <label for="">None</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Blues</legend>
+                <div>
+                    <input type="radio" value="carry" checked name="blues"></option>
+                    <label for="">Carry (Buggy)</label>
+                </div>
+                <div>
+                    <input type="radio" value="none" name="blues"></option>
+                    <label for="">None</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Kits</legend>
+                <div>
+                    <input type="radio" value="carry" checked name="kits"></option>
+                    <label for="">Carry (Buggy)</label>
+                </div>
+                <div>
+                    <input type="radio" value="none" name="kits"></option>
+                    <label for="">None</label>
+                </div>
+            </fieldset>
+        </div>
+        <br>
+        <form method="dialog">
+            <button class="puffy_button primary" value="convert"><i class="fa-solid fa-bolt"></i> CONVERT</button>
+            <button class="puffy_button secondary" value="close"><i class="fa-solid fa-x"></i> Close</button>
+        </form>
+        
+    </dialog>
+    <section id="already" style="display:none;" class="section__center">
+        <h1>Transfer data</h1>
+        <p>You are already upgraded to [V2 DATA]! Congrats!</p>
+    </section>
+    <section id="transfer" class="section__center">
+        <h1>Transfer data</h1>
+        <p>You're data has been detected as [V1 DATA]. To transfer, please continue below.<br>You aren't required to do this, but bugs may appear if you continue without V2.</p>
+        <div class="warning"><i class="fa-solid fa-warning"></i> If your data is lost during the process, contact the developer.</div>
+        <br>
+        <button class="puffy_button primary" id="upgrade"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade</button>
+        <button class="puffy_button secondary">Go back</button>
+    </section>
+    <section id="login" style="display:none;" class="section__center">
+        <h1>Transfer data</h1>
+        <p>You are required to log in to view this page.</p>
+        <a id="login_a" href="login.html?"><button class="puffy_button primary">Log in</button></a>
+    </section>
+
+    <script type="module" async src="js/transfer.js"></script>
+    <script src="../js/util/notification.js"></script>
+    <script type="module" defer async src="../js/util/redirectUrl.js"></script>
+</body>
+</html>

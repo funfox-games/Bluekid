@@ -1,0 +1,42 @@
+body {
+    background-image: linear-gradient(#ffffff, #80b5d8);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow:hidden;
+
+    padding-left:235px;
+}
+#sidenav{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 225px;
+    height: 100vh;
+    background-color: #00000075;
+    border-right: 5px solid black;
+
+    --side-spacing: 10px;
+}
+#sidenav_upper {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: var(--side-spacing);
+    padding-right: var(--side-spacing);
+}
+#sidenav_lower {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    padding-left: var(--side-spacing);
+    padding-right: var(--side-spacing);
+}

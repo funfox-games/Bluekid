@@ -190,7 +190,7 @@ dialog::backdrop {
     border-radius: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-    z-index: 9;
+    z-index: 99999;
 
     #notification_icon {
         margin-left: 15px;
