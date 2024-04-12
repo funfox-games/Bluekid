@@ -27,10 +27,63 @@
         
     </div>
     <section>
-        <h1>Hello, <span id="username">User</span>!</h1>
-        <div class="caution"><i class="fa-solid fa-circle-exclamation"></i> This is under construction and is not currently functional.</div>
+        <div class="warning" style="color:black;font-size: 18px;"><i class="fa-solid fa-warning fa-xl"></i> Profiles are highly experimental currently.</div>
+        <br>
+        <div class="profile_card container" style="background-color: #0000001f;">
+            <div id="basicInfo">
+                <img src="../asset/char/secret/EasterBun_Blue.png" width="64" alt="profile">
+                <div>
+                    <div id="username"></div>
+                    <div style="font-size: 16px;">Friends: <span id="followers">0</span></div>
+                </div>
+            </div>
+            <div id="badges">
+                <button id="showAllBadges" onclick="document.getElementById('allBadges').showModal()" style="display:none;" class="puffy_button primary">Show all...</button>
+                <div class="badge container" id="badgeex" style="background-color: #00000054;color:white;">
+                    <img src="../asset/badges/Verified.png" width="32" alt="badge">
+                    <div>Name</div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container" style="background-color: #0000001f;">
+            <div style="display:flex;align-items: center;gap:5px;">
+                <i class="fa-regular fa-calendar-plus fa-xl"></i>
+                <h2>Account Creation</h2>
+            </div>
+            <span id="creationDate">Been a user for 0 days.</span>
+            <span id="fullCreation">Created on 1/1/1, 0:00:00 AM</span>
+        </div>
+        <br>
+        <div class="container" style="background-color: #0000001f;">
+            <div style="display:flex;align-items: center;gap:5px;">
+                <i class="fa-solid fa-coins fa-xl"></i>
+                <h2>Tokens</h2>
+            </div>
+            <span id="tokens">0 Tokens</span>
+        </div>
+        <br>
+        <button id="logout" class="puffy_button" style="background-color: rgb(160, 0, 0);"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
     </section>
+    <dialog id="allBadges">
+        <h1>Badges</h1>
+        <div id="badges2">
 
-    <script src="../js/profile.js"></script>
+        </div>
+        <br>
+        <form method="dialog">
+            <button class="puffy_button primary">Close</button>
+        </form>
+    </dialog>
+    <dialog id="upgradeData">
+        <h1>Your data is V1.</h1>
+        <p>There is a revamped data system, and we want YOU to upgrade!</p>
+        <form method="dialog">
+            <a href="../auth/transfer.html"><button type="button" class="puffy_button primary"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <button class="puffy_button secondary">Dismiss</button>
+        </form>
+    </dialog>
+
+    <script type="module" async src="../js/profile.js"></script>
 </body>
 </html>
