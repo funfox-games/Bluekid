@@ -1,0 +1,64 @@
+{
+    "packs": {
+        "meme": {
+            "display_name": "Meme Pack",
+            "blues": []
+        },
+        "secret": {
+            "display_name": "Secret Blues",
+            "blues": []
+        }
+    },
+    "blues": {
+        "//": "MEME PACK",
+        "Borzi": {
+            "chance": 25,
+            "rarity": "Common",
+            "imgPath": "meme/blue_borzi.png",
+            "pack": "meme"
+        },
+        "Quandale Dingle": {
+            "chance": 15,
+            "rarity": "Uncommon",
+            "imgPath": "meme/blue_dingle.png",
+            "pack": "meme"
+        },
+        "Among Us": {
+            "chance": 10,
+            "rarity": "Uncommon",
+            "imgPath": "meme/blue_amongus.png",
+            "pack": "meme"
+        },
+        "Baller": {
+            "chance": 7,
+            "rarity": "Rare",
+            "imgPath": "meme/blue_baller.png",
+            "pack": "meme"
+        },
+        "Troll": {
+            "chance": 5,
+            "rarity": "Rare",
+            "imgPath": "meme/blue_troll.png",
+            "pack": "meme"
+        },
+        "Rick Astley": {
+            "chance": 2,
+            "rarity": "Lengendary",
+            "imgPath": "meme/blue_rick.png",
+            "pack": "meme"
+        },
+        "Jack": {
+            "chance": 0.05,
+            "rarity": "Mystical",
+            "imgPath": "meme/blue_jack.png",
+            "pack": "meme"
+        },
+        "//": "SECRETS",
+        "Rainbow Bunny": {
+            "chance": 0,
+            "rarity": "Mystical",
+            "imgPath": "secret/EasterBun_Blue.png",
+            "pack": "secret"
+        }
+    }
+}

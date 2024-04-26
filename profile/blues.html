@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blues | Bluekid</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/profile/blues.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="sellblue">
+        <h1>Sell <span id="sell_name">_</span>?</h1>
+        <p>Value: <span id="sell_price">0</span></p>
+        <input type="number" value="1" step="1" id="sell_amount" onchange="document.getElementById('sell_amount').value = Math.round(parseFloat(document.getElementById('sell_amount').value))" oninput="if(parseInt(document.getElementById('sell_amount').value) < 0) { document.getElementById('sell_amount').value = 0 } if (parseInt(document.getElementById('sell_amount').value) > document.getElementById('sell_amount').max) { document.getElementById('sell_amount').value = document.getElementById('sell_amount').max }">
+        <br>
+        <form method="dialog">
+            <button class="puffy_button primary" id="sellbtn"><i class="fa-solid fa-coins"></i> SELL</button>
+            <button class="puffy_button secondary"><i class="fa-solid fa-close"></i> Cancel</button>
+        </form>
+    </dialog>
+    <dialog id="blueInfo">
+        <div id="info__container" class="container">
+            <img id="info_icon" alt="icon" width="128">
+            <div>
+                <h1><span id="info_name"></span></h1>
+                <p><i class="fa-solid fa-coins"></i> Value: <span id="info_price">0</span> coins</p>
+                <p><i class="fa-solid fa-star"></i> Rarity: <span id="info_rarity"></span></p>
+                <p><i class="fa-solid fa-percent"></i> Chance: <span id="info_chance"></span></p>
+            </div>
+        </div>
+        
+        <br>
+        <form method="dialog">
+            <button class="puffy_button primary"><i class="fa-solid fa-close"></i> Close</button>
+        </form>
+    </dialog>
+    <dialog id="bugged">
+        <h1><i class="fa-solid fa-triangle-exclamation"></i> Error</h1>
+        <p>Since this blue is bugged, no data is assigned to it.<br>Please upgrade to DataV2 and remove this blue.</p>
+        <br>
+        <form method="dialog">
+            <button class="puffy_button primary"><i class="fa-solid fa-close"></i> Close</button>
+        </form>
+    </dialog>
+    <dialog id="transaction">
+        <div class="container" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;">
+            <i class="fa-solid fa-spinner fa-spin fa-xl"></i>
+            <h1>Working...</h1>
+        </div>
+        
+    </dialog>
+
+    <div id="sidenav">
+        <div id="sidenav_upper">
+            <a href="../index.html" style="text-decoration: none;color:black;">
+                <h1><span class="blue">Blue</span>kid</h1>
+            </a>
+            <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-address-card"></i> Overview</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-image"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-ellipsis"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-shop"></i> Shop</button></a>
+        </div>
+        <div id="sidenav_lower">
+            <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-gears"></i> Settings</button></a>
+            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-newspaper"></i> News</button></a>
+        </div>
+    
+    </div>
+
+    <section>
+        <h1>Blues</h1>
+        <div class="container" id="loading" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;">
+            <i class="fa-solid fa-spinner fa-spin fa-xl"></i>
+            <p style="font-size: 1.25rem;">Loading blues (This could take a little bit)</p>
+        </div>
+        <br>
+        <div id="allBlues">
+            <div class="bluechar" id="bluex">
+                <img src="../asset/char/blue_notexture.png" width="64" alt="blue">
+            </div>
+            <div class="blue_section container" id="sectex">
+                
+            </div>
+            <!-- Appends here -->
+        </div>
+    </section>
+
+    <div id="bottom_inspect">
+        <div id="bottom_inspect_left">
+            <img src="../asset/char/blue_notexture.png" width="64" alt="preview" id="preview_img">
+            <div>
+                <h1 id="preview_name">None selected.</h1>
+                <p id="preview_amount">0 Owned</p>
+            </div>
+        </div>
+        <div id="bottom_inspect_right">
+            <button class="puffy_button primary" id="sell"><i class="fa-solid fa-coins"></i> Sell</button>
+            <button class="puffy_button secondary" id="info"><i class="fa-solid fa-circle-info"></i> Info</button>
+            <button class="puffy_button secondary" id="trade" disabled><i class="fa-solid fa-xmark"></i> Trade</button>
+        </div>
+    </div>
+
+    <script type="module" src="../js/profile/blues.js"></script>
+    <script src="../js/util/notification.js"></script>
+</body>
+</html>

@@ -15,6 +15,28 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+const db = getFirestore(app);
+
+async function createUserData(uid) {
+    return new Promise(async (res, rej) => {
+        var doc_ = doc(db, "users", uid);
+        // SET USER DATA
+        await setDoc(doc_, {
+            badges: [],
+            creation: new Date().toLocaleString(),
+            username: "BluekidUser",
+            tokens: 0,
+            version: 2
+        }).catch((err) => {
+            console.error(err);
+            rej(err);
+        });
+
+        res();
+    });
+}
+
 document.getElementById("login").addEventListener("submit", async (e) => {
     //TODO: things
     e.preventDefault();
@@ -45,18 +67,20 @@ document.getElementById("login").addEventListener("submit", async (e) => {
         return null;
     });
     if (res == null) {return;}
+    console.log(res.user.uid);
+    document.getElementById("loginbutton").innerHTML = "Creating data...";
+    await createUserData(res.user.uid);
     showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
 document.getElementById("google").addEventListener("click", async () => {
     var provider = new GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     auth.useDeviceLanguage();
     var res = await signInWithPopup(auth, provider).catch((err) => {
         const code = err.code;
         const msg = err.message;
         var email = err.email;
-        var credential = GoogleAuthProvider.credentialFromError(error);
+        var credential = GoogleAuthProvider.credentialFromError(err);
         if (code == "auth/popup-closed-by-user") {
             showNotification(3, "Prompt canceled.");
         } else {
@@ -70,7 +94,10 @@ document.getElementById("google").addEventListener("click", async () => {
     const credential = GoogleAuthProvider.credentialFromResult(res);
     const token = credential.accessToken;
     // The signed-in user info.
-    const user = result.user;
+    // const user = result.user;
+    console.log(res.user.uid);
+    document.getElementById("loginbutton").innerHTML = "Creating data...";
+    await createUserData(res.user.uid);
     showNotification(4, `Signed up successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
