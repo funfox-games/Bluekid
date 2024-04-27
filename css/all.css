@@ -119,6 +119,11 @@ a:focus {
     /* border: 3px solid var(--secondary-color-outline); */
 
 }
+.puffy_button.danger {
+    background-color: rgb(160, 0, 0);
+    /* border: 3px solid var(--primary-color-outline); */
+
+}
 a {
     transition-duration: 250ms;
 }
@@ -241,4 +246,41 @@ dialog::backdrop {
 
 .largegap {
     gap: 20px;
+}
+.icon_button {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    transition-duration: 250ms;
+    background-color: var(--secondary-color);
+    outline: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    border-style: solid;
+    border: 0px transparent black;
+}
+.icon_button.primary {
+    background-color: var(--primary-color);
+    /* border: 3px solid var(--primary-color-outline); */
+}
+.icon_button.secondary {
+    background-color: var(--secondary-color);
+    /* border: 3px solid var(--secondary-color-outline); */
+}
+.icon_button:hover {
+    filter: brightness(110%);
+}
+
+.icon_button:disabled {
+    filter: brightness(70%);
+}
+.icon_button.danger {
+    background-color: rgb(160, 0, 0);
+    /* border: 3px solid var(--primary-color-outline); */
+
 }

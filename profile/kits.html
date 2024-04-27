@@ -11,6 +11,17 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div id="kit_contextmenu" style="left: 0; top:0 ;">
+        <div style="display:flex;gap:5px;justify-content: center;">
+            <button class="icon_button primary"><i class="fa-regular fa-star"></i></button>
+            <button class="icon_button"><i class="fa-solid fa-share-from-square"></i></button>
+            <button class="icon_button danger"><i class="fa-solid fa-trash-can"></i></button>
+
+        </div>
+        <button class="puffy_button primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+        <button class="puffy_button"><i class="fa-solid fa-cloud-arrow-down"></i> Export</button>
+        <button class="puffy_button"><i class="fa-solid fa-copy"></i> Clone</button>
+    </div>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
@@ -20,10 +31,12 @@
                         class="fa-solid fa-address-card"></i> Overview</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-image"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i
                         class="fa-solid fa-ellipsis"></i> Kits</button></a>
             <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-shop"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-face-smile"></i> Social</button></a>
         </div>
         <div id="sidenav_lower">
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
@@ -36,28 +49,40 @@
 
     <section>
         <h1>Kits</h1>
-        <br>
+        <div class="caution"><i class="fa-solid fa-circle-exclamation"></i> Most features are placeholders / unusable currently. [READ ONLY PAGE]</div>
         <div class="container">
-            <button class="puffy_button primary"><i class="fa-solid fa-square-plus"></i> Create new</button>
-            <button class="puffy_button secondary"><i class="fa-solid fa-file-import"></i> Import</button>
+            <a href="kit/new.html"><button class="puffy_button primary" id="createnew"><i class="fa-solid fa-square-plus"></i> Create new</button></a>
+            <button class="puffy_button secondary" id="import"><i class="fa-solid fa-file-import"></i> Import</button>
         </div>
-        <br>
+        <div class="container" id="loading" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;margin-bottom: 10px;">
+            <i class="fa-solid fa-spinner fa-spin fa-xl"></i>
+            <p style="font-size: 1.25rem;">Loading kits</p>
+        </div>
         <div id="kits">
+            <div class="container" style="background-color: #00000028;text-align: center;" id="nokits">
+                <h1><i class="fa-solid fa-magnifying-glass"></i> No kits detected.</h1>
+                <p>We seached far and clear, but couldn't find any. Create one above!</p>
+            </div>
             <div class="kit container" id="example">
                 <div class="kit_left">
-                    <img src="#" alt="img">
+                    <img src="../asset/templates/kit_temp.png" width="200" alt="img">
                     <div>
-                        <h1>Kit title</h1>
-                        <p>Created by you</p>
+                        <h1 style="font-size: 2.5rem;">Kit title</h1>
+                        <p style="font-size: 1.25rem;"><i class="fa-solid fa-users"></i> Created by you</p>
+                        <p style="font-size: 1.25rem;"><i id="private_indicator" class="fa-solid fa-lock"></i> Unshared</p>
                     </div>
                 </div>
                 <div class="kit_right">
-                    <button>a</button>
+                    <button class="puffy_button primary"><i class="fa-solid fa-circle-play"></i> Host Live</button>
+                    <button class="puffy_button secondary"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="icon_button"><i class="fa-solid fa-ellipsis"></i></button>
                 </div>
             </div>
         </div>
     </section>
 
+    
     <script type="module" src="../js/profile/kits.js"></script>
+    <script src="../js/util/notification.js"></script>
 </body>
 </html>

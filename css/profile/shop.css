@@ -1,0 +1,15 @@
+.pack {
+    background-color: #0000002f;
+}
+.pack.compact {
+    display:flex;
+    align-items: center;
+    gap:10px;
+}
+.pack.long {
+    align-items: center;
+    width: fit-content;
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+}

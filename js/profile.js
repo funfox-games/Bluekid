@@ -57,6 +57,7 @@ async function loadBadges(uid) {
     //     child.remove();
     // }
 
+    var isOwner = false;
     for (let i = 0; i < cachedBadges.length; i++) {
         const badgeName = cachedBadges[i];
         const clone = document.getElementById("badgeex").cloneNode(true);
@@ -64,6 +65,9 @@ async function loadBadges(uid) {
         const friendlyName = badgeName.replace(" ", "");
         clone.children[0].src = `../asset/badges/${friendlyName}.png`;
         clone.children[1].innerHTML = badgeName;
+        if (friendlyName == "OfficialCreator") {
+            isOwner = true;
+        }
 
         if (i >= amountToShow) {
             document.getElementById("showAllBadges").style.display = "unset";
@@ -73,6 +77,9 @@ async function loadBadges(uid) {
 
         document.getElementById("badges").appendChild(clone);
         document.getElementById("badges2").appendChild(clone.cloneNode(true));
+    }
+    if (!isOwner) {
+        document.getElementById("dev").remove();
     }
 }
 
@@ -109,4 +116,45 @@ onAuthStateChanged(auth, async (user) => {
         await signOut(auth);
         location.href = "../index.html";
     })
+
+    if (document.getElementById("dev")) {
+        document.getElementById("dev").addEventListener("click", () => {
+            document.getElementById("developer").showModal();
+        });
+
+        document.getElementById("usecurrent").addEventListener("click", () => {
+            document.getElementById("searchuid").value = auth.currentUser.uid;
+        })
+
+        document.getElementById("searchuser").addEventListener("click", async () => {
+            document.getElementById("searchuser").innerHTML = `<i class="fa-solid fa-gear fa-spin"></i> Searching...`;
+            document.getElementById("searchuser").setAttribute("disabled", "");
+            const uid = document.getElementById("searchuid").value;
+
+            document.getElementById("userdata").innerHTML = "";
+
+            const doc__ = doc(db, "users", uid);
+            const data = await getDoc(doc__);
+            
+
+            if (!data.exists()) {
+                document.getElementById("searchuser").innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Search`;
+                document.getElementById("searchuser").removeAttribute("disabled");
+                document.getElementById("searchuid").value = "Error.";
+                return;
+            }
+            console.log(data);
+            document.getElementById("userdata").innerHTML = "DATA FOR " + data.data().username + ":<br>"
+            const entries = Object.entries(data.data());
+            entries.forEach((val, _) => {
+                const id = val[0];
+                const data = val[1];
+                document.getElementById("userdata").innerHTML += `- ${id}: ${data}<br>`;
+            });
+            // document.getElementById("userdata").innerHTML += `- ${id}: ${data}<br>`;
+
+            document.getElementById("searchuser").innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Search`;
+            document.getElementById("searchuser").removeAttribute("disabled");
+        })
+    }
 })

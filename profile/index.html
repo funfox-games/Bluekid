@@ -10,15 +10,32 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="developer">
+        <h1>Get user data</h1>
+        <button class="puffy_button" id="usecurrent">Use current UID</button>
+        <div style="display:flex;gap:5px;margin-top:10px;margin-bottom: 10px;">
+            <input type="text" class="input" id="searchuid" style="background-color: #0000001f;" placeholder="Enter UID...">
+            <button class="puffy_button primary" id="searchuser"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </div>
+        <div id="userdata" class="container" style="background-color: #0000001f;">Output here</div>
+
+        <br>
+        <form method="dialog">
+            <button class="puffy_button danger"><i class="fa-solid fa-rectangle-xmark"></i> Close</button>
+        </form>
+    </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
                 <h1><span class="blue">Blue</span>kid</h1>
             </a>
-            <a href="#" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-address-card"></i> Overview</button></a>
+            <a href="#" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-solid fa-address-card"></i> Overview</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-image"></i> Blues</button></a>
             <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-ellipsis"></i> Kits</button></a>
             <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-shop"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-face-smile"></i> Social</button></a>
+            <button style="width:100%;" id="dev" class="puffy_button danger"><i class="fa-solid fa-screwdriver-wrench"></i> Developer</button>
         </div>
         <div id="sidenav_lower">
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-gears"></i> Settings</button></a>
@@ -31,8 +48,8 @@
         <br>
         <div class="profile_card container" style="background-color: #0000001f;">
             <div id="basicInfo">
-                <img src="../asset/char/secret/EasterBun_Blue.png" width="64" alt="profile">
-                <div>
+                <img src="../asset/char/blue_notexture.png" width="64" alt="profile">
+                <div style="margin-left:5px;">
                     <div id="username"></div>
                     <div style="font-size: 16px;">Friends: <span id="followers">0</span></div>
                 </div>
@@ -63,7 +80,7 @@
             <span id="tokens">0 Tokens</span>
         </div>
         <br>
-        <button id="logout" class="puffy_button" style="background-color: rgb(160, 0, 0);"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        <button id="logout" class="puffy_button danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
     </section>
     <dialog id="allBadges">
         <h1>Badges</h1>
@@ -85,5 +102,6 @@
     </dialog>
 
     <script type="module" async src="../js/profile.js"></script>
+    <script src="../js/util/notification.js"></script>
 </body>
 </html>
