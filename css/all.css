@@ -124,6 +124,9 @@ a:focus {
     /* border: 3px solid var(--primary-color-outline); */
 
 }
+.puffy_button.green {
+    background-color: rgb(0, 160, 0);
+}
 a {
     transition-duration: 250ms;
 }
@@ -283,4 +286,13 @@ dialog::backdrop {
     background-color: rgb(160, 0, 0);
     /* border: 3px solid var(--primary-color-outline); */
 
+}
+.littlespace {
+    height: 5px;
+}
+.space{
+    height: 10px;
+}
+.largespace{
+    height: 15px;
 }

@@ -11,6 +11,22 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="packdata">
+        <div id="pack_container" class="container">
+            <img id="info_icon" alt="icon" width="128">
+            <div>
+                <h1><span id="info_name"></span></h1>
+                <p><i class="fa-solid fa-coins"></i> Cost: <span id="info_price">0</span> coins</p>
+                <p><i class="fa-solid fa-layer-group"></i> Blues: <span id="info_blues"></span></p>
+                <p id="limited"><i class="fa-solid fa-clock"></i> Offer ends on: <span id="offer_end"></span></p>
+            </div>
+        </div>
+        <br>
+        <div style="color:black" class="info"><i class="fa-solid fa-circle-info"></i> Blue listing is a preview. I need to find a better way to display it :/</div>
+        <form method="dialog">
+            <button class="puffy_button danger"><i class="fa-solid fa-rectangle-xmark"></i> Close</button>
+        </form>
+    </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
@@ -41,8 +57,8 @@
         <br>
         <h2>Packs</h2>
         <div id="allPacks">
-            <div class="pack long container">
-                <img class="packimg" src="../asset/packs/memepack.png" alt="pack" width="140">
+            <div class="pack long container" id="packex">
+                <img class="packimg" src="../asset/char/blue_notexture.png" alt="pack" width="140">
                 <div>
                     <h1>Unknown</h1>
                     <p>Cost: idk</p>
@@ -57,5 +73,6 @@
     </section>
 
     <script type="module" src="../js/profile/shop.js"></script>
+    <script src="../js/util/notification.js"></script>
 </body>
 </html>

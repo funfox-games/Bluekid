@@ -13,3 +13,13 @@
     flex-direction: column;
     text-align: center;
 }
+#packex {
+    display: none;
+}
+#pack_container {
+    display: flex;
+    padding-right: 30px;
+    gap: 10px;
+    align-items: center;
+    background-color: #0000001f;
+}
