@@ -106,7 +106,6 @@ async function buyPack(id) {
     // saveLocalCoins();
     startAnimationSequence("../asset/packs/" + allPacks[id].graphic, blue, packdata.blues[blue]);
 }
-
 async function startAnimationSequence(packimg, blue, bluedata) {
     const outside = document.getElementById("unlockScreen");
     const center = document.getElementById("unlockcenter");

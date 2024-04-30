@@ -69,6 +69,23 @@ onAuthStateChanged(auth, async (user) => {
         const left_Data = left.children[1];
         left_Data.children[0].innerText = data.displayname;
         left_Data.children[1].innerText = data.author;
+        left_Data.children[2].innerHTML = `<i id="private_indicator" class="fa-solid fa-lock"></i> Unshared`;
+        console.log(data.visibility);
+        switch (data.visibility) {
+            case "private":
+                console.log("private");
+                break;
+            case "friends":
+                console.log("friends");
+                left_Data.children[2].innerHTML = `<i class="fa-solid fa-user-group"></i> Friends only`;
+                break;
+            case "public":
+                console.log("world");
+                left_Data.children[2].innerHTML = `<i class="fa-solid fa-globe"></i> Public`;
+                break;
+            default:
+                break;
+        }
 
         const right = elem.children[1];
         right.children[0].addEventListener("click", () => {
