@@ -64,7 +64,7 @@ onAuthStateChanged(auth, async (user) => {
         const left = elem.children[0];
 
         if (data.cover != undefined) {
-            left.children[0].src = data.cover;
+            left.children[0].children[0].src = data.cover;
         }
         const left_Data = left.children[1];
         left_Data.children[0].innerText = data.displayname;

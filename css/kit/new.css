@@ -2,6 +2,7 @@
     display:flex;
     gap: 35px;
     border-radius: 10px;
+    justify-content: center;
     /* align-items: center; */
 }
 #cover{
@@ -14,4 +15,7 @@
     display:flex;
     gap: 10px;
     flex-basis: 100%;
+}
+#coverimg {
+    object-fit:contain;
 }

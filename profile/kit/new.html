@@ -11,18 +11,28 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body style="padding: 0;">
+    <dialog id="uploadurldialog">
+        
+        <form method="dialog" style="text-align: center;">
+            <h1>Upload by URL</h1>
+            <input type="url" id="uploadurlurl" required class="input" placeholder="Enter URL..." style="border:1px solid black;margin-bottom: 5px;">
+            <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i class="fa-solid fa-circle-exclamation"></i> Not a vaild image / URL.</div>
+            <br>
+            <button id="uploadurluse" class="puffy_button primary"><i class="fa-solid fa-file-image"></i> Use</button>
+            <button type="reset" id="uploadurlclose" class="puffy_button">Close</button>
+        </form>
+    </dialog>
     <section>
         <h1>Create kit</h1>
 
-        <div class="info"><i class="fa-solid fa-circle-info"></i> Again, a placeholder.</div>
-        <br>
-
         <div id="main_info" style="background-color: #0000002f;" class="container">
             <div id="cover">
-                <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" width="512">
+                <div style="background-color: black;width:512px;height: 288px;">
+                    <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
+                </div>
                 <div id="cover_options">
-                    <button class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload with URL</button>
-                    <button class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
+                    <button id="uploadurl" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload with URL</button>
+                    <button id="uploadfile" class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
                 </div>
             </div>
             <div id="basic_info" style="background-color: #ffffff48;" class="container">
@@ -30,10 +40,10 @@
                 <i>* Required</i>
                 <hr>
                 <h2><i class="fa-solid fa-book-open"></i> Title*</h2>
-                <input type="text" style="text-align: left;" class="input">
+                <input type="text" style="text-align: left;" id="kittitle" class="input">
                 
                 <h2><i class="fa-solid fa-scroll"></i> Description</h2>
-                <textarea style="text-align: left;resize: none;" rows="4" cols="40" class="input"></textarea>
+                <textarea style="text-align: left;resize: none;" id="kitdesc" rows="4" cols="40" class="input"></textarea>
 
                 
             </div>
@@ -62,5 +72,7 @@
         <button class="puffy_button danger" onclick="history.back()"><i class="fa-solid fa-circle-xmark"></i> Cancel</button>
         
     </section>
+
+    <script type="module" src="../../js/kits/new.js"></script>
 </body>
 </html>

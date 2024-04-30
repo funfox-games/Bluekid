@@ -23,3 +23,79 @@
     align-items: center;
     background-color: #0000001f;
 }
+#unlockScreen {
+    background-color: rgb(180, 180, 180);
+    width: 100vw;
+    height: 100vh;
+    position:absolute;
+    left:0;
+    top:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    user-select: none;
+}
+#unlockScreen[hide] {
+    display:none;
+}
+#unlockcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+#unlockcenter[hide] {
+    display:none;
+}
+#unlockcenter[shake] {
+    animation-name: shake;
+    animation-duration: 250ms;
+    animation-iteration-count: infinite;
+}
+#unlockcenter[leaveframe] {
+    animation-name: leaveFrame_pack;
+    animation-duration: 500ms;
+}
+#unlockedblue {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+@keyframes shake {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(5px)
+    }
+
+    50% {
+        transform: translateX(-5px)
+    }
+
+    75% {
+        transform: translateX(5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
+@keyframes leaveFrame_pack {
+    from {
+        transform: translate(0px, 0px);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(750px);
+        scale: .5;
+    }
+}

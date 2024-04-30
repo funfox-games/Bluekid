@@ -52,8 +52,20 @@
     
     </div>
 
+    <div hide id="unlockScreen">
+        <div id="unlockcenter">
+            <img src="../asset/packs/memepack.png" width="400" alt="pack">
+        </div>
+        <div id="unlockedblue">
+            <img src="../asset/char/blue_notexture.png" id="unlockedimg" width="256">
+            <h1 style="font-size: 3rem;" id="unlockedName">Hello</h1>
+            <p style="font-size: 1.75rem;" id="unlockedRarity">placeholder</p>
+        </div>
+    </div>
+
     <section>
         <h1>Shop</h1>
+        <div class="caution"><i class="fa-solid fa-circle-exclamation"></i> Nothing saves, next update will save bought blues.</div>
         <br>
         <h2>Packs</h2>
         <div id="allPacks">
@@ -74,5 +86,6 @@
 
     <script type="module" src="../js/profile/shop.js"></script>
     <script src="../js/util/notification.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 </body>
 </html>
