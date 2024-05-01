@@ -99,3 +99,9 @@
         scale: .5;
     }
 }
+#shop_top {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0000001f;
+}

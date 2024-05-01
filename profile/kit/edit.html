@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit kit | Bluekid</title>
+
+    <link rel="stylesheet" href="../../css/all.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+    <link rel="stylesheet" href="../../css/kit/edit.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body style="padding: 0;">
+    <section>
+        <h1>Edit kit</h1>
+        <div class="space"></div>
+        <div class="info"><i class="fa-solid fa-circle-info"></i> This page has been put on hold and is a placeholder</div>
+        <div class="space"></div>
+        <div id="basic_info" class="container">
+            <h2>Basic info</h2>
+            <div style="background-color: black;width:512px;height: 288px;">
+                <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
+            </div>
+            <div style="display:flex;justify-content: space-between;width: 512px;align-items: center;">
+                <div>
+                    <input type="text" style="text-align: left;" placeholder="Enter name..." id="kitname" class="input">
+                    <div class="space"></div>
+                    <textarea style="text-align: left;resize: none;" class="input" id="desc" cols="20" rows="2" placeholder="Enter description..."></textarea>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <button class="puffy_button primary" id="savekit"><i class="fa-solid fa-floppy-disk"></i> Save kit</button>
+                </div>
+                
+            </div>
+        </div>
+        <div class="space"></div>
+        <div id="questions_container" class="container">
+            <h2>Questions</h2>
+            <div class="space"></div>
+            <button class="puffy_button green"><i class="fa-solid fa-circle-plus"></i> Create question</button>
+        </div>
+        <div class="space"></div>
+        <button class="puffy_button danger" onclick="history.back()"><i class="fa-solid fa-circle-xmark"></i> Cancel</button>
+    </section>
+
+    <script type="module" src="../../js/kits/edit.js"></script>
+</body>
+</html>

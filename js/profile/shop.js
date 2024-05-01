@@ -82,20 +82,33 @@ async function saveLocalCoins() {
     return new Promise(async (res, rej) => {
         isSaving = true;
         var docref = doc(db, "users", auth.currentUser.uid);
+        document.getElementById("allcoins").innerHTML = localCost.toLocaleString();
         await updateDoc(docref, {
             tokens: localCost
         });
         isSaving = false;
-        console.log("save success");
         res();
     });
+}
+
+async function saveBlue(id) {
+    isSaving = true;
+    const doc_ = doc(db, "users", auth.currentUser.uid, "blues", id);
+    let data = await getDoc(doc_).then((snap) => {
+        return snap.data();
+    });
+    await updateDoc(doc_, {
+        amount: data.amount + 1
+    });
+    isSaving = false;
+    console.log("Success. new amount: " + (data.amount + 1));
 }
 
 async function buyPack(id) {
     const cost = allPacks[id].cost;
     if (isSaving) {showNotification(3, "Trying to save. Please try again."); return;}
     if (cost > localCost) { showNotification(3, "Not enough tokens!"); return;}
-    // localCost -= cost;
+    localCost -= cost;
     const packblues = packdata.packs[id].blues;
     const rarities = [];
     Object.entries(packblues).forEach((val, idx) =>{
@@ -103,8 +116,9 @@ async function buyPack(id) {
         rarities.push(data.chance);
     })
     const blue = weighted_random(packblues, rarities);
-    // saveLocalCoins();
     startAnimationSequence("../asset/packs/" + allPacks[id].graphic, blue, packdata.blues[blue]);
+    await saveLocalCoins();
+    saveBlue(blue);
 }
 async function startAnimationSequence(packimg, blue, bluedata) {
     const outside = document.getElementById("unlockScreen");
@@ -203,6 +217,7 @@ onAuthStateChanged(auth, async (user) => {
     var data = await getDoc(doc_).then((res) => {
         return res.data();
     });
+    document.getElementById("allcoins").innerHTML = data.tokens.toLocaleString();
 
     await addAllPacks();
 

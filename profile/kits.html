@@ -50,9 +50,15 @@
     <section>
         <h1>Kits</h1>
         <div class="caution"><i class="fa-solid fa-circle-exclamation"></i> Most features are placeholders / unusable currently. [READ ONLY PAGE]</div>
-        <div class="container">
+        <div class="container" style="padding-bottom: 0;">
             <a href="kit/new.html"><button class="puffy_button primary" id="createnew"><i class="fa-solid fa-square-plus"></i> Create new</button></a>
             <button class="puffy_button secondary" id="import"><i class="fa-solid fa-file-import"></i> Import</button>
+        </div>
+        <div class="container" id="kit_filter_group">
+            <button class="optionbtn" selected id="all">Every</button>
+            <button class="optionbtn" id="ownedByMe">Owned by me</button>
+            <button class="optionbtn" id="sharedWithMe">Shared with me</button>
+            <button class="optionbtn" id="favorites">Favorites</button>
         </div>
         <!-- Make left and right -->
         <div class="container" id="loading" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;margin-bottom: 10px;">

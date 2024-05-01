@@ -157,4 +157,26 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById("searchuser").removeAttribute("disabled");
         })
     }
+
+    document.getElementById("sendsuggestion").addEventListener("click", async () => {
+        const suggestion = document.getElementById("suggestion").value;
+        document.getElementById("sendsuggestion").setAttribute("disabled", "true");
+        document.getElementById("sendsuggestion").innerHTML = "Working...";
+
+        console.log(suggestion);
+
+        const url = "https://discord.com/api/webhooks/1235048946330632293/DNu3A4R9c1CAqYsYQ6MSXO_sHznV7QdiSt7shOk9Gg7jHgUzDVHBlsLsbCPItJLvpp6G";
+        const msg = {
+            "content": suggestion + "\n-------\nEmail: " + user.email + "\nUID: " + user.uid + "\n<@784823225737019402>",
+            "username": userData.username + " | BluekidProfileRequest"
+        }
+        await fetch(url, {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body: JSON.stringify(msg)
+        });
+
+
+        document.getElementById("sendsuggestion").innerHTML = "Thanks!";
+    });
 })

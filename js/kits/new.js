@@ -41,7 +41,7 @@ async function createKit(title, description, visiblity, canclone) {
         "displayname": title,
         "description": description,
         "creationdate": new Date(),
-        "author": userData.username,
+        "author": auth.currentUser.uid,
         "visibility": visiblity,
         "canclone": canclone,
         "cover": currentImg
@@ -57,7 +57,7 @@ async function createKit(title, description, visiblity, canclone) {
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        location.href = "../auth/login.html";
+        location.href = "../../auth/login.html";
         return;
     }
     var uid = user.uid;

@@ -1,0 +1,12 @@
+#coverimg {
+    object-fit: contain;
+}
+#basic_info {
+    display:flex;
+    gap:10px;
+    flex-direction: column;
+    background-color: #0000002f;
+}
+#questions_container {
+    background-color: #0000002f;
+}

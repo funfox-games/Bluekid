@@ -15,12 +15,68 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
+
+let cachedkits;
+
 function wait(sec) {
     return new Promise((res) => {
         setTimeout(() => res(), sec * 1000);
     });
+}
+function filterChange(type) {
+    const children = document.getElementById("kits").children;
+    // console.log(cachedkits);
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (child.id == "example") { continue; }
+        child.style.display = "flex";
+    }
+
+    switch (type) {
+        case 'ownedByMe':
+            //haha
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                if (child.id == "example") {continue;}
+                cachedkits.forEach((document_) => {
+                    const data = document_.data();
+                    const id = document_.id;
+                    if (child.id != id) {return;}
+                    if (data.author != auth.currentUser.uid) {
+                        child.style.display = "none";
+                    }
+                })
+            }
+            break;
+        case 'sharedWithMe':
+            //haha
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                if (child.id == "example") { continue; }
+                cachedkits.forEach((document_) => {
+                    const data = document_.data();
+                    const id = document_.id;
+                    if (child.id != id) { return; }
+                    if (data.author == auth.currentUser.uid) {
+                        child.style.display = "none";
+                    }
+                })
+            }
+            break;
+        case 'favorites':
+            //haha
+            showNotification(3, "no.");
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                if (child.id == "example") { continue; }
+                child.style.display = "none";
+            }
+            break;
+        default:
+            break;
+    }
 }
 function addContextMenuFunctionality(kitid, kitdata) {
     const contextmenu = document.getElementById("kit_contextmenu");
@@ -29,6 +85,7 @@ function addContextMenuFunctionality(kitid, kitdata) {
     const favorite = iconbtns.children[0];
     const share = iconbtns.children[1];
     const _delete = iconbtns.children[2];
+    //Icon buttons
     favorite.removeEventListener("mousedown", favorite.fn);
     share.removeEventListener("mousedown", share.fn);
     _delete.removeEventListener("mousedown", _delete.fn);
@@ -38,8 +95,26 @@ function addContextMenuFunctionality(kitid, kitdata) {
     share.addEventListener("mousedown", share.fn = () => {
         showNotification(3, "still need to work on it (" + kitid + ")");
     })
-    _delete.addEventListener("mousedown", _delete.fn =( ) => {
-        showNotification(3, "it'll be here eventually(" + kitid + ")")
+    _delete.addEventListener("mousedown", _delete.fn = async () => {
+        await deleteDoc(doc(db, "users", auth.currentUser.uid, "kits", kitid));
+        showNotification(4, "Delete success!");
+        document.getElementById(kitid).remove();
+    });
+    //Full buttons
+    const editbtn = contextmenu.children[1];
+    const exportBtn = contextmenu.children[2];
+    const cloneBtn = contextmenu.children[3];
+    editbtn.removeEventListener("mousedown", editbtn.fn);
+    exportBtn.removeEventListener("mousedown", exportBtn.fn);
+    cloneBtn.removeEventListener("mousedown", cloneBtn.fn);
+    editbtn.addEventListener("mousedown", editbtn.fn = () => {
+        location.href = "./kit/edit.html?id=" + kitid;
+    })
+    exportBtn.addEventListener("mousedown", exportBtn.fn = () => {
+        showNotification(3, "no (" + kitid + ")");
+    })
+    cloneBtn.addEventListener("mousedown", cloneBtn.fn = async () => {
+        showNotification(3, "waht?? (" + kitid + ")");
     });
 }
 onAuthStateChanged(auth, async (user) => {
@@ -55,9 +130,10 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
     document.getElementById("nokits").remove();
-    kits.forEach((doc) => {
-        const data = doc.data();
-        const id = doc.id;
+    cachedkits = kits;
+    kits.forEach(async (document_) => {
+        const data = document_.data();
+        const id = document_.id;
         
         const elem = document.getElementById("example").cloneNode(true);
         elem.id = id;
@@ -69,6 +145,15 @@ onAuthStateChanged(auth, async (user) => {
         const left_Data = left.children[1];
         left_Data.children[0].innerText = data.displayname;
         left_Data.children[1].innerText = data.author;
+        var authordoc = doc(db, "users", data.author);
+        var authorres = await getDoc(authordoc);
+        if (authorres.exists()) {
+            left_Data.children[1].innerText = authorres.data().username;
+        } else {
+            left_Data.children[0].innerHTML += ` <i title="The author field is not vaild. This kit is not able to be uploaded online. (To resolve, create a new kit)" class="fa-solid fa-globe fa-xs" style="color: #8f0000;"></i>`;
+        }
+        // if (data.author)
+        
         left_Data.children[2].innerHTML = `<i id="private_indicator" class="fa-solid fa-lock"></i> Unshared`;
         console.log(data.visibility);
         switch (data.visibility) {
@@ -92,7 +177,7 @@ onAuthStateChanged(auth, async (user) => {
             showNotification(3, "Not ready for testing. Check back later.");
         });
         right.children[1].addEventListener("click", () => {
-            showNotification(3, "waht");
+            location.href = "./kit/edit.html?id=" + id;
         });
         right.children[2].addEventListener("mouseup", () => {
             document.getElementById("kit_contextmenu").toggleAttribute("show");
@@ -118,5 +203,17 @@ onAuthStateChanged(auth, async (user) => {
     document.body.addEventListener("mousedown", () => {
         document.getElementById("kit_contextmenu").removeAttribute("show");
     })
+    const group = document.getElementById("kit_filter_group").children;
+    for (let i = 0; i < group.length; i++) {
+        const elem = group[i];
+        elem.addEventListener("click", () => {
+            for (let ii = 0; ii < group.length; ii++) {
+                const elem = group[ii];
+                elem.removeAttribute("selected");
+            }
+            elem.setAttribute("selected", "true");
+            filterChange(elem.id);
+        });
+    }
     document.getElementById("loading").style.display = "none";
 })
