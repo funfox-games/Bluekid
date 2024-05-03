@@ -101,11 +101,17 @@ async function saveBlue(id) {
     });
     let amount = 0;
     if (exists) {
-       amount = data.amount; 
+        amount = data.amount; 
+        await updateDoc(doc_, {
+            amount: amount + 1
+        });
+    } else {
+        await addDoc(doc_, {
+            amount: 1,
+            pack: packdata.blues[id].pack
+        });
     }
-    await updateDoc(doc_, {
-        amount: amount + 1
-    });
+    
     isSaving = false;
     console.log("Success. new amount: " + (amount + 1));
 }
