@@ -99,14 +99,15 @@ async function saveBlue(id) {
         exists = snap.exists();
         return snap.data();
     });
-    if (exists == false) {
-       data.amount = 0; 
+    let amount = 0;
+    if (exists) {
+       amount = data.amount; 
     }
     await updateDoc(doc_, {
-        amount: data.amount + 1
+        amount: amount + 1
     });
     isSaving = false;
-    console.log("Success. new amount: " + (data.amount + 1));
+    console.log("Success. new amount: " + (amount + 1));
 }
 
 async function buyPack(id) {
