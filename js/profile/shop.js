@@ -94,9 +94,14 @@ async function saveLocalCoins() {
 async function saveBlue(id) {
     isSaving = true;
     const doc_ = doc(db, "users", auth.currentUser.uid, "blues", id);
+    let exists;
     let data = await getDoc(doc_).then((snap) => {
+        exists = snap.exists();
         return snap.data();
     });
+    if (exists == false) {
+       data.amount = 0; 
+    }
     await updateDoc(doc_, {
         amount: data.amount + 1
     });
