@@ -7,6 +7,14 @@
             "cost": 20,
             "buyable": true
         },
+        "testables": {
+            "display_name": "Testing",
+            "blues": ["Bugger", "Error", "Fatal Error"],
+            "graphic": "testing.png",
+            "cost": 5,
+            "buyable": true,
+            "ends_on": "Sun May 20 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+        },
         "secret": {
             "display_name": "Secret Blues",
             "blues": ["Rainbow Bunny"],
@@ -62,6 +70,25 @@
             "rarity": "Mystical",
             "imgPath": "meme/blue_no.png",
             "pack": "meme"
+        },
+        "//": "TESTING12",
+        "Bugger": {
+            "chance": 20,
+            "rarity":"Common",
+            "imgPath": "testables/blue_bugger.png",
+            "pack": "testables"
+        },
+        "Error": {
+            "chance": 5,
+            "rarity": "Rare",
+            "imgPath": "testables/blue_error.png",
+            "pack": "testables"
+        },
+        "Fatal Error": {
+            "chance": 1,
+            "rarity": "Lengendary",
+            "imgPath": "testables/blue_fatal.png",
+            "pack": "testables"
         },
         "//": "SECRETS",
         "Rainbow Bunny": {

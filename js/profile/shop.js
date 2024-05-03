@@ -25,6 +25,8 @@ let localCost = 0;
 let isSaving = false;
 const confetti = new JSConfetti();
 
+console.log(new Date(2024, 20, 5));
+
 async function wait(sec) {
     return new Promise(async (res, rej) => {
         setTimeout(() => {

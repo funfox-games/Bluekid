@@ -10,3 +10,7 @@
 #questions_container {
     background-color: #0000002f;
 }
+section {
+    height: 90%;
+    overflow-y: scroll;
+}
