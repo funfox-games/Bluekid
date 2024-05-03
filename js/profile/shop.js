@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, collection, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, getDocs, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
 import packdata from "../../asset/blues.json" assert { type: "json" };;
@@ -106,7 +106,7 @@ async function saveBlue(id) {
             amount: amount + 1
         });
     } else {
-        await addDoc(doc_, {
+        await setDoc(doc_, {
             amount: 1,
             pack: packdata.blues[id].pack
         });
