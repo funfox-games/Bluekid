@@ -39,13 +39,16 @@ function updateFriends(localuserid, acceptingid) {
         }
         _friends.push(localuserid);
 
+        let sentRequests = friendData.sentRequests;
+        sentRequests.splice(sentRequests.indexOf(localuserid), 1);
 
         await updateDoc(doc(db, "users", localuserid), {
             friends,
             requests
         });
         await updateDoc(doc(db, "users", acceptingid), {
-            friends: _friends
+            friends: _friends,
+            sentRequests
         });
 
         res();
