@@ -66,11 +66,16 @@ async function loadFriendRequests(data) {
             document.getElementById("norequests").remove();
         }
         const request = requests[i];
-        const requestdata = await getDoc(doc(db, "users", request)).then((res) => { return res.data() });
+        const doci = await getDoc(doc(db, "users", request)).then((res) => { return res });
+        const requestdata = doci.data();
+
+        if (doci.exists() == false) {
+            continue;
+        }
 
         const clone = document.getElementById("requestex").cloneNode(true);
         clone.id = "";
-        clone.children[0].children[0].innerText = requestdata.username;
+            clone.children[0].children[0].innerText = requestdata.username;
         clone.children[0].children[1].innerText = "UID: " + request;
         clone.children[1].children[0].addEventListener("click", async () => {
             // Accept
@@ -124,11 +129,14 @@ async function loadSentRequests(data) {
             document.getElementById("nosentrequests").remove();
         }
         const request = sentRequests[i];
-        const requestdata = await getDoc(doc(db, "users", request)).then((res) => { return res.data() });
+        const doci = await getDoc(doc(db, "users", request)).then((res) => { return res });
+        const requestdata = doci.data();
+        if (doci.exists() == false) {
+            continue;
+        }
 
         const clone = document.getElementById("sentrequestex").cloneNode(true);
         clone.id = "";
-        clone.children[0].children[0].innerText = requestdata.username;
         clone.children[0].children[1].innerText = "UID: " + request;
         clone.children[1].children[0].addEventListener("click", async () => {
             clone.children[1].children[0].innerHTML = "Working...";
@@ -172,12 +180,21 @@ async function loadFriends(data) {
             document.getElementById("nofriends").remove();
         }
         const friend = friends[i];
-        const frienddata = await getDoc(doc(db, "users", friend)).then((res) => { return res.data() });
+        const friendd = await getDoc(doc(db, "users", friend)).then((res) => { return res });
+        const frienddata = friendd.data();
 
         const clone = document.getElementById("friendex").cloneNode(true);
         clone.id = "";
-        clone.children[0].children[0].innerText = frienddata.username;
-        clone.children[0].children[1].innerText = "UID: " + friend;
+        if (friendd.exists() == false) {
+            clone.children[0].children[0].innerText = "[DELETED ACCOUNT]";
+            clone.children[0].children[1].innerText = "UID: unknown";
+
+
+        } else {
+            clone.children[0].children[0].innerText = frienddata.username;
+            clone.children[0].children[1].innerText = "UID: " + friend;
+
+        }
         clone.children[1].children[0].addEventListener("click", async () => {
             // clone.children[1].children[0].innerHTML = "Working...";
             // clone.children[1].children[0].setAttribute("disabled", "true");

@@ -15,7 +15,12 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+const db = getFirestore(app);
+
 const urlParams = new URLSearchParams(location.search);
+
+import { returnDefaultCreateData } from "./createdata.js";
 
 document.getElementById("login").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -66,7 +71,15 @@ document.getElementById("google").addEventListener("click", async () => {
     const credential = GoogleAuthProvider.credentialFromResult(res);
     const token = credential.accessToken;
     // The signed-in user info.
-    const user = result.user;
+    const user = res.user;
+    const data = await getDoc(doc(db, "users", user.uid));
+    if (data.exists() == false) {
+        const startdata = returnDefaultCreateData();
+        await setDoc(doc(db, "users", user.uid), startdata).catch((err) => {
+            console.error(err);
+            rej(err);
+        });
+    }
 });
 
 onAuthStateChanged(auth, (user) => {

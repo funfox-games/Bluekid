@@ -18,6 +18,8 @@ const auth = getAuth();
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
+import { returnDefaultCreateData } from "./createdata.js";
+
 async function createUserData(uid) {
     return new Promise(async (res, rej) => {
         var doc_ = doc(db, "users", uid);
@@ -27,13 +29,8 @@ async function createUserData(uid) {
             return;
         }
         // SET USER DATA
-        await setDoc(doc_, {
-            badges: [],
-            creation: new Date().toLocaleString(),
-            username: "BluekidUser",
-            tokens: 0,
-            version: 2
-        }).catch((err) => {
+        const startdata = returnDefaultCreateData();
+        await setDoc(doc_, startdata).catch((err) => {
             console.error(err);
             rej(err);
         });
