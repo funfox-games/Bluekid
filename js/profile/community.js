@@ -35,7 +35,7 @@ function updateFriends(localuserid, acceptingid) {
         const friendData = await getDoc(doc(db, "users", acceptingid)).then((res) => { return res.data() });
         let _friends = [];
         if (friendData.friends != undefined) {
-            friends = friendData.friends;
+            _friends = friendData.friends;
         }
         _friends.push(localuserid);
 
@@ -76,6 +76,7 @@ async function loadFriendRequests(data) {
             clone.children[1].children[0].setAttribute("disabled", "true");
             await updateFriends(auth.currentUser.uid, request);
             clone.remove();
+            location.reload();
         });
         clone.children[1].children[1].addEventListener("click", async () => {
             clone.children[1].children[1].innerHTML = "Working...";
