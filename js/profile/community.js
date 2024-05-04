@@ -69,7 +69,9 @@ async function loadFriendRequests(data) {
         clone.children[0].children[1].innerText = "UID: " + request;
         clone.children[1].children[0].addEventListener("click", async () => {
             // Accept
-            await updateFriends(user.uid, request);
+            clone.children[1].children[0].innerHTML = "Working...";
+            clone.children[1].children[0].setAttribute("disabled", "true");
+            await updateFriends(auth.currentUser.uid, request);
             clone.remove();
         });
         clone.children[1].children[1].addEventListener("click", async () => {
