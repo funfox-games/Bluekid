@@ -147,11 +147,7 @@ onAuthStateChanged(auth, async (user) => {
         left_Data.children[1].innerText = data.author;
         var authordoc = doc(db, "users", data.author);
         var authorres = await getDoc(authordoc);
-        if (authorres.exists()) {
-            left_Data.children[1].innerText = authorres.data().username;
-        } else {
-            left_Data.children[0].innerHTML += ` <i title="The author field is not vaild. This kit is not able to be uploaded online. (To resolve, create a new kit)" class="fa-solid fa-globe fa-xs" style="color: #8f0000;"></i>`;
-        }
+        
         // if (data.author)
         
         left_Data.children[2].innerHTML = `<i id="private_indicator" class="fa-solid fa-lock"></i> Unshared`;
@@ -190,6 +186,7 @@ onAuthStateChanged(auth, async (user) => {
         });
 
         elem.addEventListener("contextmenu", (e) => {
+            if (elem.hasAttribute("disablecontextmenu")) {return;}
             document.getElementById("kit_contextmenu").style.left = e.pageX + "px";
             document.getElementById("kit_contextmenu").style.top = e.pageY + "px";
             document.getElementById("kit_contextmenu").toggleAttribute("show", true);
@@ -197,6 +194,16 @@ onAuthStateChanged(auth, async (user) => {
 
             e.preventDefault();
         })
+
+        if (authorres.exists()) {
+            left_Data.children[1].innerText = authorres.data().username;
+        } else {
+            right.style.fontSize = "1.75rem";
+            right.style.textAlign = "right";
+            right.innerHTML = "This kit is bugged.<br>Upgrade to DATAV2 to repair.";
+            elem.setAttribute("disablecontextmenu", "true");
+            left_Data.children[0].innerHTML += ` <i title="The author field is not vaild. This kit is not able to be uploaded online. (To resolve, create a new kit)" class="fa-solid fa-globe fa-xs" style="color: #8f0000;"></i>`;
+        }
 
         document.getElementById("kits").append(elem);
     });

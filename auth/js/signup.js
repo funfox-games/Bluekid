@@ -21,6 +21,11 @@ const db = getFirestore(app);
 async function createUserData(uid) {
     return new Promise(async (res, rej) => {
         var doc_ = doc(db, "users", uid);
+        var docdata = await getDoc(doc_);
+        if (docdata.exists() == true) {
+            rej("User already exists.");
+            return;
+        }
         // SET USER DATA
         await setDoc(doc_, {
             badges: [],
@@ -63,13 +68,18 @@ document.getElementById("login").addEventListener("submit", async (e) => {
             showNotification(3, "Something went wrong. Check the console for more details.");
         }
         document.getElementById("loginbutton").removeAttribute("disabled");
-        document.getElementById("loginbutton").innerHTML = `<i class="fa-solid fa-door-open"></i> Log in`;
+        document.getElementById("loginbutton").innerHTML = `<i class="fa-solid fa-door-open"></i> Sign up`;
         return null;
     });
     if (res == null) {return;}
     console.log(res.user.uid);
     document.getElementById("loginbutton").innerHTML = "Creating data...";
-    await createUserData(res.user.uid);
+    await createUserData(res.user.uid).catch((res) => {
+        showNotification(3, "Error: " + res);
+        document.getElementById("loginbutton").removeAttribute("disabled");
+        document.getElementById("loginbutton").innerHTML = `<i class="fa-solid fa-door-open"></i> Sign up`;
+        return;
+    });
     showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
@@ -97,8 +107,10 @@ document.getElementById("google").addEventListener("click", async () => {
     // const user = result.user;
     console.log(res.user.uid);
     document.getElementById("loginbutton").innerHTML = "Creating data...";
-    await createUserData(res.user.uid);
-    showNotification(4, `Signed up successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
+    await createUserData(res.user.uid).catch((res) => {
+        showNotification(3, "Error: " + res);
+        return;
+    });
 });
 
 onAuthStateChanged(auth, (user) => {
@@ -106,5 +118,6 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById("loginbutton").setAttribute("disabled", "");
         document.getElementById("loginbutton").innerHTML = "Logged in";
         document.getElementById("google").innerHTML = `<img src="../asset/google.webp" alt="googleLogo" width="22"> Merge with Google`;
+        showNotification(4, `Logged in! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
     }
 });

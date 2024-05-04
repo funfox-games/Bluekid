@@ -1,3 +1,6 @@
+body{
+    overflow-y: scroll;
+}
 #coverimg {
     object-fit: contain;
 }
@@ -6,11 +9,40 @@
     gap:10px;
     flex-direction: column;
     background-color: #0000002f;
+    height: fit-content;
 }
 #questions_container {
-    background-color: #0000002f;
+    flex-basis: 100%;
 }
-section {
-    height: 90%;
+#main_container {
+    display:flex;
+    gap: 20px;
+}
+.question {
+    background-color: #0000002f;
+
+}
+#questions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+#questioncontainer {
+    display:flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.questionbox {
+    display:flex;
+    border-radius: 10px;
+}
+#allQuestions {
+    display:flex;
     overflow-y: scroll;
+    gap:10px;
+    flex-direction: column;
+}
+#ex {
+    display:none;
 }

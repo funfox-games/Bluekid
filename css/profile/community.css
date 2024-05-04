@@ -1,0 +1,14 @@
+.request {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#requestex {
+    display: none;
+}
+#sentrequestex {
+    display:none;
+}
+#friendex {
+    display:none;
+}

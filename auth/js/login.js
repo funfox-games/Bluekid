@@ -67,7 +67,6 @@ document.getElementById("google").addEventListener("click", async () => {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
 });
 
 onAuthStateChanged(auth, (user) => {
@@ -80,5 +79,7 @@ onAuthStateChanged(auth, (user) => {
         if (redirect != null) {
             location.href = decodeURIComponent(redirect);
         }
+
+        showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
     }
 });

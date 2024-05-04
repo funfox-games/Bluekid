@@ -11,12 +11,29 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="confirm">
+        <h1>Confirm friendship</h1>
+        <p>You are wanting to friend the person <b id="friendingperson">User</b>.<br>You will be able to do the following with each other:</p>
+        <ul>
+            <li>View their friend-only / public kits</li>
+            <li>Invite them to your games</li>
+            <li>Trade blues</li>
+            <li>View each other's blues</li>
+            <li>Other user statistics</li>
+        </ul>
+        <p>Are you <b>sure</b> you want to friend this person?</p>
+
+        <form method="dialog">
+            <button id="sendrequest" class="puffy_button green" type="button"><i class="fa-solid fa-paper-plane"></i> Send request</button>
+            <button class="puffy_button" ><i class="fa-solid fa-rectangle-xmark"></i> Cancel</button>
+        </form>
+    </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
                 <h1><span class="blue">Blue</span>kid</h1>
             </a>
-            <a href="#" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+            <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-address-card"></i> Overview</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-image"></i> Blues</button></a>
@@ -40,13 +57,76 @@
         <div class="space"></div>
         <div class="container" style="background-color: #0000002f;">
             <h2>Public kits</h2>
+            <button class="puffy_button primary"><i class="fa-solid fa-eye"></i> Show</button>
+        </div>
+        <div class="space"></div>
+        <div class="container" style="background-color: #0000002f;">
+            <h2>Friends</h2>
+            <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No friends found.</p>
+                <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
+            </div>
+            <div id="allFriends">
+                <div id="friendex" style="background-color: #00000059;color:white;" class="request container">
+                    <div>
+                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                        <p style="color:rgb(218, 218, 218)">UID: what</p>
+                    </div>
+                    <div>
+                        <button class="puffy_button danger" disabled><i class="fa-solid fa-user-minus"></i> Unfriend</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="space"></div>
         <div class="container" style="background-color: #0000002f;">
             <h2>Add friend</h2>
+            <div class="info"><i class="fa-solid fa-circle-info"></i> Find your UID in settings. There may be a better way to find people in the future.</div>
+            <div class="space"></div>
+            <div style="display: flex;gap:5px;">
+                <input type="text" id="friendid" placeholder="Enter UID..." class="input">
+                <button id="addfriend" class="puffy_button green"><i class="fa-solid fa-user-group"></i> Add friend</button>
+            </div>
+            <div class="largespace"></div>
+            <h2>Requests</h2>
+            <div id="norequests" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No requests.</p>
+                <p>No one wants to be your friend... yet.</p>
+            </div>
+            <div id="allRequests">
+                <div id="requestex" style="background-color: #00000059;color:white;" class="request container">
+                    <div>
+                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                        <p style="color:rgb(218, 218, 218)">UID: what</p>
+                    </div>
+                    <div>
+                        <button class="puffy_button green"><i class="fa-solid fa-circle-check"></i> Accept</button>
+                        <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Ignore</button>
+                        <button class="puffy_button danger" disabled><i class="fa-solid fa-ban"></i> Block</button>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <h2>Sent requests</h2>
+            <div id="nosentrequests" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No sent requests.</p>
+                <p>Send someone a friend request, just maybe they accept ;]</p>
+            </div>
+            <div id="allSentRequests">
+                <div id="sentrequestex" style="background-color: #00000059;color:white;" class="request container">
+                    <div>
+                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                        <p style="color:rgb(218, 218, 218)">UID: what</p>
+                    </div>
+                    <div>
+                        <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script type="module" src="../js/profile/community.js"></script>
+    <script src="../js/util/notification.js"></script>
 </body>
 </html>
