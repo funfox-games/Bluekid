@@ -62,7 +62,9 @@ async function loadFriendRequests(data) {
     }
     
     for (let i = 0; i < requests.length; i++) {
-        document.getElementById("norequests").remove();
+        if (document.getElementById("norequests") != null) {
+            document.getElementById("norequests").remove();
+        }
         const request = requests[i];
         const requestdata = await getDoc(doc(db, "users", request)).then((res) => { return res.data() });
 
@@ -118,7 +120,9 @@ async function loadSentRequests(data) {
     if (sentRequests == undefined) {return;}
 
     for (let i = 0; i < sentRequests.length; i++) {
-        document.getElementById("nosentrequests").remove();
+        if (document.getElementById("nosentrequests") != null) {
+            document.getElementById("nosentrequests").remove();
+        }
         const request = sentRequests[i];
         const requestdata = await getDoc(doc(db, "users", request)).then((res) => { return res.data() });
 
@@ -159,11 +163,14 @@ async function loadSentRequests(data) {
 }
 async function loadFriends(data) {
     const friends = data.friends;
+    console.log(friends);
 
     if(friends == undefined) {return;}
 
     for (let i = 0; i < friends.length; i++) {
-        document.getElementById("nofriends").remove();
+        if (document.getElementById("nofriends") != null) {
+            document.getElementById("nofriends").remove();
+        }
         const friend = friends[i];
         const frienddata = await getDoc(doc(db, "users", friend)).then((res) => { return res.data() });
 
