@@ -1,8 +1,7 @@
-body {
+section {
+    height: 95%;
     overflow-y: scroll;
-    height: 100%;
 }
-
 #coverimg {
     object-fit: contain;
 }

@@ -81,9 +81,9 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
     if (kitdata.visibility == "friends"){
-        const theirdata = await getDoc(kitowner_url).then((res) => { return res.data() });
+        const theirdata = await getDoc(doc(db, "users", kitowner_url)).then((res) => { return res.data() });
         
-        if (!theirdata.friends.includes(user.uid)) {
+        if (!theirdata.friends.includes(user.uid) && user.uid != kitowner_url) {
             document.getElementById("visibility").innerHTML = kitdata.visibility;
             document.getElementById("notOwned").showModal();
             return;
