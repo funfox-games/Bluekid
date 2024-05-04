@@ -93,7 +93,8 @@ function addContextMenuFunctionality(kitid, kitdata) {
         showNotification(3, "ehhh (" + kitid + ")");
     })
     share.addEventListener("mousedown", share.fn = () => {
-        showNotification(3, "still need to work on it (" + kitid + ")");
+        navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?owner=" + auth.currentUser.uid + "&id=" + kitid);
+        showNotification(4, "Copied to clipboard!");
     })
     _delete.addEventListener("mousedown", _delete.fn = async () => {
         await deleteDoc(doc(db, "users", auth.currentUser.uid, "kits", kitid));

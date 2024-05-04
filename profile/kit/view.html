@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View kit | Bluekid</title>
+
+    <link rel="stylesheet" href="../../css/all.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+    <link rel="stylesheet" href="../../css/kit/view.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+
+<body style="padding: 0;">
+
+    <dialog id="notOwned">
+        <h1>Vaild permissions missing</h1>
+        <p>This kit is classified as <b id="visibility">private</b>. If you think this is a mistake, contact the owner.</p>
+    </dialog>
+    <section>
+        <h1>View kit</h1>
+        <div class="container" id="main_container">
+            <div id="basic_info" class="container">
+                <h2>Basic info</h2>
+                <div style="background-color: black;width:512px;height: 288px;">
+                    <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
+                </div>
+                <div style="display:flex;justify-content: space-between;width: 512px;align-items: center;">
+                    <div>
+                        <h2 id="kitname">Name</h2>
+                        <p id="desc">Desc</p>
+                    </div>
+
+                </div>
+            </div>
+            <div id="questions_container" class="container">
+                <div id="allQuestions">
+                    <div class="container question" id="ex">
+                        <h1>question</h1>
+                        <div>
+                            <p>Answer 1</p>
+                            <p>Answer 2</p>
+                            <p>Answer 3</p>
+                            <p>Answer 4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="../../js/kits/view.js"></script>
+</body>
+
+</html>
