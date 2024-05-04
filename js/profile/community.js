@@ -137,6 +137,7 @@ async function loadSentRequests(data) {
 
         const clone = document.getElementById("sentrequestex").cloneNode(true);
         clone.id = "";
+        clone.children[0].children[0].innerText = requestdata.username;
         clone.children[0].children[1].innerText = "UID: " + request;
         clone.children[1].children[0].addEventListener("click", async () => {
             clone.children[1].children[0].innerHTML = "Working...";
@@ -277,7 +278,7 @@ onAuthStateChanged(auth, async (user) => {
          * @type {Array}
          */
         const allFriends = await getDoc(doc_).then((res) => {
-            return res.data().friends
+            return res.data().sentRequests
         });
         if (allFriends == undefined || allFriends == []) {
             await updateDoc(doc_, {
