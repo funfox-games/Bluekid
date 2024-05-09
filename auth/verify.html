@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify email</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <style>
+        body {
+            background-image: linear-gradient(#c6caff, #80b5d8);
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="section__center">
+        <h1>Verify your email</h1>
+        <p>Send the verification below.</p>
+        <div class="info"><i class="fa-solid fa-circle-info"></i> You are sending this to <b id="emailaddress">example@example.com</b>. Not you? Sign out.</div>
+        <button id="send" class="puffy_button primary"><i class="fa-solid fa-envelope-circle-check"></i> Send</button>
+        <button onclick="history.back()" class="puffy_button"><i class="fa-solid fa-rotate-left"></i> Go back</button>
+    </section>
+
+    <script src="../js/util/notification.js"></script>
+    <script type="module" src="./js/verify.js"></script>
+</body>
+</html>

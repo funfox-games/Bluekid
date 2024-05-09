@@ -112,6 +112,20 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("upgradeData").showModal();
     }
 
+    console.log(user);
+    if (user.emailVerified == true) {
+        document.getElementById("notemailverified").remove();
+    } else{
+        if (diffDays > 30 && !user.email.includes("@libertyunion.org")) {
+            location.href = "../auth/overdue.html";
+        }
+    }
+    
+    
+    if (user.photoURL != undefined && user.photoURL != null) {
+        document.getElementById("pfp").src = user.photoURL;
+    }
+
     document.getElementById("logout").addEventListener("click", async () => {
         await signOut(auth);
         location.href = "../index.html";

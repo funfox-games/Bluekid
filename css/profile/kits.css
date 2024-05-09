@@ -2,8 +2,6 @@
     display:flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y:scroll;
-    height: 75vh;
     padding-right: 10px;
 }
 .kit {

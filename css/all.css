@@ -314,3 +314,42 @@ dialog::backdrop {
     background-color: var(--primary-color);
     border: 1px solid var(--primary-color-outline);
 }
+
+.toggle {
+    --width: 40px;
+    --height: calc(var(--width) / 2);
+    --border-radius: calc(var(--height) / 2);
+
+    display: flex;
+    gap:5px;
+    cursor: pointer;
+}
+.toggle_input {
+    display:none;
+}
+.toggle_fill {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
+    background: #0000007a;
+    transition: background 0.2s;
+}
+.toggle_input:checked ~ .toggle_fill {
+    background: var(--primary-color);
+}
+.toggle_fill:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left:0;
+    height: var(--height);
+    width: var(--height);
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,.25);
+    border-radius: var(--border-radius);
+    transition: transform .2s;
+}
+.toggle_input:checked ~ .toggle_fill:after {
+    transform: translateX(var(--height));
+}

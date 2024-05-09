@@ -32,6 +32,7 @@
     background-color: #0000001f;
     border-top: 5px solid black;
     padding-left: 15px;
+    backdrop-filter: blur(8px);
 }
 #bottom_inspect_left {
     display: flex;

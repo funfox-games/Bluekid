@@ -7,6 +7,10 @@ body {
 
     padding-left:235px;
 }
+section {
+    height: 90%;
+    overflow-y: scroll;
+}
 :root {
     --sidenav-size: 225px;
 }

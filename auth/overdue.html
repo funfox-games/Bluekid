@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overdue account</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <style>
+        body {
+            background-image: linear-gradient(#c6caff, #80b5d8);
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section class="section__center">
+        <h1>This account is overdue.</h1>
+        <p>You can not access your account currently.<br>Your data is still present, but not accessable. <b>Please verify your email to continue.</b></p>
+        <div class="info"><i class="fa-solid fa-circle-info"></i> You are sending this to <b
+                id="emailaddress">example@example.com</b>. Not you? Sign out.</div>
+        <button id="send" class="puffy_button primary"><i class="fa-solid fa-envelope-circle-check"></i> Send verification</button>
+        <button id="logout" class="puffy_button danger"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
+        <br>
+        <div class="littlespace"></div>
+        <button class="puffy_button danger" id="delete"><i class="fa-solid fa-trash"></i> Delete account</button>
+    </section>
+
+    <script src="../js/util/notification.js"></script>
+    <script type="module" src="./js/overdue.js"></script>
+</body>
+
+</html>

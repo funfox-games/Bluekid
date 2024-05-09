@@ -135,6 +135,7 @@ async function buyPack(id) {
     saveBlue(blue);
 }
 async function startAnimationSequence(packimg, blue, bluedata) {
+    const fast = document.getElementById("quickTransition").checked;
     const outside = document.getElementById("unlockScreen");
     const center = document.getElementById("unlockcenter");
     center.children[0].src = packimg;
@@ -143,18 +144,32 @@ async function startAnimationSequence(packimg, blue, bluedata) {
     document.getElementById("unlockedRarity").innerHTML = bluedata.rarity + ` (${bluedata.chance}%)`;
     console.log(bluedata);
     outside.removeAttribute("hide");
-    await wait(.5);
+    if (!fast) {
+        await wait(.5);
+    }
     center.setAttribute("shake", "");
-    await wait(1);
+    if (!fast) {
+        await wait(1);
+    } else {
+        await wait(.5);
+    }
     center.removeAttribute("shake");
     center.setAttribute("leaveframe", "");
-    await wait(.5);
+    if (!fast) {
+        await wait(.5);
+    } else {
+        await wait(.25);
+    }
     if (bluedata.chance <= 1) {
         confetti.addConfetti();
     }
     center.removeAttribute("leaveframe");
     center.setAttribute("hide", "");
-    await wait(1);
+    if (!fast) {
+        await wait(1);
+    } else {
+        await wait(.5);
+    }
     outside.setAttribute("hide", "");
     center.removeAttribute("hide");
 }
@@ -232,9 +247,16 @@ onAuthStateChanged(auth, async (user) => {
         return res.data();
     });
     document.getElementById("allcoins").innerHTML = data.tokens.toLocaleString();
+    if (localStorage.getItem("fastPackOpening") == "true") {
+        document.getElementById("quickTransition").checked = true;
+    }
 
     await addAllPacks();
 
+    document.getElementById("quickTransition").addEventListener("change", () => {
+        const fastPackOn = document.getElementById("quickTransition").checked;
+        localStorage.setItem("fastPackOpening", fastPackOn);
+    });
+
     localCost = data.tokens;
-    console.log(localCost);
 });

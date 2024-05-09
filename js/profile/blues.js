@@ -159,9 +159,12 @@ async function sellBlue() {
     const data = pack_data.blues[currentlySelected];
     const amount = getPriceFromRarity(data.rarity);
     const amountToSell = parseInt(document.getElementById("sell_amount").value);
-
     if (amountToSell == 0) {
         showNotification(3, `Canceled sell.`);
+        return;
+    }
+    if (amountToSell.toString() == "NaN") {
+        showNotification(3, "Can't sell NaN blues");
         return;
     }
 
