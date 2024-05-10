@@ -113,10 +113,10 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     console.log(user);
-    if (user.emailVerified == true) {
+    if (user.emailVerified == true || !user.email.includes("@libertyunion.org")) {
         document.getElementById("notemailverified").remove();
     } else{
-        if (diffDays > 30 && !user.email.includes("@libertyunion.org")) {
+        if (diffDays > 30) {
             location.href = "../auth/overdue.html";
         }
     }

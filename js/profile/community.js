@@ -306,6 +306,9 @@ onAuthStateChanged(auth, async (user) => {
 
         location.reload();
     });
+    document.getElementById("searchFriends").addEventListener("click", () => {
+        document.getElementById("searchuser").showModal();
+    });
 
     const userdoc = doc(db, "users", user.uid);
     const data = await getDoc(userdoc).then((res) => {

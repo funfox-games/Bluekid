@@ -42,6 +42,18 @@
             <button class="puffy_button danger"><i class="fa-solid fa-circle-xmark"></i> Close</button>
         </form>
     </dialog>
+    <dialog id="uploadurldialog">
+        <form method="dialog" style="text-align: center;">
+            <h1>Upload by URL</h1>
+            <input type="url" id="uploadurlurl" required class="input" placeholder="Enter URL..."
+                style="border:1px solid black;margin-bottom: 5px;">
+            <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i
+                    class="fa-solid fa-circle-exclamation"></i> Not a vaild image / URL.</div>
+            <br>
+            <button id="uploadurluse" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i> Use</button>
+            <button type="reset" id="uploadurlclose" class="puffy_button">Close</button>
+        </form>
+    </dialog>
     <section>
         <h1>Edit kit</h1>
         <div class="space"></div>
@@ -53,6 +65,8 @@
                 <div style="background-color: black;width:512px;height: 288px;">
                     <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
                 </div>
+                <button id="changecoverurl" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload with URL</button>
+                <button class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
                 <div style="display:flex;justify-content: space-between;width: 512px;align-items: center;">
                     <div>
                         <input type="text" style="text-align: left;" placeholder="Enter name..." id="kitname" class="input">
@@ -62,7 +76,6 @@
                     </div>
                     <div style="display: flex;flex-direction: column;gap:5px;">
                         <button class="puffy_button primary" id="savekit"><i class="fa-solid fa-floppy-disk"></i> Save kit</button>
-                        <button class="puffy_button" id="changecover"><i class="fa-solid fa-image"></i> Change cover</button>
                     </div>
             
                 </div>

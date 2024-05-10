@@ -85,6 +85,20 @@ async function saveKit() {
         res();
     });
 }
+async function checkImage(url) {
+    return new Promise((res, rej) => {
+        var image = new Image();
+        image.onload = function () {
+            if (this.width > 0) {
+                res();
+            }
+        }
+        image.onerror = function () {
+            rej();
+        }
+        image.src = url;
+    })
+}
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -215,6 +229,26 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("savekit").innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save kit`;
         document.getElementById("savekit").removeAttribute("disabled");
     });
+    document.getElementById("changecoverurl").addEventListener("click", () => {
+        document.getElementById("uploadurldialog").showModal();
+    })
+    document.getElementById("uploadurluse").addEventListener("click", async () => {
+        document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Working...`;
+        document.getElementById("uploadurlnovaild").style.display = "none";
+        var cont = true;
+        await checkImage(document.getElementById("uploadurlurl").value).catch(() => {
+            document.getElementById("uploadurlnovaild").style.display = "unset";
+            document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
+            cont = false;
+        });
+        if (!cont) { return; }
+        console.log(document.getElementById("uploadurlurl").value);
+
+        document.getElementById("coverimg").src = document.getElementById("uploadurlurl").value;
+        document.getElementById("uploadurlurl").value = "";
+        document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
+        document.getElementById("uploadurldialog").close();
+    })
 });
 window.addEventListener("beforeunload", function (e) {
     if (hasSaved) {return;}
