@@ -113,7 +113,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     console.log(user);
-    if (user.emailVerified == true || !user.email.includes("@libertyunion.org")) {
+    if (user.emailVerified == true || user.email.includes("@libertyunion.org")) {
         document.getElementById("notemailverified").remove();
     } else{
         if (diffDays > 30) {

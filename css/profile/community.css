@@ -19,8 +19,40 @@ section {
 #allsearched {
     margin-top: 15px;
     margin-bottom: 15px;
-    height: 25vh;
+    height: 40vh;
     border-radius: 10px;
+    width: 30vw;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.1);
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+    text-align: center;
+
+}
+.queryeduser {
+    display:flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.103);
+    text-align: left;
+    align-items: center;
+}
+.queryeduser__actions {
+    display:flex;
+    gap:5px;
+}
+.queryeduser__top__username{
+    display:flex;
+    gap: 5px;
+    align-items: center;
+}
+.queryeduser__top__badges {
+    display:flex;
+    gap: 3px;
+    align-items: center;
+}
+#queryedex {
+    display:none;
 }

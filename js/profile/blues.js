@@ -212,7 +212,7 @@ onAuthStateChanged(auth, async (user) => {
             clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
         }
         clickListener(clone);
-        if (data.pack == undefined) {
+        if (data.pack == undefined || data.pack == null || data.pack == "") {
             document.getElementById("undefined").append(clone);
         } else {
             document.getElementById(data.pack).append(clone);

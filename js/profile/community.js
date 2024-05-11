@@ -12,10 +12,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-import { getAuth, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, collection, query, where, getDocs, limit, orderBy } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
 function updateFriends(localuserid, acceptingid) {
@@ -205,6 +205,18 @@ async function loadFriends(data) {
         document.getElementById("allFriends").append(clone);
     }
 }
+async function searchUsers(query_username) {
+    return new Promise(async (res, rej) => {
+        const col = collection(db, "users");
+        let q = query(col, where("username", "in", [query_username, query_username.toLowerCase(), query_username.toUpperCase()]), limit(10));
+        const all = await getDocs(q);
+        let allDocs = [];
+        all.forEach((doc) => {
+            allDocs.push(doc);
+        });
+        res(allDocs);
+    });
+}
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -308,6 +320,46 @@ onAuthStateChanged(auth, async (user) => {
     });
     document.getElementById("searchFriends").addEventListener("click", () => {
         document.getElementById("searchuser").showModal();
+    });
+    document.getElementById("searchusers").addEventListener("click", async () => {
+        console.log(document.getElementById("allowFriends").checked);
+        const allUsers = await searchUsers(document.getElementById("username_seaching").value);
+
+        document.getElementById("allsearched").innerHTML = "";
+
+        for (let i = 0; i < allUsers.length; i++) {
+            const data = allUsers[i].data();
+            const id = allUsers[i].id;
+
+            if (!document.getElementById("allowFriends").checked && data.friends.includes(auth.currentUser.uid)) {
+                continue;
+            }
+
+            const clone = document.getElementById("queryedex").cloneNode(true);
+            clone.id = "";
+            const top = clone.children[0];
+            const usernamediv = top.children[0];
+            usernamediv.children[0].innerText = data.username;
+            top.children[1].innerHTML = "Friends: " + data.friends.length;
+            for (let ii = 0; ii < data.badges.length; ii++) {
+                const badge = data.badges[ii];
+                const newImg = document.createElement("img");
+                newImg.src = "../asset/badges/" + badge.replace(" ", "") + ".png";
+                newImg.width = "24";
+                newImg.alt = badge;
+                newImg.title = badge;
+                usernamediv.children[1].append(newImg);
+            }
+
+            const interactibles = clone.children[1];
+            interactibles.children[0].addEventListener("click", () => {
+                document.getElementById("friendid").value = id;
+                document.getElementById("searchuser").close();
+            });
+            
+
+            document.getElementById("allsearched").append(clone);
+        }
     });
 
     const userdoc = doc(db, "users", user.uid);

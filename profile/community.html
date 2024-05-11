@@ -31,24 +31,39 @@
     <dialog id="searchuser">
         <h1>Search users</h1>
         <div style="display: flex;flex-direction: column;gap:5px;">
-            <input type="text" class="input" placeholder="Enter username..." style="border: 1px solid black;">
+            <input type="search" class="input" placeholder="Enter username..." id="username_seaching" style="text-align:left;border: 1px solid black;">
             <div class="littlespace"></div>
             <label class="toggle" for="allowFriends">
                 <input class="toggle_input" type="checkbox" id="allowFriends">
                 <div class="toggle_fill"></div>
                 Include friends
             </label>
-            <label class="toggle" for="nonverified">
-                <input class="toggle_input" type="checkbox" checked id="nonverified">
-                <div class="toggle_fill"></div>
-                Include non-verified emails
-            </label>
+            <button class="puffy_button primary" id="searchusers"><i class="fa-solid fa-magnifying-glass"></i> Serch</button>
+
+            <div class="queryeduser" id="queryedex">
+                <div class="queryeduser__top">
+                    <div class="queryeduser__top__username">
+                        <!-- Username -->
+                        <div style="font-size: 20px;">Username</div>
+                        <div class="queryeduser__top__badges">
+                            <!-- All badges -->
+            
+                        </div>
+                    </div>
+                    <p style="font-size: 14px;">Friends: 0</p>
+                </div>
+                <div class="queryeduser__actions">
+                    <button class="icon_button primary"><i class="fa-solid fa-sm fa-user-plus"></i></button>
+                </div>
+            </div>
+            <div id="allsearched">
+                <h2 id="nousers">Search for a user!</h2>
+                
+            </div>
         </div>
         
 
-        <div id="allsearched">
-            <h5>WHAAAAAAAAAAAAAATTTTTTTTTTTT</h5>
-        </div>
+       
 
         <form method="dialog">
             <button class="puffy_button">Close</button>
@@ -87,25 +102,6 @@
         </div>
         <div class="space"></div>
         <div class="container" style="background-color: #0000002f;">
-            <h2>Friends</h2>
-            <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
-                <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No friends found.</p>
-                <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
-            </div>
-            <div id="allFriends">
-                <div id="friendex" style="background-color: #00000059;color:white;" class="request container">
-                    <div>
-                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                        <p style="color:rgb(218, 218, 218)">UID: what</p>
-                    </div>
-                    <div>
-                        <button class="puffy_button danger" disabled><i class="fa-solid fa-user-minus"></i> Unfriend</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="space"></div>
-        <div class="container" style="background-color: #0000002f;">
             <h2>Add friend</h2>
             <div class="info"><i class="fa-solid fa-circle-info"></i> Find your UID in settings. There may be a better way to find people in the future.</div>
             <div class="space"></div>
@@ -115,6 +111,25 @@
                 <button id="addfriend" class="puffy_button green"><i class="fa-solid fa-user-group"></i> Add friend</button>
             </div>
             <div class="largespace"></div>
+            <div>
+                <h2>Friends</h2>
+                <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
+                    <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No friends found.</p>
+                    <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
+                </div>
+                <div id="allFriends">
+                    <div id="friendex" style="background-color: #00000059;color:white;" class="request container">
+                        <div>
+                            <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                            <p style="color:rgb(218, 218, 218)">UID: what</p>
+                        </div>
+                        <div>
+                            <button class="puffy_button danger" disabled><i class="fa-solid fa-user-minus"></i> Unfriend</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
             <h2>Requests</h2>
             <div id="norequests" class="container" style="background-color: #00000059;color:white;">
                 <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No requests.</p>
