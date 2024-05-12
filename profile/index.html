@@ -31,7 +31,7 @@
             </a>
             <a href="#" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-solid fa-address-card"></i> Overview</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-image"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-ellipsis"></i> Kits</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-layer-group"></i> Kits</button></a>
             <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-shop"></i> Shop</button></a>
             <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-face-smile"></i> Social</button></a>
@@ -53,7 +53,7 @@
                 <img src="../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
                 <div style="margin-left:5px;">
                     <div id="username"></div>
-                    <div style="font-size: 16px;">Friends: <span id="followers">0</span></div>
+                    <div style="font-size: 16px;">Friends: <span id="friends">0</span></div>
                 </div>
             </div>
             <div id="badges">
@@ -113,6 +113,7 @@
         </form>
     </dialog>
 
+    <script type="module" src="../js/util/auth_helper.js"></script>
     <script type="module" async src="../js/profile.js"></script>
     <script src="../js/util/notification.js"></script>
 </body>

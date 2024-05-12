@@ -5,6 +5,9 @@ section{
 #coverimg {
     object-fit: contain;
 }
+#qimg {
+    object-fit: contain;
+}
 #basic_info {
     display:flex;
     gap:10px;
@@ -21,7 +24,9 @@ section{
 }
 .question {
     background-color: #0000002f;
-
+    display:flex;
+    gap:5px;
+    align-items: center;
 }
 #questions {
     display: flex;
@@ -46,4 +51,19 @@ section{
 }
 #ex {
     display:none;
+}
+#questioncontainer_top {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+}
+#questioncontainer_imgoptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap:10px;
+}
+#imageoptions{
+    display:flex;
+    gap:10px;
 }

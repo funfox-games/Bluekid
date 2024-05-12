@@ -42,24 +42,29 @@ function refreshQuestions() {
 
         const clone = document.getElementById("ex").cloneNode(true);
         clone.id = "";
-        clone.children[0].innerText = question;
-        clone.children[1].children[0].innerText = answer1;
-        clone.children[1].children[1].innerText = answer2;
-        clone.children[1].children[2].innerText = answer3;
-        clone.children[1].children[3].innerText = answer4;
+        clone.children[1].children[0].innerText = question;
+        clone.children[1].children[1].children[0].innerText = answer1;
+        clone.children[1].children[1].children[1].innerText = answer2;
+        clone.children[1].children[1].children[2].innerText = answer3;
+        clone.children[1].children[1].children[3].innerText = answer4;
         if (correct.includes("1")) {
-            clone.children[1].children[0].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer1}`;
+            clone.children[1].children[1].children[0].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer1}`;
         }
         if (correct.includes("2")) {
-            clone.children[1].children[1].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer2}`;
+            clone.children[1].children[1].children[1].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer2}`;
         }
         if (correct.includes("3")) {
-            clone.children[1].children[2].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer3}`;
+            clone.children[1].children[1].children[2].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer3}`;
         }
         if (correct.includes("4")) {
-            clone.children[1].children[3].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer4}`;
+            clone.children[1].children[1].children[3].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer4}`;
         }
-        clone.children[2].addEventListener("click", () => {
+        if (qdata.image == "" || qdata.image == undefined) {
+            clone.children[0].style.display = "none";
+        } else {
+            clone.children[0].children[0].src = qdata.image;
+        }
+        clone.children[1].children[2].addEventListener("click", () => {
             questions.splice(i, 1);
             clone.remove();
         });
@@ -79,7 +84,8 @@ async function saveKit() {
             displayname: title,
             description: desc,
             cover,
-            questions
+            questions,
+            visibility: document.getElementById("kit_visibility").value
         }).catch((res) => rej(res));
 
         res();
@@ -121,6 +127,8 @@ onAuthStateChanged(auth, async (user) => {
         questions = kitdata.questions;
     }
     refreshQuestions();
+
+    document.getElementById("kit_visibility").value = kitdata.visibility;
     
     document.getElementById("createquestion__btn").addEventListener("click", () => {
         const question = document.getElementById("questiontext").value;
@@ -136,6 +144,7 @@ onAuthStateChanged(auth, async (user) => {
 
         const q4A = document.getElementById("q4a").checked;
         const q4 = document.getElementById("q4").value;
+        const img = document.getElementById("qimg").src;
 
         if (question == "") {
             document.getElementById("problem").parentElement.style.display = "unset";
@@ -180,13 +189,15 @@ onAuthStateChanged(auth, async (user) => {
             correct.push("4");
         }
 
+        console.log(img);
         questions.push({
             a1: q1,
             a2: q2,
             a3: q3,
             a4: q4,
             correctA: correct,
-            question
+            question,
+            image: img == location.href ? "" : img
         });
         hasSaved = false;
         document.getElementById("createquestionpopup").close();
@@ -218,6 +229,8 @@ onAuthStateChanged(auth, async (user) => {
         q4.value = "";
         q4A.checked = false;
 
+        document.getElementById("qimg").src = "";
+
         document.getElementById("createquestionpopup").showModal();
     });
     document.getElementById("savekit").addEventListener("click", async () => {
@@ -231,6 +244,9 @@ onAuthStateChanged(auth, async (user) => {
     });
     document.getElementById("changecoverurl").addEventListener("click", () => {
         document.getElementById("uploadurldialog").showModal();
+    })
+    document.getElementById("uploadurlquestion").addEventListener("click", () => {
+        document.getElementById("uploadurldialog__question").showModal();
     })
     document.getElementById("uploadurluse").addEventListener("click", async () => {
         document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Working...`;
@@ -248,6 +264,23 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("uploadurlurl").value = "";
         document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
         document.getElementById("uploadurldialog").close();
+    })
+    document.getElementById("uploadurluse__question").addEventListener("click", async () => {
+        document.getElementById("uploadurluse__question").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Working...`;
+        document.getElementById("uploadurlnovaild__question").style.display = "none";
+        var cont = true;
+        await checkImage(document.getElementById("uploadurlurl__question").value).catch(() => {
+            document.getElementById("uploadurlnovaild__question").style.display = "unset";
+            document.getElementById("uploadurlus__questione").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
+            cont = false;
+        });
+        if (!cont) { return; }
+        console.log(document.getElementById("uploadurlurl__question").value);
+
+        document.getElementById("qimg").src = document.getElementById("uploadurlurl__question").value;
+        document.getElementById("uploadurlurl__question").value = "";
+        document.getElementById("uploadurluse__question").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
+        document.getElementById("uploadurldialog__question").close();
     })
 });
 window.addEventListener("beforeunload", function (e) {

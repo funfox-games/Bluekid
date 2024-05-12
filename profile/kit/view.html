@@ -12,10 +12,15 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
+    <dialog id="nonexistant">
+        <h1>Kit missing</h1>
+        <p>The owner must have deleted it or is not on the kits database.<br>Ask the owner if the kit is uploaded and not deleted.</p>
+        <a href="../kits.html"><button class="puffy_button primary"><i class="fa-solid fa-layer-group"></i> Go to kits</button></a>
+    </dialog>
     <dialog id="notOwned">
         <h1>Vaild permissions missing</h1>
         <p>This kit is classified as <b id="visibility">private</b>. If you think this is a mistake, contact the owner.</p>
+        <a href="../kits.html"><button class="puffy_button primary"><i class="fa-solid fa-layer-group"></i> Go to kits</button></a>
     </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
@@ -27,7 +32,7 @@
             <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-image"></i> Blues</button></a>
             <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-ellipsis"></i> Kits</button></a>
+                        class="fa-solid fa-layer-group"></i> Kits</button></a>
             <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-shop"></i> Shop</button></a>
             <a href="../community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
@@ -60,12 +65,18 @@
             <div id="questions_container" class="container">
                 <div id="allQuestions">
                     <div class="container question" id="ex">
-                        <h1>question</h1>
+                        <div style="background-color: black;width:200px;height: 200px;float:left;">
+                            <img src="" style="object-fit: contain;" alt="cover" height="200" width="200">
+                        </div>
                         <div>
-                            <p>Answer 1</p>
-                            <p>Answer 2</p>
-                            <p>Answer 3</p>
-                            <p>Answer 4</p>
+                            <h1>question</h1>
+                            <div>
+                                <p>Answer 1</p>
+                                <p>Answer 2</p>
+                                <p>Answer 3</p>
+                                <p>Answer 4</p>
+                            </div>
+                            <button class="puffy_button danger"><i class="fa-solid fa-trash"></i> Delete</button>
                         </div>
                     </div>
                 </div>

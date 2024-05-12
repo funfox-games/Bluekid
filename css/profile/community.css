@@ -16,6 +16,26 @@ section {
 #friendex {
     display:none;
 }
+#allFriends {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+}
+#allFriends[compact] {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#allFriends[compact] > #friendex {
+    display:none;
+}
+#allFriends[compact] > .request {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+    flex-grow: 1;
+}
 #allsearched {
     margin-top: 15px;
     margin-bottom: 15px;

@@ -13,7 +13,22 @@
 <body style="padding: 0;">
     <dialog id="createquestionpopup">
         <div id="questioncontainer">
-            <input type="text" id="questiontext" autocomplete="off" style="border: 1px solid black;padding: 40px;" placeholder="Enter question name..." class="input">
+            <div id="questioncontainer_top">
+                <h3>Image options</h3>
+                <div id="imageoptions">
+                    <div style="background-color: black;width:256px;height: 256px;">
+                        <img id="qimg" src="" alt="cover" height="256" width="256">
+                    </div>
+                    <div id="questioncontainer_imgoptions">
+                        <button id="uploadurlquestion" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload URL</button>
+                        <button class="puffy_button"><i class="fa-solid fa-file-import"></i> Upload file</button>
+                    </div>
+                </div>
+                
+                <h3>Question</h3>
+                <input type="text" id="questiontext" autocomplete="off" style="border: 1px solid black;padding: 40px;"
+                    placeholder="Enter question name..." class="input">
+            </div>
             <div id="questions" style="margin-top: 5px;">
                 <div class="questionbox" style="background-color: rgb(255, 189, 189);padding-left: 5px;">
                     <input type="checkbox" id="q1a">
@@ -40,6 +55,19 @@
         <form method="dialog">
             <button class="puffy_button primary" id="createquestion__btn" type="button"><i class="fa-solid fa-circle-plus"></i> Create</button>
             <button class="puffy_button danger"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+        </form>
+    </dialog>
+    <dialog id="uploadurldialog__question">
+        <form method="dialog" style="text-align: center;">
+            <h1>Upload by URL</h1>
+            <input type="url" id="uploadurlurl__question" required class="input" placeholder="Enter URL..."
+                style="border:1px solid black;margin-bottom: 5px;">
+            <div class="caution" style="color:black;display:none;" id="uploadurlnovaild__question"><i
+                    class="fa-solid fa-circle-exclamation"></i> Not a vaild image / URL.</div>
+            <br>
+            <button id="uploadurluse__question" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i>
+                Use</button>
+            <button type="reset" id="uploadurlclose__question" class="puffy_button">Close</button>
         </form>
     </dialog>
     <dialog id="uploadurldialog">
@@ -74,7 +102,15 @@
                         <textarea style="text-align: left;resize: none;" class="input" id="desc" cols="20" rows="2"
                             placeholder="Enter description..."></textarea>
                     </div>
-                    <div style="display: flex;flex-direction: column;gap:5px;">
+                    <div style="display: flex;flex-direction: column;gap:10px;">
+                        <div style="display:flex;gap:5px;">
+                            <label for="kit_visibility">Kit Visibility</label>
+                            <select id="kit_visibility" style="flex-grow: 1;">
+                                <option value="public">Public</option>
+                                <option value="friends">Friends</option>
+                                <option value="private" selected>Private</option>
+                            </select>
+                        </div>
                         <button class="puffy_button primary" id="savekit"><i class="fa-solid fa-floppy-disk"></i> Save kit</button>
                     </div>
             
@@ -85,14 +121,20 @@
                 <div class="littlespace"></div>
                 <div id="allQuestions">
                     <div class="container question" id="ex">
-                        <h1>question</h1>
-                        <div>
-                            <p>Answer 1</p>
-                            <p>Answer 2</p>
-                            <p>Answer 3</p>
-                            <p>Answer 4</p>
+                        <div style="background-color: black;width:200px;height: 200px;float:left;">
+                            <img src="" style="object-fit: contain;" alt="cover" height="200" width="200">
                         </div>
-                        <button class="puffy_button danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                        <div>
+                            <h1>question</h1>
+                            <div>
+                                <p>Answer 1</p>
+                                <p>Answer 2</p>
+                                <p>Answer 3</p>
+                                <p>Answer 4</p>
+                            </div>
+                            <button class="puffy_button danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

@@ -21,7 +21,9 @@
 
 .question {
     background-color: #0000002f;
-
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
 
 #questions {

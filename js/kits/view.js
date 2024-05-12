@@ -19,7 +19,7 @@ import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/fi
 const db = getFirestore(app);
 
 const kitid_url = new URL(location.href).searchParams.get("id");
-const kitowner_url = new URL(location.href).searchParams.get("owner");
+// const kitowner_url = new URL(location.href).searchParams.get("owner");
 
 function refreshQuestions(questions) {
     const children = document.getElementById("allQuestions").children;
@@ -40,24 +40,28 @@ function refreshQuestions(questions) {
 
         const clone = document.getElementById("ex").cloneNode(true);
         clone.id = "";
-        clone.children[0].innerText = question;
-        clone.children[1].children[0].innerText = answer1;
-        clone.children[1].children[1].innerText = answer2;
-        clone.children[1].children[2].innerText = answer3;
-        clone.children[1].children[3].innerText = answer4;
+        clone.children[1].children[0].innerText = question;
+        clone.children[1].children[1].children[0].innerText = answer1;
+        clone.children[1].children[1].children[1].innerText = answer2;
+        clone.children[1].children[1].children[2].innerText = answer3;
+        clone.children[1].children[1].children[3].innerText = answer4;
         if (correct.includes("1")) {
-            clone.children[1].children[0].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer1}`;
+            clone.children[1].children[1].children[0].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer1}`;
         }
         if (correct.includes("2")) {
-            clone.children[1].children[1].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer2}`;
+            clone.children[1].children[1].children[1].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer2}`;
         }
         if (correct.includes("3")) {
-            clone.children[1].children[2].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer3}`;
+            clone.children[1].children[1].children[2].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer3}`;
         }
         if (correct.includes("4")) {
-            clone.children[1].children[3].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer4}`;
+            clone.children[1].children[1].children[3].innerHTML = `<i class="fa-solid fa-square-check"></i> ${answer4}`;
         }
-
+        if (qdata.image == "" || qdata.image == undefined) {
+            clone.children[0].style.display = "none";
+        } else {
+            clone.children[0].children[0].src = qdata.image;
+        }
         document.getElementById("allQuestions").append(clone);
     }
 }
@@ -67,13 +71,13 @@ onAuthStateChanged(auth, async (user) => {
         location.href = "../../auth/login.html";
         return;
     }
-    console.log(kitowner_url, kitid_url)
-    var kitref = doc(db, "users", kitowner_url, "kits", kitid_url);
-    var kit = await getDoc(kitref);
-    if (!kit.exists()) {
-        document.getElementById("notOwned").showModal();
+    var kitref = doc(db, "kits", kitid_url);
+    var kit_ = await getDoc(kitref);
+    if (!kit_.exists()) {
+        document.getElementById("nonexistant").showModal();
         return;
     }
+    var kit = await getDoc(doc(db, "users", kit_.data().ownerUid, "kits", kit_.data().kitId));
     var kitdata = kit.data();
     if (kitdata.visibility == "private") {
         document.getElementById("notOwned").showModal();

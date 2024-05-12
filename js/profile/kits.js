@@ -15,8 +15,75 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, getDocs, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
+
+import { isUserVaild, UserReasons } from "../util/auth_helper.js";
+
+async function checkVaild(user, userData) {
+    return new Promise(async (res, rej) => {
+
+        const USER_CONFIRMATION_CHECK = isUserVaild(user, userData);
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.OVERDUE) {
+            location.href = "../auth/overdue.html";
+            return;
+        }
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.BANNED) {
+            const popup = document.createElement("dialog");
+            popup.innerHTML = `
+            <h1>You're banned.</h1>
+            <p>Reason: ${USER_CONFIRMATION_CHECK.banReason}</p>
+            <br>
+            <b>You can resolve this by contacting the developer.</b>
+            <button class="puffy_button danger" id="logout__ban">Logout</button>
+        `;
+            document.body.append(popup);
+            popup.showModal();
+            document.getElementById("logout__ban").addEventListener("click", async () => {
+                await signOut(auth);
+                location.href = "../index.html";
+            })
+            return;
+        }
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.TEMPBANNED) {
+            const popup = document.createElement("dialog");
+            const date = USER_CONFIRMATION_CHECK.endsOn.seconds * 1000;
+            var createdAt = (new Date(date).getTime());
+            let difference = Math.floor((createdAt - Date.now()) / 86400000);
+            let timeType = "days";
+            console.log(difference);
+            if (difference == 0) {
+                difference = Math.floor((createdAt - Date.now()) / 3600000);
+                timeType = "hours";
+                if (difference == 0) {
+                    difference = Math.floor((createdAt - Date.now()) / 60000);
+                    timeType = "minutes";
+                }
+            }
+            popup.innerHTML = `
+            <h1>You're banned.</h1>
+            <p>Reason: ${USER_CONFIRMATION_CHECK.banReason}</p>
+            <p>Ends in ${difference} ${timeType}.</p>
+            <br>
+            <b>You can resolve this sooner by contacting the developer.</b>
+            <button class="puffy_button danger" id="logout__ban">Logout</button>
+        `;
+
+            document.body.append(popup);
+            popup.showModal();
+            document.getElementById("logout__ban").addEventListener("click", async () => {
+                await signOut(auth);
+                location.href = "../index.html";
+            })
+            return;
+        }
+        
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.OTHER) {
+            showNotification(3, "Something went wrong checking user info. Continuing as normal.");
+        }
+        res();
+    });
+}
 
 let cachedkits;
 
@@ -93,7 +160,7 @@ function addContextMenuFunctionality(kitid, kitdata) {
         showNotification(3, "ehhh (" + kitid + ")");
     })
     share.addEventListener("mousedown", share.fn = () => {
-        navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?owner=" + auth.currentUser.uid + "&id=" + kitid);
+        navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?id=" + kitid);
         showNotification(4, "Copied to clipboard!");
     })
     _delete.addEventListener("mousedown", _delete.fn = async () => {
@@ -124,6 +191,14 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
     var uid = user.uid;
+    var doc_ = doc(db, "users", uid);
+    var userData = await getDoc(doc_).then((res) => {
+        if (!res.exists()) {
+            return "UNKNOWN";
+        }
+        return res.data();
+    });
+    await checkVaild(user, userData);
     var allKits = await collection(db, "users", uid, "kits");
     var kits = await getDocs(allKits);
     if (kits.empty == true) {
@@ -176,15 +251,41 @@ onAuthStateChanged(auth, async (user) => {
         right.children[1].addEventListener("click", () => {
             location.href = "./kit/edit.html?id=" + id;
         });
-        right.children[2].addEventListener("mouseup", () => {
+        right.children[2].addEventListener("click", async () => {
+            right.children[2].innerHTML = `<i class="fa-solid fa-gear fa-spin"></i> Working...`;
+            right.children[2].setAttribute("disabled", "");
+            const docref = doc(db, "kits", id);
+            await setDoc(docref, {
+                kitId: id,
+                ownerUid: auth.currentUser.uid
+            });
+            document.getElementById("publishedKit").showModal();
+            document.getElementById("share_kit").removeEventListener("click", document.getElementById("share_kit").fn);
+            document.getElementById("share_kit").addEventListener("click", document.getElementById("share_kit").fn = () => {
+                navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?id=" + id);
+                showNotification(4, "Copied to clipboard!");
+            })
+
+            right.children[2].remove();
+        })
+        right.children[3].addEventListener("mouseup", () => {
             document.getElementById("kit_contextmenu").toggleAttribute("show");
-            const rect = right.children[2].getBoundingClientRect();
+            const rect = right.children[3].getBoundingClientRect();
             const contextrect = document.getElementById("kit_contextmenu").getBoundingClientRect();
             console.log(rect, contextrect);
             document.getElementById("kit_contextmenu").style.left = rect.left - 155 - 25 + "px";
             document.getElementById("kit_contextmenu").style.top = rect.top + "px";
             addContextMenuFunctionality(id, data);
         });
+
+        const publicDocData = await getDoc(doc(db, "kits", id));
+        if (data.visibility != "public") {
+            right.children[2].remove();
+        } else {
+            if (publicDocData.exists()) {
+                right.children[2].remove();
+            }
+        }
 
         elem.addEventListener("contextmenu", (e) => {
             if (elem.hasAttribute("disablecontextmenu")) {return;}
