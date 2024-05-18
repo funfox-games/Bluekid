@@ -12,7 +12,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-import { getAuth, onAuthStateChanged, sendPasswordResetEmail, deleteUser} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, sendPasswordResetEmail, deleteUser, updateEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
 import { getFirestore, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
@@ -129,6 +129,24 @@ onAuthStateChanged(auth, async (user) => {
         showNotification(4, "Email sent! (Check your spam folder)");
         document.getElementById("sendpasswordreset").innerHTML = `<i class="fa-solid fa-envelope"></i> Send password reset email`;
     });
+    document.getElementById("changemail").addEventListener("click", async () => {
+        const newemail = document.getElementById("newemail").value;
+        const confirmemail = document.getElementById("confirmemail").value;
+        console.log(newemail, user.email);
+        if (newemail != user.email) {
+            showNotification(3, "Not original email.");
+            return;
+        }
+        document.getElementById("changemail").innerHTML = `<i class="fa-solid fa-hourglass"></i> Waiting...`;
+        document.getElementById("changemail").setAttribute("disabled", "");
+        console.log(confirmemail);
+        await updateEmail(user,  confirmemail).catch((err) => {
+            // if (err.contains("auth/"))
+            console.log(err);
+            showNotification(3, "Something went wrong: " + err);
+        });
+        showNotification(4, "Success!");
+    })
     // document.getElementById("deleteaccount").addEventListener("click", () => {
     //     document.getElementById("deleteaccountdialog").showModal();
     // });
