@@ -185,6 +185,8 @@ async function loadFriendRequests(data) {
 
         document.getElementById("allRequests").append(clone);
     }
+
+    document.getElementById("requestsloading").remove();
 }
 async function loadSentRequests(data) {
     const sentRequests = data.sentRequests;
@@ -236,6 +238,8 @@ async function loadSentRequests(data) {
 
         document.getElementById("allSentRequests").append(clone);
     }
+
+    document.getElementById("sentrequestsloading").remove();
 }
 async function loadFriends(data) {
     const friends = data.friends;
@@ -271,6 +275,8 @@ async function loadFriends(data) {
 
         document.getElementById("allFriends").append(clone);
     }
+
+    document.getElementById("friendsloading").remove();
 }
 async function searchUsers(query_username) {
     return new Promise(async (res, rej) => {

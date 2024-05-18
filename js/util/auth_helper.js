@@ -24,6 +24,8 @@ export function isUserVaild(user, udata) {
             return { reason: UserReasons.TEMPBANNED, banReason: udata.banned.reason, endsOn };
         }
     }
+    var time = (Date.parse(udata.creation) - new Date()); // milliseconds between now & user creation
+    var diffDays = -Math.floor(time / 86400000); // days
     if ((user.emailVerified == true || user.email.includes("@libertyunion.org")) == false) {
         if (diffDays > 30) {
             return { reason: UserReasons.OVERDUE };

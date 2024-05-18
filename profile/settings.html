@@ -11,6 +11,17 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="deleteaccountdialog">
+        <h1>Account deletion</h1>
+        <p>Warning! This is a dangerous action that CANNOT be reverted!<br>Confirm your email and password below.</p>
+        
+        <div class="space"></div>
+
+        <form method="dialog">
+            <button type="button" id="confirmdelete" class="puffy_button danger">Confirm delete</button>
+            <button class="puffy_button">Close</button>
+        </form>
+    </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
@@ -57,10 +68,10 @@
             <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-solid fa-envelope"></i> Send password reset email</button>
         </div>
         
-        
-        <br><br>
-        <h2></h2>
-        
+        <br>
+        <!-- <h2>Danger</h2> -->
+        <!-- <button id="deleteaccount" class="puffy_button danger"><i class="fa-solid fa-user-slash"></i> Delete account</button> -->
+        <!-- <button id="disableaccount" class="puffy_button danger"><i class="fa-solid fa-person-circle-minus"></i> Disable account</button> -->
     </section>
 
     <script type="module" src="../js/profile/settings.js"></script>

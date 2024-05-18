@@ -12,10 +12,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-import { getAuth, onAuthStateChanged, sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, sendPasswordResetEmail, deleteUser} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
@@ -128,5 +128,22 @@ onAuthStateChanged(auth, async (user) => {
         await sendPasswordResetEmail(auth, user.email);
         showNotification(4, "Email sent! (Check your spam folder)");
         document.getElementById("sendpasswordreset").innerHTML = `<i class="fa-solid fa-envelope"></i> Send password reset email`;
-    })
+    });
+    // document.getElementById("deleteaccount").addEventListener("click", () => {
+    //     document.getElementById("deleteaccountdialog").showModal();
+    // });
+    // document.getElementById("confirmdelete").addEventListener("click", async () => {
+    //     document.getElementById("confirmdelete").innerHTML = "Working...";
+    //     document.getElementById("confirmdelete").setAttribute("disabled", "");
+
+    //     await deleteDoc(doc(db, "users", user.uid));
+
+    //     const res = await deleteUser(user).catch((err) => {
+    //         console.error(err);
+    //         return "WAAAAAA";
+    //     });
+    //     if (res == "WAAAAAA") {return;}
+
+    //     location.href = "../index.html";
+    // });
 });

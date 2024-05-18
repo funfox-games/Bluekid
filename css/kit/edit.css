@@ -67,3 +67,29 @@ section{
     display:flex;
     gap:10px;
 }
+#cover__overlay {
+    position: relative;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    background-color: #00000081;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    
+    transition-duration: 250ms;
+}
+#cover__overlay[show] {
+    opacity: 1;
+}
+#button_container {
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5px;
+}

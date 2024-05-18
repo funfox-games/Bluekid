@@ -165,6 +165,7 @@ function addContextMenuFunctionality(kitid, kitdata) {
     })
     _delete.addEventListener("mousedown", _delete.fn = async () => {
         await deleteDoc(doc(db, "users", auth.currentUser.uid, "kits", kitid));
+        await deleteDoc(doc(db, "kits", kitid));
         showNotification(4, "Delete success!");
         document.getElementById(kitid).remove();
     });
@@ -279,7 +280,7 @@ onAuthStateChanged(auth, async (user) => {
         });
 
         const publicDocData = await getDoc(doc(db, "kits", id));
-        if (data.visibility != "public") {
+        if (data.visibility == "private") {
             right.children[2].remove();
         } else {
             if (publicDocData.exists()) {

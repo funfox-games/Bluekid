@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, collection, getDoc, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, collection, getDoc, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
 import * as __data from "../../asset/blues.json" assert { type: "json" };
@@ -163,8 +163,10 @@ function clickListener(obj) {
         if (obj.getAttribute("given") == null) {return;}
         currentlySelected = obj.id;
 
+        document.getElementById("sell").innerHTML = `<i class="fa-solid fa-coins"></i> Sell`;
         if (pack_data.blues[obj.id] == undefined) {
             document.getElementById("preview_img").src = "../asset/char/blue_notexture.png";
+            document.getElementById("sell").innerHTML = "Remove";
         } else {
             document.getElementById("preview_img").src = "../asset/char/" + pack_data.blues[obj.id].imgPath;
         }
@@ -209,7 +211,13 @@ function resetPreview() {
 function sellBluePopup() {
     const data = pack_data.blues[currentlySelected];
     if (data == null) {
-        document.getElementById("bugged").showModal();
+        if (currentlySelected == "") {
+            document.getElementById("bugged").showModal();
+            return;
+        }
+        document.getElementById("removename").innerText = currentlySelected;
+        document.getElementById("removeamount").innerHTML = currentAmount;
+        document.getElementById("removeblue").showModal();
         return;
     }
     const amount = getPriceFromRarity(data.rarity);
@@ -340,6 +348,15 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("blueInfo").showModal();
     });
     document.getElementById("sellbtn").addEventListener("click", sellBlue);
+    document.getElementById("removeblue_confirm").addEventListener("click", async () => {
+        document.getElementById("removeblue_confirm").innerHTML = "Waiting...";
+        document.getElementById("removeblue_confirm").setAttribute("disabled", "");
+        await deleteDoc(doc(db, "users", user.uid, "blues", currentlySelected));
+        document.getElementById(currentlySelected).remove();
+        document.getElementById("removeblue").close();
+        document.getElementById("removeblue_confirm").innerHTML = "Remove (x<span id='removeamount'>1</span>)";
+        document.getElementById("removeblue_confirm").removeAttribute("disabled");
+    })
 
     document.getElementById("loading").style.display = "none";
 });

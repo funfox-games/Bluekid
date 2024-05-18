@@ -11,6 +11,14 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="removeblue">
+        <h1>Remove <span id="removename"></span>?</h1>
+        <p>Since this blue is bugged, no token value is assigned!<br>To remove this blue entirely, confirm below.</p>
+        <form method="dialog">
+            <button id="removeblue_confirm" type="button" class="puffy_button primary">Remove (x<span id="removeamount"></span>)</button>
+            <button class="puffy_button">Close</button>
+        </form>
+    </dialog>
     <dialog id="sellblue">
         <h1>Sell <span id="sell_name">_</span>?</h1>
         <p>Value: <span id="sell_price">0</span></p>
@@ -39,8 +47,7 @@
     </dialog>
     <dialog id="bugged">
         <h1><i class="fa-solid fa-triangle-exclamation"></i> Error</h1>
-        <p>Since this blue is bugged, no data is assigned to it.<br>Please upgrade to DataV2 and remove this blue.</p>
-        <br>
+        <p>Since this blue is bugged, no data is assigned to it.</p>
         <form method="dialog">
             <button class="puffy_button primary"><i class="fa-solid fa-close"></i> Close</button>
         </form>

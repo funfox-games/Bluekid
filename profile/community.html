@@ -79,7 +79,7 @@
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-image"></i> Blues</button></a>
             <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-ellipsis"></i> Kits</button></a>
+                        class="fa-solid fa-layer-group"></i> Kits</button></a>
             <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-shop"></i> Shop</button></a>
             <a href="community.html" style="width:100%;"><button disabled style="width:100%;" class="puffy_button"><i
@@ -118,10 +118,14 @@
                     <div class="toggle_fill"></div>
                     Compact
                 </label>
+                <div id="friendsloading" class="container" style="background-color: #00000059;color:white;">
+                    <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+                </div>
                 <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
                     <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No friends found.</p>
                     <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
                 </div>
+                
                 <div id="allFriends">
                     <div id="friendex" style="background-color: #00000059;color:white;" class="request container">
                         <div>
@@ -136,6 +140,9 @@
             </div>
             <div class="space"></div>
             <h2>Requests</h2>
+            <div id="requestsloading" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+            </div>
             <div id="norequests" class="container" style="background-color: #00000059;color:white;">
                 <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No requests.</p>
                 <p>No one wants to be your friend... yet.</p>
@@ -155,6 +162,9 @@
             </div>
             <div class="space"></div>
             <h2>Sent requests</h2>
+            <div id="sentrequestsloading" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+            </div>
             <div id="nosentrequests" class="container" style="background-color: #00000059;color:white;">
                 <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No sent requests.</p>
                 <p>Send someone a friend request, just maybe they accept ;]</p>

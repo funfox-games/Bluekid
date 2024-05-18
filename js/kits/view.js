@@ -98,6 +98,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("coverimg").src = kitdata.cover;
     if (kitdata.questions != undefined) {
         refreshQuestions(kitdata.questions);
-
+        document.getElementById("questionamount").innerHTML = kitdata.questions.length;
     }
+
 });

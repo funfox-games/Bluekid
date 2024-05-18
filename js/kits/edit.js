@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
 const kitid_url = new URL(location.href).searchParams.get("id");
@@ -129,6 +129,8 @@ onAuthStateChanged(auth, async (user) => {
     refreshQuestions();
 
     document.getElementById("kit_visibility").value = kitdata.visibility;
+
+    document.getElementById("questionamount").innerHTML = questions.length;
     
     document.getElementById("createquestion__btn").addEventListener("click", () => {
         const question = document.getElementById("questiontext").value;
@@ -282,6 +284,41 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("uploadurluse__question").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
         document.getElementById("uploadurldialog__question").close();
     })
+    document.getElementById("covercontainer").addEventListener("mouseenter", () => {
+        document.getElementById("cover__overlay").setAttribute("show", "");
+    });
+    document.getElementById("covercontainer").addEventListener("mouseleave", () => {
+        document.getElementById("cover__overlay").removeAttribute("show");
+    });
+    document.getElementById("share_kit").addEventListener("click", () => {
+        navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?id=" + kitid_url);
+        showNotification(4, "Copied share url to clipboard!");
+    });
+    document.getElementById("publish_kit").addEventListener("click", async () => {
+        document.getElementById("publish_kit").innerHTML = "Working...";
+        document.getElementById("publish_kit").setAttribute("disabled", "");
+        const docref = doc(db, "kits", id);
+        await setDoc(docref, {
+            kitId: id,
+            ownerUid: auth.currentUser.uid
+        });
+        document.getElementById("publish_kit").remove();
+    });
+    document.getElementById("delete_kit").addEventListener("click", async () => {
+        document.getElementById("delete_kit").innerHTML = "Working...";
+        document.getElementById("delete_kit").setAttribute("disabled", "");
+        await deleteDoc(doc(db, "users", auth.currentUser.uid, "kits", kitid_url));
+        await deleteDoc(doc(db, "kits", kitid_url));
+        location.href = "../kits.html";
+    });
+    const publicDocData = await getDoc(doc(db, "kits", kitid_url));
+    if (kitdata.visibility == "private") {
+        document.getElementById("publish_kit").remove();
+    } else {
+        if (publicDocData.exists()) {
+            document.getElementById("publish_kit").remove();
+        }
+    }
 });
 window.addEventListener("beforeunload", function (e) {
     if (hasSaved) {return;}
