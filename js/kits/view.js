@@ -101,11 +101,19 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("questionamount").innerHTML = kitdata.questions.length;
     }
     const localdata = await getDoc(doc(db, "users", auth.currentUser.uid));
-    if (localdata.data().favoriteKits.includes(kitid_url)) {
-        document.getElementById("favoritekit").innerHTML = `<i class="fa-solid fa-star"></i> Favorited kit`;
+    if (localdata.data().favoriteKits != undefined) {
+        if (localdata.data().favoriteKits.includes(kitid_url)) {
+            document.getElementById("favoritekit").innerHTML = `<i class="fa-solid fa-star"></i> Favorited kit`;
+        }
     }
 
-    let isFavorite = localdata.data().favoriteKits.includes(kitid_url);
+    let isFavorite = false;
+
+    if (localdata.data().favoriteKits != undefined) {
+        if (localdata.data().favoriteKits.includes(kitid_url)) {
+            isFavorite = true;
+        }
+    }
     document.getElementById("favoritekit").addEventListener("click", async () => {
         document.getElementById("favoritekit").innerHTML = "Working...";
         document.getElementById("favoritekit").setAttribute("disabled", "");
@@ -113,8 +121,10 @@ onAuthStateChanged(auth, async (user) => {
             /**
              * @type {Array}
              */
-            const favoriteKits = localdata.data().favoriteKits;
-            favoriteKits.splice(favoriteKits.indexOf(kitid_url), 1);
+            const favoriteKits = localdata.data().favoriteKits || [];
+            if (favoriteKits != []) {
+                favoriteKits.splice(favoriteKits.indexOf(kitid_url), 1);
+            }
             await updateDoc(doc(db, "users", auth.currentUser.uid), {
                 favoriteKits
             });
@@ -125,7 +135,7 @@ onAuthStateChanged(auth, async (user) => {
             /**
              * @type {Array}
              */
-            const favoriteKits = localdata.data().favoriteKits;
+            const favoriteKits = localdata.data().favoriteKits || [];
             favoriteKits.push(kitid_url);
             await updateDoc(doc(db, "users", auth.currentUser.uid), {
                 favoriteKits
