@@ -15,10 +15,11 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
-import { getFirestore, doc, getDoc, collection, getDocs, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, getDocs, deleteDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
+
 
 async function checkVaild(user, userData) {
     return new Promise(async (res, rej) => {
@@ -92,72 +93,205 @@ function wait(sec) {
         setTimeout(() => res(), sec * 1000);
     });
 }
-function filterChange(type) {
+function isKitFavorite(udata, kitid) {
+    let favorites = udata.favoriteKits;
+    if (favorites == undefined || favorites == null) {
+        favorites = [];
+    }
+
+    return favorites.includes(kitid);
+}
+async function loadFavorites(udata) {
+    return new Promise(async (res, rej) => {
+        if (udata.favoriteKits == null || udata.favoriteKits == undefined || udata.favoriteKits.length == 0) {
+            showNotification(2, "You have no favorite kits.");
+            res();
+        }
+        for (let i = 0; i < udata.favoriteKits.length; i++) {
+            const id = udata.favoriteKits[i];
+            if (document.getElementById(id) != null) { continue; }
+            let data = await getDoc(doc(db, "kits", id));
+            if (!data.exists()) {
+                data = await getDoc(doc(db, "users", auth.currentUser.uid, "kits", id));
+            }
+            data = data.data();
+
+            if (data.ownerUid != null && data.ownerUid != undefined) {
+                data = await getDoc(doc(db, "users", data.ownerUid, "kits", data.kitId));
+                data = data.data();
+            }
+            const elem = document.getElementById("example").cloneNode(true);
+            elem.id = id;
+            elem.setAttribute("public_kit", true);
+            elem.setAttribute("kit_favorite", true);
+            const left = elem.children[0];
+
+            if (data.cover != undefined) {
+                left.children[0].children[0].src = data.cover;
+            }
+            const left_Data = left.children[1];
+            left_Data.children[0].innerText = data.displayname;
+            left_Data.children[1].innerText = data.author;
+            console.log(data);
+            var authordoc = doc(db, "users", data.author);
+            var authorres = await getDoc(authordoc);
+
+            left_Data.children[2].innerHTML = `<i id="private_indicator" class="fa-solid fa-lock"></i> Unshared`;
+            switch (data.visibility) {
+                case "private":
+                    break;
+                case "friends":
+                    left_Data.children[2].innerHTML = `<i class="fa-solid fa-user-group"></i> Friends only`;
+                    break;
+                case "public":
+                    left_Data.children[2].innerHTML = `<i class="fa-solid fa-globe"></i> Public`;
+                    break;
+                default:
+                    break;
+            }
+
+            const right = elem.children[1];
+            right.children[0].addEventListener("click", () => {
+                showNotification(3, "Not ready for testing. Check back later.");
+            });
+            right.children[1].addEventListener("click", () => {
+                location.href = "./kit/edit.html?id=" + id;
+            });
+            right.children[2].addEventListener("click", async () => {
+                right.children[2].innerHTML = `<i class="fa-solid fa-gear fa-spin"></i> Working...`;
+                right.children[2].setAttribute("disabled", "");
+                const docref = doc(db, "kits", id);
+                await setDoc(docref, {
+                    kitId: id,
+                    ownerUid: auth.currentUser.uid
+                });
+                document.getElementById("publishedKit").showModal();
+                document.getElementById("share_kit").removeEventListener("click", document.getElementById("share_kit").fn);
+                document.getElementById("share_kit").addEventListener("click", document.getElementById("share_kit").fn = () => {
+                    navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?id=" + id);
+                    showNotification(4, "Copied to clipboard!");
+                })
+
+                right.children[2].remove();
+            })
+            const dotdot = right.children[3];
+            dotdot.addEventListener("mouseup", () => {
+                document.getElementById("kit_contextmenu").toggleAttribute("show");
+                const rect = dotdot.getBoundingClientRect();
+                const contextrect = document.getElementById("kit_contextmenu").getBoundingClientRect();
+                console.log(rect, contextrect);
+                document.getElementById("kit_contextmenu").style.left = rect.left - 155 - 25 + "px";
+                document.getElementById("kit_contextmenu").style.top = rect.top + "px";
+                addContextMenuFunctionality(udata, id, data);
+            });
+
+            const publicDocData = await getDoc(doc(db, "kits", id));
+            if (data.visibility == "private") {
+                right.children[2].remove();
+            } else {
+                if (publicDocData.exists()) {
+                    right.children[2].remove();
+                }
+            }
+
+            elem.addEventListener("contextmenu", (e) => {
+                if (elem.hasAttribute("disablecontextmenu")) { return; }
+                document.getElementById("kit_contextmenu").style.left = e.pageX + "px";
+                document.getElementById("kit_contextmenu").style.top = e.pageY + "px";
+                document.getElementById("kit_contextmenu").toggleAttribute("show", true);
+                addContextMenuFunctionality(udata, id, data);
+
+                e.preventDefault();
+            })
+
+            if (authorres.exists()) {
+                left_Data.children[1].innerText = authorres.data().username;
+            } else {
+                right.style.fontSize = "1.75rem";
+                right.style.textAlign = "right";
+                right.innerHTML = "This kit is bugged.<br>Upgrade to DATAV2 to repair.";
+                elem.setAttribute("disablecontextmenu", "true");
+                left_Data.children[0].innerHTML += ` <i title="The author field is not vaild. This kit is not able to be uploaded online. (To resolve, create a new kit)" class="fa-solid fa-globe fa-xs" style="color: #8f0000;"></i>`;
+            }
+
+            if (data.author != auth.currentUser.uid) {
+                right.children[1].remove();
+            }
+
+
+            document.getElementById("kits").append(elem);
+        }
+        res();
+    });
+    
+}
+async function filterChange(isFav, udata) {
     const children = document.getElementById("kits").children;
     // console.log(cachedkits);
     for (let i = 0; i < children.length; i++) {
         const child = children[i];
-        if (child.id == "example") { continue; }
+        if (child.id == "example" || child.getAttribute("public_kit") != null) { child.style.display = "none"; continue; }
+        
         child.style.display = "flex";
     }
 
-    switch (type) {
-        case 'ownedByMe':
-            //haha
-            for (let i = 0; i < children.length; i++) {
-                const child = children[i];
-                if (child.id == "example") {continue;}
-                cachedkits.forEach((document_) => {
-                    const data = document_.data();
-                    const id = document_.id;
-                    if (child.id != id) {return;}
-                    if (data.author != auth.currentUser.uid) {
-                        child.style.display = "none";
-                    }
-                })
-            }
-            break;
-        case 'sharedWithMe':
-            //haha
-            for (let i = 0; i < children.length; i++) {
-                const child = children[i];
-                if (child.id == "example") { continue; }
-                cachedkits.forEach((document_) => {
-                    const data = document_.data();
-                    const id = document_.id;
-                    if (child.id != id) { return; }
-                    if (data.author == auth.currentUser.uid) {
-                        child.style.display = "none";
-                    }
-                })
-            }
-            break;
-        case 'favorites':
-            //haha
-            showNotification(3, "no.");
-            for (let i = 0; i < children.length; i++) {
-                const child = children[i];
-                if (child.id == "example") { continue; }
-                child.style.display = "none";
-            }
-            break;
-        default:
-            break;
+    if (!isFav) {return;}
+
+    document.getElementById("loadingfavs").style.display = "flex";
+    await loadFavorites(udata);
+    document.getElementById("loadingfavs").style.display = "none";
+    const children1 = document.getElementById("kits").children;
+
+    for (let i = 0; i < children1.length; i++) {
+        const child = children1[i];
+        child.style.display = "none";
+        if (child.getAttribute("kit_favorite") != null) { child.style.display = "flex"; }
     }
 }
-function addContextMenuFunctionality(kitid, kitdata) {
+function addContextMenuFunctionality(udata, kitid, kitdata) {
+    
     const contextmenu = document.getElementById("kit_contextmenu");
     const iconbtns = contextmenu.children[0];
 
     const favorite = iconbtns.children[0];
     const share = iconbtns.children[1];
     const _delete = iconbtns.children[2];
+
+    if (udata.favoriteKits.includes(kitid)) {
+        favorite.innerHTML = `<i class="fa-solid fa-star"></i>`;
+    } else {
+        favorite.innerHTML = `<i class="fa-regular fa-star"></i>`;
+    }
+
     //Icon buttons
     favorite.removeEventListener("mousedown", favorite.fn);
     share.removeEventListener("mousedown", share.fn);
     _delete.removeEventListener("mousedown", _delete.fn);
-    favorite.addEventListener("mousedown", favorite.fn = () => {
-        showNotification(3, "ehhh (" + kitid + ")");
+    favorite.addEventListener("mousedown", favorite.fn = async () => {
+        const isFavorite = udata.favoriteKits.includes(kitid);
+        if (isFavorite) {
+            /**
+             * @type {Array}
+             */
+            const favoriteKits = udata.favoriteKits;
+            favoriteKits.splice(favoriteKits.indexOf(kitid), 1);
+            showNotification(1, "Working...");
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                favoriteKits
+            });
+        } else {
+            /**
+             * @type {Array}
+             */
+            const favoriteKits = udata.favoriteKits;
+            favoriteKits.push(kitid);
+            showNotification(1,"Working...");
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                favoriteKits
+            });
+            
+        }
+        location.reload();
     })
     share.addEventListener("mousedown", share.fn = () => {
         navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?id=" + kitid);
@@ -185,6 +319,19 @@ function addContextMenuFunctionality(kitid, kitdata) {
     cloneBtn.addEventListener("mousedown", cloneBtn.fn = async () => {
         showNotification(3, "waht?? (" + kitid + ")");
     });
+
+    exportBtn.style.display = "unset";
+    editbtn.style.display = "unset";
+
+    share.style.display = "flex";
+    _delete.style.display = "flex";
+
+    if (document.getElementById(kitid).getAttribute("public_kit") != null) {
+        exportBtn.style.display = "none";
+        editbtn.style.display = "none";
+
+        _delete.style.display = "none";
+    }
 }
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -227,18 +374,18 @@ onAuthStateChanged(auth, async (user) => {
         
         // if (data.author)
         
+        if (isKitFavorite(userData, id)) {
+            elem.setAttribute("kit_favorite", "true");
+        }
+
         left_Data.children[2].innerHTML = `<i id="private_indicator" class="fa-solid fa-lock"></i> Unshared`;
-        console.log(data.visibility);
         switch (data.visibility) {
             case "private":
-                console.log("private");
                 break;
             case "friends":
-                console.log("friends");
                 left_Data.children[2].innerHTML = `<i class="fa-solid fa-user-group"></i> Friends only`;
                 break;
             case "public":
-                console.log("world");
                 left_Data.children[2].innerHTML = `<i class="fa-solid fa-globe"></i> Public`;
                 break;
             default:
@@ -269,14 +416,15 @@ onAuthStateChanged(auth, async (user) => {
 
             right.children[2].remove();
         })
-        right.children[3].addEventListener("mouseup", () => {
+        const dotdot = right.children[3];
+        dotdot.addEventListener("mouseup", () => {
             document.getElementById("kit_contextmenu").toggleAttribute("show");
-            const rect = right.children[3].getBoundingClientRect();
+            const rect = dotdot.getBoundingClientRect();
             const contextrect = document.getElementById("kit_contextmenu").getBoundingClientRect();
             console.log(rect, contextrect);
             document.getElementById("kit_contextmenu").style.left = rect.left - 155 - 25 + "px";
             document.getElementById("kit_contextmenu").style.top = rect.top + "px";
-            addContextMenuFunctionality(id, data);
+            addContextMenuFunctionality(userData, id, data);
         });
 
         const publicDocData = await getDoc(doc(db, "kits", id));
@@ -293,7 +441,7 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById("kit_contextmenu").style.left = e.pageX + "px";
             document.getElementById("kit_contextmenu").style.top = e.pageY + "px";
             document.getElementById("kit_contextmenu").toggleAttribute("show", true);
-            addContextMenuFunctionality(id, data);
+            addContextMenuFunctionality(userData, id, data);
 
             e.preventDefault();
         })
@@ -312,18 +460,21 @@ onAuthStateChanged(auth, async (user) => {
     });
     document.body.addEventListener("mousedown", () => {
         document.getElementById("kit_contextmenu").removeAttribute("show");
+    });
+    document.getElementById("favorites").addEventListener("change", () => {
+        filterChange(document.getElementById("favorites").checked, userData);
     })
-    const group = document.getElementById("kit_filter_group").children;
-    for (let i = 0; i < group.length; i++) {
-        const elem = group[i];
-        elem.addEventListener("click", () => {
-            for (let ii = 0; ii < group.length; ii++) {
-                const elem = group[ii];
-                elem.removeAttribute("selected");
-            }
-            elem.setAttribute("selected", "true");
-            filterChange(elem.id);
-        });
-    }
+    // const group = document.getElementById("kit_filter_group").children;
+    // for (let i = 0; i < group.length; i++) {
+    //     const elem = group[i];
+    //     elem.addEventListener("click", () => {
+    //         for (let ii = 0; ii < group.length; ii++) {
+    //             const elem = group[ii];
+    //             elem.removeAttribute("selected");
+    //         }
+    //         elem.setAttribute("selected", "true");
+    //         filterChange(elem.id);
+    //     });
+    // }
     document.getElementById("loading").style.display = "none";
 })

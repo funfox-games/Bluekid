@@ -12,7 +12,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 const auth = getAuth();
 
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
@@ -95,4 +95,31 @@ onAuthStateChanged(auth, (user) => {
 
         showNotification(4, `Logged in successfully! <a href="../profile/index.html"><button class="puffy_button primary"><i class="fa-solid fa-user"></i> Profile</button></a>`);
     }
+
+    document.getElementById("forgotpassword").addEventListener("click", () => {
+        document.getElementById("forget_pass").showModal();
+    });
+    document.getElementById("sendpasswordemail").addEventListener("click", async () => {
+        document.getElementById("sendpasswordemail").innerHTML = "Waiting...";
+        document.getElementById("sendpasswordemail").setAttribute("disabled", "");
+
+        const email = document.getElementById("resetPasswordEmail").value;
+
+        const res = await sendPasswordResetEmail(auth, email).catch((err) => {
+            console.error(err.code);
+            if (err.code == "auth/invalid-email") {
+                document.getElementById("sendpasswordemail").innerHTML = "Not vaild user.";
+                document.getElementById("sendpasswordemail").removeAttribute("disabled");
+            }
+            if (err.code == "auth/missing-email") {
+                document.getElementById("sendpasswordemail").innerHTML = "Email needed.";
+                document.getElementById("sendpasswordemail").removeAttribute("disabled");
+            }
+            return "YESSIR";
+        });
+        if (res == "YESSIR") {return;}
+
+        document.getElementById("sendpasswordemail").innerHTML = "Success!";
+        document.getElementById("sendpasswordemail").removeAttribute("disabled");
+    });
 });

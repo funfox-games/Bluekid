@@ -100,5 +100,40 @@ onAuthStateChanged(auth, async (user) => {
         refreshQuestions(kitdata.questions);
         document.getElementById("questionamount").innerHTML = kitdata.questions.length;
     }
+    const localdata = await getDoc(doc(db, "users", auth.currentUser.uid));
+    if (localdata.data().favoriteKits.includes(kitid_url)) {
+        document.getElementById("favoritekit").innerHTML = `<i class="fa-solid fa-star"></i> Favorited kit`;
+    }
+
+    let isFavorite = localdata.data().favoriteKits.includes(kitid_url);
+    document.getElementById("favoritekit").addEventListener("click", async () => {
+        document.getElementById("favoritekit").innerHTML = "Working...";
+        document.getElementById("favoritekit").setAttribute("disabled", "");
+        if (isFavorite) {
+            /**
+             * @type {Array}
+             */
+            const favoriteKits = localdata.data().favoriteKits;
+            favoriteKits.splice(favoriteKits.indexOf(kitid_url), 1);
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                favoriteKits
+            });
+            document.getElementById("favoritekit").innerHTML = `<i class="fa-regular fa-star"></i> Favorite kit`;
+            document.getElementById("favoritekit").removeAttribute("disabled");
+            isFavorite = false;
+        } else {
+            /**
+             * @type {Array}
+             */
+            const favoriteKits = localdata.data().favoriteKits;
+            favoriteKits.push(kitid_url);
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                favoriteKits
+            });
+            document.getElementById("favoritekit").innerHTML = `<i class="fa-solid fa-star"></i> Favorited kit`;
+            document.getElementById("favoritekit").removeAttribute("disabled");
+            isFavorite = true;
+        }
+    });
 
 });

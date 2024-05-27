@@ -182,7 +182,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("tokens").innerHTML = `${parseInt(userData.tokens).toLocaleString()} Tokens`;
 
     if (userData.version == undefined) {
-        document.getElementById("upgradeData").showModal();
+        // document.getElementById("upgradeData").showModal();
     }
     
     

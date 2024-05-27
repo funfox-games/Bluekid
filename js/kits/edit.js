@@ -18,6 +18,8 @@ const auth = getAuth();
 import { getFirestore, doc, getDoc, updateDoc, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 const db = getFirestore(app);
 
+import * as MediaUtil from "../util/user_media.js";
+
 const kitid_url = new URL(location.href).searchParams.get("id");
 let questions = [];
 
@@ -148,6 +150,32 @@ onAuthStateChanged(auth, async (user) => {
         const q4 = document.getElementById("q4").value;
         const img = document.getElementById("qimg").src;
 
+        if (MediaUtil.isLimited(question, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("problem").parentElement.style.display = "unset";
+            document.getElementById("problem").innerHTML = `Question text needs to be shorter than ${MediaUtil.MAX_CHAR_NAME} characters. (Currently ${question.length})`;
+            return;
+        }
+        if (MediaUtil.isLimited(q1, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("problem").parentElement.style.display = "unset";
+            document.getElementById("problem").innerHTML = `Question 1 needs to be shorter than ${MediaUtil.MAX_CHAR_NAME} characters. (Currently ${q1.length})`;
+            return;
+        }
+        if (MediaUtil.isLimited(q2, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("problem").parentElement.style.display = "unset";
+            document.getElementById("problem").innerHTML = `Question 2 needs to be shorter than ${MediaUtil.MAX_CHAR_NAME} characters. (Currently ${q2.length})`;
+            return;
+        }
+        if (MediaUtil.isLimited(q3, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("problem").parentElement.style.display = "unset";
+            document.getElementById("problem").innerHTML = `Question 3 needs to be shorter than ${MediaUtil.MAX_CHAR_NAME} characters. (Currently ${q3.length})`;
+            return;
+        }
+        if (MediaUtil.isLimited(q4, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("problem").parentElement.style.display = "unset";
+            document.getElementById("problem").innerHTML = `Question 4 needs to be shorter than ${MediaUtil.MAX_CHAR_NAME} characters. (Currently ${q4.length})`;
+            return;
+        }
+
         if (question == "") {
             document.getElementById("problem").parentElement.style.display = "unset";
             document.getElementById("problem").innerHTML = "Question text required.";
@@ -236,6 +264,21 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("createquestionpopup").showModal();
     });
     document.getElementById("savekit").addEventListener("click", async () => {
+        const title = document.getElementById("kitname").value;
+        const desc = document.getElementById("desc").value;
+        if (MediaUtil.isLimited(title, MediaUtil.MAX_CHAR_NAME)) {
+            showNotification(3, "Title must be shorter then " + MediaUtil.MAX_CHAR_NAME + " characters. (Currently " + title.length + " characters)");
+            return;
+        }
+        if (MediaUtil.isLimited(desc, MediaUtil.MAX_CHAR_DESCRIPTION)) {
+            showNotification(3, "Desc must be shorter then " + MediaUtil.MAX_CHAR_DESCRIPTION + " characters. (Currently " + desc.length + " characters)");
+            return;
+        }
+        if (title.length < 3) {
+            showNotification(3, "Title must be longer.");
+            return;
+        }
+
         document.getElementById("savekit").innerHTML = "Waiting...";
         document.getElementById("savekit").setAttribute("disabled", "true");
 

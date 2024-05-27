@@ -21,6 +21,8 @@ const db = getFirestore(app);
 let currentImg = "../../asset/templates/kit_temp.png";
 let userData;
 
+import * as MediaUtil from "../util/user_media.js";
+
 async function checkImage(url) {
     return new Promise((res, rej) => {
         var image = new Image();
@@ -98,6 +100,24 @@ onAuthStateChanged(auth, async (user) => {
         const desc = document.getElementById("kitdesc").value;
         const visiblity = document.getElementById("kit_visibility").value;
         const canclone = document.getElementById("canclone").checked;
+
+        if (MediaUtil.isLimited(title, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("createkit").innerHTML = `<i class="fa-solid fa-square-plus"></i> Create`;
+            showNotification(3, "Title must be shorter then " + MediaUtil.MAX_CHAR_NAME + " characters. (Currently " + title.length + " characters)");
+            return;
+        }
+        if (MediaUtil.isLimited(desc, MediaUtil.MAX_CHAR_DESCRIPTION)) {
+            document.getElementById("createkit").innerHTML = `<i class="fa-solid fa-square-plus"></i> Create`;
+            showNotification(3, "Desc must be shorter then " + MediaUtil.MAX_CHAR_DESCRIPTION + " characters. (Currently " + desc.length + " characters)");
+            return;
+        }
+        if (title.length < 3) {
+            document.getElementById("createkit").innerHTML = `<i class="fa-solid fa-square-plus"></i> Create`;
+            showNotification(3, "Title must be longer.");
+            return;
+        }
+        
+
         createKit(title, desc, visiblity, canclone);
     })
 });

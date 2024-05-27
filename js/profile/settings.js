@@ -20,6 +20,8 @@ const db = getFirestore(app);
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
+import * as MediaUtil from "../util/user_media.js";
+
 async function checkVaild(user, userData) {
     return new Promise(async (res, rej) => {
 
@@ -115,6 +117,11 @@ onAuthStateChanged(auth, async (user) => {
             showNotification(3, "Must be longer then 3 characters.");
             return;
         }
+        if (MediaUtil.isLimited(newname, MediaUtil.MAX_CHAR_NAME)) {
+            document.getElementById("changename").innerHTML = `<i class="fa-solid fa-shuffle"></i> Change name`;
+            showNotification(3, "Name must be shorter then " + MediaUtil.MAX_CHAR_NAME + " characters. (Currently " + newname.length + " characters)");
+            return;
+        }
         var docref = doc(db, "users", uid);
         await updateDoc(docref, {
             username: newname
@@ -147,21 +154,25 @@ onAuthStateChanged(auth, async (user) => {
         });
         showNotification(4, "Success!");
     })
-    // document.getElementById("deleteaccount").addEventListener("click", () => {
-    //     document.getElementById("deleteaccountdialog").showModal();
-    // });
-    // document.getElementById("confirmdelete").addEventListener("click", async () => {
-    //     document.getElementById("confirmdelete").innerHTML = "Working...";
-    //     document.getElementById("confirmdelete").setAttribute("disabled", "");
+    document.getElementById("deleteaccount").addEventListener("click", () => {
+        document.getElementById("deleteaccountdialog").showModal();
+    });
+    document.getElementById("confirmdelete").addEventListener("click", async () => {
+        document.getElementById("confirmdelete").innerHTML = "Working...";
+        document.getElementById("confirmdelete").setAttribute("disabled", "");
 
-    //     await deleteDoc(doc(db, "users", user.uid));
+        const res = await deleteDoc(doc(db, "users", user.uid)).catch((err) => {
+            console.error(err);
+            return "WAAAAAA";
+        });
+        if (res == "WAAAAAA") { return; }
 
-    //     const res = await deleteUser(user).catch((err) => {
-    //         console.error(err);
-    //         return "WAAAAAA";
-    //     });
-    //     if (res == "WAAAAAA") {return;}
+        const res2 = await deleteUser(user).catch((err) => {
+            console.error(err);
+            return "WAAAAAA";
+        });
+        if (res2 == "WAAAAAA") {return;}
 
-    //     location.href = "../index.html";
-    // });
+        location.href = "../index.html";
+    });
 });
