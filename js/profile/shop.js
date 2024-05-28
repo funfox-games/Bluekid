@@ -324,6 +324,25 @@ onAuthStateChanged(auth, async (user) => {
         const fastPackOn = document.getElementById("quickTransition").checked;
         localStorage.setItem("fastPackOpening", fastPackOn);
     });
+    document.getElementById("submitsuggestion").addEventListener("click", async () => {
+        document.getElementById("submitsuggestion").innerHTML = "Sending...";
+        document.getElementById("submitsuggestion").setAttribute("disabled", "");
+        const title = document.getElementById("packnamesuggest").value;
+        const cost = document.getElementById("packcostsuggest").value;
+        const blues = document.getElementById("packbluessuggest").value;
+
+        const url = "https://discord.com/api/webhooks/1244834902046937100/8AXTHuz1Y4CT7ru7KgQwI4HQ1SZdCxFGnlcEoAHAmcr6w0X9OQDdFNT2ZRzu2jqeq5tV";
+        const msg = {
+            "content": `UID: ${auth.currentUser.uid}\n----------------------\nPack name: ${title}\nPack cost: ${cost} coins\nBlues: ${blues}`,
+            "username": data.username + " | BluekidPackRequest"
+        }
+        await fetch(url, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(msg)
+        });
+        document.getElementById("submitsuggestion").innerHTML = "Thanks!";
+    })
 
     localCost = data.tokens;
 });
