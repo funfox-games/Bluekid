@@ -63,6 +63,13 @@
         </div>
     </div>
 
+    <div hide id="unlockSpecial">
+        <div id="special_unlockcenter">
+            <img hide id="specialUnlock" src="../asset/char/blue_notexture.png" width="400" alt="blue">
+            <p hide id="unlockedText">Unlocked '<i id="unlockeddd"></i>'!</p>
+        </div>
+    </div>
+
     <section>
         <div id="shop_top" class="container">
             <h1>Shop</h1>
@@ -93,7 +100,31 @@
                 </div>
             </div>
         </div>
+
         <br>
+
+        <!-- Specials -->
+        <h2>Specials</h2>
+        <div id="nolimitedtime" class="container" style="background-color: #00000059;color:white;">
+            <p style="font-size: 1.75rem;"><i class="fa-solid fa-medal fa-sm"></i> No specials available.</p>
+            <p>Come back later and maybe a special will be on sale!</p>
+        </div>
+        <div id="allSpecials">
+            <div class="pack long container" id="specialex">
+                <img class="packimg" src="../asset/char/blue_notexture.png" alt="pack" width="140">
+                <div>
+                    <h1>Unknown</h1>
+                    <p>Cost: idk</p>
+                    <div style="display:flex;flex-direction: column;gap:3px;margin-top: 5px;">
+                        <b>Offer ends in <i>00</i> days!</b>
+                        <button class="puffy_button primary"><i class="fa-regular fa-star"></i> Claim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
         <h2>Contribute</h2>
         <p>Send a suggestion of what could be in the shop! <b>(Please do general ones and not persenal ones)</b></p>
         <h3><i class="fa-solid fa-heading"></i> Title</h3>

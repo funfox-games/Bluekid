@@ -47,38 +47,111 @@
     
     </div>
     <section>
-        <h1>Settings</h1>
+        <h1>Social Settings</h1>
         <hr>
-        <h2>Stats</h2>
-        <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-            <p>UID: <b id="userid"></b></p>
-            <p>Tokens: <b id="tokens"></b> coins</p>
-            <p>Username: <b id="username"></b></p>
-        </div>
-        <br>
-        <h2>Change name</h2>
-        <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-            <input type="text" class="input" placeholder="Enter new name..." id="newname">
-            <input type="text" class="input" placeholder="Confirm new name..." id="confirmnewname">
-            <button class="puffy_button primary" id="changename"><i class="fa-solid fa-shuffle"></i> Change name</button>
-        </div>
-        <br>
-        <h2>Change password</h2>
-        <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-            <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-solid fa-envelope"></i> Send password reset email</button>
+        <div style="border-left:3px solid rgb(0, 0, 0, .5);border-radius: 10px; padding-left: 10px;padding-top: 10px;padding-bottom: 10px;">
+            <h2>Community</h2>
+            <a id="openprofile" href=""><button class="puffy_button green"><i class="fa-solid fa-up-right-from-square"></i> Open
+                    profile</button></a>
+            <div class="space"></div>
+            <label class="toggle" for="acceptFriendRequests">
+                <input class="toggle_input" checked type="checkbox" id="acceptFriendRequests">
+                <div class="toggle_fill"></div>
+                Accept friend requests
+            </label>
+
+            <div class="space"></div>
+            <h2>Privacy</h2>
+            <h3>Hide sections</h3>
+            <label for="showBlues">Show blues to</label>
+            <select id="showBlues">
+                <option value="none">No one</option>
+                <option value="friends" selected>Friends only</option>
+                <option value="all">Everyone</option>
+            </select>
+            <br>
+            <label for="showGameHistory">Show game history to</label>
+            <select id="showGameHistory">
+                <option value="none">No one</option>
+                <option value="friends" selected>Friends only</option>
+                <option value="all">Everyone</option>
+            </select>
+            <br>
+            <label for="showKits">Show kits to</label>
+            <select id="showKits">
+                <option value="none">No one</option>
+                <option value="friends">Friends only</option>
+                <option value="all" selected>Everyone</option>
+            </select>
+            <h3>Hide specific info</h3>
+            <label class="toggle" for="hideTokens">
+                <input disabled class="toggle_input" type="checkbox" id="hideTokens">
+                <div class="toggle_fill"></div>
+                Hide tokens
+            </label>
+            <label for="showStatus">Show status to</label>
+            <select id="showStatus">
+                <option value="none">No one</option>
+                <option value="friends">Friends only</option>
+                <option value="all" selected>Everyone</option>
+            </select>
+            <br>
+            <label for="showLastOnline">Show last online to</label>
+            <select id="showLastOnline">
+                <option value="none">No one</option>
+                <option value="friends">Friends only</option>
+                <option value="all" selected>Everyone</option>
+            </select>
+            <div class="littlespace"></div>
+            
+            <h2>Customization</h2>
+            <div class="info"><i class="fa-solid fa-circle-info fa-xl"></i> Coming soon... :]</div>
+
+
+            <div class="space"></div>
+            <button class="puffy_button primary" id="saveProfileSettings"><i class="fa-solid fa-floppy-disk"></i> Save all profile settings</button>
+
         </div>
         
-        <br>
 
-        <h2>Change Email</h2>
-        <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-            <input type="text" class="input" placeholder="Enter old email..." id="newemail">
-            <input type="text" class="input" placeholder="Enter new email..." id="confirmemail">
-            <button class="puffy_button primary" id="changemail"><i class="fa-solid fa-shuffle"></i> Change email</button>
-        </div>
+        
         <br>
-        <h2>Danger</h2>
-        <button id="deleteaccount" class="puffy_button danger"><i class="fa-solid fa-user-slash"></i> Delete account</button>
+        <h1>General Settings</h1>
+        <hr>
+        <div style="border-left:3px solid rgb(0, 0, 0, .5);border-radius: 10px; padding-left: 10px;padding-top: 10px;padding-bottom: 10px;">
+            <h2>Stats</h2>
+            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                <p>UID: <b id="userid"></b></p>
+                <p>Tokens: <b id="tokens"></b> coins</p>
+                <p>Username: <b id="username"></b></p>
+            </div>
+            <br>
+            <h2>Change name</h2>
+            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                <input type="text" class="input" placeholder="Enter new name..." id="newname">
+                <input type="text" class="input" placeholder="Confirm new name..." id="confirmnewname">
+                <button class="puffy_button primary" id="changename"><i class="fa-solid fa-shuffle"></i> Change name</button>
+            </div>
+            <br>
+            <h2>Change password</h2>
+            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-solid fa-envelope"></i> Send password reset
+                    email</button>
+            </div>
+            
+            <br>
+            
+            <h2>Change Email</h2>
+            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                <input type="text" class="input" placeholder="Enter old email..." id="newemail">
+                <input type="text" class="input" placeholder="Enter new email..." id="confirmemail">
+                <button class="puffy_button primary" id="changemail"><i class="fa-solid fa-shuffle"></i> Change email</button>
+            </div>
+            <br>
+            <h2>Danger</h2>
+            <button id="deleteaccount" class="puffy_button danger"><i class="fa-solid fa-user-slash"></i> Delete account</button>
+        </div>
+        
     </section>
 
     <script type="module" src="../js/profile/settings.js"></script>

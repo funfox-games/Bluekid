@@ -1,22 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-    authDomain: "bluekid-303db.firebaseapp.com",
-    databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-    projectId: "bluekid-303db",
-    storageBucket: "bluekid-303db.appspot.com",
-    messagingSenderId: "207140973406",
-    appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-const auth = getAuth();
-
-import { getFirestore, doc, getDoc, updateDoc, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-const db = getFirestore(app);
+import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, setDoc, updateDoc, KIT_COVER_LOCATION, storageref, storage, uploadBytes, getDownloadURL, deleteObject, listAll } from "../util/firebase.js";
 
 import * as MediaUtil from "../util/user_media.js";
 
@@ -24,6 +6,10 @@ const kitid_url = new URL(location.href).searchParams.get("id");
 let questions = [];
 
 let hasSaved = true;
+let uploadedFile = false;
+let contentType = '';
+let fileData = null;
+let currentCover = "";
 
 function refreshQuestions() {
     const children = document.getElementById("allQuestions").children;
@@ -79,9 +65,25 @@ async function saveKit() {
     return new Promise(async (res, rej) => {
         const title = document.getElementById("kitname").value;
         const desc = document.getElementById("desc").value;
-        const cover = document.getElementById("coverimg").src;
+        let cover = document.getElementById("coverimg").src;
 
         const kitdata = doc(db, "users", auth.currentUser.uid, "kits", kitid_url);
+
+
+        if (uploadedFile && cover != currentCover) {
+            document.getElementById("savekit").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Uploading cover...`;
+            const result = await uploadBytes(storageref(storage, KIT_COVER_LOCATION + "/" + kitid_url), fileData, { contentType }).catch((err) => {
+                showNotification(3, "Failed to upload cover.");
+                return false;
+            });
+            if (result == false) {
+                return;
+            }
+            const downloadURL = await getDownloadURL(result.ref);
+            cover = downloadURL;
+            document.getElementById("coverimg").src = cover;
+        }
+
         await updateDoc(kitdata, {
             displayname: title,
             description: desc,
@@ -89,7 +91,7 @@ async function saveKit() {
             questions,
             visibility: document.getElementById("kit_visibility").value
         }).catch((res) => rej(res));
-
+        currentCover = cover;
         res();
     });
 }
@@ -125,6 +127,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("kitname").value = kitdata.displayname;
     document.getElementById("desc").value = kitdata.description;
     document.getElementById("coverimg").src = kitdata.cover;
+    currentCover = kitdata.cover;
     if (kitdata.questions != undefined) {
         questions = kitdata.questions;
     }
@@ -134,6 +137,9 @@ onAuthStateChanged(auth, async (user) => {
 
     document.getElementById("questionamount").innerHTML = questions.length;
     
+    document.getElementById("changecoverfile").addEventListener('click', () => {
+        document.getElementById("uploadfiledialog").showModal();
+    });
     document.getElementById("createquestion__btn").addEventListener("click", () => {
         const question = document.getElementById("questiontext").value;
 
@@ -293,6 +299,9 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("uploadurlquestion").addEventListener("click", () => {
         document.getElementById("uploadurldialog__question").showModal();
     })
+    document.getElementById("uploadurlclose__question").addEventListener("click", () => {
+        document.getElementById("uploadurldialog__question").close();
+    })
     document.getElementById("uploadurluse").addEventListener("click", async () => {
         document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Working...`;
         document.getElementById("uploadurlnovaild").style.display = "none";
@@ -309,7 +318,19 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("uploadurlurl").value = "";
         document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
         document.getElementById("uploadurldialog").close();
-    })
+    });
+    document.getElementById("uploadFileUse").addEventListener("click", () => {
+        const imageInput = document.getElementById("fileupload");
+        const file = imageInput.files[0];
+
+        const objectURL = window.URL.createObjectURL(file);
+        // console.log(file, objectURL);
+        uploadedFile = true;
+        contentType = file.type;
+        fileData = file;
+        document.getElementById("coverimg").src = objectURL;
+        document.getElementById("uploadfiledialog").close();
+    });
     document.getElementById("uploadurluse__question").addEventListener("click", async () => {
         document.getElementById("uploadurluse__question").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Working...`;
         document.getElementById("uploadurlnovaild__question").style.display = "none";
@@ -352,6 +373,21 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("delete_kit").setAttribute("disabled", "");
         await deleteDoc(doc(db, "users", auth.currentUser.uid, "kits", kitid_url));
         await deleteDoc(doc(db, "kits", kitid_url));
+        const coverRef = storageref(storage, KIT_COVER_LOCATION + "/" + kitid_url);
+        const allKitCovers = await listAll(storageref(storage, KIT_COVER_LOCATION));
+        let hasCover = false;
+        console.log(KIT_COVER_LOCATION + kitid_url);
+        allKitCovers.items.forEach((itemRef) => {
+            if (itemRef.name == kitid_url) {
+                hasCover = true;
+                console.log("found");
+            }
+        });
+
+        if (hasCover) {
+            console.log("hasCover");
+            await deleteObject(coverRef);
+        }
         location.href = "../kits.html";
     });
     const publicDocData = await getDoc(doc(db, "kits", kitid_url));

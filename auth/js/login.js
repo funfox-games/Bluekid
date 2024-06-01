@@ -1,22 +1,24 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-    authDomain: "bluekid-303db.firebaseapp.com",
-    databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-    projectId: "bluekid-303db",
-    storageBucket: "bluekid-303db.appspot.com",
-    messagingSenderId: "207140973406",
-    appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-};
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+//     authDomain: "bluekid-303db.firebaseapp.com",
+//     databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+//     projectId: "bluekid-303db",
+//     storageBucket: "bluekid-303db.appspot.com",
+//     messagingSenderId: "207140973406",
+//     appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+// };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
 
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-const auth = getAuth();
+// import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+// const auth = getAuth();
 
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-const db = getFirestore(app);
+// import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+// const db = getFirestore(app);
+
+import { onAuthStateChanged, auth, db, doc, getDoc, setDoc, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail } from "../../js/util/firebase.js";
 
 const urlParams = new URLSearchParams(location.search);
 

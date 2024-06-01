@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User | Bluekid</title>
+
+    <link rel="stylesheet" href="../../css/all.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+    <link rel="stylesheet" href="../../css/user/index.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="sidenav">
+        <div id="sidenav_upper">
+            <a href="../../index.html" style="text-decoration: none;color:black;">
+                <h1><span class="blue">Blue</span>kid</h1>
+            </a>
+            <a href="../index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-address-card"></i> Overview</button></a>
+            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-image"></i> Blues</button></a>
+            <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-layer-group"></i> Kits</button></a>
+            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-shop"></i> Shop</button></a>
+            <a href="../community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-face-smile"></i> Social</button></a>
+        </div>
+        <div id="sidenav_lower">
+            <a href="../settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-gears"></i> Settings</button></a>
+            <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-newspaper"></i> News</button></a>
+        </div>
+    
+    </div>
+    <section>
+        <div id="yourprofile" class="info" style="display: none;margin-bottom: 10px;color:black;"><i class="fa-solid fa-circle-info fa-xl"></i> This is your profile! Customize it in <a href="../settings.html">settings</a>.</div>
+        <div class="profile_card container" style="background-color: #0000001f;">
+            <div id="basicInfo">
+                <img src="../../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
+                <div style="margin-left:5px;">
+                    <div id="username">[DELETED USER]</div>
+                    <div style="font-size: 16px;">UID: <span id="uid">unknown</span></div>
+                </div>
+            </div>
+            <div style="display: flex; gap:15px;align-items: center;">
+                <div id="badges" style="height: fit-content;">
+                    <div class="badge container" id="badgeex" style="background-color: #00000054;color:white;height: fit-content;padding: 5px;">
+                        <img src="../../asset/badges/Verified.png" width="32" alt="badge">
+                    </div>
+                </div>
+
+                <button id="share" class="puffy_button green"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                <button id="addfriend" disabled class="puffy_button primary"><i class="fa-solid fa-square-plus"></i> Add friend</button>
+                <button style="display:none;" disabled id="removefriend" class="puffy_button danger"><i class="fa-solid fa-square-minus"></i> Unfriend</button>
+            </div>
+            
+        </div>
+        <br>
+        <div id="status_container" class="status container">
+            <h1 id="status">Offline</h1>
+            <div id="offline" style="display:none;">
+                <p>Last online <span id="lastonline">0 days</span> ago.</p>
+            </div>
+            <div id="online" style="display:none;">
+
+            </div>
+            <div id="ingame" style="display:none;">
+
+            </div>
+        </div>
+        <br>
+        <div class="warning" style="color:black;"><i class="fa-solid fa-triangle-exclamation fa-xl"></i> I'm too lazy to do these. Will be done later.</div>
+        <div class="littlespace"></div>
+        <div class="user_info_containers">
+            <div class="user_container container">
+                <h1>User Info</h1>
+                <div id="userInfoContainer">
+                    <!-- Creation date, friend amount, etc. -->
+                </div>
+            </div>
+            <div class="user_container container">
+                <h1>Kits</h1>
+                <div id="kits">
+
+                </div>
+            </div>
+            <div class="user_container container">
+                <h1>History</h1>
+                <div id="gameHistory">
+
+                </div>
+                <!-- Game history -->
+            </div>
+            <div class="user_container container">
+                <h1>Blues</h1>
+                <div id="blues">
+                
+                </div>
+            </div>
+            <div class="user_container container">
+                <h1>Friends</h1>
+                <div id="friends">
+                
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script type="module" src="../../js/user/index.js"></script>
+    <script src="../../js/util/notification.js"></script>
+</body>
+</html>

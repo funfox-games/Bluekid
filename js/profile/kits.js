@@ -1,22 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-    authDomain: "bluekid-303db.firebaseapp.com",
-    databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-    projectId: "bluekid-303db",
-    storageBucket: "bluekid-303db.appspot.com",
-    messagingSenderId: "207140973406",
-    appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-const auth = getAuth();
-
-import { getFirestore, doc, getDoc, collection, getDocs, deleteDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-const db = getFirestore(app);
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, getDocs, deleteDoc, setDoc, updateDoc, collection, deleteObject, storageref, storage, listAll, KIT_COVER_LOCATION } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -300,6 +282,21 @@ function addContextMenuFunctionality(udata, kitid, kitdata) {
     _delete.addEventListener("mousedown", _delete.fn = async () => {
         await deleteDoc(doc(db, "users", auth.currentUser.uid, "kits", kitid));
         await deleteDoc(doc(db, "kits", kitid));
+        const coverRef = storageref(storage, KIT_COVER_LOCATION + "/" + kitid);
+        const allKitCovers = await listAll(storageref(storage, KIT_COVER_LOCATION));
+        let hasCover = false;
+        console.log(KIT_COVER_LOCATION + kitid);
+        allKitCovers.items.forEach((itemRef) => { 
+            if (itemRef.name == kitid) {
+                hasCover = true;
+                console.log("found");
+            }
+        });
+
+        if (hasCover) {
+            console.log("hasCover");
+            await deleteObject(coverRef);
+        }
         showNotification(4, "Delete success!");
         document.getElementById(kitid).remove();
     });

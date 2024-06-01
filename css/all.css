@@ -338,6 +338,12 @@ dialog::backdrop {
 .toggle_input:checked ~ .toggle_fill {
     background: var(--primary-color);
 }
+.toggle_input:disabled ~ .toggle_fill {
+    background: rgba(126, 126, 126, 0.478);
+}
+.toggle_input:disabled ~ .toggle_fill:after {
+    background: rgb(216, 216, 216);
+}
 .toggle_fill:after {
     content: "";
     position: absolute;
@@ -352,4 +358,9 @@ dialog::backdrop {
 }
 .toggle_input:checked ~ .toggle_fill:after {
     transform: translateX(var(--height));
+}
+.tag {
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #00000021;
 }

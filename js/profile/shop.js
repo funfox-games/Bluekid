@@ -1,22 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-    authDomain: "bluekid-303db.firebaseapp.com",
-    databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-    projectId: "bluekid-303db",
-    storageBucket: "bluekid-303db.appspot.com",
-    messagingSenderId: "207140973406",
-    appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-const auth = getAuth();
-
-import { getFirestore, doc, getDoc, collection, getDocs, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-const db = getFirestore(app);
+import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, setDoc, updateDoc, collection } from "../util/firebase.js";
 
 import packdata from "../../asset/blues.json" assert { type: "json" };
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
@@ -87,11 +69,12 @@ async function checkVaild(user, userData) {
 }
 
 const allPacks = packdata.packs;
+const allSpecials = packdata.specials;
 let localCost = 0;
 let isSaving = false;
 const confetti = new JSConfetti();
 
-console.log(new Date(2024, 20, 5));
+console.log(new Date(2024, 5, 25));
 
 async function wait(sec) {
     return new Promise(async (res, rej) => {
@@ -160,28 +143,32 @@ async function saveLocalCoins() {
 }
 
 async function saveBlue(id) {
-    isSaving = true;
-    const doc_ = doc(db, "users", auth.currentUser.uid, "blues", id);
-    let exists;
-    let data = await getDoc(doc_).then((snap) => {
-        exists = snap.exists();
-        return snap.data();
+    return new Promise(async (res, rej) => {
+        isSaving = true;
+        const doc_ = doc(db, "users", auth.currentUser.uid, "blues", id);
+        let exists;
+        let data = await getDoc(doc_).then((snap) => {
+            exists = snap.exists();
+            return snap.data();
+        });
+        let amount = 0;
+        if (exists) {
+            amount = data.amount;
+            await updateDoc(doc_, {
+                amount: amount + 1
+            });
+        } else {
+            await setDoc(doc_, {
+                amount: 1,
+                pack: packdata.blues[id].pack
+            });
+        }
+
+        isSaving = false;
+        console.log("Success. new amount: " + (amount + 1));
+        res();
     });
-    let amount = 0;
-    if (exists) {
-        amount = data.amount; 
-        await updateDoc(doc_, {
-            amount: amount + 1
-        });
-    } else {
-        await setDoc(doc_, {
-            amount: 1,
-            pack: packdata.blues[id].pack
-        });
-    }
     
-    isSaving = false;
-    console.log("Success. new amount: " + (amount + 1));
 }
 
 async function buyPack(id) {
@@ -239,6 +226,23 @@ async function startAnimationSequence(packimg, blue, bluedata) {
     outside.setAttribute("hide", "");
     center.removeAttribute("hide");
 }
+async function playSpecialUnlockAnim() {
+    return new Promise(async (res, rej) => {
+        const image = document.getElementById("specialUnlock");
+        image.parentElement.parentElement.removeAttribute("hide");
+        await wait(.5);
+        image.style.animation = `unlocked 1s infinite ease-in-out`;
+        await wait(2);
+        image.removeAttribute("hide");
+        image.style.animation = `specialUnlock 750ms`;
+        await wait(1);
+        image.style.animation = "";
+        await wait(.25);
+        document.getElementById("unlockedText").removeAttribute("hide");
+        await wait(1);
+        res();
+    });
+}
 
 function showPackInfo(id) {
     const data = allPacks[id];
@@ -292,11 +296,68 @@ async function addAllPacks() {
             if (data.ends_on != undefined) {
                 bottom.children[0].innerHTML = `<i title="Limited time! Click the info button to learn more." class="fa-solid fa-clock fa-xs"></i> ` + display;
             }
-            bottom.children[1].innerHTML = "Cost: " + cost;
+            bottom.children[1].innerHTML = "Cost: " + cost + " coins";
             bottom.children[2].children[0].addEventListener("click", () => { buyPack(id); bottom.children[2].children[0].blur() });
             bottom.children[2].children[1].addEventListener("click", () => showPackInfo(id));
 
             document.getElementById("allPacks").append(elem);
+        });
+        res();
+    });
+}
+
+async function addAllSpecials() {
+    return new Promise(async (res, rej) => {
+        const list = Object.entries(allSpecials);
+        const allBlues = await getDocs(collection(db, "users", auth.currentUser.uid, "blues"));
+        let allBlueIds = [];
+        allBlues.forEach((val, _) => {
+            allBlueIds.push(val.id);
+        })
+        list.forEach((val, i) => {
+            const id = val[0];
+            const data = val[1];
+            console.log(id, data);
+            if (document.getElementById("nolimitedtime")) document.getElementById("nolimitedtime").remove();
+
+            
+
+            const display = data.bluedata;
+            const cost = data.cost;
+            const img = packdata.blues[data.bluedata].imgPath;
+
+            const date = new Date(data.endsOn);
+            const timeDiff = date.getTime() - new Date().getTime();
+            if (timeDiff <= 0) {
+                return;
+            }
+            const dayDiff = Math.round(timeDiff / (1000 * 3600 * 24));
+
+            const elem = document.getElementById("specialex").cloneNode(true);
+            elem.id = id;
+            elem.children[0].src = "../asset/char/" + img;
+            const bottom = elem.children[1];
+
+            if (allBlueIds.includes(id)) {
+                bottom.children[2].children[1].innerHTML = `<i class="fa-solid fa-star"></i> Claimed`;
+                bottom.children[2].children[1].setAttribute("disabled", "true");
+            }
+
+            bottom.children[0].innerHTML = display;
+            bottom.children[1].innerHTML = "Cost: " + cost + " coins";
+            bottom.children[2].children[0].children[0].innerHTML = dayDiff;
+            bottom.children[2].children[1].addEventListener("click", async () => {
+                if (allBlueIds.includes(id)) {
+                    return;
+                }
+                bottom.children[2].children[1].innerHTML = "Working...";
+                await saveBlue(data.bluedata);
+                document.getElementById("specialUnlock").src = elem.children[0].src;
+                document.getElementById("unlockeddd").innerHTML = display;
+                await playSpecialUnlockAnim();
+                location.reload();
+            });
+            document.getElementById("allSpecials").append(elem);
         });
         res();
     });
@@ -319,6 +380,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     await addAllPacks();
+    await addAllSpecials();
 
     document.getElementById("quickTransition").addEventListener("change", () => {
         const fastPackOn = document.getElementById("quickTransition").checked;

@@ -1,22 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-    authDomain: "bluekid-303db.firebaseapp.com",
-    databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-    projectId: "bluekid-303db",
-    storageBucket: "bluekid-303db.appspot.com",
-    messagingSenderId: "207140973406",
-    appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-import { getAuth, onAuthStateChanged, sendPasswordResetEmail, deleteUser, updateEmail } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-const auth = getAuth();
-
-import { getFirestore, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-const db = getFirestore(app);
+import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, updateDoc, sendPasswordResetEmail, deleteUser, updateEmail } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -87,6 +69,35 @@ async function checkVaild(user, userData) {
     });
 }
 
+async function saveProfileSettings(plrData) {
+    return new Promise(async (res, rej) => {
+        const showBlues = document.getElementById("showBlues").value;
+        const showGameHistory = document.getElementById("showGameHistory").value;
+        const showKits = document.getElementById("showKits").value;
+        const hideTokens = document.getElementById("hideTokens").checked;
+        const showStatus = document.getElementById("showStatus").value;
+        const showLastOnline = document.getElementById("showLastOnline").value;
+        const allowFriendRequests = document.getElementById("acceptFriendRequests").checked;
+
+        await updateDoc(doc(db, "users", auth.currentUser.uid), {
+            communitySettings: {
+                privacy: {
+                    showBlues,
+                    showGameHistory,
+                    showKits,
+                    hideTokens,
+                    showStatus,
+                    showLastOnline
+                },
+                allowFriendRequests
+            }
+        });
+        
+        res();
+    });
+    
+}
+
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         location.href = "../auth/login.html";
@@ -99,10 +110,39 @@ onAuthStateChanged(auth, async (user) => {
     });
     await checkVaild(user, data);
 
+    const showBlues = document.getElementById("showBlues");
+    const showGameHistory = document.getElementById("showGameHistory");
+    const showKits = document.getElementById("showKits");
+    const hideTokens = document.getElementById("hideTokens");
+    const showStatus = document.getElementById("showStatus");
+    const showLastOnline = document.getElementById("showLastOnline");
+    const allowFriendRequests = document.getElementById("acceptFriendRequests");
+
+    const profilePrivacySettingExists = data.communitySettings != null && data.communitySettings.privacy != null;
+
+    if (profilePrivacySettingExists) {
+        showBlues.value = data.communitySettings.privacy.showBlues;
+        showGameHistory.value = data.communitySettings.privacy.showGameHistory;
+        showKits.value = data.communitySettings.privacy.showKits;
+        hideTokens.checked = data.communitySettings.privacy.hideTokens;
+        showStatus.value = data.communitySettings.privacy.showStatus;
+        showLastOnline.value = data.communitySettings.privacy.showLastOnline;
+        allowFriendRequests.value = data.communitySettings.allowFriendRequests;
+    }
+
+    document.getElementById("openprofile").href = location.origin + `/profile/user/index.html?id=${uid}`;
+
     document.getElementById("userid").innerHTML = uid;
     document.getElementById("tokens").innerHTML = data.tokens;
     document.getElementById("username").innerHTML = data.username;
 
+    document.getElementById("saveProfileSettings").addEventListener("click", async () => {
+        document.getElementById("saveProfileSettings").innerHTML = `Saving...`;
+        document.getElementById("saveProfileSettings").setAttribute("disabled", "");
+        await saveProfileSettings(data);
+        document.getElementById("saveProfileSettings").removeAttribute("disabled");
+        document.getElementById("saveProfileSettings").innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save privacy settings`;
+    })
     document.getElementById("changename").addEventListener("click", async () => {
         document.getElementById("changename").innerHTML = `<i class="fa-solid fa-hourglass"></i> Waiting...`;
         const newname = document.getElementById("newname").value;

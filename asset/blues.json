@@ -1,4 +1,11 @@
 {
+    "specials": {
+        "Alien Cat": {
+            "cost": 5,
+            "bluedata": "Alien Cat",
+            "endsOn": "Tue Jun 25 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+        }
+    },
     "packs": {
         "meme": {
             "display_name": "Meme Pack",
@@ -13,11 +20,11 @@
             "graphic": "testing.png",
             "cost": 5,
             "buyable": true,
-            "ends_on": "Sun May 20 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+            "ends_on": "Sun Jul 20 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
         },
         "secret": {
             "display_name": "Secret Blues",
-            "blues": ["Rainbow Bunny"],
+            "blues": ["Rainbow Bunny", "Alien Cat"],
             "buyable": false
         }
     },
@@ -95,6 +102,12 @@
             "chance": 0,
             "rarity": "Mystical",
             "imgPath": "secret/EasterBun_Blue.png",
+            "pack": "secret"
+        },
+        "Alien Cat": {
+            "chance": 0,
+            "rarity": "Mystical",
+            "imgPath": "secret/aliencat_blue.png",
             "pack": "secret"
         }
     }

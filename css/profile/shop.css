@@ -44,7 +44,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 #unlockcenter[hide] {
     display:none;
@@ -67,6 +67,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    z-index: 2;
 }
 @keyframes shake {
     0% {
@@ -109,4 +110,77 @@
     display:flex;
     gap: 10px;
     flex-wrap: wrap;
+}
+#specialex {
+    display:none;
+}
+#allSpecials{ 
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#unlockSpecial {
+    background-color: rgb(180, 180, 180);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    user-select: none;
+}
+#unlockSpecial[hide] {
+    display: none;
+}
+#unlockedimg {
+    z-index: 2;
+}
+#specialUnlock {
+    transition-duration: 250ms;
+
+    /* animation-name: unlocked;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-iteration-count: infinite; */
+}
+#specialUnlock[hide] {
+    filter: brightness(0%);
+}
+#unlockedText{
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+
+    transition-duration: 500ms;
+    animation-timing-function: ease-in-out;
+    font-size: 48px;
+    font-weight: bold;
+    z-index: 0;
+}
+#unlockedText[hide] {
+    top: 50%;
+    font-size: 1px;
+}
+@keyframes specialUnlock {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
+}
+@keyframes unlocked {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 1.2;
+    }
+    100% {
+        scale: 1;
+    }
 }

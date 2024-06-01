@@ -83,6 +83,16 @@
             
         </form>
     </dialog>
+    <dialog id="uploadfiledialog">
+        <form method="dialog" style="text-align: center;">
+            <h1>Upload file</h1>
+            <input type="file" id="fileupload" accept="image/*">
+            <br>
+            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i>
+                Upload</button>
+            <button type="reset" onclick="document.getElementById('uploadfiledialog').close()" id="uploadfileclose" class="puffy_button">Close</button>
+        </form>
+    </dialog>
     <section>
         <h1>Edit kit</h1>
         <div class="space"></div>
@@ -97,7 +107,7 @@
                     <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
                     <div id="cover__overlay">
                         <button id="changecoverurl" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload with URL</button>
-                        <button class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
+                        <button id="changecoverfile" class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
                     </div>
                 </div>
                 <div id="button_container">

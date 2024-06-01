@@ -1,0 +1,21 @@
+.user_container {
+    background-color: #0000001f;
+}
+.user_info_containers {
+    display:flex;
+    flex-wrap: wrap;
+    gap:5px;
+    flex-basis: 1;
+}
+.user_info_containers > * {
+    flex: 1 0 48%;
+}
+.status {
+    background-color: #0000001f;
+}
+.status.ingame {
+    background-color: #00a03d5b;
+}
+.status.online {
+    background-color: #007ba05b;
+}

@@ -1,22 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-    authDomain: "bluekid-303db.firebaseapp.com",
-    databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-    projectId: "bluekid-303db",
-    storageBucket: "bluekid-303db.appspot.com",
-    messagingSenderId: "207140973406",
-    appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-const auth = getAuth();
-
-import { getFirestore, doc, getDoc, updateDoc, collection, query, where, getDocs, limit, orderBy } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-const db = getFirestore(app);
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, query, where, getDocs, limit, collection, FirebaseHelper, ONLINE_TEXT, updateDoc } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -125,6 +107,7 @@ async function loadFriendRequests(data) {
     const requests = data.requests;
 
     if (requests == undefined) {
+        document.getElementById("requestsloading").remove();
         return;
     }
     
@@ -191,7 +174,7 @@ async function loadFriendRequests(data) {
 async function loadSentRequests(data) {
     const sentRequests = data.sentRequests;
 
-    if (sentRequests == undefined) {return;}
+    if (sentRequests == undefined) { document.getElementById("allSentRequests").append(clone); return;}
 
     for (let i = 0; i < sentRequests.length; i++) {
         if (document.getElementById("nosentrequests") != null) {
@@ -255,23 +238,22 @@ async function loadFriends(data) {
         const friendd = await getDoc(doc(db, "users", friend)).then((res) => { return res });
         const frienddata = friendd.data();
 
+
         const clone = document.getElementById("friendex").cloneNode(true);
-        clone.id = "";
+        clone.id = friend;
+        clone.children[0].href = "./user/index.html?id=" + friend;
         if (friendd.exists() == false) {
-            clone.children[0].children[0].innerText = "[DELETED ACCOUNT]";
-            clone.children[0].children[1].innerText = "UID: unknown";
-
-
-        } else {
-            clone.children[0].children[0].innerText = frienddata.username;
-            clone.children[0].children[1].innerText = "UID: " + friend;
+            // clone.children[0].children[0].innerText = "[DELETED ACCOUNT]";
+            // clone.children[0].children[1].innerText = "UID: unknown";
+            continue;
 
         }
-        clone.children[1].children[0].addEventListener("click", async () => {
-            // clone.children[1].children[0].innerHTML = "Working...";
-            // clone.children[1].children[0].setAttribute("disabled", "true");
-            // Unfriend
-        });
+        clone.children[0].children[0].children[0].innerText = frienddata.username;
+        clone.children[0].children[1].innerText = "UID: " + friend;
+        const status = await FirebaseHelper.getUserStatus(friend);
+        if (status.status == ONLINE_TEXT) {
+            clone.children[0].children[0].children[1].style.display = "unset";
+        }
 
         document.getElementById("allFriends").append(clone);
     }
@@ -329,6 +311,12 @@ onAuthStateChanged(auth, async (user) => {
             return res;
         });
         if (snapshot.exists() == false) {
+            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+            document.getElementById("addfriend").removeAttribute("disabled");
+            return;
+        }
+        if (snapshot.data().communitySettings != null && snapshot.data().communitySettings.allowFriendRequests == false) {
+            showNotification(3, "This person isn't accepting friend requests right now.");
             document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
             document.getElementById("addfriend").removeAttribute("disabled");
             return;
@@ -412,7 +400,8 @@ onAuthStateChanged(auth, async (user) => {
             const data = allUsers[i].data();
             const id = allUsers[i].id;
 
-            if (!document.getElementById("allowFriends").checked && data.friends.includes(auth.currentUser.uid)) {
+            console.log(data);
+            if (!document.getElementById("allowFriends").checked && data.friends != null && data.friends.includes(auth.currentUser.uid)) {
                 continue;
             }
 
@@ -421,7 +410,12 @@ onAuthStateChanged(auth, async (user) => {
             const top = clone.children[0];
             const usernamediv = top.children[0];
             usernamediv.children[0].innerText = data.username;
-            top.children[1].innerHTML = "Friends: " + data.friends.length;
+            if (data.friends == null) {
+                top.children[1].innerHTML = "Friends: 0";
+            } else {
+                top.children[1].innerHTML = "Friends: " + data.friends.length || 0;
+            }
+            
             for (let ii = 0; ii < data.badges.length; ii++) {
                 const badge = data.badges[ii];
                 const newImg = document.createElement("img");
