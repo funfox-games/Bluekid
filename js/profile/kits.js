@@ -134,7 +134,9 @@ async function loadFavorites(udata) {
 
             const right = elem.children[1];
             right.children[0].addEventListener("click", () => {
-                showNotification(3, "Not ready for testing. Check back later.");
+                sessionStorage.setItem("hostkit", id);
+                sessionStorage.setItem("ownsKit", false);
+                location.href = "../game/host.html"
             });
             right.children[1].addEventListener("click", () => {
                 location.href = "./kit/edit.html?id=" + id;
@@ -391,7 +393,10 @@ onAuthStateChanged(auth, async (user) => {
 
         const right = elem.children[1];
         right.children[0].addEventListener("click", () => {
-            showNotification(3, "Not ready for testing. Check back later.");
+            sessionStorage.setItem("hostkit", id);
+            sessionStorage.setItem("ownsKit", true);
+            
+            location.href = "../game/host.html"
         });
         right.children[1].addEventListener("click", () => {
             location.href = "./kit/edit.html?id=" + id;

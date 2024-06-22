@@ -1,6 +1,6 @@
 import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, updateDoc, deleteDoc, signOut, collection } from "../util/firebase.js";
 
-import * as __data from "../../asset/blues.json" assert { type: "json" };
+import * as __data from "../../asset/blues.json" with { type: "json" };
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 

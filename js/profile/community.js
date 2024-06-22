@@ -253,6 +253,16 @@ async function loadFriends(data) {
         const status = await FirebaseHelper.getUserStatus(friend);
         if (status.status == ONLINE_TEXT) {
             clone.children[0].children[0].children[1].style.display = "unset";
+            if (frienddata.communitySettings) {
+                if (frienddata.communitySettings.privacy.showStatus == "none") {
+                    clone.children[0].children[0].children[1].style.display = "none";
+                } else if (frienddata.communitySettings.privacy.showStatus == "friends") {
+                    if (!frienddata.friends.includes(auth.currentUser.uid)) {
+                        clone.children[0].children[0].children[1].style.display = "none";
+
+                    }
+                }
+            }
         }
 
         document.getElementById("allFriends").append(clone);

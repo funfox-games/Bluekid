@@ -141,7 +141,7 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("saveProfileSettings").setAttribute("disabled", "");
         await saveProfileSettings(data);
         document.getElementById("saveProfileSettings").removeAttribute("disabled");
-        document.getElementById("saveProfileSettings").innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save privacy settings`;
+        document.getElementById("saveProfileSettings").innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save all profile settings`;
     })
     document.getElementById("changename").addEventListener("click", async () => {
         document.getElementById("changename").innerHTML = `<i class="fa-solid fa-hourglass"></i> Waiting...`;

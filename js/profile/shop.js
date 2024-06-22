@@ -1,6 +1,6 @@
 import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, setDoc, updateDoc, collection } from "../util/firebase.js";
 
-import packdata from "../../asset/blues.json" assert { type: "json" };
+import packdata from "../../asset/blues.json" with { type: "json" };
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
 async function checkVaild(user, userData) {
