@@ -354,6 +354,7 @@ onAuthStateChanged(auth, async (user) => {
     }
     document.getElementById("nokits").remove();
     cachedkits = kits;
+    document.getElementById("publicAnnouncement").showModal();
     kits.forEach(async (document_) => {
         const data = document_.data();
         const id = document_.id;
