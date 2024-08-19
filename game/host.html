@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host kit</title>
+
+    <link rel="stylesheet" href="../css/game/host.css">
+    <link rel="stylesheet" href="../css/all.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="gamemode_host_prepare">
+        <h1><i class="fa-solid fa-spinner fa-spin"></i> Preparing...</h1>
+    </dialog>
+    <dialog id="gamemode_start">
+        <div id="testingOnly">
+            <h1><i class="fa-solid fa-lock"></i> Testers only</h1>
+            <p>Testers are chosen by the developer. Sorry!</p>
+            <button id="testingclose" class="puffy_button primary"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+        </div>
+        <div id="gamemodecovercontainer">
+            <img src="../asset/templates/" width="730" id="gamemodecover" alt="load">
+            <div id="gamemodecovergradient"></div>
+        </div>
+        <div id="gamemode_content">
+            <div id="gamemode_info">
+                <h1 id="gamemodeName"></h1>
+                <p id="gamemodeDesc"></p>
+
+                <!-- Example element --> <div class="gamemodetag modal" id="modaltagex">test</div>
+                <div class="gamemode_tags" id="modaltags"></div>
+            </div>
+            <div id="hostoptions">
+                <button id="host" class="puffy_button green"><i class="fa-solid fa-right-long"></i> Continue</button>
+                <button id="modesettings" class="puffy_button primary"><i class="fa-solid fa-gear"></i> Mode Settings</button>
+                <button id="close" class="puffy_button"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="gamemode_settings">
+        <!-- Example components -->
+        <label class="toggle" id="checkboxex" for="">
+            <input class="toggle_input" type="checkbox" id="">
+            <div class="toggle_fill"></div>
+            <div>example</div>
+        </label>
+        <input type="number" class="input number" id="numberex" placeholder="1">
+
+        <div id="examplesection" class="settingSection">
+            <h2>Example title</h2>
+        </div>
+        <!-- END OF Example components -->
+        <div id="settings">
+
+        </div>
+        <div class="space"></div>
+        <form method="dialog">
+            <button id="apply" type="button" class="puffy_button primary"><i class="fa-solid fa-square-check"></i> Apply</button>
+            <button id="discard" class="puffy_button"><i class="fa-solid fa-square-xmark"></i> Discard</button>
+        </div>
+    </dialog>
+    <section>
+        <h1>Choose gamemode</h1>
+        <label for="filterTag"><i class="fa-solid fa-filter"></i> Filter tag</label>
+        <select id="filterTag"></select>
+        <div class="space"></div>
+        <div class="gamemodetag" id="tagex">test</div>
+        <div id="gamemodeex" class="gamemode">
+            <div>
+                <h1>Title</h1>
+                <p>Desc</p>
+            </div>
+            <div class="gamemode_tags"></div>
+        </div>
+        <div id="allgamemodes">
+
+        </div>
+    </section>
+
+    <script src="../js/game/host.js" type="module"></script>
+</body>
+</html>

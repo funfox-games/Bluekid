@@ -5,3 +5,8 @@ body {
     height: 100vh;
     overflow: hidden;
 }
+.maincontainer {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+}

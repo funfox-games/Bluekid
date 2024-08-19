@@ -22,7 +22,7 @@ p {
     font-size: 19px;
 }
 section {
-    box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, 1);
+    box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);
     padding: 15px;
     border-radius: 5px;
     background-color: #00000021;
@@ -287,6 +287,9 @@ dialog::backdrop {
     /* border: 3px solid var(--primary-color-outline); */
 
 }
+.icon_button.green {
+    background-color: rgb(0, 160, 0);
+}
 .littlespace {
     height: 5px;
 }
@@ -363,4 +366,27 @@ dialog::backdrop {
     padding: 3px;
     border-radius: 5px;
     background-color: #00000021;
+}
+dialog[open]:not([noanim]) {
+    
+    animation: modal_open 500ms forwards ease-in-out;
+}
+dialog::backdrop {
+    animation: fadeIn 500ms forwards ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes modal_open {
+    0% {
+        transform: translateY(85vh);
+    }
+    100% {
+        transform: translateY(0vh);
+    }
 }

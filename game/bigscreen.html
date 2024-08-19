@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hosting | Bluekid</title>
+
+    <link rel="stylesheet" href="css/bigscreen.css">
+    <link rel="stylesheet" href="../css/all.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="preparing" noanim>
+        <h1><i class="fa-solid fa-spinner fa-spin"></i> Preparing</h1>
+        <p id="preparing_detail">Initalizing realtime database data...</p>
+    </dialog>
+    <dialog id="interaction">
+        <h1>Press button to continue</h1>
+        <p>Due to browser restrictions, you will need to press this button for systems to work.</p>
+        <button id="clickme" class="puffy_button primary">Click me!</button>
+    </dialog>
+    <dialog id="console__popup">
+        
+    </dialog>
+    <div id="closeup_bg">
+        <div id="closeup_container">
+            <span style="font-weight: normal;">Go to <u>bluekid.netlify.app/join</u> and enter the code:</span>
+            <span id="closeup_code">684731</span>
+            <div>
+                <button id="copyCode" class="puffy_button primary"><i class="fa-solid fa-copy"></i> Copy code</button>
+                <button id="closeup_close" class="puffy_button"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+            </div>
+            
+        </div>
+    </div>
+    <div id="code">
+        <span>Go to <u>bluekid.netlify.app/join</u><br>and enter the code: </span>
+        <div id="gameidcard">no</div>
+    </div>
+    <br>
+    <div id="quickActions">
+        <div class="quickActionContainer" style="font-size: 1.5rem;">
+            <i class="fa-solid fa-users"></i>
+            <span id="userCount">0</span>
+        </div>
+        <div class="quickActionContainer">
+            <h1>Bluekid</h1>
+        </div>
+        <div class="quickActionContainer">
+            <p id="minUserss">You need at least <span id="minUsers">2</span> players to start.</p>
+            <button class="puffy_button primary"><i class="fa-solid fa-circle-play"></i> Start</button>
+        </div>
+    </div>
+    <div id="playerex" class="player">
+        <div class="playerHoverInfo">
+            <button class="icon_button primary" title="Kick"><i class="fa-solid fa-xmark"></i></button>
+            <a href="#" target="_blank"><button class="icon_button" title="View profile"><i class="fa-solid fa-address-card"></i></button></a>
+        </div>
+        <img src="../asset/char/blue_broken.png" alt="blue" width="64">
+        <p>User</p>
+    </div>
+    <div id="players">
+        
+    </div>
+
+    <div id="console">
+        <span>&gt;_</span>
+    </div>
+    <script type="module" src="./js/bigscreen.js"></script>
+</body>
+</html>

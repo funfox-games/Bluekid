@@ -19,76 +19,31 @@
 </head>
 <body>
     <dialog id="transfere">
-        <h1>You choose</h1>
-        <p>What should carry over?</p>
-        <div style="display:flex;flex-direction:column;gap:5px;width:100%;">
-            <fieldset>
-                <legend>Username</legend>
-                <div>
-                    <input type="radio" value="carry" checked name="username"></option>
-                    <label for="">Carry</label>
-                </div>
-                <div>
-                    <input type="radio" value="none" name="username"></option>
-                    <label for="">None</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Tokens</legend>
-                <div>
-                    <input type="radio" value="carry" checked name="tokens"></option>
-                    <label for="">Carry</label>
-                </div>
-                <div>
-                    <input type="radio" value="none" name="tokens"></option>
-                    <label for="">None</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Badges</legend>
-                <div>
-                    <input type="radio" value="carry" checked name="badges"></option>
-                    <label for="">Carry</label>
-                </div>
-                <div>
-                    <input type="radio" value="none" name="badges"></option>
-                    <label for="">None</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Blues</legend>
-                <div>
-                    <input type="radio" value="carry" checked name="blues"></option>
-                    <label for="">Carry (Buggy)</label>
-                </div>
-                <div>
-                    <input type="radio" value="none" name="blues"></option>
-                    <label for="">None</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Kits</legend>
-                <div>
-                    <input type="radio" value="carry" checked name="kits"></option>
-                    <label for="">Carry (Buggy)</label>
-                </div>
-                <div>
-                    <input type="radio" value="none" name="kits"></option>
-                    <label for="">None</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>V2 Supplies</legend>
-                <p>These new data attributes are included in V2!</p>
-                <ul>
-                    <li>Friends</li>
-                </ul>
-            </fieldset>
+        <div id="transfer__info">
+            <h1>Transfer prompt</h1>
+            <p>You are about to enter the DataV2 zone. Yippe! This process will:</p>
+            <ul>
+                <li>Fix bugged kits</li>
+                <li>Fix bugged blues (dependant on their data)</li>
+                <li>Update your data to the latest version.</li>
+            </ul>
+            <label class="toggle" for="deleteBuggedBlues">
+                <input class="toggle_input" checked type="checkbox" id="deleteBuggedBlues">
+                <div class="toggle_fill"></div>
+                Delete bugged blues
+            </label>
         </div>
+        <div id="transfer__progression" style="display: none;">
+            <h1 id="transferinprogress"><i class="fa-solid fa-xl fa-spinner fa-spin"></i> Transfer in progress...</h1>
+            <div class="littlespace"></div>
+            <p id="progression">Preparing...</p>
+            <b id="donotrefresh"><br>DO NOT REFRESH OR LEAVE THIS PAGE.</b>
+        </div>
+        
         <br>
         <form method="dialog">
-            <button class="puffy_button primary" value="convert"><i class="fa-solid fa-bolt"></i> CONVERT</button>
-            <button class="puffy_button secondary" value="close"><i class="fa-solid fa-x"></i> Close</button>
+            <button class="puffy_button primary" id="convert_btn" type="button"><i class="fa-solid fa-bolt"></i> CONVERT</button>
+            <button class="puffy_button secondary" id="close"><i class="fa-solid fa-x"></i> Close</button>
         </form>
         
     </dialog>
@@ -97,13 +52,12 @@
         <p>You are already upgraded to [V2 DATA]! Congrats!</p>
     </section>
     <section id="transfer" class="section__center">
-        <h1>Transfer data</h1>
-        <p>You're data has been detected as [V1 DATA]. To transfer, please continue below.<br>You aren't required to do this, but bugs may appear if you continue without V2.</p>
         <div class="warning"><i class="fa-solid fa-warning"></i> If your data is lost during the process, contact the developer.</div>
-        <div class="caution"><i class="fa-solid fa-circle-exclamation"></i> This is a placeholder, nothing works</div>
-        <br>
+        <h1>Transfer data</h1>
+        <p>You're data is the old, deprecated, data v1. To transfer, please continue below.<br>You aren't required to do this, but bugs may appear if you continue without V2.</p>
+        
         <button class="puffy_button primary" id="upgrade"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade</button>
-        <button class="puffy_button secondary">Go back</button>
+        <button class="puffy_button secondary" onclick="history.back()">Go back</button>
     </section>
     <section id="login" style="display:none;" class="section__center">
         <h1>Transfer data</h1>

@@ -3,7 +3,11 @@
         "Alien Cat": {
             "cost": 5,
             "bluedata": "Alien Cat",
+<<<<<<< Updated upstream
             "endsOn": "Fri Aug 30 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+=======
+            "endsOn": "Sat Oct 5 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+>>>>>>> Stashed changes
         }
     },
     "packs": {
@@ -21,6 +25,13 @@
             "cost": 5,
             "buyable": true,
             "ends_on": "Sun Jul 20 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+        },
+        "summer": {
+            "display_name": "Summer Pack",
+            "blues": ["Water", "Beachball", "Inner tube", "Goggles", "Flippers", "Pool Noodle", "The Sun"],
+            "graphic": "summerpack.png",
+            "cost": 20,
+            "buyable": true
         },
         "secret": {
             "display_name": "Secret Blues",
@@ -96,6 +107,49 @@
             "rarity": "Lengendary",
             "imgPath": "testables/blue_fatal.png",
             "pack": "testables"
+        },
+        "//": "SUMMER PACK",
+        "Water": {
+            "chance": 25,
+            "rarity": "Common",
+            "imgPath": "summer/water.png",
+            "pack": "summer"
+        },
+        "Beachball": {
+            "chance": 20,
+            "rarity": "Common",
+            "imgPath": "summer/beachball.png",
+            "pack": "summer"
+        },
+        "Inner tube": {
+            "chance": 15,
+            "rarity": "Uncommon",
+            "imgPath": "summer/innerTube.png",
+            "pack": "summer"
+        },
+        "Goggles": {
+            "chance": 8,
+            "rarity": "Rare",
+            "imgPath": "summer/goggles.png",
+            "pack": "summer"
+        },
+        "Flippers": {
+            "chance": 5,
+            "rarity": "Epic",
+            "imgPath": "summer/flippers.png",
+            "pack": "summer"
+        },
+        "Pool Noodle": {
+            "chance": 1,
+            "rarity": "Lengendary",
+            "imgPath": "summer/poolNoodle.png",
+            "pack": "summer"
+        },
+        "The Sun": {
+            "chance": 0.07,
+            "rarity": "Mystical",
+            "imgPath": "summer/theSun.png",
+            "pack": "summer"
         },
         "//": "SECRETS",
         "Rainbow Bunny": {

@@ -11,6 +11,11 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="loading" noanim>
+        <h1><i class="fa-solid fa-spinner fa-spin"></i> Loading...</h1>
+        <p>Loading <span id="loading_progress">profile</span>...</p>
+    </dialog>
+
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../../index.html" style="text-decoration: none;color:black;">
@@ -72,17 +77,34 @@
             </div>
         </div>
         <br>
-        <div class="warning" style="color:black;"><i class="fa-solid fa-triangle-exclamation fa-xl"></i> I'm too lazy to do these. Will be done later.</div>
         <div class="littlespace"></div>
         <div class="user_info_containers">
             <div class="user_container container">
                 <h1>User Info</h1>
                 <div id="userInfoContainer">
                     <!-- Creation date, friend amount, etc. -->
+                    <ul style="margin: 0;">
+                        <li>Creation date: Joinned <i id="joinned">0</i> days ago.</li>
+                        <li><i id="friendAmount">0</i> Friends</li>
+                    </ul>
                 </div>
             </div>
             <div class="user_container container">
                 <h1>Kits</h1>
+                <div class="kit container" id="kitex">
+                    <div class="kit_left">
+                        <div style="background-color: black;width:124px;height: 80.5px;">
+                            <img style="object-fit: contain;" src="../../asset/templates/kit_temp.png" width="124" height="80.5" alt="img">
+                        </div>
+                        <div>
+                            <h1 style="font-size: 2.5rem;">Kit title</h1>
+                            <p style="font-size: 1.25rem;"><i id="private_indicator" class="fa-solid fa-lock"></i> Unshared</p>
+                        </div>
+                    </div>
+                    <div class="kit_right">
+                        <a href="#"><button class="puffy_button primary"><i class="fa-solid fa-eye"></i> View</button></a>
+                    </div>
+                </div>
                 <div id="kits">
 
                 </div>
@@ -96,14 +118,18 @@
             </div>
             <div class="user_container container">
                 <h1>Blues</h1>
+                <div class="bluek" id="blue_ex">
+                    <img src="../../asset/char/blue_notexture.png" width="64" alt="blue">
+                </div>
                 <div id="blues">
-                
+                    
                 </div>
             </div>
             <div class="user_container container">
                 <h1>Friends</h1>
+                <p>Showing: Mutal friends</p>
                 <div id="friends">
-                
+                    
                 </div>
             </div>
             

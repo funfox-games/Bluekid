@@ -10,21 +10,22 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div style="background-image: url('asset/join/repeatBg.png');opacity: 0.25;" class="fullscreen"></div>
-    <div id="topnav">
-        <div class="topnav_item" id="topnav__left">
-            <a style="text-decoration: none;" href="index.html"><h2><span class="blue">Blue</span>kid</h2></a>
-        </div>
+    <dialog id="setUsername">
+        <input type="text" placeholder="Username" id="username" class="input">
+        <button id="setusernamejoin" class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i>Join</button>
+    </dialog>
+
+    <!-- Background elem -->
+    <div class="fullscreen"></div>
+    <div class="section__center" style="color:white;display:flex;flex-direction: column;align-items: center;">
+        <a style="text-decoration: none;color:white;" href="./index.html"><h1 style="background-color: #0000001f;padding: 5px;border-radius: 10px;box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);padding-left: 20px;padding-right: 20px;"><span class="blue">Blue</span>kid</h1></a>
+        <section class="container maincontainer" style="margin-top: 25px;">
+            <div id="notloggedin" class="warning">Loading...</div>
+            <p>Version <span id="hostingversion"></span></p>
+            <input class="input" style="height: 40px;" placeholder="Game ID" id="gid">
+            <button id="join" class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Join</button>
+        </section>
     </div>
-    <br><br><br>
-    <section class="section__center container" style="background-color: #0000006b;color:white;font-size: 1.5rem;">
-        <div id="notloggedin" class="warning"><i class="fa-solid fa-warning"></i> You aren't logged in.</div>
-        <h1>Join Game</h1>
-        <div>
-            <input class="input" placeholder="Game ID" id="gid">
-            <button class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Join</button>
-        </div>
-    </section>
 
     <script async type="module" src="js/join.js"></script>
     <script src="js/util/notification.js"></script>

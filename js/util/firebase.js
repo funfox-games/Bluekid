@@ -18,7 +18,7 @@ export const auth = getAuth();
 import { getFirestore, doc, getDoc, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 export const db = getFirestore(app);
 
-import { getDatabase, ref, set, update, get, onDisconnect, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, set as realtimeSet, update as realtimeUpdate, get as realtimeGet, remove as realtimeRemove, onDisconnect, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 export const realtime = getDatabase(app);
 
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
@@ -42,7 +42,7 @@ export function forceOffline() {
             shouldBeChecked = false;
         }
         const statusref = ref(realtime, "statuses/" + auth.currentUser.uid);
-        await update(statusref, { status: OFFLINE_TEXT, lastOnline: new Date() }).catch((err) => {
+        await realtimeUpdate(statusref, { status: OFFLINE_TEXT, lastOnline: new Date() }).catch((err) => {
             console.error(err);
             rej(err);
         });
@@ -61,7 +61,7 @@ onAuthStateChanged(auth, (user) => {
             currentDisconnect = onDisconnect(statusref)
             currentDisconnect.update({ status: OFFLINE_TEXT, lastOnline: new Date() }).then(function () {
                 if (!shouldBeChecked) {return;}
-                update(statusref, { status: ONLINE_TEXT });
+                realtimeUpdate(statusref, { status: ONLINE_TEXT });
             });
         });
     }
@@ -70,7 +70,7 @@ onAuthStateChanged(auth, (user) => {
 export class FirebaseHelper {
     static async getUserStatus(uid) {
         return new Promise(async (res, rej) => {
-            const result = await get(ref(realtime, "statuses/" + uid)).catch((err) => {
+            const result = await realtimeGet(ref(realtime, "statuses/" + uid)).catch((err) => {
                 console.log(err);
                 rej(err);
             });
@@ -96,8 +96,18 @@ export class FirebaseHelper {
         });
         
     }
+    static async getUserData(uid) {
+        return new Promise(async (res, rej) => {
+            const result = await getDoc(doc(db, "users", uid)).catch((err) => {
+                console.log(err);
+                rej(err);
+            });
+            res(result.data());
+        });
+    }
 }
 
-// Not added: set, update, get, 
+const HOSTING_VERSION = "1.0.0-alpha.1"
 
-export { storageref, uploadBytes, deleteObject, listAll, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail, getDownloadURL, doc, getDoc, ref, onDisconnect, signOut, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, deleteUser, updateEmail, addDoc };
+// Not added: 
+export { HOSTING_VERSION, storageref, uploadBytes, deleteObject, listAll, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail, getDownloadURL, doc, getDoc, ref, onDisconnect, signOut, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, deleteUser, updateEmail, addDoc, realtimeSet, realtimeUpdate, realtimeGet, realtimeRemove, onValue };

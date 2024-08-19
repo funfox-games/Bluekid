@@ -1,7 +1,7 @@
 .blue_section {
     background-color: #0000001f;
     display: flex;
-    gap:10px;
+    gap:15px;
     flex-wrap: wrap;
 }
 .bluechar {
@@ -9,7 +9,36 @@
     align-items: center;
     filter: brightness(0%);
     cursor: pointer;
+    border-radius: 10px;
+    z-index: 2;
 }
+.wheel {
+    display:flex;
+    position:absolute;
+    z-index: -1;
+    animation-name: spin;
+    animation-duration: 20s;
+    align-items: center;
+    justify-content: center;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+#wheelex {
+    display:none;
+}
+
+@keyframes spin {
+    0% {
+        rotate: 0deg;
+    }
+    50% {
+        rotate: 360deg;
+    }
+    100% {
+        rotate: 720deg;
+    }
+}
+
 .bluechar[given] {
     filter: brightness(100%);
 }

@@ -1,4 +1,6 @@
-import { onAuthStateChanged, auth, getDoc, doc, db, FirebaseHelper, ONLINE_TEXT, OFFLINE_TEXT } from "../util/firebase.js";
+import { onAuthStateChanged, auth, getDoc, doc, db, FirebaseHelper, ONLINE_TEXT, OFFLINE_TEXT, collection, getDocs, query, where } from "../util/firebase.js";
+
+import * as blue_data from "../../asset/blues.json" with { type: "json" };
 
 var cachedBadges = null;
 
@@ -37,6 +39,7 @@ function updatePrivacy(userProfile, all) {
                     This section is protected.
                 </div>
                 `;
+                break;
             }
 
             break;
@@ -178,6 +181,79 @@ async function loadBadges(uid) {
     }
 }
 
+async function loadBlues(uid) {
+    var badges_ref = collection(db, "users", uid, "blues");
+    var docs = await getDocs(badges_ref);
+    docs.forEach((doc) => {
+        var data = doc.data();
+        const id = doc.id;
+        const bluedata = blue_data.default.blues[id];
+
+        const clone = document.getElementById("blue_ex").cloneNode(true);
+        clone.id = "";
+
+        let imagePath;
+        if (bluedata == null) {
+            imagePath = "blue_broken.png";
+            clone.title = `${id}: Bugged`;
+        } else {
+            imagePath = bluedata.imgPath;
+            clone.title = `${id}: ${bluedata.rarity} (${data.amount} Owned)`;
+        }
+        clone.children[0].src = "../../asset/char/" + imagePath;
+        
+        document.getElementById("blues").append(clone);
+    });
+}
+
+async function loadKits(uid) {
+    var allKits = collection(db, "users", uid, "kits");
+    const q = query(allKits, where("visibility", "==", "public"));
+    
+    const all = await getDocs(q);
+    all.forEach((doc) => {
+        const id = doc.id;
+        const data = doc.data();
+
+        const clone = document.getElementById("kitex").cloneNode(true);
+        clone.id = id;
+        const left = clone.children[0];
+        const right = clone.children[1];
+
+        left.children[0].children[0].src = data.cover;
+        left.children[1].children[0].innerText = data.displayname;
+        left.children[1].children[1].innerHTML = `<i class="fa-solid fa-globe"></i> Public`;
+
+        right.children[0].href = location.origin + "/profile/kit/view.html?id=" + id;
+
+        document.getElementById("kits").append(clone);
+    });
+}
+
+async function showFriendedKits(uid) {
+    var allKits = collection(db, "users", uid, "kits");
+    const q = query(allKits, where("visibility", "!=", "private"));
+    
+    const all = await getDocs(q);
+    all.forEach((doc) => {
+        const id = doc.id;
+        const data = doc.data();
+
+        const clone = document.getElementById("kitex").cloneNode(true);
+        clone.id = id;
+        const left = clone.children[0];
+        const right = clone.children[1];
+
+        left.children[0].children[0].src = data.cover;
+        left.children[1].children[0].innerText = data.displayname;
+        left.children[1].children[1].innerHTML = `<i class="fa-solid fa-globe"></i> Public`;
+
+        right.children[0].href = location.origin + "/profile/kit/view.html?id=" + id;
+
+        document.getElementById("kits").append(clone);
+    });
+}
+
 onAuthStateChanged(auth, async (user) => {
     const userProfileId = new URL(location).searchParams.get("id");
     const userProfile = await getDoc(doc(db, "users", userProfileId));
@@ -190,14 +266,22 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
 
+    document.getElementById("loading").showModal();
+
     const communitySettings = userProfile.data().communitySettings;
+    let showBlues = "friends";
+    let showGameHistory = "friends";
+    let showKits = "all";
+    let hideTokens = false;
+    let showStatus = "all";
+    let showLastOnline = "all";
     if (communitySettings != null) {
-        const showBlues = communitySettings.privacy.showBlues || "friends";
-        const showGameHistory = communitySettings.privacy.showGameHistory || "friends";
-        const showKits = communitySettings.privacy.showKits || "all";
-        const hideTokens = communitySettings.privacy.hideTokens || false;
-        const showStatus = communitySettings.privacy.showStatus || "all";
-        const showLastOnline = communitySettings.privacy.showLastOnline || "all";
+        showBlues = communitySettings.privacy.showBlues;
+        showGameHistory = communitySettings.privacy.showGameHistory; 
+        showKits = communitySettings.privacy.showKits; 
+        hideTokens = communitySettings.privacy.hideTokens; 
+        showStatus = communitySettings.privacy.showStatus; 
+        showLastOnline = communitySettings.privacy.showLastOnline; 
         if (auth.currentUser.uid != userProfileId) {
             updatePrivacy(userProfile, {
                 showBlues,
@@ -209,51 +293,93 @@ onAuthStateChanged(auth, async (user) => {
             });
         }
     }
+
+    try {
+        document.getElementById("loading_progress").innerHTML = "user data";
+        var localuid = user.uid;
+        var localdoc_ = doc(db, "users", localuid);
+        var localData = await getDoc(localdoc_).then((res) => {
+            if (!res.exists()) {
+                return "UNKNOWN";
+            }
+            return res.data();
+        });
+        const isFriended = localData.friends != undefined && localData.friends.includes(userProfileId);
+
+        // Load user stuffs
+
+        document.getElementById("loading_progress").innerHTML = "badges";
+        await loadBadges(userProfileId);
+        document.getElementById("loading_progress").innerHTML = "blues";
+        if (showBlues == "all") {
+            await loadBlues(userProfileId);
+        }
+        if (showBlues == "friends" && isFriended) {
+            await loadBlues(userProfileId);
+        }
     
-    loadBadges(userProfileId);
-
-    var localuid = user.uid;
-    var localdoc_ = doc(db, "users", localuid);
-    var localData = await getDoc(localdoc_).then((res) => {
-        if (!res.exists()) {
-            return "UNKNOWN";
+        document.getElementById("loading_progress").innerHTML = "kits";
+        if (showKits == "all") {
+            await loadKits(userProfileId);
         }
-        return res.data();
-    });
-
-    if (localData.friends != undefined && localData.friends.includes(userProfileId)) {
-        document.getElementById("addfriend").style.display = "none";
-        document.getElementById("removefriend").style.display = "unset";
-    }
-
-    const userProfileData = userProfile.data();
-
-    document.getElementById("username").innerText = userProfileData.username;
-    document.getElementById("uid").innerHTML = userProfileId;
-
-    const status = await FirebaseHelper.getUserStatus(userProfileId);
-    if (document.getElementById("status")) document.getElementById("status").innerHTML = status.status;
-
-    if (status.status == ONLINE_TEXT && document.getElementById("status_container").getAttribute("locked") == null) {
-        document.getElementById("online").style.display = "unset";
-        document.getElementById("status_container").classList.add("online");
-        if (false) {
-            // Check if in game
-
-            document.getElementById("online").style.display = "none";
-            document.getElementById("ingame").style.display = "unset";
-            document.getElementById("status_container").classList.add("ingame");
-
+        if (showKits == "friends" && isFriended) {
+            await showFriendedKits(userProfileId);
         }
-    } else if (status.status == OFFLINE_TEXT && document.getElementById("status_container").getAttribute("locked") == null) {
-        document.getElementById("offline").style.display = "unset";
-    }
 
-    const metadata = await FirebaseHelper.getUserMetadata(userProfileId);
-    const isImageGood = await checkImage(metadata.photoURL);
-    if (isImageGood) {
-        document.getElementById("pfp").src = metadata.photoURL;
+        if (userProfile.data().friends != undefined) {
+            document.getElementById("friendAmount").innerHTML = userProfile.data().friends.length;
+        }
+        document.getElementById("loading_progress").innerHTML = "metadata";
+        const metadata = await FirebaseHelper.getUserMetadata(userProfileId);
+        const creationDate = new Date(metadata.createdOn);
+        var time = (Date.parse(creationDate) - new Date()); // milliseconds between now & user creation
+        var diffDays = -Math.floor(time / 86400000); // days
+        document.getElementById("joinned").innerHTML = diffDays;
+
+        if (isFriended) {
+            document.getElementById("addfriend").style.display = "none";
+            document.getElementById("removefriend").style.display = "unset";
+        }
+
+        const userProfileData = userProfile.data();
+
+        document.getElementById("username").innerText = userProfileData.username;
+        document.getElementById("uid").innerHTML = userProfileId;
+
+        // Load user data
+
+        document.getElementById("loading_progress").innerHTML = "user status";
+        const status = await FirebaseHelper.getUserStatus(userProfileId);
+        if (document.getElementById("status")) document.getElementById("status").innerHTML = status.status;
+
+        if (status.status == ONLINE_TEXT && document.getElementById("status_container").getAttribute("locked") == null) {
+            document.getElementById("online").style.display = "unset";
+            document.getElementById("status_container").classList.add("online");
+            if (false) {
+                // Check if in game
+
+                document.getElementById("online").style.display = "none";
+                document.getElementById("ingame").style.display = "unset";
+                document.getElementById("status_container").classList.add("ingame");
+
+            }
+        } else if (status.status == OFFLINE_TEXT && document.getElementById("status_container").getAttribute("locked") == null) {
+            document.getElementById("offline").style.display = "unset";
+        }
+
+        document.getElementById("loading_progress").innerHTML = "profile picture";
+        const isImageGood = await checkImage(metadata.photoURL);
+        if (isImageGood) {
+            document.getElementById("pfp").src = metadata.photoURL;
+        }
+    } catch (error) {
+        alert("Loading error: " + error);
+        console.error("ERROR: ", error);
+        alert("Please either refresh or post a new issue in the overview page.")
     }
+    
+    document.getElementById("loading").close();
+
     setInterval(() => {
         const time = -(Date.parse(status.lastOnline) - new Date()); // milliseconds between now & user creation
         const diffSeconds = Math.floor(time / 1000);

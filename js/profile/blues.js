@@ -126,6 +126,7 @@ function createSection(id) {
     if (!allAddedSections.includes(id) && !allAddedSections.includes("undefined")) {
         var setid = "undefined";
         const header = document.createElement("h2");
+        header.style.marginTop = "5px";
         if (id == undefined || pack_data.packs[id] == undefined) {
             header.innerHTML = "Bugged Blues";
             allAddedSections.push("undefined");
@@ -147,7 +148,7 @@ function clickListener(obj) {
 
         document.getElementById("sell").innerHTML = `<i class="fa-solid fa-coins"></i> Sell`;
         if (pack_data.blues[obj.id] == undefined) {
-            document.getElementById("preview_img").src = "../asset/char/blue_notexture.png";
+            document.getElementById("preview_img").src = "../asset/char/blue_broken.png";
             document.getElementById("sell").innerHTML = "Remove";
         } else {
             document.getElementById("preview_img").src = "../asset/char/" + pack_data.blues[obj.id].imgPath;
@@ -175,6 +176,8 @@ function getPriceFromRarity(rarity) {
             return 5;
         case "rare":
             return 25;
+        case "epic":
+            return 50;
         case "lengendary":
             return 75;
         case "mystical":
@@ -272,7 +275,7 @@ onAuthStateChanged(auth, async (user) => {
         const clone = document.getElementById("bluex").cloneNode(true);
         clone.id = blue;
         if (pack_data.blues[blue] == undefined) {
-            clone.children[0].src = "../asset/char/blue_notexture.png";
+            clone.children[0].src = "../asset/char/blue_broken.png";
         } else {
             clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
         }
@@ -298,12 +301,59 @@ onAuthStateChanged(auth, async (user) => {
         }
 
         createSection(data.pack);
+
+        // Add outline here
+        if(pack_data.blues[blue] != null) {
+            const rarity = pack_data.blues[blue].rarity;
+            let color = "#000000";
+            switch (rarity.toLocaleLowerCase()) {
+                case "common":
+                    color = "#cfcfcf";
+                    break;
+                case "uncommon":
+                    color = "#0bd900";
+                    break;
+                case "rare":
+                    color = "#0090d9";
+                    break;
+                case "epic":
+                    color = "#ae00ff";
+                    break;
+                case "lengendary":
+                    color = "#ccb800";
+                    break;
+                case "mystical":
+                    color = "#00d0f0";
+
+                    if (pack_data.blues[blue].pack != "secret") {
+                        const wheel = document.getElementById("wheelex").cloneNode(true);
+                        wheel.id = "";
+
+                        const bounding = document.getElementById(blue.toString()).getBoundingClientRect();
+                        // wheel.style.right = (bounding.width / 2) - 75 + "px";
+                        wheel.style.right = (bounding.width / 2) + "px";
+                        wheel.style.left = (bounding.width/2) + "px";
+                        
+                        document.getElementById(blue.toString()).append(wheel);
+                    }
+                    
+
+                    break;
+                default:
+                    break;
+            }
+            document.getElementById(blue.toString()).style.backgroundColor = color;
+            document.getElementById(blue.toString()).style.border = `2px solid ${color}`;
+            document.getElementById(blue.toString()).style.boxShadow = "0px 0px 10px 2px " + color;
+        }
+        
+
         if (document.getElementById(blue) == undefined) {
             createSection("undefined");
             const clone = document.getElementById("bluex").cloneNode(true);
             clone.id = blue;
             if (pack_data.blues[blue] == undefined) {
-                clone.children[0].src = "../asset/char/blue_notexture.png";
+                clone.children[0].src = "../asset/char/blue_broken.png";
             } else {
                 clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
             }

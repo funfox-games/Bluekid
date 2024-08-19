@@ -3,12 +3,8 @@
 }
 .user_info_containers {
     display:flex;
-    flex-wrap: wrap;
     gap:5px;
-    flex-basis: 1;
-}
-.user_info_containers > * {
-    flex: 1 0 48%;
+    flex-direction: column;
 }
 .status {
     background-color: #0000001f;
@@ -18,4 +14,41 @@
 }
 .status.online {
     background-color: #007ba05b;
+}
+#blues {
+    display:flex;
+    gap:5px;
+    flex-wrap: wrap;
+}
+.bluek{
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+}
+#blue_ex {
+    display: none;
+}
+.kit {
+    display:flex;
+    justify-content: space-between;
+    background-color: #0000002f;
+}
+#kitex {
+    display: none;
+}
+.kit_left {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+}
+.kit_right {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+#kits {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
 }

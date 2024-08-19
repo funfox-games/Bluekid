@@ -1,0 +1,39 @@
+{
+    "defaultSettings": {
+        "maxPlayers": {
+            "type": "number",
+            "defaultValue": 32
+        }
+    },
+    "gamemodes": [
+        {
+            "id": "funfox.example",
+            "display": "Testing",
+            "description": "A mode for testing de system",
+            "limitedAccess": true,
+            "tags": ["2D", "Platformer", "Top-down"],
+            "cover": "../asset/templates/kit_temp.png",
+            "settings": {
+                "testingSection": {
+                    "display": "Testing Section",
+                    "settings": {
+                        "option1Bool":  {
+                            "type": "bool",
+                            "display": "Opt1Bool",
+                            "extraInfo": "rahh",
+                            "defaultValue": false
+                        },
+                        "option2":  {
+                            "type": "number",
+                            "display": "Opt2",
+                            "defaultValue": 69
+                        }
+                    }
+                }
+                
+            }
+        }
+
+    ]
+    
+}

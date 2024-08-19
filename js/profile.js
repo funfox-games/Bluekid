@@ -166,6 +166,8 @@ onAuthStateChanged(auth, async (user) => {
 
     if (userData.version == 2) {
         document.getElementById("datav2").remove();
+    } else {
+        document.getElementById("datav2Popup").showModal();
     }
     
     
