@@ -20,7 +20,7 @@
             "graphic": "testing.png",
             "cost": 5,
             "buyable": true,
-            "ends_on": "Sun Jul 20 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+            "ends_on": "Sat Oct 5 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
         },
         "summer": {
             "display_name": "Summer Pack",
