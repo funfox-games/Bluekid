@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer panel</title>
+
+    <link rel="stylesheet" href="./utilites_page.css">
+    <link rel="stylesheet" href="../css/all.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="enterPassword">
+        <h1><i class="fa-solid fa-lock"></i> Protected</h1>
+        <p>Enter the password...</p>
+        <input type="password" class="input" id="passwordthing" autocomplete="off">
+        <form method="dialog">
+            <button id="unlock" class="puffy_button primary"><i class="fa-solid fa-unlock"></i> Unlock</button>
+            <button class="puffy_button">Close</button>
+        </form>
+        
+    </dialog>
+
+    <h1>Developer panel</h1>
+
+    <fieldset>
+        <legend>User's data</legend>
+        <div class="inputsect">
+            <input type="text" id="userDataUid" placeholder="Enter UID..." class="input">
+            <button class="puffy_button primary" id="userDataSearch">Search</button>
+        </div>
+        <br>
+        <div hide id="userdata__searchSuccess">
+            <h1>Viewing user: "<span id="username__search">TheFunFox</span>"</h1>
+
+            <div class="input_container">
+                <label for="limitedAccess">Limited Access:</label>
+                <input type="checkbox" id="limitedAccess">
+            </div>
+            <div class="littlespace"></div>
+            <div class="input_container">
+                <label for="limitedAccess">Tokens:</label>
+                <input type="number" class="input" id="tokens" placeholder="0">
+            </div>
+            <div class="littlespace"></div>
+            <img src="../asset/badges/Verified.png" alt="badge" class="badge" id="badgeex" width="32">
+            <div class="input_container" id="badgecontainer">
+                
+            </div>
+            <div class="littlespace"></div>
+            <div class="inputsect">
+                <input type="text" placeholder="Enter badge name..." id="badgename" class="input">
+                <button class="puffy_button primary" id="addBadge">Add</button>
+                <button class="puffy_button danger" id="removeBadge">Remove</button>
+            </div>
+
+            <br>
+            <button class="puffy_button primary" id="update">Update</button>
+        </div>
+        
+    </fieldset>
+    <fieldset>
+        <legend>User finder</legend>
+        <div class="inputsect">
+            <input type="text" id="userSearchName" placeholder="Enter username..." class="input">
+            <button class="puffy_button primary" id="userSearch">Search</button>
+        </div>
+        <br>
+        <p>Found UID: <strong id="searchuid">0</strong></p>
+    </fieldset>
+
+    <script src="../js/util/notification.js"></script>
+    <script type="module" src="../js/util/firebase.js"></script>
+    <script type="module" src="./utilities_page.js"></script>
+</body>
+</html>

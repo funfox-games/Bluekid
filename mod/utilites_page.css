@@ -1,0 +1,29 @@
+body {
+    background-image: linear-gradient(#ffffff, #80b5d8);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow:hidden;
+}
+.inputsect {
+    display: flex;
+    gap: 10px;
+}
+.input_container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+#badgeex {
+    display: none;
+}
+#userdata__searchSuccess {
+    display:block;
+}
+#userdata__searchSuccess[hide] {
+    display:none;
+}
+.badge {
+    border-radius: 10px;
+    padding: 5px;
+}

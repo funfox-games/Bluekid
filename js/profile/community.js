@@ -279,6 +279,7 @@ async function searchUsers(query_username) {
         all.forEach((doc) => {
             allDocs.push(doc);
         });
+        console.log(allDocs);
         res(allDocs);
     });
 }
@@ -426,15 +427,18 @@ onAuthStateChanged(auth, async (user) => {
                 top.children[1].innerHTML = "Friends: " + data.friends.length || 0;
             }
             
-            for (let ii = 0; ii < data.badges.length; ii++) {
-                const badge = data.badges[ii];
-                const newImg = document.createElement("img");
-                newImg.src = "../asset/badges/" + badge.replace(" ", "") + ".png";
-                newImg.width = "24";
-                newImg.alt = badge;
-                newImg.title = badge;
-                usernamediv.children[1].append(newImg);
+            if (data.badges) {
+                for (let ii = 0; ii < data.badges.length; ii++) {
+                    const badge = data.badges[ii];
+                    const newImg = document.createElement("img");
+                    newImg.src = "../asset/badges/" + badge.replace(" ", "") + ".png";
+                    newImg.width = "24";
+                    newImg.alt = badge;
+                    newImg.title = badge;
+                    usernamediv.children[1].append(newImg);
+                }
             }
+            
 
             const interactibles = clone.children[1];
             interactibles.children[0].addEventListener("click", () => {
