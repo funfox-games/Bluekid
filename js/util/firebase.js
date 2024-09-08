@@ -35,6 +35,9 @@ export const KIT_COVER_LOCATION = "kit/cover";
 let currentDisconnect;
 let shouldBeChecked = true;
 
+export const DEVELOPER_ALLOW_LIST = ["SfgsyTdWadMcWNkoKzMcr5vZANz1"];
+export const MODERATOR_ALLOW_LIST = ["SfgsyTdWadMcWNkoKzMcr5vZANz1"];
+
 export function forceOffline() {
     return new Promise(async (res, rej) => {
         if (currentDisconnect != null) {
