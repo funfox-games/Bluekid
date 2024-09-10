@@ -97,10 +97,13 @@ async function loadFavorites(udata) {
                 data = await getDoc(doc(db, "users", auth.currentUser.uid, "kits", id));
             }
             data = data.data();
-
+            
             if (data.ownerUid != null && data.ownerUid != undefined) {
                 data = await getDoc(doc(db, "users", data.ownerUid, "kits", data.kitId));
                 data = data.data();
+            }
+            if (data == null) {
+                continue;
             }
             const elem = document.getElementById("example").cloneNode(true);
             elem.id = id;
@@ -108,6 +111,7 @@ async function loadFavorites(udata) {
             elem.setAttribute("kit_favorite", true);
             const left = elem.children[0];
 
+            console.log(data);
             if (data.cover != undefined) {
                 left.children[0].children[0].src = data.cover;
             }
@@ -354,7 +358,6 @@ onAuthStateChanged(auth, async (user) => {
     }
     document.getElementById("nokits").remove();
     cachedkits = kits;
-    document.getElementById("publicAnnouncement").showModal();
     kits.forEach(async (document_) => {
         const data = document_.data();
         const id = document_.id;
