@@ -24,6 +24,10 @@ async function enterPassword() {
     });
 }
 
+async function banUser(uid, reason, date) {
+    
+}
+
 async function loadUser(uid) {
     const userRef = doc(db, "users", uid);
     const userData = await getDoc(userRef);
