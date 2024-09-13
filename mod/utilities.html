@@ -10,6 +10,17 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="banUser">
+        <h1>Ban User</h1>
+        
+        <input type="text" id="banReason" placeholder="Enter reason..." class="input">
+        <input type="date" id="banDate">
+
+        <form method="dialog">
+            <button class="puffy_button primary" id="banusernow" type="button"><i class="fa-solid fa-ban"></i> Ban</button>
+            <button class="puffy_button">Close</button>
+        </form>
+    </dialog>
     <dialog id="enterPassword">
         <h1><i class="fa-solid fa-lock"></i> Protected</h1>
         <p>Enter the password...</p>

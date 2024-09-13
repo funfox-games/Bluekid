@@ -1,4 +1,4 @@
-import { DEVELOPER_ALLOW_LIST, auth, db, doc, getDoc, onAuthStateChanged, updateDoc, collection, query, getDocs, where, limit } from "../js/util/firebase.js";
+import { DEVELOPER_ALLOW_LIST, auth, db, doc, getDoc, onAuthStateChanged, updateDoc, collection, query, getDocs, where, limit, ref } from "../js/util/firebase.js";
 
 let activeUserId;
 let localBadges = [];
@@ -25,7 +25,31 @@ async function enterPassword() {
 }
 
 async function banUser(uid, reason, date) {
-    
+    if (!await enterPassword()) {
+        showNotification(3, "Wrong password.");
+    }
+    const user_ref = ref(db, `users/${uid}`);
+    let banData = {
+        reason          
+    };
+    if (date != null) {
+        banData.endsOn = date;
+    }
+    await updateDoc(user_ref, {
+        banned: banData
+    });
+    showNotification(4, `Banned! [${date == null ? 'PERM' : "TEMP"}]`);
+}
+
+async function unbanUser(uid) {
+    if (!await enterPassword()) {
+        showNotification(3, "Wrong password.");
+    }
+    const user_ref = ref(db, `users/${uid}`);
+    await updateDoc(user_ref, {
+        banned: null
+    });
+    showNotification(4, `Unbanned!`);
 }
 
 async function loadUser(uid) {
