@@ -162,4 +162,5 @@ onAuthStateChanged(auth, (user) => {
             document.getElementById("searchuid").innerHTML += allDocs[i].id + ", ";
         }
     });
+    document.getElementById("banProceed") // TODO: finish
 })
