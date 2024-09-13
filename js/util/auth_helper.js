@@ -28,11 +28,13 @@ export function isUserVaild(user, udata) {
     }
     var time = (Date.parse(udata.creation) - new Date()); // milliseconds between now & user creation
     var diffDays = -Math.floor(time / 86400000); // days
-    if (user.emailVerified == true || VERIFIED_SCHOOL_EMAILS.includes(user.email.split("@")[1]) == false) {
-        if (diffDays > 30) {
-            return { reason: UserReasons.OVERDUE };
-        }
-    }
+
+    //VERIFIED_SCHOOL_EMAILS.includes(user.email.split("@")[1]) == false
+    // if (user.emailVerified == true) {
+    //     if (diffDays > 30) {
+    //         return { reason: UserReasons.OVERDUE };
+    //     }
+    // }
     if (user.emailVerified == false && !user.email.includes("@libertyunion.org")) {
         return { reason: UserReasons.EMAIL_NOT_VERIFIED };
     }
