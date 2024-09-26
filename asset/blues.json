@@ -3,7 +3,7 @@
         "Alien Cat": {
             "cost": 5,
             "bluedata": "Alien Cat",
-            "endsOn": "Sat Oct 5 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+            "endsOn": "Sat Oct 30 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
         }
     },
     "packs": {
@@ -12,7 +12,8 @@
             "blues": ["Borzi", "Quandale Dingle", "Among Us", "Baller", "Troll", "Ok", "Rick Astley", "No"],
             "graphic": "memepack.png",
             "cost": 20,
-            "buyable": true
+            "buyable": true,
+            "buyBackground": ["rgb(201, 201, 201)", "rgb(140, 140, 140)"]
         },
         "testables": {
             "display_name": "Testing",
@@ -20,14 +21,15 @@
             "graphic": "testing.png",
             "cost": 5,
             "buyable": true,
-            "ends_on": "Sat Oct 5 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+            "ends_on": "Sun Oct 18 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
         },
         "summer": {
             "display_name": "Summer Pack",
             "blues": ["Water", "Beachball", "Inner tube", "Goggles", "Flippers", "Pool Noodle", "The Sun"],
             "graphic": "summerpack.png",
             "cost": 20,
-            "buyable": true
+            "buyable": true,
+            "buyBackground": ["rgb(41, 123, 255)", "rgb(41, 205, 255)"]
         },
         "secret": {
             "display_name": "Secret Blues",

@@ -50,17 +50,26 @@ section {
 .profile_card {
     display:flex;
     align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: #0000001f;
+    padding: 15px;
+    gap:5px;
+    overflow: hidden;
 }
 #basicInfo {
     display: flex;
     font-size: 32px;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 #badges {
     display:flex;
     gap:10px;
     justify-content: end;
+    width: 100%;
+    justify-content: space-evenly;
 }
 #badges2 {
     display: flex;
@@ -75,4 +84,48 @@ section {
 }
 #badgeex {
     display: none;
+}
+
+.maincontainer {
+    display:flex;
+    align-items:start;
+    justify-content: stretch;
+    gap:10px;
+}
+.maincontainer > div {
+    padding: 10px;
+    background-color: #0000001f;
+    border-radius: 8px;
+}
+.maincontainer > div[left] {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+
+}
+.maincontainer > div[right] {
+    flex: 1;
+}
+#datav2 {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 8px;
+    display:flex;
+    background-color: #00a2ff3b;
+    justify-content: space-between;
+}
+#quickStats {
+    display:flex;
+    width: 100%;
+    gap:15px;
+    justify-content: space-evenly;
+}
+
+.quickstat {
+    color:black;
+    text-decoration: none;
+    text-align: center;
+}
+.quickstat:hover {
+    text-decoration: underline;
 }

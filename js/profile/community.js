@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, signOut, query, where, getDocs, limit, collection, FirebaseHelper, ONLINE_TEXT, updateDoc } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, query, where, getDocs, limit, collection, FirebaseHelper, ONLINE_TEXT, updateDoc, OFFLINE_TEXT } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -224,46 +224,77 @@ async function loadSentRequests(data) {
 
     document.getElementById("sentrequestsloading").remove();
 }
-async function loadFriends(data) {
-    const friends = data.friends;
+async function loadFriends() {
+    document.getElementById("friendLoadingStatus").innerHTML = "Fetching friends...";
+    const friendspromise = await fetch("https://bluekidapi.netlify.app/.netlify/functions/api/social", {
+        headers: {
+            user: auth.currentUser.uid,
+            "Content-Type": "application/json"
+        }
+    });
+    const friends = await friendspromise.json();
     console.log(friends);
-
-    if(friends == undefined) {return;}
 
     for (let i = 0; i < friends.length; i++) {
         if (document.getElementById("nofriends") != null) {
             document.getElementById("nofriends").remove();
         }
         const friend = friends[i];
-        const friendd = await getDoc(doc(db, "users", friend)).then((res) => { return res });
-        const frienddata = friendd.data();
-
-
         const clone = document.getElementById("friendex").cloneNode(true);
-        clone.id = friend;
-        clone.children[0].href = "./user/index.html?id=" + friend;
-        if (friendd.exists() == false) {
+        clone.children[1].href = "./user/index.html?id=" + friend.uid;
+        if (friend.deleted == true) {
             // clone.children[0].children[0].innerText = "[DELETED ACCOUNT]";
             // clone.children[0].children[1].innerText = "UID: unknown";
             continue;
 
         }
-        clone.children[0].children[0].children[0].innerText = frienddata.username;
-        clone.children[0].children[1].innerText = "UID: " + friend;
-        const status = await FirebaseHelper.getUserStatus(friend);
-        if (status.status == ONLINE_TEXT) {
-            clone.children[0].children[0].children[1].style.display = "unset";
-            if (frienddata.communitySettings) {
-                if (frienddata.communitySettings.privacy.showStatus == "none") {
-                    clone.children[0].children[0].children[1].style.display = "none";
-                } else if (frienddata.communitySettings.privacy.showStatus == "friends") {
-                    if (!frienddata.friends.includes(auth.currentUser.uid)) {
-                        clone.children[0].children[0].children[1].style.display = "none";
+        clone.children[1].children[0].innerText = friend.data.username;
+        clone.id = friend.data.username;
 
-                    }
+        // clone.children[1].children[1].innerText = "UID: " + friend;
+
+        const updateStatus = async () => {
+            const status = await FirebaseHelper.getUserStatus(friend.uid);
+            if (status.status == ONLINE_TEXT) {
+                clone.children[1].children[1].innerHTML = ONLINE_TEXT;
+                clone.children[1].children[1].style.color = "lime";
+                if (friend.data.communitySettings && friend.data.communitySettings.privacy.showStatus == "none") {
+                    clone.children[1].children[1].innerHTML = "";
+                }
+            }
+            if (status.status == OFFLINE_TEXT) {
+                const time = -(Date.parse(status.lastOnline) - new Date()); // milliseconds between now & user creation
+                const diffSeconds = Math.floor(time / 1000);
+                const diffMin = Math.floor(time / 60000);
+                const diffDays = Math.floor(time / 86400000); // days
+                const diffHours = Math.floor(time / 3.6e+6);
+                const diffWeeks = Math.floor(time / 6.048e+8);
+                const diffMonth = Math.floor(time / 2.628e+9);
+                if (diffMonth > 0) {
+                    clone.children[1].children[1].innerHTML = `Last online ${diffMonth} month${diffMonth == 1 ? '' : 's'} ago.`;
+                } else if (diffWeeks > 0) {
+                    clone.children[1].children[1].innerHTML = `Last online ${diffWeeks} week${diffWeeks == 1 ? '' : 's'} ago.`;
+                } else if (diffDays > 0) {
+                    clone.children[1].children[1].innerHTML = `Last online ${diffDays} day${diffDays == 1 ? '' : 's'} ago.`;
+                } else if (diffHours > 0) {
+                    clone.children[1].children[1].innerHTML = `Last online ${diffHours} hour${diffHours == 1 ? '' : 's'} ago.`;
+                } else if (diffMin > 0) {
+                    clone.children[1].children[1].innerHTML = `Last online ${diffMin} minute${diffMin == 1 ? '' : 's'} ago.`;
+                } else if (diffSeconds > 0) {
+                    clone.children[1].children[1].innerHTML = `Last online ${diffSeconds} second${diffSeconds == 1 ? '' : 's'} ago.`;
+                }
+                clone.children[1].children[1].style.color = "rgb(200,200,200)";
+                if (friend.data.communitySettings && friend.data.communitySettings.privacy.showStatus == "none") {
+                    clone.children[1].children[1].innerHTML = "";
+                }
+                if (friend.data.communitySettings && friend.data.communitySettings.privacy.showLastOnline == "none") {
+                    clone.children[1].children[1].innerHTML = OFFLINE_TEXT;
                 }
             }
         }
+
+        setInterval(updateStatus, 5 * 1000)
+        updateStatus();
 
         document.getElementById("allFriends").append(clone);
     }
@@ -300,6 +331,17 @@ onAuthStateChanged(auth, async (user) => {
     await checkVaild(user, userData);
     let currentFriendUid = "";
 
+    document.getElementById("friendSearch").addEventListener("change", () => {
+        const allfriends = document.getElementById("allFriends").children;
+        for (let i = 0; i < allfriends.length; i++) {
+            allfriends[i].style.display = "none";
+        }
+        for (let i = 0; i < allfriends.length; i++) {
+            if (allfriends[i].id.includes(document.getElementById("friendSearch").value)) {
+                allfriends[i].style.display = "flex";
+            }
+        }
+    });
     document.getElementById("addfriend").addEventListener("click", async () => {
         document.getElementById("addfriend").innerHTML = "Working...";
         document.getElementById("addfriend").setAttribute("disabled", "true");
@@ -450,26 +492,11 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById("allsearched").append(clone);
         }
     });
-    document.getElementById("compact").addEventListener("change", () => {
-        const newValue = document.getElementById("compact").checked;
-
-        localStorage.setItem("friends__compact", newValue);
-        if (newValue) {
-            document.getElementById("allFriends").setAttribute("compact", "");
-        } else {
-            document.getElementById("allFriends").removeAttribute("compact");
-        }
-    });
-    if (localStorage.getItem("friends__compact") == "true") {
-        document.getElementById("allFriends").setAttribute("compact", "");
-        document.getElementById("compact").checked = true;
-    }
-
     const userdoc = doc(db, "users", user.uid);
     const data = await getDoc(userdoc).then((res) => {
         return res.data();
     });
     loadFriendRequests(data);
     loadSentRequests(data);
-    loadFriends(data);
+    loadFriends();
 });

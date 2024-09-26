@@ -34,8 +34,10 @@
             <a href="../index.html" style="text-decoration: none;color:black;">
                 <h1><span class="blue">Blue</span>kid</h1>
             </a>
+            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
+            <div class="littlespace"></div>
             <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-address-card"></i> Overview</button></a>
+                        class="fa-solid fa-house-user"></i> Home</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-image"></i> Blues</button></a>
             <a href="kits.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i
@@ -54,7 +56,47 @@
     
     </div>
 
-    <section>
+    <section style="height: fit-content;">
+        <button id="normalKitsBtn" disabled class="puffy_button primary"><i class="fa-solid fa-cubes"></i> Personal Kits</button>
+        <button id="publicKitsBtn" class="puffy_button"><i class="fa-solid fa-globe"></i> Public Kits</button>
+    </section>
+    <br>
+    <section id="publicKits" style="height: 80vh;display:none;">
+        <h1>Public kits</h1>
+        <input type="search" id="searchPublic" class="input" style="text-align: left;width: 100%; padding: 10px;" placeholder="Search kits...">
+        <label class="toggle" for="catagories" style="margin-top: 5px;">
+            <input disabled class="toggle_input" type="checkbox" id="catagories">
+            <div class="toggle_fill"></div>
+            Use catagories <i class="fa-solid fa-code" title="This feature is in development. Come back soon!"></i>
+        </label>
+
+        <div class="kit container" id="publicexample">
+            <div class="kit_left">
+                <div style="background-color: black;width:200px;height: 113px;">
+                    <img style="object-fit: contain;" src="../asset/templates/kit_temp.png" width="200" height="113" alt="img" class="publickitimage">
+                </div>
+                <div>
+                    <h1 style="font-size: 2.5rem;" class="kittitle">Kit title</h1>
+                    <p style="font-size: 1.25rem;" class="kitcreator"><i class="fa-solid fa-users"></i> Created by you</p>
+                </div>
+            </div>
+            <div class="kit_right">
+                <button class="playkit puffy_button primary"><i class="fa-solid fa-circle-play"></i> Play</button>
+                <a class="viewkit" target="_blank" href="#"><button class="puffy_button secondary"><i class="fa-solid fa-eye"></i> View</button></a>
+                <button class="favoritekit puffy_button"><i class="fa-regular fa-star"></i> Favorite</button>
+                <!-- <button class="icon_button"><i class="fa-solid fa-ellipsis"></i></button> -->
+            </div>
+        </div>
+        <div id="publicKitsLoading" class="container" style="background-color: #00000059;color:white;">
+            <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+        </div>
+        <div id="allpublickits">
+
+        </div>
+        <br>
+        <p style="font-size: 1.5rem;text-align: center;">You've reached the end... The max displayed kits are <b>10</b>. I'll make a load more button later...</p>
+    </section>
+    <section id="normalKits" style="height: 80vh;">
         <h1>Kits</h1>
         <div class="container" style="padding-bottom: 0;">
             <a href="kit/new.html"><button class="puffy_button primary" id="createnew"><i class="fa-solid fa-square-plus"></i> Create new</button></a>
@@ -72,8 +114,7 @@
         </div>
         <div class="container"
             style="display:none;gap: 5px;background-color: #00000028;align-items: center;text-align: center;margin-bottom: 10px;"
-            id="loadingfavs"
-            style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;margin-bottom: 10px;">
+            id="loadingfavs">
             <i class="fa-solid fa-spinner fa-spin fa-xl"></i>
             <p style="font-size: 1.25rem;">Loading favorites...</p>
         </div>
@@ -100,7 +141,7 @@
                     </div>
                 </div>
                 <div class="kit_right">
-                    <button class="puffy_button primary"><i class="fa-solid fa-circle-play"></i> Host Live</button>
+                    <button class="puffy_button primary"><i class="fa-solid fa-circle-play"></i> Play</button>
                     <button class="puffy_button secondary"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
                     <button class="puffy_button"><i class="fa-solid fa-upload"></i> Publish</button>
                     <button class="icon_button"><i class="fa-solid fa-ellipsis"></i></button>

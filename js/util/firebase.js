@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, onAuthStateChanged, signOut, sendPasswordResetEmail, deleteUser, updateEmail, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 export const auth = getAuth();
 
-import { getFirestore, doc, getDoc, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, addDoc, startAfter } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 export const db = getFirestore(app);
 
 import { getDatabase, ref, set as realtimeSet, update as realtimeUpdate, get as realtimeGet, remove as realtimeRemove, onDisconnect, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -35,8 +35,8 @@ export const KIT_COVER_LOCATION = "kit/cover";
 let currentDisconnect;
 let shouldBeChecked = true;
 
-export const DEVELOPER_ALLOW_LIST = ["SfgsyTdWadMcWNkoKzMcr5vZANz1"];
-export const MODERATOR_ALLOW_LIST = ["SfgsyTdWadMcWNkoKzMcr5vZANz1"];
+export const DEVELOPER_ALLOW_LIST = ["SfgsyTdWadMcWNkoKzMcr5vZANz1", "IRQFJKtbT0UKx9OfrhGEsj557bB2"];
+export const MODERATOR_ALLOW_LIST = ["SfgsyTdWadMcWNkoKzMcr5vZANz1", "IRQFJKtbT0UKx9OfrhGEsj557bB2", "L9DshmPRcQYemY4E0tlHJqk5X053"];
 
 export function forceOffline() {
     return new Promise(async (res, rej) => {
@@ -113,4 +113,4 @@ export class FirebaseHelper {
 const HOSTING_VERSION = "1.0.0-alpha.1"
 
 // Not added: 
-export { HOSTING_VERSION, storageref, uploadBytes, deleteObject, listAll, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail, getDownloadURL, doc, getDoc, ref, onDisconnect, signOut, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, deleteUser, updateEmail, addDoc, realtimeSet, realtimeUpdate, realtimeGet, realtimeRemove, onValue };
+export { HOSTING_VERSION, storageref, startAfter, uploadBytes, deleteObject, listAll, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail, getDownloadURL, doc, getDoc, ref, onDisconnect, signOut, getDocs, updateDoc, deleteDoc, collection, query, where, limit, orderBy, setDoc, deleteUser, updateEmail, addDoc, realtimeSet, realtimeUpdate, realtimeGet, realtimeRemove, onValue };

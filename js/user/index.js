@@ -375,12 +375,14 @@ onAuthStateChanged(auth, async (user) => {
     } catch (error) {
         alert("Loading error: " + error);
         console.error("ERROR: ", error);
-        alert("Please either refresh or post a new issue in the overview page.")
+        alert("Please either refresh or post a new issue in the Home page.")
     }
     
     document.getElementById("loading").close();
 
-    setInterval(() => {
+    let status = await FirebaseHelper.getUserStatus(userProfileId);
+    setInterval(async () => {
+        
         const time = -(Date.parse(status.lastOnline) - new Date()); // milliseconds between now & user creation
         const diffSeconds = Math.floor(time / 1000);
         const diffMin = Math.floor(time / 60000);

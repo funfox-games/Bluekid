@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, setDoc, updateDoc, KIT_COVER_LOCATION, storageref, storage, uploadBytes, getDownloadURL, deleteObject, listAll } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, setDoc, updateDoc, KIT_COVER_LOCATION, storageref, storage, uploadBytes, getDownloadURL, deleteObject, listAll, addDoc, collection } from "../util/firebase.js";
 
 import * as MediaUtil from "../util/user_media.js";
 
@@ -92,6 +92,30 @@ async function saveKit() {
             visibility: document.getElementById("kit_visibility").value
         }).catch((res) => rej(res));
         currentCover = cover;
+
+        if (document.getElementById("kit_visibility").value != "private") {
+            document.getElementById("savekit").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Uploading...`;
+            const docref = doc(db, "kits", kitid_url);
+            await setDoc(docref, {
+                kitId: kitid_url,
+                ownerUid: auth.currentUser.uid,
+                preview: {
+                    icon: cover,
+                    title,
+                    description: desc,
+                    visibility: document.getElementById("kit_visibility").value
+                }
+            });
+        } else {
+            document.getElementById("savekit").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Checking...`;
+            const docref = doc(db, "kits", kitid_url);
+            const ref = await getDoc(docref);
+            if (ref.exists()) {
+                document.getElementById("savekit").innerHTML = `<i class="fa-solid fa-hourglass fa-spin"></i> Removing...`;
+                await deleteDoc(docref);
+            }
+        }
+
         res();
     });
 }
@@ -357,16 +381,6 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("share_kit").addEventListener("click", () => {
         navigator.clipboard.writeText("https://bluekid.netlify.app/profile/kit/view?id=" + kitid_url);
         showNotification(4, "Copied share url to clipboard!");
-    });
-    document.getElementById("publish_kit").addEventListener("click", async () => {
-        document.getElementById("publish_kit").innerHTML = "Working...";
-        document.getElementById("publish_kit").setAttribute("disabled", "");
-        const docref = doc(db, "kits", id);
-        await setDoc(docref, {
-            kitId: id,
-            ownerUid: auth.currentUser.uid
-        });
-        document.getElementById("publish_kit").remove();
     });
     document.getElementById("delete_kit").addEventListener("click", async () => {
         document.getElementById("delete_kit").innerHTML = "Working...";

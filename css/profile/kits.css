@@ -37,3 +37,12 @@
 #example {
     display:none;
 }
+#publicexample {
+    display:none;
+}
+#allpublickits {
+    padding-top: 10px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}

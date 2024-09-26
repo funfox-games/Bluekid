@@ -1,7 +1,8 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, signOut, getDocs, deleteDoc, setDoc, updateDoc, collection, deleteObject, storageref, storage, listAll, KIT_COVER_LOCATION } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, getDocs, deleteDoc, setDoc, updateDoc, collection, deleteObject, storageref, storage, listAll, KIT_COVER_LOCATION, query, limit, where } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
+let userData;
 
 async function checkVaild(user, userData) {
     return new Promise(async (res, rej) => {
@@ -336,6 +337,123 @@ function addContextMenuFunctionality(udata, kitid, kitdata) {
         _delete.style.display = "none";
     }
 }
+
+function changeKitVisibility(type) {
+    document.getElementById("publicKits").style.display = "none";
+    document.getElementById("normalKits").style.display = "none";
+    document.getElementById("publicKitsBtn").removeAttribute("disabled");
+    document.getElementById("normalKitsBtn").removeAttribute("disabled");
+    document.getElementById(type + "Btn").setAttribute("disabled", true);
+    document.getElementById(type).style.display = "block";
+
+}
+
+async function addKitElementsBasedOnArray(kits) {
+    document.getElementById("allpublickits").innerHTML = "";
+    for (let i = 0; i < kits.length; i++) {
+        if (document.getElementById("publicKitsLoading")) document.getElementById("publicKitsLoading").innerHTML = `<p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading... (${i + 1}/${kits.length})</p>`;
+        const kit = kits[i];
+        const clone = document.getElementById("publicexample").cloneNode(true);
+        clone.id = kit.kitId;
+
+        const left = clone.children[0];
+        const right = clone.children[1];
+
+        const userdata = await getDoc(doc(db, "users", kit.ownerUid));
+
+        // Left
+        left.getElementsByClassName("publickitimage")[0].src = kit.preview.icon;
+        left.getElementsByClassName("kittitle")[0].innerText = kit.preview.title;
+        left.getElementsByClassName("kitcreator")[0].innerHTML = `<i class="fa-solid fa-users" aria-hidden="true"></i> Created by <a style="color:black;" href="./user/index.html?id=${kit.ownerUid}">${userdata.data().username}</a>`;
+
+        right.getElementsByClassName("playkit")[0].addEventListener("click", () => {
+            sessionStorage.setItem("hostkit", kit.kitId);
+            sessionStorage.setItem("ownsKit", false);
+            location.href = "../game/host.html";
+        });
+        right.getElementsByClassName("viewkit")[0].href = "./kit/view.html?id=" + kit.kitId;
+
+        let favoriteKits = userData.favoriteKits || [];
+        const favBtn = right.getElementsByClassName("favoritekit")[0];
+        let isFavorite = favoriteKits.includes(kit.kitId);
+        if (isFavorite) {
+            favBtn.innerHTML = `<i class="fa-solid fa-star"></i> Favorited`;
+        }
+        right.getElementsByClassName("favoritekit")[0].addEventListener("click", async () => {
+            favBtn.innerHTML = "Working...";
+            favBtn.setAttribute("disabled", "");
+            if (isFavorite) {
+                favoriteKits.splice(favoriteKits.indexOf(kit.kitId), 1);
+                await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                    favoriteKits
+                });
+                favBtn.innerHTML = `<i class="fa-regular fa-star"></i> Favorite`;
+                favBtn.removeAttribute("disabled");
+                isFavorite = false;
+            } else {
+                favoriteKits.push(kit.kitId);
+                await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                    favoriteKits
+                });
+                favBtn.innerHTML = `<i class="fa-solid fa-star"></i> Favorited`;
+                favBtn.removeAttribute("disabled");
+                isFavorite = true;
+            }
+        });
+
+        document.getElementById("allpublickits").append(clone);
+    }
+}
+
+async function search(q) {
+    if (q.length == 0) {
+        console.log("RAWRAWRAWRAWRWARA");
+        await loadPublicKits();
+        return;
+    }
+
+    document.getElementById("publicKitsLoading").style.display = "flex";
+    const kitQuery = query(collection(db, "kits"), where("preview.title", "==", q), limit(10));
+    const kitQueryRes = await getDocs(kitQuery);
+    const kits = [];
+    kitQueryRes.forEach((doc) => {
+        if (doc.data().preview == null) { return; }
+        if (doc.data().preview.visibility != "public") {return;}
+
+        kits.push(doc.data());
+    });
+
+    await addKitElementsBasedOnArray(kits);
+    document.getElementById("publicKitsLoading").style.display = "none";
+}
+
+// let hasLoadedKits = false;
+async function loadPublicKits() {
+    // if (hasLoadedKits) {return;}
+
+    document.getElementById("publicKitsLoading").style.display = "flex";
+    // hasLoadedKits = true;
+    console.log("Loading public...");
+
+    // const kitsres = await fetch("https://bluekidapi.netlify.app/.netlify/functions/api/kits");
+    // const kits = await kitsres.json()
+    // console.log(kits);
+
+    if (document.getElementById("publicKitsLoading")) document.getElementById("publicKitsLoading").innerHTML = `<p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Preforming query...</p>`;
+    const kitQuery = query(collection(db, "kits"), limit(10));
+    const kitQueryRes = await getDocs(kitQuery);
+    const kits = [];
+    kitQueryRes.forEach((doc) => {
+        if (doc.data().preview == null) { return; }
+        if (doc.data().preview.visibility != "public") {return;}
+
+        kits.push(doc.data());
+    });
+    
+    await addKitElementsBasedOnArray(kits);
+    document.getElementById("publicKitsLoading").style.display = "none";
+}
+
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         location.href = "../auth/login.html";
@@ -343,7 +461,7 @@ onAuthStateChanged(auth, async (user) => {
     }
     var uid = user.uid;
     var doc_ = doc(db, "users", uid);
-    var userData = await getDoc(doc_).then((res) => {
+    userData = await getDoc(doc_).then((res) => {
         if (!res.exists()) {
             return "UNKNOWN";
         }
@@ -469,7 +587,18 @@ onAuthStateChanged(auth, async (user) => {
     });
     document.getElementById("favorites").addEventListener("change", () => {
         filterChange(document.getElementById("favorites").checked, userData);
-    })
+    });
+    document.getElementById("normalKitsBtn").addEventListener("click", () => {
+        changeKitVisibility("normalKits");
+    });
+    document.getElementById("publicKitsBtn").addEventListener("click", () => {
+        changeKitVisibility("publicKits");
+        loadPublicKits();
+    });
+    document.getElementById("searchPublic").addEventListener("change", () => {
+        console.log(document.getElementById("searchPublic").value);
+        search(document.getElementById("searchPublic").value);
+    });
     // const group = document.getElementById("kit_filter_group").children;
     // for (let i = 0; i < group.length; i++) {
     //     const elem = group[i];

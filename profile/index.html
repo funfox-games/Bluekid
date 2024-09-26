@@ -37,13 +37,15 @@
             <a href="../index.html" style="text-decoration: none;color:black;">
                 <h1><span class="blue">Blue</span>kid</h1>
             </a>
-            <a href="#" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-solid fa-address-card"></i> Overview</button></a>
+            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
+            <div class="littlespace"></div>
+            <a href="#" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-solid fa-house-user"></i> Home</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-image"></i> Blues</button></a>
             <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-layer-group"></i> Kits</button></a>
             <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-shop"></i> Shop</button></a>
             <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-face-smile"></i> Social</button></a>
-            <a href="../mod/utilities.html"><button style="width:100%;" class="puffy_button danger"><i class="fa-solid fa-screwdriver-wrench"></i> Developer</button></a>
+            <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="puffy_button danger"><i class="fa-solid fa-screwdriver-wrench"></i> Developer</button></a>
         </div>
         <div id="sidenav_lower">
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-gears"></i> Settings</button></a>
@@ -52,66 +54,66 @@
         
     </div>
     <section>
-        <div class="info" style="color:black;font-size: 18px;"><i class="fa-solid fa-circle-info fa-xl"></i> Change your name in <a href="./settings.html">settings</a>!</div>
-        <div class="littlespace"></div>
         <div class="warning" style="color:black;font-size: 18px;" id="notemailverified"><i class="fa-solid fa-triangle-exclamation fa-xl"></i> <b>Your email is not verified.</b> You're account will be <b>locked in a month</b> if your account is still not verified. <a href="../auth/verify.html"><button class="puffy_button primary"><i class="fa-solid fa-envelope-circle-check"></i> Verify</button></a></div>
-        <Br>
-        <div class="profile_card container" style="background-color: #0000001f;">
-            <div id="basicInfo">
-                <img src="../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
-                <div style="margin-left:5px;">
-                    <div id="username"></div>
-                    <div style="font-size: 16px;">Friends: <span id="friends">0</span></div>
+        <div class="maincontainer">
+            <div left>
+                <!-- LEFT -->
+                <div id="datav2">
+                    <div style="display:flex;align-items: center;gap:5px;">
+                        <i class="fa-solid fa-star fa-xl"></i>
+                        <div>
+                            <h3>Data V2</h3>
+                            <p style="font-size: 12px;color:rgb(20,20,20)">Upgrade now!</p>
+                        </div>
+                    </div>
+                    <a href="../auth/transfer.html" style="display:block;width: fit-content;margin-left: 10px;" title="Upgrade!"><button class="puffy_button primary"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+                </div>
+                <div class="profile_card">
+                    <div id="basicInfo">
+                        <img src="../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
+                        <div style="margin-left:5px;text-align: right;">
+                            <a href="./settings.html" style="display: flex;align-items: center;gap:5px;color:black;text-decoration: none;"><div id="username"></div> <i class="fa-solid fa-edit fa-sm"></i></a>
+                        </div>
+                    </div>
+                    <div id="badges">
+                        <button id="showAllBadges" onclick="document.getElementById('allBadges').showModal()" style="display:none;" class="puffy_button primary">Show all...</button>
+                        <div class="badge" id="badgeex" style="color:white;">
+                            <img src="../asset/badges/Verified.png" width="32" alt="badge">
+                        </div>
+                    </div>
+                    <div id="quickStats">
+                        <a href="./community.html" class="quickstat">
+                            <h2 id="friends">0</h2>
+                            <p>Friends</p>
+                        </a>
+                        <a href="./shop.html" class="quickstat">
+                            <h2 id="tokens">0</h2>
+                            <p>Tokens</p>
+                        </a>
+                        <a href="#" class="quickstat">
+                            <h2><span id="accountAge">0</span> days</h2>
+                            <p>Creation</p>
+                        </a>
+                    </div>
+                </div>
+                <!-- <button class="puffy_button primary"><i class="fa-solid fa-share"></i> Share profile</button> -->
+                <a href="./settings.html"><button class="puffy_button" style="width: 100%;"><i class="fa-solid fa-gears"></i> Settings</button></a>
+                <br>
+                <button id="logout" class="puffy_button danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </div>
+            <div right>
+                <!-- RIGHT -->
+                <h1>Feed</h1>
+                <div class="info">
+                    <i class="fa-solid fa-circle-info fa-xl"></i> Here is where you will see your friends' activity! (According to their privacy settings, of course.)
+                </div>
+                <br>
+                <h1>Popular kits</h1>
+                <div class="info">
+                    <i class="fa-solid fa-circle-info fa-xl"></i> The most trending kits!
                 </div>
             </div>
-            <div id="badges">
-                <button id="showAllBadges" onclick="document.getElementById('allBadges').showModal()" style="display:none;" class="puffy_button primary">Show all...</button>
-                <div class="badge container" id="badgeex" style="background-color: #00000054;color:white;">
-                    <img src="../asset/badges/Verified.png" width="32" alt="badge">
-                    <div>Name</div>
-                </div>
-            </div>
         </div>
-        <hr>
-        <div id="datav2" class="container" style="background-color: #00a2ff3b;">
-            <div class="littlespace"></div>
-            <div style="display:flex;align-items: center;gap:5px;">
-                <i class="fa-solid fa-star fa-xl"></i>
-                <h2>Data V2</h2>
-            </div>
-            <span>DataV2 is an upgraded data system to change outdated kits, and more.</span>
-            <br>
-            <a href="../auth/transfer.html"><button class="puffy_button primary"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
-        </div>
-        <br>
-        <div class="container" style="background-color: #0000001f;">
-            <div style="display:flex;align-items: center;gap:5px;">
-                <i class="fa-regular fa-calendar-plus fa-xl"></i>
-                <h2>Account Creation</h2>
-            </div>
-            <span id="creationDate">Been a user for 0 days.</span>
-            <span id="fullCreation">Created on 1/1/1, 0:00:00 AM</span>
-        </div>
-        <br>
-        <div class="container" style="background-color: #0000001f;">
-            <div style="display:flex;align-items: center;gap:5px;">
-                <i class="fa-solid fa-coins fa-xl"></i>
-                <h2>Tokens</h2>
-            </div>
-            <span id="tokens">0 Tokens</span>
-        </div>
-        <br>
-        <div class="container" style="background-color: #0000001f;">
-            <div style="display:flex;align-items: center;gap:5px;">
-                <i class="fa-solid fa-comment-dots fa-xl"></i>
-                <h2>Suggestion</h2>
-                <p>What should I work on next?</p>
-            </div>
-            <input id="suggestion" type="text" placeholder="Enter suggestion here..." class="input">
-            <button id="sendsuggestion" class="puffy_button primary"><i class="fa-solid fa-paper-plane"></i> Send</button>
-        </div>
-        <br>
-        <button id="logout" class="puffy_button danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
     </section>
     <dialog id="allBadges">
         <h1>Badges</h1>
@@ -123,14 +125,7 @@
             <button class="puffy_button primary">Close</button>
         </form>
     </dialog>
-    <!-- <dialog id="upgradeData">
-        <h1>Your data is V1.</h1>
-        <p>There is a revamped data system, and we want YOU to upgrade!</p>
-        <form method="dialog">
-            <a href="../auth/transfer.html"><button type="button" class="puffy_button primary"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
-            <button class="puffy_button secondary">Dismiss</button>
-        </form>
-    </dialog> -->
+
 
     <script type="module" src="../js/util/auth_helper.js"></script>
     <script type="module" async src="../js/profile.js"></script>

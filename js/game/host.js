@@ -1,144 +1,57 @@
-import { FirebaseHelper, auth, onAuthStateChanged } from "../util/firebase.js";
+import { auth, db, doc, getDoc, onAuthStateChanged } from "../util/firebase.js";
 import * as allgamemodes from "../../asset/gamemodes.json" with {type: "json"}
+import { clickGamemode, refreshSettings, currentGamemode, gamemodeSelectedSettings, settingObjects } from "./gamemodehandler.js";
 
 const gamemodes = allgamemodes.default.gamemodes;
+let data;
 
-let settingObjects = [];
+function saveSettings() {
+    let result = new Map();
+    for (let i = 0; i < settingObjects.length; i++) {
+        var settingObj = settingObjects[i];
+        const type = settingObj.type;
+        const object = settingObj.object;
+        const settingName = settingObj.settingName;
 
-let userdata;
-let currentGamemode;
 
-let gamemodeSelectedSettings = {};
-
-function getAllTags() {
-    const allTags = [];
-    gamemodes.forEach((val, _) => {
-        val.tags.forEach((value, _) => {
-            if (allTags.includes(value)) {return;}
-            allTags.push(value);
-        });
-    })
-    return allTags;
+        switch (type) {
+            case Boolean:
+                const bool = object.checked;
+                result.set(settingName, bool);
+                break;
+            case Number:
+                const num = object.value;
+                result.set(settingName, parseInt(num));
+                break;
+        }
+    }
+    gamemodeSelectedSettings[currentGamemode.id] = result;
 }
 
+async function runSelectSequence(type) {
+    document.getElementById(type).style.display = "flex";
+    document.getElementById(type).style.opacity = "0";
+    document.getElementById(type).style.top = "70%";
+    setTimeout(() => {
+        document.getElementById("options").style.transitionDuration = "1s";
+        document.getElementById("options").style.transitionTimingFunction = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
+        document.getElementById(type).style.transitionDuration = "1s";
+        document.getElementById(type).style.transitionTimingFunction = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
+        document.getElementById("options").style.top = "70%";
+        document.getElementById("options").style.opacity = "0";
+        document.getElementById(type).style.top = "50%";
+        document.getElementById(type).style.opacity = "1";
 
-function refreshSettings() {
-    const settings = document.getElementById("settings");
-    settings.innerHTML = "";
-
-    console.log("refresh settings");
-
-
-    Object.entries(currentGamemode.settings).forEach((value, _) => {
-        const sectid = value[0];
-        const values = value[1];
-        const sectdisplay = values.display;
-        const sect = document.getElementById("examplesection").cloneNode(true);
-        sect.id = sectid;
-        sect.children[0].innerHTML = sectdisplay;
-        document.getElementById("settings").append(sect);
-
-        settingObjects = [];
-
-        Object.entries(values.settings).forEach((val, idx) => {
-            const settingName = val[0];
-            const value = val[1];
-            const type = value.type;
-            const defaultValue = value.defaultValue;
-            const friendlyname = value.display;
-            const extra = value.extraInfo;
-
-            const pushData = {
-                name: friendlyname,
-                settingName
-            }
-
-            switch (type) {
-                case "bool":
-                    const clone = document.getElementById("checkboxex").cloneNode(true);
-                    clone.id = "";
-                    clone.setAttribute("for", settingName);
-                    clone.children[0].id = settingName;
-                    clone.children[0].checked = defaultValue;
-                    clone.children[2].innerHTML = friendlyname;
-
-                    if (extra != null) {
-                        clone.children[2].innerHTML += ` <i class="fa-solid fa-circle-question" title="${extra}"></i>`;
-                    }
-
-                    sect.append(clone);
-                    pushData["type"] = Boolean;
-                    pushData["object"] = clone.children[0];
-                    
-                    if (gamemodeSelectedSettings[currentGamemode.id] != null) {
-                        const value = gamemodeSelectedSettings[currentGamemode.id].get(settingName);
-                        clone.children[0].checked = value;
-                    }
-
-                    break;
-                case "number":
-                    const number = document.getElementById("numberex").cloneNode(true);
-                    number.placeholder = defaultValue;
-                    number.value = defaultValue;
-                    number.id = settingName;
-                    number.style.fontSize = "16px";
-                    const label = document.createElement("label");
-                    label.setAttribute("for", settingName);
-                    label.innerHTML = friendlyname;
-                    label.style.marginRight = "5px";
-
-                    if (extra != null) {
-                        label.innerHTML += ` <i class="fa-solid fa-circle-question" title="${extra}"></i>`;
-                    }
-
-                    sect.append(label);
-                    sect.append(number);
-                    pushData["type"] = Number;
-                    pushData["object"] = number;
-
-                    if (gamemodeSelectedSettings[currentGamemode.id] != null) {
-                        const value = gamemodeSelectedSettings[currentGamemode.id].get(settingName);
-                        number.value = value;
-                    }
-
-                    break;
-                default:
-                    break;
-            }
-            settingObjects.push(pushData);
-        });
-    });
+        setTimeout(() => {
+            document.getElementById("options").style.display = "none";
+        }, 1000)
+    }, 10)
     
 }
 
-function clickGamemode(mode) {
-    currentGamemode = mode;
-    if (document.getElementById("host").getAttribute("disabled")) {
-        document.getElementById("host").removeAttribute("disabled");
-        
-    }
-    document.getElementById("testingOnly").style.display = "none";
-    if (mode.limitedAccess) {
-        if (!userdata.limitedAccess) {
-            document.getElementById("host").setAttribute("disabled", "true");
-            document.getElementById("testingOnly").style.display = "flex";
-        }
-    }
-    document.getElementById("gamemode_start").showModal();
-    document.getElementById("gamemodeName").innerHTML = mode.display;
-    document.getElementById("gamemodeDesc").innerHTML = mode.description;
-    document.getElementById("gamemodecover").src = mode.cover;
-    document.getElementById("modaltags").innerHTML = "";
-    mode.tags.forEach((value, _) => {
-        const tagClone = document.getElementById("modaltagex").cloneNode(true);
-        tagClone.id = "";
-        tagClone.innerHTML = value;
-        document.getElementById("modaltags").append(tagClone);
-    });
-}
-
-function loadAllGamemodes() {
-    gamemodes.forEach((val, idx) => {
+function loadStudy() {
+    document.getElementById("studymodes").innerHTML = "";
+    gamemodes.solo.forEach((val, idx) => {
         const clone = document.getElementById("gamemodeex").cloneNode(true);
         clone.id = idx;
 
@@ -156,37 +69,96 @@ function loadAllGamemodes() {
             tags.append(tagClone);
         });
         clone.setAttribute("tags", val.tags);
-        clone.addEventListener("click", () => {
-            clickGamemode(gamemodes[idx]);
+        clone.addEventListener("click", async () => {
+            clickGamemode(gamemodes.solo[idx], data);
+
+            refreshSettings();
+            saveSettings();
         });
 
-        document.getElementById("allgamemodes").append(clone);
+        document.getElementById("studymodes").append(clone);
     });
+}
+function loadGame() {
+    document.getElementById("gamemodes").innerHTML = "";
+    gamemodes.competitive.forEach((val, idx) => {
+        const clone = document.getElementById("gamemodeex").cloneNode(true);
+        clone.id = idx;
+
+        const left = clone.children[0];
+        left.children[0].innerHTML = val.display;
+        if (val.limitedAccess) {
+            left.children[0].innerHTML += ` <i class="fa-solid fa-lock"></i>`;
+        }
+        left.children[1].innerHTML = val.description;
+        const tags = clone.children[1];
+        val.tags.forEach((value, _) => {
+            const tagClone = document.getElementById("tagex").cloneNode(true);
+            tagClone.id = "";
+            tagClone.innerHTML = value;
+            tags.append(tagClone);
+        });
+        clone.setAttribute("tags", val.tags);
+        clone.addEventListener("click", async () => {
+            clickGamemode(gamemodes.competitive[idx], data);
+
+            refreshSettings();
+            saveSettings();
+        });
+
+        document.getElementById("gamemodes").append(clone);
+    });
+}
+
+function runStudy() {
+    loadStudy();
+}
+
+function runGame() {
+    loadGame();
 }
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         location.href = "../auth/login.html";
+        return;
     }
-    userdata = await FirebaseHelper.getUserData(user.uid);
-    const tags = getAllTags();
-    tags.forEach((val, idx) => {
-        const option = document.createElement("option");
-        option.id = idx;
-        option.value = val;
-        option.innerHTML = val;
+    const _data = await getDoc(doc(db, "users", auth.currentUser.uid));
+    data = _data.data();
+    for (let i = 0; i < document.getElementsByClassName("gamemodeType").length; i++) {
+        const elem = document.getElementsByClassName("gamemodeType")[i];
+        elem.addEventListener("click", () => {
+            runSelectSequence(elem.classList[1]);
+            if (elem.classList[1] == "study") {
+                runStudy();
+            } else {
+                runGame();
+            }
+        })
+    }
+    for (let i = 0; i < document.getElementsByClassName("goback").length; i++) {
+        const elem = document.getElementsByClassName("goback")[i];
+        elem.addEventListener("click", () => {
+            document.getElementById("options").style.transitionDuration = "0";
+            document.getElementById(elem.classList[2]).style.transitionDuration = "0";
+            document.getElementById("options").style.display = "flex";
+            document.getElementById("options").style.opacity = "0";
+            document.getElementById("options").style.top = "70%";
+            setTimeout(() => {
+                document.getElementById("options").style.transitionDuration = "1s";
+                document.getElementById(elem.classList[2]).style.transitionDuration = "1s";
+                document.getElementById("options").style.top = "50%";
+                document.getElementById("options").style.opacity = "1";
+                document.getElementById(elem.classList[2]).style.top = "70%";
+                document.getElementById(elem.classList[2]).style.opacity = "0";
 
-        document.getElementById("filterTag").append(option);
-    });
-    // document.getElementById("friendsOnly").addEventListener("change", () => {
-    //     const newvalue = document.getElementById("friendsOnly").checked;
-    //     if (newvalue) {
-    //         document.getElementById("friendsJoin").checked = true;
-    //         document.getElementById("friendsJoin").setAttribute("disabled", "true");
-    //     } else {
-    //         document.getElementById("friendsJoin").removeAttribute("disabled");
-    //     }
-    // });
+                setTimeout(() => {
+                    document.getElementById(elem.classList[2]).style.display = "none";
+                }, 1000)
+            }, 10)
+        })
+    }
+
     document.getElementById("modesettings").addEventListener('click', () => {
         refreshSettings();
         document.getElementById("gamemode_settings").showModal();
@@ -198,26 +170,7 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("gamemode_start").close();
     })
     document.getElementById("apply").addEventListener("click", () => {
-        let result = new Map();
-        for (let i = 0; i < settingObjects.length; i++) {
-            var settingObj = settingObjects[i];
-            const type = settingObj.type;
-            const object = settingObj.object;
-            const settingName = settingObj.settingName;
-
-
-            switch (type) {
-                case Boolean:
-                    const bool = object.checked;
-                    result.set(settingName, bool);
-                    break;
-                case Number:
-                    const num = object.value;
-                    result.set(settingName, parseInt(num));
-                    break;
-            }
-        }
-        gamemodeSelectedSettings[currentGamemode.id] = result;
+        saveSettings();
         document.getElementById("gamemode_settings").close();
     });
     document.getElementById("host").addEventListener("click", () => {
@@ -225,7 +178,7 @@ onAuthStateChanged(auth, async (user) => {
 
         const parsedGamemodeInfo = JSON.stringify(currentGamemode);
         if (currentGamemode.limitedAccess) {
-            if (!userdata.limitedAccess) {
+            if (!data.limitedAccess) {
                 return;
             }
         }
@@ -237,6 +190,15 @@ onAuthStateChanged(auth, async (user) => {
             gamemodeSettings: parsedGamemodeSettings
         }));
 
+        if (currentGamemode.isSoloOnly) {
+            console.log({
+                gamemodeInfo: parsedGamemodeInfo,
+                gamemodeSettings: parsedGamemodeSettings
+            });
+            location.href = "./" + currentGamemode.id + "/index.html";
+            return;
+        }
+
         setTimeout(() => {
             location.href = "./bigscreen.html";
         }, 750);
@@ -244,6 +206,4 @@ onAuthStateChanged(auth, async (user) => {
         // JSON.parse(gamemodeInfo)
         // new Map(JSON.parse(gamemodeSettings))
     });
-    loadAllGamemodes();
 })
-

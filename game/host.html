@@ -58,25 +58,46 @@
         <form method="dialog">
             <button id="apply" type="button" class="puffy_button primary"><i class="fa-solid fa-square-check"></i> Apply</button>
             <button id="discard" class="puffy_button"><i class="fa-solid fa-square-xmark"></i> Discard</button>
-        </div>
+        </form>
     </dialog>
-    <section>
-        <h1>Choose gamemode</h1>
-        <label for="filterTag"><i class="fa-solid fa-filter"></i> Filter tag</label>
-        <select id="filterTag"></select>
-        <div class="space"></div>
-        <div class="gamemodetag" id="tagex">test</div>
-        <div id="gamemodeex" class="gamemode">
-            <div>
-                <h1>Title</h1>
-                <p>Desc</p>
+    <section fit id="options">
+        <h1>What do you want to do?</h1>
+        <div id="allGamemodeTypes">
+            <div class="gamemodeType study">
+                <h1>Solo</h1>
+                <p>For those quiet times, ready to gain knowledge.</p>
             </div>
-            <div class="gamemode_tags"></div>
+            <div class="gamemodeType game">
+                <h1>Competitive</h1>
+                <p>Play with others and level up your knowledge!</p>
+            </div>
         </div>
-        <div id="allgamemodes">
+        <div class="littlespace"></div>
+        <button class="puffy_button danger" onclick="location.href='../profile/kits.html'">Back</button>
+    </section>
+    <section id="study" style="opacity: 0;display:none;">
+        <a class="buttonLink goback study" href="#">&lt;- Go back</a>
+        <h1>Choose a solo mode</h1>
+        <div id="studymodes" class="gamemodeslist">
 
         </div>
     </section>
+    <section id="game" style="opacity: 0;display:none;">
+        <a class="buttonLink goback game" href="#">&lt;- Go back</a>
+        <h1>Choose a gamemode type</h1>
+        <div id="gamemodes" class="gamemodeslist">
+
+        </div>
+    </section>
+
+    <div class="gamemodetag" id="tagex">test</div>
+    <div id="gamemodeex" class="gamemode">
+        <div>
+            <h1>Title</h1>
+            <p>Desc</p>
+        </div>
+        <div class="gamemode_tags"></div>
+    </div>
 
     <script src="../js/game/host.js" type="module"></script>
 </body>

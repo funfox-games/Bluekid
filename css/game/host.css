@@ -3,7 +3,13 @@ section {
     left:50%;
     top: 50%;
     transform: translate(-50%,-50%);
+    flex-direction: column;
     width: 80vw;
+}
+section[fit] {
+    width: fit-content;
+    display: flex;
+    align-items: center;
 }
 body {
     background-image: linear-gradient(#ffffff, #80b5d8);
@@ -146,8 +152,72 @@ body {
 #testingOnly > p {
     font-size: 1.75rem;
 }
+#allGamemodeTypes {
+    display: grid;
+    /*Using the full width/height of the designated box elements, use fr as in example below */
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr; */
+    /* Delete the two lines above and add more/less columns/rows by specifying one more for each below
+    grid-template-columns: 100px 100px;
+    grid-template-rows: 100px 100px; */
+    grid-gap: 10px;
+    margin: 10px;
+}
 @media (max-width:950px) {
     #gamemode_content {
         position: relative;
     }
+}
+.gamemodeType {
+    background-color: #0000002c;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 250ms;
+    width: 175px;
+    height: 175px;
+
+    overflow: auto;
+    position: relative;
+    color: white;
+}
+.gamemodeType:hover {
+    transform: translateY(-5px);
+}
+.gamemodeType > p {
+    font-size: 12px;
+}
+
+.gamemodeType::after {
+    content: "";
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    filter: blur(2px) brightness(50%);
+}
+.gamemodeType.study::after {
+    background-image: url("https://www.oxfordlearning.com/wp-content/uploads/2009/05/tips-for-easier-studying-860x420.jpg");
+    background-position: 75%;
+}
+.gamemodeType.game::after {
+    background-image: url("https://i.insider.com/5a86edbad0307263078b46ea?width=750&format=jpeg&auto=webp");
+    transition-timing-function:cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    background-position: 50%;
+}
+.gamemodeslist {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    padding: 10px
 }

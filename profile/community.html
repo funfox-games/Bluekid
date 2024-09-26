@@ -74,8 +74,10 @@
             <a href="../index.html" style="text-decoration: none;color:black;">
                 <h1><span class="blue">Blue</span>kid</h1>
             </a>
+            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
+            <div class="littlespace"></div>
             <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-address-card"></i> Overview</button></a>
+                        class="fa-solid fa-house-user"></i> Home</button></a>
             <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-image"></i> Blues</button></a>
             <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
@@ -96,15 +98,11 @@
     <section>
         <h1>Community</h1>
         <div class="space"></div>
-        <div class="container" style="background-color: #0000002f;">
-            <h2>Public kits</h2>
-            <button class="puffy_button primary"><i class="fa-solid fa-eye"></i> Show</button>
+        <div id="tabContainer">
+            <!-- Tabs -->
         </div>
-        <div class="space"></div>
         <div class="container" style="background-color: #0000002f;">
             <h2>Add friend</h2>
-            <div class="info"><i class="fa-solid fa-circle-info"></i> Find your UID in settings. There may be a better way to find people in the future.</div>
-            <div class="space"></div>
             <button id="searchFriends" class="puffy_button primary"><i class="fa-solid fa-user-group"></i> Search users</button>
             <div style="display: flex;gap:5px;margin-top: 5px;">
                 <input type="text" id="friendid" placeholder="Enter UID..." class="input">
@@ -113,29 +111,24 @@
             <div class="largespace"></div>
             <div>
                 <h2>Friends</h2>
-                <label class="toggle" for="compact">
-                    <input class="toggle_input" type="checkbox" id="compact">
-                    <div class="toggle_fill"></div>
-                    Compact
-                </label>
+                <input type="search" class="input" placeholder="Search..." id="friendSearch">
                 <div id="friendsloading" class="container" style="background-color: #00000059;color:white;">
-                    <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+                    <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> <span id="friendLoadingStatus">Preparing...</span></p>
                 </div>
                 <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
                     <p style="font-size: 1.75rem;"><i class="fa-solid fa-square-person-confined fa-sm"></i> No friends found.</p>
                     <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
                 </div>
                 
+                <div id="friendex" style="background-color: #00000059;color:white;" class="friend container">
+                    <img src="../asset/char/blue_notexture.png" width="64" alt="">
+                    <a href="#" class="innerinfo">
+                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                        <p style="color: rgb(200,200,200);"></p>
+                    </a>
+                </div>
                 <div id="allFriends">
-                    <div id="friendex" style="background-color: #00000059;color:white;" class="request container">
-                        <a href="#" class="innerinfo">
-                            <div class="username_field">
-                                <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                                <div class="online_dot" title="Online" style="display: none;"></div>
-                            </div>
-                            <p style="color:rgb(218, 218, 218)">UID: what</p>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
             <div class="space"></div>

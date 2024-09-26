@@ -184,6 +184,8 @@ async function buyPack(id) {
     })
     const blue = weighted_random(packblues, rarities);
     startAnimationSequence("../asset/packs/" + allPacks[id].graphic, blue, packdata.blues[blue]);
+    document.getElementById("unlockScreen").style.backgroundImage = `linear-gradient(${allPacks[id].buyBackground[0]}, ${allPacks[id].buyBackground[1]})`
+    allPacks[id].buyBackground
     await saveLocalCoins();
     saveBlue(blue);
 }

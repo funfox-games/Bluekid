@@ -4,7 +4,6 @@ section {
 }
 .request {
     display:flex;
-    align-items: center;
     justify-content: space-between;
 }
 #requestex {
@@ -20,21 +19,6 @@ section {
     display:flex;
     flex-direction: column;
     gap:5px;
-}
-#allFriends[compact] {
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-#allFriends[compact] > #friendex {
-    display:none;
-}
-#allFriends[compact] > .request {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-    align-items: center;
-    flex-grow: 1;
 }
 #allsearched {
     margin-top: 15px;
@@ -92,6 +76,9 @@ section {
 .username_field {
     display:flex;
     gap:10px;
-    justify-content: center;
+}
+.friend {
+    display: flex;
     align-items: center;
+    gap:5px;
 }

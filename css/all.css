@@ -390,3 +390,7 @@ dialog::backdrop {
         transform: translateY(0vh);
     }
 }
+.buttonLink {
+    color: black;
+    font-size: 18px;
+}

@@ -67,8 +67,13 @@ onAuthStateChanged(auth, async (user) => {
         return;
     }
     if (kitdata.visibility == "friends"){
-        const theirdata = await getDoc(doc(db, "users", kitowner_url)).then((res) => { return res.data() });
+        document.getElementById("preformingchecks").showModal();
+        const theirdata = await getDoc(doc(db, "kits", kitid_url)).then(async (res) => {
+            const data = await getDoc(doc(db, "users", res.data().ownerUid));
+            return data.data();
+        });
         
+        document.getElementById("preformingchecks").close();
         if (!theirdata.friends.includes(user.uid) && user.uid != kitowner_url) {
             document.getElementById("visibility").innerHTML = kitdata.visibility;
             document.getElementById("notOwned").showModal();

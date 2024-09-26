@@ -85,23 +85,23 @@ async function loadBadges(uid) {
         cachedBadges = badges;
     }
     var w = window.innerWidth;
-    let amountToShow = 5;
+    let amountToShow = Math.max;
     console.log(w);
-    if (w < 1450) {
-        amountToShow = 4;
-    }
-    if (w < 1365) {
-        amountToShow = 3;
-    }
-    if (w < 1125) {
-        amountToShow = 2;
-    }
-    if (w < 1000) {
-        amountToShow = 1;
-    }
-    if (w < 900) {
-        amountToShow = 0;
-    }
+    // if (w < 1450) {
+    //     amountToShow = 4;
+    // }
+    // if (w < 1365) {
+    //     amountToShow = 3;
+    // }
+    // if (w < 1125) {
+    //     amountToShow = 2;
+    // }
+    // if (w < 1000) {
+    //     amountToShow = 1;
+    // }
+    // if (w < 900) {
+    //     amountToShow = 0;
+    // }
     // const children = document.getElementById("badges").children;
     // for (let i = 0; i < children.length; i++) {
     //     const child = children[i];
@@ -114,9 +114,10 @@ async function loadBadges(uid) {
         const badgeName = cachedBadges[i];
         const clone = document.getElementById("badgeex").cloneNode(true);
         clone.id = "";
+        clone.title = badgeName;
         const friendlyName = badgeName.replace(" ", "");
         clone.children[0].src = `../asset/badges/${friendlyName}.png`;
-        clone.children[1].innerHTML = badgeName;
+        // clone.children[1].innerHTML = badgeName;
         if (friendlyName == "OfficialCreator") {
             isOwner = true;
         }
@@ -158,22 +159,16 @@ onAuthStateChanged(auth, async (user) => {
 
     var time = (Date.parse(userData.creation) - new Date()); // milliseconds between now & user creation
     var diffDays = -Math.floor(time / 86400000); // days
+    document.getElementById("accountAge").innerHTML = diffDays;
+    document.getElementById("accountAge").title = (userData.creation.toLocaleString());
+    document.getElementById("tokens").innerHTML = userData.tokens.toLocaleString();
     
-    document.getElementById("creationDate").innerHTML = `Been a user for ${diffDays} days.`;
-    document.getElementById("fullCreation").innerHTML = `Created on ${userData.creation}`;
-
-    document.getElementById("tokens").innerHTML = `${parseInt(userData.tokens).toLocaleString()} Tokens`;
-
     if (userData.version == 2) {
         document.getElementById("datav2").remove();
     } else {
         document.getElementById("datav2Popup").showModal();
     }
     
-    
-    if (user.photoURL != undefined && user.photoURL != null) {
-        document.getElementById("pfp").src = user.photoURL;
-    }
 
     document.getElementById("logout").addEventListener("click", async () => {
         await forceOffline();
@@ -181,66 +176,25 @@ onAuthStateChanged(auth, async (user) => {
         location.href = "../index.html";
     })
 
-    if (document.getElementById("dev")) {
-        document.getElementById("dev").addEventListener("click", () => {
-            document.getElementById("developer").showModal();
-        });
+    // document.getElementById("sendsuggestion").addEventListener("click", async () => {
+    //     const suggestion = document.getElementById("suggestion").value;
+    //     document.getElementById("sendsuggestion").setAttribute("disabled", "true");
+    //     document.getElementById("sendsuggestion").innerHTML = "Working...";
 
-        document.getElementById("usecurrent").addEventListener("click", () => {
-            document.getElementById("searchuid").value = auth.currentUser.uid;
-        })
+    //     console.log(suggestion);
 
-        document.getElementById("searchuser").addEventListener("click", async () => {
-            document.getElementById("searchuser").innerHTML = `<i class="fa-solid fa-gear fa-spin"></i> Searching...`;
-            document.getElementById("searchuser").setAttribute("disabled", "");
-            const uid = document.getElementById("searchuid").value;
-
-            document.getElementById("userdata").innerHTML = "";
-
-            const doc__ = doc(db, "users", uid);
-            const data = await getDoc(doc__);
-            
-
-            if (!data.exists()) {
-                document.getElementById("searchuser").innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Search`;
-                document.getElementById("searchuser").removeAttribute("disabled");
-                document.getElementById("searchuid").value = "Error.";
-                return;
-            }
-            console.log(data);
-            document.getElementById("userdata").innerHTML = "DATA FOR " + data.data().username + ":<br>"
-            const entries = Object.entries(data.data());
-            entries.forEach((val, _) => {
-                const id = val[0];
-                const data = val[1];
-                document.getElementById("userdata").innerHTML += `- ${id}: ${data}<br>`;
-            });
-            // document.getElementById("userdata").innerHTML += `- ${id}: ${data}<br>`;
-
-            document.getElementById("searchuser").innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Search`;
-            document.getElementById("searchuser").removeAttribute("disabled");
-        })
-    }
-
-    document.getElementById("sendsuggestion").addEventListener("click", async () => {
-        const suggestion = document.getElementById("suggestion").value;
-        document.getElementById("sendsuggestion").setAttribute("disabled", "true");
-        document.getElementById("sendsuggestion").innerHTML = "Working...";
-
-        console.log(suggestion);
-
-        const url = "https://discord.com/api/webhooks/1235048946330632293/DNu3A4R9c1CAqYsYQ6MSXO_sHznV7QdiSt7shOk9Gg7jHgUzDVHBlsLsbCPItJLvpp6G";
-        const msg = {
-            "content": suggestion + "\n-------\nEmail: " + user.email + "\nUID: " + user.uid + "\n<@784823225737019402>",
-            "username": userData.username + " | BluekidProfileRequest"
-        }
-        await fetch(url, {
-            method: "POST",
-            headers: {"content-type": "application/json"},
-            body: JSON.stringify(msg)
-        });
+    //     const url = "https://discord.com/api/webhooks/1235048946330632293/DNu3A4R9c1CAqYsYQ6MSXO_sHznV7QdiSt7shOk9Gg7jHgUzDVHBlsLsbCPItJLvpp6G";
+    //     const msg = {
+    //         "content": suggestion + "\n-------\nEmail: " + user.email + "\nUID: " + user.uid + "\n<@784823225737019402>",
+    //         "username": userData.username + " | BluekidProfileRequest"
+    //     }
+    //     await fetch(url, {
+    //         method: "POST",
+    //         headers: {"content-type": "application/json"},
+    //         body: JSON.stringify(msg)
+    //     });
 
 
-        document.getElementById("sendsuggestion").innerHTML = "Thanks!";
-    });
+    //     document.getElementById("sendsuggestion").innerHTML = "Thanks!";
+    // });
 })

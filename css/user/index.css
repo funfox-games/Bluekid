@@ -52,3 +52,10 @@
     flex-direction: column;
     gap:5px;
 }
+.profile_card {
+    flex-direction: row;
+    padding: 10px;
+}
+#basicInfo {
+    justify-content: unset;
+}

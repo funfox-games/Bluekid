@@ -7,7 +7,7 @@ export class Gamemode {
 }
 
 export const gamemodes = [
-    new Gamemode("funfox.example", {
+    new Gamemode("funfox.classic", {
         htmlHost: "example/host.html",
         htmlClient: "example/client.html",
         databaseData: {
