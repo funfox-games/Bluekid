@@ -9,4 +9,5 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 - Early access gamemodes
 - Expanded profile customization
 - Special account badge
-- Max of 5 MB -> 50 MB uploads
+- Max of 5 MB -> 25 MB uploads
+- Allows kits to have animated thumbnails
