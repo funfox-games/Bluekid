@@ -172,4 +172,7 @@ onAuthStateChanged(auth, (user) => {
 
         document.getElementById("banUser").showModal();
     }) // TODO: finish
+    document.getElementById("banusernow").addEventListener("click", async () => {
+        
+    });
 })
