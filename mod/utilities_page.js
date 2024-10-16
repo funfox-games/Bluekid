@@ -10,7 +10,7 @@ async function enterPassword() {
         const onunlock = () => {
             const pass = document.getElementById("passwordthing").value;
 
-            if (btoa(pass) == "Ymx1ZWtpZGJsdWU/Pz8=") {
+            if (btoa(pass) == "cXdlcnR5Ymx1ZXM6Mw==") {
                 res(true);
             } else {
                 res(false);
@@ -173,6 +173,14 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById("banUser").showModal();
     }) // TODO: finish
     document.getElementById("banusernow").addEventListener("click", async () => {
-        
+        const date = document.getElementById("banReason").value;
+        const reason = new Date(document.getElementById("banDate").value);
+
+        let dateRes = null;
+
+        if (document.getElementById("banPerm").value) {
+            dateRes = date;
+        }
+        banUser(document.getElementById("banUid").value, reason, dateRes);
     });
 })
