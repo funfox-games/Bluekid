@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans | Bluekid</title>
+
+    <link rel="stylesheet" href="../../css/all.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+    <link rel="stylesheet" href="../../css/purchase/index.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="plusPrompt" style="overflow: hidden;font-size: 1.5rem;">
+        <h1 class="headerplus">Plus</h1>
+        <p>You will be redirected to Stripe</p>
+        <!-- <select class="dropdown" id="plusSubscriptionType">
+            <option value="monthly">Monthly ($2.99)</option>
+            <option value="yearly">Yearly ($35.88)</option>
+        </select>
+        <div class="space"></div> -->
+        <a style="width: 100%;" id="plusproceed" href="./plus.html?type=monthly"><button class="puffy_button primary" style="width: 100%;"><i class="fa-solid fa-credit-card"></i> Proceed</button></a>
+        <div class="littlespace"></div>
+        <form method="dialog" style="width: 100%;">
+            <button class="puffy_button" style="width: 100%;"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+        </form>
+    </dialog>
+    <div id="sidenav">
+        <div id="sidenav_upper">
+            <a href="../../index.html" style="text-decoration: none;color:black;">
+                <h1><span class="blue">Blue</span>kid</h1>
+            </a>
+            <a href="../../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
+            <div class="littlespace"></div>
+            <a href="../index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-house-user"></i> Home</button></a>
+            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-image"></i> Blues</button></a>
+            <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-layer-group"></i> Kits</button></a>
+            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-shop"></i> Shop</button></a>
+            <a href="../community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+                        class="fa-solid fa-face-smile"></i> Social</button></a>
+        </div>
+        <div id="sidenav_lower">
+            <a href="#" style="width:100%;"><button disabled style="width:100%;" class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="../settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-gears"></i> Settings</button></a>
+            <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-newspaper"></i> News</button></a>
+        </div>
+        
+    </div>
+    <section style="display:flex;align-items: center;justify-content: center;flex-direction: column;">
+        <div class="warning" style="color:black;font-size: 1.25rem;"><i class="fa-solid fa-triangle-exclamation fa-lg"></i> This is a very early look, rewards are still being made, pricing may change, UI may be changed or redone, and everything is only for display.</div>
+        <div class="littlespace"></div>
+        <h1 style="font-size: 3rem;">Introducing Bluekid <span class="plusColor">Plus</span></h1>
+        <p style="font-size: 1.5rem;">The new way to enjoy Bluekid! Unlock new things with the tier comparisions below!</p>
+        <div class="tiers">
+            <div class="tier">
+                <h1 class="tiertitle starter">Free</h1>
+                <p>Free forever!</p>
+                <ul class="tierRewards">
+                    <li>Free account</li>
+                    <li>20 Free kits</li>
+                    <li>45 People per game</li>
+                    <li>50 Friend limit</li>
+                    <li>Max upload size of 5 MB</li>
+                </ul>
+            </div>
+            <div class="tier">
+                <h1 class="tiertitle plus">Plus</h1>
+                <p style="font-size: 1.25rem;">$2.99 per month, cancel anytime!</p>
+                <ul class="tierRewards">
+                    <li>100 kit limit</li>
+                    <li>100 people per game</li>
+                    <li>200 friend limit</li>
+                    <li>Early access gamemodes</li>
+                    <li>Expanded profile customization</li>
+                    <li>Special account badge</li>
+                    <li>Max upload size of 35 MB</li>
+                    <li>Ability for animated kit thumbnails</li>
+                    <li>150 monthly coins</li>
+                </ul>
+                <button class="puffy_button primary" id="plusupgrade" disabled style="font-size: 1.5rem;"><i class="fa-solid fa-circle-up"></i> Upgrade</button>
+            </div>
+        </div>
+        
+    </section>
+
+    <script type="module" src="../../js/purchase/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plus Payment | Bluekid</title>
+
+    <link rel="stylesheet" href="../../css/all.css">
+    <link rel="stylesheet" href="../../css/purchase/plus.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="section__center">
+        <h1 class="tiertitle">
+            Bluekid Plus<br>
+            <p style="opacity: .5;font-size: 1rem;">
+                <span class="subType">Monthly</span> subscription &#8226; $2.99 per month
+            </p>
+        </h1>
+        <div class="input_field">
+            <i class="ico-custom fa-solid fa-id-badge"></i>
+            <input type="text" class="input" placeholder="Name on card">
+        </div>
+        <div class="input_field">
+            <i class="ico-custom2 fa-solid fa-credit-card"></i>
+            <input class="input" type="tel" pattern="\d*" maxlength="19"  placeholder="Card number">
+        </div>
+        <div class="inputs">
+            <div class="input_field">
+                <i class="ico-custom2 fa-solid fa-calendar"></i>
+                <input type="month" class="input" placeholder="MM / YY">
+            </div>
+            <div class="input_field">
+                <i class="ico-custom2 fa-solid fa-calendar-check"></i>
+                <input type="text" class="input" placeholder="CVC">
+            </div>
+        </div>
+        <div class="input_field">
+            <i class="ico-custom fa-solid fa-map-location"></i>
+            <input type="text" class="input" placeholder="Address Line 1">
+        </div>
+        <div class="input_field">
+            <i class="ico-custom2 fa-solid fa-map-location"></i>
+            <input type="text" class="input" placeholder="Address Line 2">
+        </div>
+        <div class="inputs">
+            <div class="input_field">
+                <i class="ico-custom fa-solid fa-compass"></i>
+                <input type="text" class="input" placeholder="City">
+            </div>
+            <div class="input_field">
+                <i class="ico-custom2 fa-solid fa-map-pin"></i>
+                <input type="text" class="input" placeholder="ZIP">
+            </div>
+        </div>
+        <div class="input_field">
+            <i class="ico-custom fa-solid fa-flag-usa"></i>
+            <select style="width: 100%;" class="dropdown">
+                <option value="al">Alaska</option>
+            </select>
+            <!-- <input type="text" class="input" placeholder="ZIP"> -->
+        </div>
+
+        <button style="width: 100%;" class="puffy_button green"><i class="fa-solid fa-sack-dollar"></i> Subscribe</button>
+    </section>
+
+    <script type="module" src="../../js/purchase/plus.js"></script>
+</body>
+</html>

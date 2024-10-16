@@ -36,6 +36,7 @@ section {
     --primary-color-outline: #1154b3;
     --secondary-color: #6b6b6b;
     --secondary-color-outline: #808080;
+    --plus-color:rgb(255, 217, 0);
 }
 .blue {
     color: #92e0ff;
@@ -93,7 +94,7 @@ section {
     border-style: solid;
     border: 0px transparent black;
 }
-.puffy_button:hover{
+.puffy_button:not(.subscription_btn):hover {
     filter:brightness(110%);
 }
 .puffy_button:disabled {
@@ -393,4 +394,38 @@ dialog::backdrop {
 .buttonLink {
     color: black;
     font-size: 18px;
+}
+
+.subscription_btn {
+    position: relative;
+    background-color: var(--plus-color);
+    color: black;
+    overflow: hidden;
+}
+.subscription_btn::after{
+    content: "";
+    position:absolute;
+    left: -10%;
+    top: -10%;
+    width: 10px;
+    height: 120%;
+    rotate: 20deg;
+    background-color: white;
+    animation: shine 3s forwards infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -10%
+    }
+    25% {
+        left: 110%
+    }
+    100% {
+        left: 110%
+    }
+}
+
+.plusColor {
+    color: var(--plus-color)
 }
