@@ -63,6 +63,7 @@ async function loadUser(uid) {
     activeUserId = uid;
 
     document.getElementById("username__search").innerText = userData.data().username;
+    document.getElementById("isbanned").checked = userData.data().banned != null;
     document.getElementById("limitedAccess").checked = userData.data().limitedAccess || false;
     document.getElementById("tokens").value = userData.data().tokens || 0;
     localBadges = userData.data().badges || [];
