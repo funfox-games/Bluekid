@@ -28,7 +28,7 @@ async function banUser(uid, reason, date) {
     if (!await enterPassword()) {
         showNotification(3, "Wrong password.");
     }
-    const user_ref = ref(db, `users/${uid}`);
+    const user_ref = doc(db, `users/${uid}`);
     let banData = {
         reason          
     };
@@ -45,7 +45,7 @@ async function unbanUser(uid) {
     if (!await enterPassword()) {
         showNotification(3, "Wrong password.");
     }
-    const user_ref = ref(db, `users/${uid}`);
+    const user_ref = doc(db, `users/${uid}`);
     await updateDoc(user_ref, {
         banned: null
     });
