@@ -162,5 +162,14 @@ onAuthStateChanged(auth, (user) => {
             document.getElementById("searchuid").innerHTML += allDocs[i].id + ", ";
         }
     });
-    document.getElementById("banProceed") // TODO: finish
+    document.getElementById("banProceed").addEventListener("click", async () => {
+        const uid = document.getElementById("banUid").value;
+        const data = await getDoc(doc(db, "users", uid));
+        if (!data.exists()){
+            showNotification(1, "Not a vaild uid.");
+            return;
+        }
+
+        document.getElementById("banUser").showModal();
+    }) // TODO: finish
 })
