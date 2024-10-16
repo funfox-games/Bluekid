@@ -22,5 +22,10 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 ## Developer
 This is for me, funfox, to use when developing
 
+### Things to add to the todo:
+- Check if player is banned with firebase.js
+- Add unban to developer panel
+- Hide developer button for non-devs
+
 ### FILES TO MERGE:
 - /mod/
