@@ -18,3 +18,9 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 ## Bluekid Gamemode Ideas
 - Art: You have an ink meter and to get more ink you need to anwser questions. Everyone edits the same canvas.
   - Art gamemode: the game will choose something and everyone will have to make that item on the same canvas. Judging is decided by game host or chosen person
+
+## Developer
+This is for me, funfox, to use when developing
+
+### FILES TO MERGE:
+- /mod/
