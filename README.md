@@ -18,6 +18,7 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 ## Bluekid ideass
 - Redesign settings
 - Add teacher verified badge
+- Add a teacher mode (or teacher layout)
 
 ## Bluekid Gamemode Ideas
 - Art: You have an ink meter and to get more ink you need to anwser questions. Everyone edits the same canvas.
