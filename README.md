@@ -36,3 +36,4 @@ This is for me, funfox, to use when developing
 ### FILES TO MERGE:
 - /mod/
 - /asset/index
+- /asset/badges
