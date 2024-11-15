@@ -4,7 +4,6 @@
 Bluekid is the ideal education-entertainment website! It allows hosted games like Blooket and Gimkit, you can buy characters with in-game currency, and make your own social profile!
 
 ## Bluekid+
-***Look into BuyMeACoffee for subscription management. [also Github Donations]***
 Bluekid+ is a subscription for $2.99/month which allows me to make hosting without adding ads! Benefits include:
 - 20 -> 100 kits
 - 45 -> 100 people per game
@@ -18,6 +17,18 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 
 ## Bluekid ideass
 - Art pack
+  - Van Goeh
+  - Abstract face??
+- Christmas pack
+  - Elf [Common]
+  - Ordiment [Common]
+  - Snowflake [Uncommon]
+  - Reindeer [Rare]
+  - Snowman [Epic]
+  - Stocking [Legendary]
+  - Santa [Legendary]
+  - Elf on the shelf [Mystical]
+- 
 
 ## Bluekid Gamemode Ideas
 - Art: You have an ink meter and to get more ink you need to anwser questions. Everyone edits the same canvas.
