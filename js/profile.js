@@ -130,11 +130,12 @@ onAuthStateChanged(auth, async (user) => {
     for (let i = 0; i < friendrequests.length; i++) {
         const element = friendrequests[i];
         const data = await getDoc(doc(db, "users", element));
-        if (!data.exists) {
+        if (!data.data() == null) {
             continue;
         }
         document.getElementById("noincomingfriends").style.display = "none;"
         const clone = document.getElementById("requestex").cloneNode(true);
+        clone.id = "";
         clone.children[0].children[0].innerText = data.data().username;
         clone.children[0].children[1].innerHTML = element;
         clone.children[1].children[0].addEventListener("click", async () => {
