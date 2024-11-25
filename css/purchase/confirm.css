@@ -1,0 +1,7 @@
+body {
+    background-image: linear-gradient(#ffffff, #80b5d8);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow:hidden;
+}

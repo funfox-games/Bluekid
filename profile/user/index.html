@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,8 +59,8 @@
                 </div>
 
                 <button id="share" class="puffy_button green"><i class="fa-solid fa-share-nodes"></i> Share</button>
-                <button id="addfriend" disabled class="puffy_button primary"><i class="fa-solid fa-square-plus"></i> Add friend</button>
-                <button style="display:none;" disabled id="removefriend" class="puffy_button danger"><i class="fa-solid fa-square-minus"></i> Unfriend</button>
+                <a id="addfriend" href="../community.html"><button class="puffy_button primary"><i class="fa-solid fa-square-plus"></i> Add friend</button></a>
+                <button style="display:none;" id="removefriend" class="puffy_button danger"><i class="fa-solid fa-square-minus"></i> Unfriend</button>
             </div>
             
         </div>
@@ -85,7 +85,7 @@
                 <div id="userInfoContainer">
                     <!-- Creation date, friend amount, etc. -->
                     <ul style="margin: 0;">
-                        <li>Creation date: Joinned <i id="joinned">0</i> days ago.</li>
+                        <li>Creation date: Joined <i id="joinned">0</i> days ago.</li>
                         <li><i id="friendAmount">0</i> Friends</li>
                     </ul>
                 </div>

@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, setDoc, updateDoc, KIT_COVER_LOCATION, storageref, storage, uploadBytes, getDownloadURL, deleteObject, listAll, addDoc, collection } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, setDoc, updateDoc, KIT_COVER_LOCATION, storageref, storage, uploadBytes, getDownloadURL, deleteObject, listAll, addDoc, collection, hasBluekidPlus } from "../util/firebase.js";
 
 import * as MediaUtil from "../util/user_media.js";
 
@@ -68,6 +68,7 @@ async function saveKit() {
         let cover = document.getElementById("coverimg").src;
 
         const kitdata = doc(db, "users", auth.currentUser.uid, "kits", kitid_url);
+
 
 
         if (uploadedFile && cover != currentCover) {
@@ -343,10 +344,23 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("uploadurluse").innerHTML = `<i class="fa-solid fa-file-image"></i> Use`;
         document.getElementById("uploadurldialog").close();
     });
-    document.getElementById("uploadFileUse").addEventListener("click", () => {
+    document.getElementById("uploadFileUse").addEventListener("click", async () => {
         const imageInput = document.getElementById("fileupload");
         const file = imageInput.files[0];
 
+        if (file.type == "image/gif" && !(await hasBluekidPlus())) {
+            document.getElementById("gif").showModal();
+            document.getElementById("uploadfiledialog").close();
+            return;
+        }
+
+        if (file.size > 5e+6 && !(await hasBluekidPlus())) {
+            document.getElementById("toobig").showModal();
+            document.getElementById("uploadfiledialog").close();
+            return;
+        }
+
+    
         const objectURL = window.URL.createObjectURL(file);
         // console.log(file, objectURL);
         uploadedFile = true;

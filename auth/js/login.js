@@ -53,7 +53,6 @@ document.getElementById("login").addEventListener("submit", async (e) => {
 
 document.getElementById("google").addEventListener("click", async () => {
     var provider = new GoogleAuthProvider();
-    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     auth.useDeviceLanguage();
     var res = await signInWithPopup(auth, provider).catch((err) => {
         const code = err.code;

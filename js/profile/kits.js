@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, signOut, getDocs, deleteDoc, setDoc, updateDoc, collection, deleteObject, storageref, storage, listAll, KIT_COVER_LOCATION, query, limit, where } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, getDocs, deleteDoc, setDoc, updateDoc, collection, deleteObject, storageref, storage, listAll, KIT_COVER_LOCATION, query, limit, where, hasBluekidPlus } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -473,6 +473,10 @@ onAuthStateChanged(auth, async (user) => {
     if (kits.empty == true) {
         document.getElementById("loading").style.display = "none";
         return;
+    }
+    if (kits.size >= 15 && await hasBluekidPlus() == false) {
+        document.getElementById("kitamount").innerHTML = kits.size;
+        document.getElementById("closeToLimit").setAttribute("show", "");
     }
     document.getElementById("nokits").remove();
     cachedkits = kits;

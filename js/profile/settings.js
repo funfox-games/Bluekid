@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, updateDoc, sendPasswordResetEmail, deleteUser, updateEmail } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, deleteDoc, updateDoc, sendPasswordResetEmail, deleteUser, updateEmail, httpsCallable, functions, hasBluekidPlus, Timestamp, EmailAuthProvider, reauthenticateWithCredential } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -79,6 +79,9 @@ async function saveProfileSettings(plrData) {
         const showLastOnline = document.getElementById("showLastOnline").value;
         const allowFriendRequests = document.getElementById("acceptFriendRequests").checked;
 
+        const primaryColor = document.getElementById("primarycolor").value;
+        const secondaryColor = document.getElementById("secondarycolor").value;
+
         await updateDoc(doc(db, "users", auth.currentUser.uid), {
             communitySettings: {
                 privacy: {
@@ -90,12 +93,35 @@ async function saveProfileSettings(plrData) {
                     showLastOnline
                 },
                 allowFriendRequests
+            },
+            profileSettings: {
+                primaryColor,
+                secondaryColor
             }
         });
         
         res();
     });
     
+}
+let activeTab = "";
+let tabSaved = false;
+function switchTab(tabid) {
+    if (document.getElementById(activeTab) && document.getElementById(activeTab).hasAttribute("needs_saved") && tabSaved == false && activeTab != tabid) {
+        if (!confirm("This section has unsaved changes... Are you sure?")) { location.hash = "#sect." + activeTab; return; }
+    }
+    const content = document.getElementById("content").children;
+    for (let i = 0; i < content.length; i++) {
+        const elem = content[i];
+        elem.removeAttribute("active");
+    }
+    if (document.getElementById(tabid) == null) {
+        console.warn(`Tab not found... [${tabid}]`);
+        return;
+    }
+    tabSaved = false;
+    activeTab = tabid;
+    document.getElementById(tabid).setAttribute("active", "");
 }
 
 onAuthStateChanged(auth, async (user) => {
@@ -110,6 +136,11 @@ onAuthStateChanged(auth, async (user) => {
     });
     await checkVaild(user, data);
 
+    window.addEventListener("hashchange", (ev) => {
+        switchTab(window.location.hash.replace("#sect.", ""));
+    })
+    switchTab(window.location.hash.replace("#sect.", ""));
+
     const showBlues = document.getElementById("showBlues");
     const showGameHistory = document.getElementById("showGameHistory");
     const showKits = document.getElementById("showKits");
@@ -118,7 +149,11 @@ onAuthStateChanged(auth, async (user) => {
     const showLastOnline = document.getElementById("showLastOnline");
     const allowFriendRequests = document.getElementById("acceptFriendRequests");
 
+    const primaryColor = document.getElementById("primarycolor");
+    const secondaryColor = document.getElementById("secondarycolor");
+
     const profilePrivacySettingExists = data.communitySettings != null && data.communitySettings.privacy != null;
+    const profileCustomizationExists = data.profileSettings != null;
 
     if (profilePrivacySettingExists) {
         showBlues.value = data.communitySettings.privacy.showBlues;
@@ -128,6 +163,158 @@ onAuthStateChanged(auth, async (user) => {
         showStatus.value = data.communitySettings.privacy.showStatus;
         showLastOnline.value = data.communitySettings.privacy.showLastOnline;
         allowFriendRequests.value = data.communitySettings.allowFriendRequests;
+    }
+    if (profileCustomizationExists) {
+        primaryColor.value = data.profileSettings.primaryColor;
+        secondaryColor.value = data.profileSettings.secondaryColor;
+    }
+
+    const updateClrPreview = () => {
+        document.getElementById("clrpreview").style.backgroundImage = `linear-gradient(${primaryColor.value}, ${secondaryColor.value})`;
+    };
+    updateClrPreview();
+
+    primaryColor.addEventListener("input", () => {
+        updateClrPreview();
+    });
+    secondaryColor.addEventListener("input", () => {
+        updateClrPreview();
+    });
+
+    const active = document.getElementsByClassName("activesubscription");
+    for (let i = 0; i < active.length; i++) {
+        const element = active[i];
+        element.style.display = "none";
+    }
+    if (await hasBluekidPlus()) {
+        const elems = document.getElementsByClassName("beforepurchase");
+        for (let i = 0; i < elems.length; i++) {
+            const element = elems[i];
+            element.style.display = "none";
+        }
+        for (let i = 0; i < active.length; i++) {
+            const element = active[i];
+            element.style.display = "flex";
+        }
+
+        const _subdetails = httpsCallable(functions, "bmacDetails");
+        const subdetails = (await _subdetails()).data;
+        document.getElementById("payeremail").innerText = subdetails.bmac.payer_email;
+        document.getElementById("subscriptionId").innerHTML = subdetails.bmac.transaction_id;
+        document.getElementById("subtype").innerHTML = subdetails.bmac.subscription_duration_type;
+        /**
+         * @type {Date}
+         */
+        const expiration = new Date(subdetails.bmac.subscription_current_period_end);
+        const diffInMs   = expiration - new Date()
+        const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+        document.getElementById("renewalspan").innerHTML = diffInDays;
+
+        document.getElementById("transactionToggle").addEventListener("click", () => {
+            document.getElementById("subscriptionId").toggleAttribute("hide");
+        })
+        document.getElementById("emailToggle").addEventListener("click", () => {
+            document.getElementById("payeremail").toggleAttribute("hide");
+        });
+
+        document.getElementById("unlink").addEventListener("click", () => {
+            document.getElementById("unlinkmembership").showModal();
+        })
+
+        let canUpdateUnlinkBtn = true;
+        document.getElementById("unlink_understand").addEventListener("change", () => {
+            if (canUpdateUnlinkBtn == false) {return;}
+            const value = document.getElementById("unlink_understand").checked;
+            if (value) {
+                document.getElementById("confirmunlink").removeAttribute("disabled");
+            } else {
+                document.getElementById("confirmunlink").setAttribute("disabled", "");
+            }
+        });
+        document.getElementById("confirmunlink").addEventListener("click", async () => {
+            const original = document.getElementById("confirmunlink").innerHTML;
+            document.getElementById("confirmunlink").setAttribute("disabled", "");
+            document.getElementById("confirmunlink").innerHTML = "Authenticating...";
+            canUpdateUnlinkBtn = false;
+
+            // Remove from firebase
+            document.getElementById("confirmunlink").innerHTML = "Verifying...";
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                subscriptionDetails: null
+            });
+
+            // Tell success
+            alert("Success!");
+            location.hash = "#sect.accountinfo";
+            location.reload();
+        });
+
+        const startDate = new Timestamp(subdetails.firebase.confirmationDate._seconds, subdetails.firebase.confirmationDate._nanoseconds).toDate();
+        document.getElementById("membersince").title = startDate;
+        document.getElementById("membersince").innerHTML = startDate.toLocaleDateString();
+    }
+
+
+    let useEmail = user.email;
+    document.getElementById("confirmEmail").innerText = useEmail;
+    if (document.getElementById("confirmMember") != null)
+    {
+        document.getElementById("confirmMember").addEventListener("click", () => {
+            document.getElementById("membershipConfirmation").showModal();
+        });
+        document.getElementById("continueMembershipConfirmation").addEventListener("click", () => {
+            document.getElementById("membershipConfirmation").close();
+            document.getElementById("membershipConfirmation2").showModal();
+        })
+        document.getElementById("useDiffEmail").addEventListener("click", () => {
+            document.getElementById("switchEmailCheck").showModal();
+        });
+        document.getElementById("switchEmailCheckBack").addEventListener("click", () => {
+            document.getElementById("switchEmailCheck").close();
+        })
+        document.getElementById("switchEmailCheck").addEventListener("submit", (e) => {
+            useEmail = document.getElementById("switchedEmail").value;
+            document.getElementById("switchedEmail").value = "";
+            document.getElementById("confirmEmail").innerText = useEmail;
+        })
+        document.getElementById("resetToAccountEmail").addEventListener("click", () => {
+            useEmail = user.email;
+            document.getElementById("confirmEmail").innerText = useEmail;
+        });
+        let originalHTML = document.getElementById("confirmMembership").innerHTML
+        document.getElementById("confirmMembership").addEventListener("click", async () => {
+            document.getElementById("confirmMembership").setAttribute("disabled", "");
+            document.getElementById("confirmMembership").innerHTML = `<i class="fa-solid fa-spinner fa-spin fa-xl"></i> Checking...`;
+
+            const verify = httpsCallable(functions, "verifyBluekidPlus");
+
+            const verified = await verify(useEmail).catch((error) => {
+                // Getting the Error details.
+                const code = error.code;
+                const message = error.message;
+                const details = error.details;
+                console.error(code, message, details);
+                showNotification(3, "Something went wrong, check the console.");
+                return null;
+            });
+
+            document.getElementById("membershipConfirmation2").close();
+
+            console.log(verified);
+            if (verified != null) {
+                if (verified.data.status == "bkp/not_active") {
+                    showNotification(3, "Subscription is not active. Subscribe <a href=\"https://buymeacoffee.com/funfox/membership\">here</a>.");
+                } else if (verified.data.status == "bkp/email_in_use") {
+                    showNotification(3, "Email is already in use. Subscribe <a href=\"https://buymeacoffee.com/funfox/membership\">here</a>.");
+                } else {
+                    showNotification(4, `Confirmation sent to ${useEmail}, make sure to check your spam folder.`);
+                }
+            }
+            
+
+            document.getElementById("confirmMembership").removeAttribute("disabled");
+            document.getElementById("confirmMembership").innerHTML = originalHTML;
+        });
     }
 
     document.getElementById("openprofile").href = location.origin + `/profile/user/index.html?id=${uid}`;
@@ -215,4 +402,13 @@ onAuthStateChanged(auth, async (user) => {
 
         location.href = "../index.html";
     });
+
+    const content = document.getElementById("content").children;
+    for (let i = 0; i < content.length; i++) {
+        const elem = content[i];
+        if (!elem.hasAttribute("needs_saved")) {continue;}
+        document.getElementById(elem.getAttribute("needs_saved")).addEventListener("click", () => {
+            tabSaved = true;
+        });
+    }
 });

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
                 <h3>Image options</h3>
                 <div id="imageoptions">
                     <div style="background-color: black;width:256px;height: 256px;">
-                        <img id="qimg" src="" alt="cover" height="256" width="256">
+                        <img id="qimg" alt="cover" height="256" width="256">
                     </div>
                     <div id="questioncontainer_imgoptions">
                         <button id="uploadurlquestion" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload URL</button>
@@ -93,6 +93,24 @@
             <button type="reset" onclick="document.getElementById('uploadfiledialog').close()" id="uploadfileclose" class="puffy_button">Close</button>
         </form>
     </dialog>
+    <dialog id="toobig">
+        <img src="../../asset/bluekidplus/bkpbanner.png" alt="" style="border-radius: 10px;" width="720">
+        <h1 style="font-size: 2rem;">File too big!</h1>
+        <p>With Bluekid Plus, you can upload up to 35 MB. Currently, you can only upload 5 MB.</p>
+        <div class="actions">
+            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a onclick="document.getElementById('toobig').close()"><button class="puffy_button">Back</button></a>
+        </div>
+    </dialog>
+    <dialog id="gif">
+        <img src="../../asset/bluekidplus/bkpbanner.png" alt="" style="border-radius: 10px;" width="720">
+        <h1 style="font-size: 2rem;">Nice thumbnail!</h1>
+        <p>Sadly, only Bluekid Plus users can use GIFs.</p>
+        <div class="actions">
+            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a onclick="document.getElementById('gif').close()"><button class="puffy_button">Back</button></a>
+        </div>
+    </dialog>
     <section>
         <h1>Edit kit</h1>
         <div class="space"></div>
@@ -142,7 +160,7 @@
                 <div id="allQuestions">
                     <div class="container question" id="ex">
                         <div style="background-color: black;width:200px;height: 200px;float:left;">
-                            <img src="" style="object-fit: contain;" alt="cover" height="200" width="200">
+                            <img style="object-fit: contain;" alt="cover" height="200" width="200">
                         </div>
                         <div>
                             <h1>question</h1>

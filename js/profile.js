@@ -1,6 +1,8 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, signOut, forceOffline } from "./util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, forceOffline, hasBluekidPlus, FirebaseHelper } from "./util/firebase.js";
 
 import { isUserVaild, UserReasons } from "./util/auth_helper.js";
+
+import { CommunityUtilites } from "./profile/community.js";
 
 async function checkVaild(user, userData) {
     return new Promise(async (res, rej) => {
@@ -73,66 +75,19 @@ async function checkVaild(user, userData) {
 var cachedBadges = null;
 
 async function loadBadges(uid) {
-    if (cachedBadges == null) {
-        var badges_ref = doc(db, "users", uid);
-        var badges = await getDoc(badges_ref).then((res) => {
-            if (!res.exists()) {
-                return null;
-            }
-            return res.data().badges;
-        });
-        if (badges == null || badges == undefined) { return; }
-        cachedBadges = badges;
-    }
-    var w = window.innerWidth;
-    let amountToShow = Math.max;
-    console.log(w);
-    // if (w < 1450) {
-    //     amountToShow = 4;
-    // }
-    // if (w < 1365) {
-    //     amountToShow = 3;
-    // }
-    // if (w < 1125) {
-    //     amountToShow = 2;
-    // }
-    // if (w < 1000) {
-    //     amountToShow = 1;
-    // }
-    // if (w < 900) {
-    //     amountToShow = 0;
-    // }
-    // const children = document.getElementById("badges").children;
-    // for (let i = 0; i < children.length; i++) {
-    //     const child = children[i];
-    //     if (child.id == "badgeex" || child.id == "showAllBadges") {continue;}
-    //     child.remove();
-    // }
-
-    var isOwner = false;
-    for (let i = 0; i < cachedBadges.length; i++) {
-        const badgeName = cachedBadges[i];
+    const badges = await FirebaseHelper.getBadges(uid);
+    for (let i = 0; i < badges.length; i++) {
+        const badgeName = badges[i];
         const clone = document.getElementById("badgeex").cloneNode(true);
         clone.id = "";
         clone.title = badgeName;
         const friendlyName = badgeName.replace(" ", "");
         clone.children[0].src = `../asset/badges/${friendlyName}.png`;
-        // clone.children[1].innerHTML = badgeName;
-        if (friendlyName == "OfficialCreator") {
-            isOwner = true;
-        }
-
-        if (i >= amountToShow) {
-            document.getElementById("showAllBadges").style.display = "unset";
-            document.getElementById("badges2").appendChild(clone.cloneNode(true));
-            continue;
+        if (friendlyName == "BluekidPlus") {
+            clone.classList.add("badge--bkp");
         }
 
         document.getElementById("badges").appendChild(clone);
-        document.getElementById("badges2").appendChild(clone.cloneNode(true));
-    }
-    if (!isOwner) {
-        document.getElementById("dev").remove();
     }
 }
 
@@ -149,13 +104,14 @@ onAuthStateChanged(auth, async (user) => {
         }
         return res.data();
     });
+    loadBadges(uid);
     await checkVaild(user, userData);
+    
     document.getElementById("username").innerText = userData.username;
     if (userData.friends != undefined) {
         document.getElementById("friends").innerHTML = userData.friends.length;
     }
 
-    loadBadges(uid);
 
     var time = (Date.parse(userData.creation) - new Date()); // milliseconds between now & user creation
     var diffDays = -Math.floor(time / 86400000); // days
@@ -169,6 +125,32 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("datav2Popup").showModal();
     }
     
+    const friendrequests = await CommunityUtilites.getAllRequests(auth.currentUser);
+    console.log(friendrequests);
+    for (let i = 0; i < friendrequests.length; i++) {
+        const element = friendrequests[i];
+        const data = await getDoc(doc(db, "users", element));
+        if (!data.exists) {
+            continue;
+        }
+        document.getElementById("noincomingfriends").style.display = "none;"
+        const clone = document.getElementById("requestex").cloneNode(true);
+        clone.children[0].children[0].innerText = data.data().username;
+        clone.children[0].children[1].innerHTML = element;
+        clone.children[1].children[0].addEventListener("click", async () => {
+            clone.children[1].children[0].innerHTML = `<i class="fa-solid fa-ellipsis"></i>`;
+            clone.children[1].children[0].setAttribute("disabled", "");
+            await CommunityUtilites.acceptFriendReq(auth.currentUser, element);
+            location.href = "./community.html";
+        });
+        clone.children[1].children[1].addEventListener("click", async () => {
+            clone.children[1].children[1].innerHTML = `<i class="fa-solid fa-ellipsis"></i>`;
+            clone.children[1].children[1].setAttribute("disabled", "");
+            await CommunityUtilites.ignoreFriendReq(auth.currentUser, element);
+            location.href = "./community.html";
+        });
+        document.getElementById("incomingfriendreq").appendChild(clone);
+    }
 
     document.getElementById("logout").addEventListener("click", async () => {
         await forceOffline();

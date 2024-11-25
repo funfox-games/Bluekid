@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm your Bluekid Plus</title>
+
+    <link rel="stylesheet" href="../../css/all.css">
+    <link rel="stylesheet" href="../../css/purchase/confirm.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog noanim id="congrats">
+        <h1>You are successfully subscribed!</h1>
+        <a href="../index.html"><button class="puffy_button primary">Go to profile</button></a>
+    </dialog>
+    <dialog id="working">
+        <h1><i class="fa-solid fa-xl fa-spinner fa-spin"></i> Working...</h1>
+    </dialog>
+    <section class="section__center">
+        <h1 style="padding: 10px;background-color: rgba(0, 0, 0, 0.185);border-radius: 10px;"><span class="blue">Blue</span>kid <span class="plusColor">Plus</span></h1>
+        <div class="littlespace"></div>
+        <p>To finish the verification process, please verify your account below.</p>
+        <br>
+        <button class="puffy_button" id="google" type="button" style="align-items: center;display:flex;gap:7px;color: black;background-image: linear-gradient(45deg, #fff, #cfcfcf);"><img src="../../asset/google.webp" alt="googleLogo" width="22"> Login with Google</button>
+        <div class="littlespace"></div>
+        <p>OR</p>
+        <div class="container" style="text-align: left;">
+            <div>
+                <div style="display:flex;gap:3px;align-items: center;">
+                    <i class="fa-solid fa-key"></i>
+                    <p>Password</p>
+                </div>
+                <input class="input" id="password" style="text-align: left;" type="password" required placeholder="Enter password...">
+            </div>
+            <div class="littlespace"></div>
+            <button class="puffy_button primary" id="reauth">Reauthenticate</button>
+        </div>
+
+        
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script async type="module" src="../../js/purchase/confirm.js"></script>
+</body>
+</html>

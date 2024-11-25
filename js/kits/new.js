@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, collection, storageref, storage, uploadBytes, getDownloadURL, setDoc, KIT_COVER_LOCATION } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, collection, storageref, storage, uploadBytes, getDownloadURL, setDoc, KIT_COVER_LOCATION, getDocs, hasBluekidPlus } from "../util/firebase.js";
 
 let currentImg = "../../asset/templates/kit_temp.png";
 let userData;
@@ -25,6 +25,12 @@ async function checkImage(url) {
 }
 
 async function createKit(title, description, visiblity, canclone) {
+    const col = await getDocs(collection(db, "users", auth.currentUser.uid, "kits"));
+    if (col.size + 1 >= 20 && !(await hasBluekidPlus())) {
+        document.getElementById("limitreached").showModal();
+        return;
+    }
+
     const data = {
         "displayname": title,
         "description": description,

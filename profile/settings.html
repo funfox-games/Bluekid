@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,32 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog id="membershipConfirmation">
+        <h1>Membership Confirmation</h1>
+        <p>If you haven't already, buy a membership <a href="https://buymeacoffee.com/funfox/membership" style="color: black;">here.</a></p>
+        <button class="puffy_button primary" id="continueMembershipConfirmation">Continue <i class="fa-solid fa-arrow-right"></i></button>
+    </dialog>
+    <dialog id="membershipConfirmation2" noanim>
+        <h1>Is this correct?</h1>
+        <i id="confirmEmail" style="font-size: 2rem;">email@example.com</i>
+        <a style="color:black;" href="#" id="useDiffEmail">Use a different email</a>
+        <a style="color:black;" href="#" id="resetToAccountEmail">Reset to account email</a>
+        <hr>
+        <button class="puffy_button subscription_btn" id="confirmMembership"><i class="fa-solid fa-square-check"></i> Activate</button>
+    </dialog>
+    <dialog id="switchEmailCheck">
+        <h1>Check different email</h1>
+        <p>If you used a different email, enter it here! (It's ok, it happens to all of us)</p>
+        <form method="dialog" style="width: 100%;">
+            <input type="email" class="input" style="width: 100%;" id="switchedEmail" required>
+            <br>
+            <div style="width: 100%;display:flex;gap:5px;">
+                <button style="flex:1;" class="puffy_button primary">Use</button>
+                <button style="flex:1;" id="switchEmailCheckBack" class="puffy_button" type="button">Go back</button>
+            </div>
+        </form>
+        
+    </dialog>
     <dialog id="deleteaccountdialog">
         <h1>Account deletion</h1>
         <p>Warning! This is a dangerous action that CANNOT be reverted!<br>Confirm your email and password below.</p>
@@ -20,6 +46,24 @@
         <form method="dialog">
             <button type="button" id="confirmdelete" class="puffy_button danger">Confirm delete</button>
             <button class="puffy_button">Close</button>
+        </form>
+    </dialog>
+    <dialog id="unlinkmembership">
+        <h1>Unlink membership confirmation</h1>
+        <b>WARNING! The following things will happen when this process is complete:</b>
+        <ul>
+            <li>Your email is available for any account to use [needs verification by you, of course]</li>
+            <li>Your payment on BuyMeACoffee will still charge you</li>
+            <li>You will lose Bluekid+ perks</li>
+        </ul>
+        <label class="toggle" for="unlink_understand">
+            <input class="toggle_input" type="checkbox" id="unlink_understand">
+            <div class="toggle_fill"></div>
+            I understand
+        </label>
+        <form method="dialog">
+            <button class="puffy_button danger" id="confirmunlink" type="button" disabled>Confirm unlink</button>
+            <button class="puffy_button">Cancel</button>
         </form>
     </dialog>
     <div id="sidenav">
@@ -48,121 +92,192 @@
         </div>
     
     </div>
-    <section>
-        <h1>Social Settings</h1>
-        <hr>
-        <div style="border-left:3px solid rgb(0, 0, 0, .5);border-radius: 10px; padding-left: 10px;padding-top: 10px;padding-bottom: 10px;">
-            <h2>Community</h2>
-            <a id="openprofile" href=""><button class="puffy_button green"><i class="fa-solid fa-up-right-from-square"></i> Open
-                    profile</button></a>
-            <div class="space"></div>
-            <label class="toggle" for="acceptFriendRequests">
-                <input class="toggle_input" checked type="checkbox" id="acceptFriendRequests">
-                <div class="toggle_fill"></div>
-                Accept friend requests
-            </label>
+    <section class="outercontent">
+        <div id="settings_sidebar">
+            <div>
+                <h2 nospacing>General</h2>
+                <p>Under construction...</p>
+            </div>
+            <a disabled href="#sect.gamemode"><i class="fa-solid fa-gamepad fa-lg"></i> Gamemodes</a>
+            <a disabled href="#sect.experimental"><i class="fa-solid fa-flask fa-lg"></i> Experimental</a>
 
-            <div class="space"></div>
-            <h2>Privacy</h2>
-            <h3>Hide sections</h3>
-            <label for="showBlues">Show blues to</label>
-            <select id="showBlues">
-                <option value="none">No one</option>
-                <option value="friends" selected>Friends only</option>
-                <option value="all">Everyone</option>
-            </select>
-            <br>
-            <label for="showGameHistory">Show game history to</label>
-            <select id="showGameHistory">
-                <option value="none">No one</option>
-                <option value="friends" selected>Friends only</option>
-                <option value="all">Everyone</option>
-            </select>
-            <br>
-            <label for="showKits">Show kits to</label>
-            <select id="showKits">
-                <option value="none">No one</option>
-                <option value="friends">Friends only</option>
-                <option value="all" selected>Everyone</option>
-            </select>
-            <h3>Hide specific info</h3>
-            <label class="toggle" for="hideTokens">
-                <input disabled class="toggle_input" type="checkbox" id="hideTokens">
-                <div class="toggle_fill"></div>
-                Hide tokens
-            </label>
-            <label for="showStatus">Show status to</label>
-            <select id="showStatus">
-                <option value="none">No one</option>
-                <option value="friends">Friends only</option>
-                <option value="all" selected>Everyone</option>
-            </select>
-            <br>
-            <label for="showLastOnline">Show last online to</label>
-            <select id="showLastOnline">
-                <option value="none">No one</option>
-                <option value="friends">Friends only</option>
-                <option value="all" selected>Everyone</option>
-            </select>
-            <div class="littlespace"></div>
-            
-            <h2>Customization</h2>
-            <div class="info"><i class="fa-solid fa-circle-info fa-xl"></i> Coming soon... :]</div>
+            <h2>Account</h2>
+            <a href="#sect.accountinfo"><i class="fa-solid fa-id-card fa-lg"></i> Account Info</a>
+            <a href="#sect.community"><i class="fa-solid fa-people-group fa-lg"></i> Community</a>
 
+            <h2>Bluekid Plus</h2>
+            <a id="update_bkp" class="beforepurchase bkp" href="./purchase/index.html?ref=settings"><i class="fa-solid fa-circle-up fa-lg"></i> Upgrade</a>
+            <a class="beforepurchase" href="#sect.verify"><i class="fa-solid fa-lg fa-certificate"></i> Verify</a>
 
-            <div class="space"></div>
-            <button class="puffy_button primary" id="saveProfileSettings"><i class="fa-solid fa-floppy-disk"></i> Save all profile settings</button>
+            <a class="activesubscription" href="#sect.bkpmanagement"><i class="fa-solid fa-bars-progress"></i> Management</a>
 
         </div>
-        
+        <div id="content">
+            <div id="accountinfo" active>
+                <!-- <h2>Account Plan</h2>
+                <p style="font-size: 1.25rem;">Bluekid <b>Standard</b></p>
+                <button id="confirmMember" class="puffy_button subscription_btn standardonly"><i class="fa-solid fa-check"></i> Confirm Membership</button> -->
+                <h2>Stats</h2>
+                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                    <p>UID: <b id="userid"></b></p>
+                    <p>Tokens: <b id="tokens"></b> coins</p>
+                    <p>Username: <b id="username"></b></p>
+                </div>
+                <br>
+                <h2>Standard Options</h2>
+                <label class="toggle" for="optimizeProfiles">
+                    <input disabled class="toggle_input" type="checkbox" id="optimizeProfiles">
+                    <div class="toggle_fill"></div>
+                    Optimize profiles <i class="fa-solid fa-circle-question" title="!IN DEVELOPMENT! Doesn't load all of the profile details unless specified."></i>
+                </label>
+                <br>
+                <h2>Change name</h2>
+                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                    <input type="text" class="input" placeholder="Enter new name..." id="newname">
+                    <input type="text" class="input" placeholder="Confirm new name..." id="confirmnewname">
+                    <button class="puffy_button primary" id="changename"><i class="fa-solid fa-shuffle"></i> Change name</button>
+                </div>
+                <br>
+                <h2>Change password</h2>
+                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                    <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-solid fa-envelope"></i> Send password reset
+                        email</button>
+                </div>
+                
+                <br>
+                
+                <h2>Change Email</h2>
+                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                    <input type="text" class="input" placeholder="Enter old email..." id="newemail">
+                    <input type="text" class="input" placeholder="Enter new email..." id="confirmemail">
+                    <button class="puffy_button primary" id="changemail"><i class="fa-solid fa-shuffle"></i> Change email</button>
+                </div>
+                <br>
+                <h2>Danger</h2>
+                <button id="deleteaccount" class="puffy_button danger"><i class="fa-solid fa-user-slash"></i> Delete account</button>
+            </div>
+            <div needs_saved="saveProfileSettings" id="community">
+                <button class="puffy_button primary" id="saveProfileSettings"><i class="fa-solid fa-floppy-disk"></i> Save all profile settings</button>
+                <div class="line"></div>
+                <h2>Community</h2>
+                <a id="openprofile" href=""><button class="puffy_button green"><i class="fa-solid fa-up-right-from-square"></i> Open
+                        profile</button></a>
+                <div class="space"></div>
+                <label class="toggle" for="acceptFriendRequests">
+                    <input class="toggle_input" checked type="checkbox" id="acceptFriendRequests">
+                    <div class="toggle_fill"></div>
+                    Accept friend requests
+                </label>
 
-        
-        <br>
-        <h1>General Settings</h1>
-        <hr>
-        <div style="border-left:3px solid rgb(0, 0, 0, .5);border-radius: 10px; padding-left: 10px;padding-top: 10px;padding-bottom: 10px;">
-            <h2>Account Plan</h2>
-            <p style="font-size: 1.25rem;">Bluekid <b>Standard</b></p>
-            <a href="./purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
-            <h2>Stats</h2>
-            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                <p>UID: <b id="userid"></b></p>
-                <p>Tokens: <b id="tokens"></b> coins</p>
-                <p>Username: <b id="username"></b></p>
+                <div class="space"></div>
+                <h2>Privacy</h2>
+                <h3>Hide sections</h3>
+                <label for="showBlues">Show blues to</label>
+                <select id="showBlues">
+                    <option value="none">No one</option>
+                    <option value="friends" selected>Friends only</option>
+                    <option value="all">Everyone</option>
+                </select>
+                <br>
+                <label for="showGameHistory">Show game history to</label>
+                <select id="showGameHistory">
+                    <option value="none">No one</option>
+                    <option value="friends" selected>Friends only</option>
+                    <option value="all">Everyone</option>
+                </select>
+                <br>
+                <label for="showKits">Show kits to</label>
+                <select id="showKits">
+                    <option value="none">No one</option>
+                    <option value="friends">Friends only</option>
+                    <option value="all" selected>Everyone</option>
+                </select>
+                <h3>Hide specific info</h3>
+                <label class="toggle" for="hideTokens">
+                    <input disabled class="toggle_input" type="checkbox" id="hideTokens">
+                    <div class="toggle_fill"></div>
+                    Hide tokens
+                </label>
+                <label for="showStatus">Show status to</label>
+                <select id="showStatus">
+                    <option value="none">No one</option>
+                    <option value="friends">Friends only</option>
+                    <option value="all" selected>Everyone</option>
+                </select>
+                <br>
+                <label for="showLastOnline">Show last online to</label>
+                <select id="showLastOnline">
+                    <option value="none">No one</option>
+                    <option value="friends">Friends only</option>
+                    <option value="all" selected>Everyone</option>
+                </select>
+                <div class="littlespace"></div>
+                
+                <h2>Customization</h2>
+                <div class="colorpicker">
+                    <input type="color" value="#ffffff" id="primarycolor">
+                    <label for="primarycolor">Primary color</label>
+                </div>
+                <div class="littlespace"></div>
+                <div class="colorpicker">
+                    <input type="color" value="#80b5d8" id="secondarycolor">
+                    <label for="secondarycolor">Secondary color</label>
+                </div>
+                <div class="space"></div>
+                <div class="side">
+                    <div style="background-image: linear-gradient(#ffffff, #80b5d8);" id="clrpreview"></div>
+                    <p>Color preview</p>
+                </div>
+                <div class="line"></div>
+                <div class="side">
+                    <div class="locked">
+                        <h1><i class="fa-solid fa-lock"></i> Locked</h1>
+                        <p>You'll be able to change your featured blue after development!</p>
+                    </div>
+                    <div id="featuredblue">
+                        <img src="../asset/char/blue_broken.png">
+                    </div>
+                    <div>
+                        <h2>Featured Blue</h2>
+                        <p small>This will show up as your profile picture!</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div show class="container bkplusbanner">
+                    <img src="../asset/bluekidplus/expandedprofiles.png" width="250" alt="bluekid plus banner">
+                    <div style="font-size: 1.25rem;">
+                        <h1>More customization coming soon!</h1>
+                        <p>As promised, Bluekid+ members will get expanded profile customization. This feature is currently in development! Don't worry Standard users, more is coming to you too!</p>
+                    </div>
+                </div>
             </div>
-            <br>
-            <h2>Standard Options</h2>
-            <label class="toggle" for="optimizeProfiles">
-                <input class="toggle_input" type="checkbox" id="optimizeProfiles">
-                <div class="toggle_fill"></div>
-                Optimize profiles <i class="fa-solid fa-circle-question" title="Doesn't load all of the profile details unless specified."></i>
-            </label>
-            <br>
-            <h2>Change name</h2>
-            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                <input type="text" class="input" placeholder="Enter new name..." id="newname">
-                <input type="text" class="input" placeholder="Confirm new name..." id="confirmnewname">
-                <button class="puffy_button primary" id="changename"><i class="fa-solid fa-shuffle"></i> Change name</button>
+            <div id="verify" class="center">
+                <div class="inner">
+                    <img src="../asset/bluekidplus/bkpbanner.png" width="720" alt="bluekid plus banner">
+                    <h1>Made up your mind?</h1>
+                    <p>Enjoy more fun with Bluekid Plus! See benifits and more info <a href="./purchase/index.html">here</a>.</p>
+                    <button class="puffy_button subscription_btn" style="margin: 12px;" id="confirmMember"><i class="fa-solid fa-money-check"></i> Verify</button>
+                </div>
+               
             </div>
-            <br>
-            <h2>Change password</h2>
-            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-solid fa-envelope"></i> Send password reset
-                    email</button>
+            <div id="bkpmanagement" style="font-size: 1.75rem;">
+                <h1>Subscription Active</h1>
+                <p>Been a member ever since <span id="membersince">--</span>.</p>
+                <br>
+                <p>Subscription type: <b id="subtype">Monthly</b></p>
+                <p>Next renewal<span style="font-size: 1rem;">/expiration</span> in <b id="renewalspan">0</b> days.</p>
+                <p style="display: flex;align-items: center;gap:5px;"><button class="icon_button danger" id="transactionToggle"><i class="fa-solid fa-eye"></i></button> Transaction ID: <span id="subscriptionId" hide>unknown</span></p>
+                <p style="display: flex;align-items: center;gap:5px;margin-top: 5px;"><button class="icon_button danger" id="emailToggle"><i class="fa-solid fa-eye"></i></button> Payer email: <span id="payeremail" hide>unknown</span></p>
+                <br>
+                <p style="font-size: 1rem;">The button below removes the connection between your BuyMeACoffee account and Bluekid account.<br>Please be cautious, as this opens your email for use on other accounts.</p>
+                <button class="puffy_button danger" id="unlink"><i class="fa-solid fa-link-slash"></i> Unlink membership</button>
+                <br>
+                <br>
+                <p style="font-size: 1rem;">The button below brings you to BuyMeACoffee where you can cancel your membership,<br>update your payment info, and see more details about Bluekid Plus.</p>
+                <a href="https://studio.buymeacoffee.com/my-account/payments/memberships"><button class="puffy_button primary"><i class="fa-solid fa-list-check"></i> Manage membership</button></a>
             </div>
-            
-            <br>
-            
-            <h2>Change Email</h2>
-            <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                <input type="text" class="input" placeholder="Enter old email..." id="newemail">
-                <input type="text" class="input" placeholder="Enter new email..." id="confirmemail">
-                <button class="puffy_button primary" id="changemail"><i class="fa-solid fa-shuffle"></i> Change email</button>
-            </div>
-            <br>
-            <h2>Danger</h2>
-            <button id="deleteaccount" class="puffy_button danger"><i class="fa-solid fa-user-slash"></i> Delete account</button>
         </div>
+        
         
     </section>
 

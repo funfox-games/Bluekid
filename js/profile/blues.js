@@ -1,6 +1,9 @@
 import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, updateDoc, deleteDoc, signOut, collection } from "../util/firebase.js";
 
-import * as __data from "../../asset/blues.json" with { type: "json" };
+// import * as __data from "../../asset/blues.json" with { type: "json" };
+let pack_data = null;
+const _data = await fetch("../../asset/blues.json");
+pack_data = await _data.json();
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -69,7 +72,6 @@ async function checkVaild(user, userData) {
     });
 }
 
-var pack_data = __data.default;
 
 var cachedBlues = null;
 var allAddedSections = [];

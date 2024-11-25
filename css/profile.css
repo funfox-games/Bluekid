@@ -88,22 +88,22 @@ section {
 
 .maincontainer {
     display:flex;
-    align-items:start;
+    /* align-items:start; */
     justify-content: stretch;
-    gap:10px;
 }
 .maincontainer > div {
     padding: 10px;
-    background-color: #0000001f;
+    /* background-color: #0000001f; */
     border-radius: 8px;
 }
 .maincontainer > div[left] {
     display:flex;
     flex-direction: column;
     gap:5px;
-
+    border-right: 1px solid black;
 }
 .maincontainer > div[right] {
+    border-left: 1px solid black;
     flex: 1;
 }
 #datav2 {
@@ -128,4 +128,29 @@ section {
 }
 .quickstat:hover {
     text-decoration: underline;
+}
+#incoming_friend_requests {
+    background-color: #0000001f;
+}
+.request {
+    background-color: #0000001f;
+    display:flex;
+    justify-content: space-between;
+    color:black;
+}
+.request > div[actions] {
+    display:flex;
+    gap:5px;
+    align-items: center;
+}
+#requestex {
+    display: none;
+}
+#noincomingfriends {
+    display:flex;
+    gap:5px;
+    background-color: #0000001f;
+    padding: 10px;
+    align-items: center;
+    border-radius: 10px;
 }

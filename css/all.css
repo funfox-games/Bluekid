@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+/* * {box-sizing:border-box;} */
 *{
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
@@ -92,10 +93,14 @@ section {
     color: white;
     cursor:pointer;
     border-style: solid;
-    border: 0px transparent black;
+    outline: none;
+    border: 2px solid black;
 }
 .puffy_button:not(.subscription_btn):hover {
     filter:brightness(110%);
+    transform: translateY(-2px);
+    -webkit-box-shadow: 0px 10px 13px -7px #000000; 
+    box-shadow: 0px 10px 13px -7px #000000;
 }
 .puffy_button:disabled {
     filter: brightness(70%);
@@ -266,7 +271,7 @@ dialog::backdrop {
     color: white;
     cursor: pointer;
     border-style: solid;
-    border: 0px transparent black;
+    border: 1.75px solid black;
 }
 .icon_button.primary {
     background-color: var(--primary-color);
@@ -401,6 +406,11 @@ dialog::backdrop {
     background-color: var(--plus-color);
     color: black;
     overflow: hidden;
+    /* box-shadow: 0 0 10px 0 rgba(0,0,0,0.45) inset; */
+    transition-duration: 250ms;
+}
+.subscription_btn:hover {
+    box-shadow: rgb(224, 255, 85) 0px 0px 0px 3px, rgb(170, 194, 64) 0px 0px 0px 6px, rgb(144, 167, 55) 0px 0px 0px 9px, rgb(84, 97, 32) 0px 0px 0px 12px;
 }
 .subscription_btn::after{
     content: "";
@@ -428,4 +438,101 @@ dialog::backdrop {
 
 .plusColor {
     color: var(--plus-color)
+}
+
+.actions {
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+}
+
+.bkplusbanner {
+    display:none;
+}
+.bkplusbanner[show] {
+    background-color: rgba(255, 255, 120, 0.35);
+    -webkit-box-shadow: 0px 0px 20px 5px rgba(255, 255, 120, 0.35); 
+    box-shadow: 0px 0px 20px 5px rgba(255, 255, 120, 0.35);
+    display:flex;
+    gap:10px;
+    align-items: center;
+    margin: 10px;
+}
+.badge--bkp {
+    overflow: hidden;
+    filter: drop-shadow(0px 0px 10px #f700ff);
+}
+.badge--bkp::after{
+    content: "";
+    position:absolute;
+    left: -30%;
+    top: -10%;
+    width: 5px;
+    height: 120%;
+    rotate: 20deg;
+    background-color: white;
+    animation: bkpshine 3s forwards infinite;
+}
+@keyframes bkpshine {
+    0% {
+        left: -30%
+    }
+    25% {
+        left: 130%
+    }
+    100% {
+        left: 130%
+    }
+}
+
+#firefoxWarningthing {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #ffbcbc;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 1.75rem;
+    cursor: pointer;
+
+    position: fixed;
+    right:0;
+    bottom: 20px;
+    transition-duration: 250ms;
+    transform: translateX(10px);
+    z-index: 9999;
+    opacity: .75;
+}
+#firefoxWarningthing:hover {
+    transform: translateX(0px);
+}
+
+.colorpicker {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    gap:5px;
+}
+.colorpicker input {
+    border-radius: 50%;
+    inline-size: 30px;
+    block-size: 30px;
+    padding: 0px;
+    outline: none;
+    border: none;
+}
+/* Affects area between outer circle and color swatch. Firefox doesn't have an equivalent. */
+.colorpicker input::-webkit-color-swatch-wrapper {
+  padding: 1px;
+}
+
+/* Affects the inner circle, i.e. the current color selection */
+.colorpicker input::-webkit-color-swatch {
+  border-radius: 50%;
+}
+
+.colorpicker input::-moz-color-swatch {
+  border-radius: 50%;
 }

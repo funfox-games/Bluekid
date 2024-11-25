@@ -1,8 +1,9 @@
-import { onAuthStateChanged, auth, getDoc, doc, db, FirebaseHelper, ONLINE_TEXT, OFFLINE_TEXT, collection, getDocs, query, where } from "../util/firebase.js";
+import { onAuthStateChanged, auth, getDoc, doc, db, FirebaseHelper, ONLINE_TEXT, OFFLINE_TEXT, collection, getDocs, query, where, updateDoc } from "../util/firebase.js";
 
-import * as blue_data from "../../asset/blues.json" with { type: "json" };
-
-var cachedBadges = null;
+// import * as blue_data from "../../asset/blues.json" with { type: "json" };
+let blue_data = null;
+const _data = await fetch("../../asset/blues.json");
+blue_data = await _data.json();
 
 async function checkImage(url) {
     return new Promise((res, rej) => {
@@ -124,6 +125,9 @@ function updatePrivacy(userProfile, all) {
     switch (all.showLastOnline) {
         case "none":
             if (all.showStatus == "none") {break;}
+            if (document.getElementById("lastonline") == null) {
+                break;
+            }
             document.getElementById("lastonline").parentElement.setAttribute("locked", "privacy");
             document.getElementById("lastonline").parentElement.innerHTML = `
             <div class="container" style="background-color: #0000001f;font-size:18px;">
@@ -151,31 +155,18 @@ function updatePrivacy(userProfile, all) {
 }
 
 async function loadBadges(uid) {
-    if (cachedBadges == null) {
-        var badges_ref = doc(db, "users", uid);
-        var badges = await getDoc(badges_ref).then((res) => {
-            if (!res.exists()) {
-                return null;
-            }
-            return res.data().badges;
-        });
-        if (badges == null || badges == undefined) { return; }
-        cachedBadges = badges;
-    }
-    // const children = document.getElementById("badges").children;
-    // for (let i = 0; i < children.length; i++) {
-    //     const child = children[i];
-    //     if (child.id == "badgeex" || child.id == "showAllBadges") {continue;}
-    //     child.remove();
-    // }
+    const badges = await FirebaseHelper.getBadges(uid);
 
-    for (let i = 0; i < cachedBadges.length; i++) {
-        const badgeName = cachedBadges[i];
+    for (let i = 0; i < badges.length; i++) {
+        const badgeName = badges[i];
         const clone = document.getElementById("badgeex").cloneNode(true);
         clone.id = "";
         clone.title = badgeName;
         const friendlyName = badgeName.replace(" ", "");
         clone.children[0].src = `../../asset/badges/${friendlyName}.png`;
+        if (friendlyName == "BluekidPlus") {
+            clone.classList.add("badge--bkp");
+        }
 
         document.getElementById("badges").appendChild(clone);
     }
@@ -187,7 +178,7 @@ async function loadBlues(uid) {
     docs.forEach((doc) => {
         var data = doc.data();
         const id = doc.id;
-        const bluedata = blue_data.default.blues[id];
+        const bluedata = blue_data.blues[id];
 
         const clone = document.getElementById("blue_ex").cloneNode(true);
         clone.id = "";
@@ -343,8 +334,14 @@ onAuthStateChanged(auth, async (user) => {
 
         const userProfileData = userProfile.data();
 
+        if (userProfileData.profileSettings != null) {
+            document.body.style.backgroundImage = `linear-gradient(${userProfileData.profileSettings.primaryColor}, ${userProfileData.profileSettings.secondaryColor})`;
+        }
+
         document.getElementById("username").innerText = userProfileData.username;
         document.getElementById("uid").innerHTML = userProfileId;
+
+        document.getElementById("addfriend").href = "../community.html?friend=" + userProfileId;
 
         // Load user data
 
@@ -390,6 +387,9 @@ onAuthStateChanged(auth, async (user) => {
         const diffHours = Math.floor(time / 3.6e+6);
         const diffWeeks = Math.floor(time / 6.048e+8);
         const diffMonth = Math.floor(time / 2.628e+9);
+        if (document.getElementById("lastonline") == null) {
+            return;
+        }
         if (diffMonth > 0) {
             document.getElementById("lastonline").innerHTML = `${diffMonth} month${diffMonth == 1 ? '' : 's'}`;
         } else if (diffWeeks > 0) {
@@ -412,5 +412,36 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("share").addEventListener("click", () => {
         navigator.clipboard.writeText(location.toString());
         showNotification(4, "Copied to clipboard!")
+    });
+
+    const removefriendhtml = document.getElementById("removefriend").innerHTML;
+    document.getElementById("removefriend").addEventListener("click", async () => {
+        const localDoc = doc(db, "users", auth.currentUser.uid);
+        const theirDoc = doc(db, "users", userProfileId);
+        document.getElementById("removefriend").innerHTML = "Waiting...";
+        document.getElementById("removefriend").setAttribute("disabled", "");
+
+        let _friends = [];
+        const localdata = await getDoc(localDoc).then((doc) => { return doc.data() });
+        _friends = localdata.friends;
+        _friends.splice(_friends.indexOf(userProfileId), 1);
+
+        await updateDoc(localDoc, {
+            friends: _friends
+        });
+
+        _friends = [];
+        const theirdata = await getDoc(theirDoc).then((doc) => { return doc.data() });
+        _friends = theirdata.friends;
+        _friends.splice(_friends.indexOf(userProfileId), 1);
+
+        await updateDoc(theirDoc, {
+            friends: _friends
+        });
+
+        document.getElementById("addfriend").style.display = "unset";
+        document.getElementById("removefriend").style.display = "none";
+        document.getElementById("removefriend").innerHTML = removefriendhtml;
+        document.getElementById("removefriend").removeAttribute("disabled");
     });
 });

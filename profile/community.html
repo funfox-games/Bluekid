@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,16 @@
     <link rel="stylesheet" href="../css/profile/community.css">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body id="COMMUNITY_PAGE">
+    <dialog id="friendprocessing">
+        <h1><i class="fa-solid fa-spinner fa-spin fa-lg"></i> Processing request...</h1>
+    </dialog>
+    <dialog id="friendresult" noanim>
+        <h1><i class="fa-solid fa-check fa-lg"></i> Success!</h1>
+        <form method="dialog">
+            <button class="puffy_button primary">Yippe!</button>
+        </form>
+    </dialog>
     <dialog id="confirm">
         <h1>Confirm friendship</h1>
         <p>You are wanting to friend the person <b id="friendingperson">User</b>.<br>You will be able to do the following with each other:</p>
@@ -88,7 +97,7 @@
                         class="fa-solid fa-face-smile"></i> Social</button></a>
         </div>
         <div id="sidenav_lower">
-            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-solid fa-gears"></i> Settings</button></a>
             <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
@@ -104,74 +113,85 @@
         </div>
         <div class="container" style="background-color: #0000002f;">
             <h2>Add friend</h2>
+            <div class="info"><i class="fa-solid fa-circle-info fa-lg"></i> I'm going to redo this some point</div>
+            <div class="littlespace"></div>
+            <div id="limitReached" class="container bkplusbanner">
+                <img src="../asset/bluekidplus/bkpbanner.png" alt="bluekid plus banner" width="250">
+                <div>
+                    <h1>Friend limit reached</h1>
+                    <p>You can only have <b>50</b> friends with standard. Consider getting Bluekid Plus, and in return, you can get <b>200</b>!</p>
+                    <a href="./purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+                </div>
+            </div>
             <button id="searchFriends" class="puffy_button primary"><i class="fa-solid fa-user-group"></i> Search users</button>
             <div style="display: flex;gap:5px;margin-top: 5px;">
                 <input type="text" id="friendid" placeholder="Enter UID..." class="input">
                 <button id="addfriend" class="puffy_button green"><i class="fa-solid fa-user-group"></i> Add friend</button>
             </div>
-            <div class="largespace"></div>
-            <div>
-                <h2>Friends</h2>
-                <input type="search" class="input" placeholder="Search..." id="friendSearch">
-                <div id="friendsloading" class="container" style="background-color: #00000059;color:white;">
-                    <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> <span id="friendLoadingStatus">Preparing...</span></p>
-                </div>
-                <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
-                    <p style="font-size: 1.75rem;"><i class="fa-solid fa-square-person-confined fa-sm"></i> No friends found.</p>
-                    <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
-                </div>
+        </div>
+        <div class="largespace"></div>
+        <div>
+            <h2>Friends</h2>
+            <input type="search" class="input" placeholder="Search..." id="friendSearch">
+            <div class="littlespace"></div>
+            <div id="friendsloading" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> <span id="friendLoadingStatus">Preparing...</span></p>
+            </div>
+            <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
+                <p style="font-size: 1.75rem;"><i class="fa-solid fa-square-person-confined fa-sm"></i> No friends found.</p>
+                <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
+            </div>
+            
+            <div id="friendex" style="background-color: #00000059;color:white;" class="friend container">
+                <img src="../asset/char/blue_notexture.png" width="64" alt="">
+                <a href="#" class="innerinfo">
+                    <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                    <p style="color: rgb(200,200,200);"></p>
+                </a>
+            </div>
+            <div id="allFriends">
                 
-                <div id="friendex" style="background-color: #00000059;color:white;" class="friend container">
-                    <img src="../asset/char/blue_notexture.png" width="64" alt="">
-                    <a href="#" class="innerinfo">
-                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                        <p style="color: rgb(200,200,200);"></p>
-                    </a>
+            </div>
+        </div>
+        <div class="space"></div>
+        <h2>Requests</h2>
+        <div id="requestsloading" class="container" style="background-color: #00000059;color:white;">
+            <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+        </div>
+        <div id="norequests" class="container" style="background-color: #00000059;color:white;">
+            <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No requests.</p>
+            <p>No one wants to be your friend... yet.</p>
+        </div>
+        <div id="allRequests">
+            <div id="requestex" style="background-color: #00000059;color:white;" class="request container">
+                <div>
+                    <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                    <p style="color:rgb(218, 218, 218)">UID: what</p>
                 </div>
-                <div id="allFriends">
-                    
-                </div>
-            </div>
-            <div class="space"></div>
-            <h2>Requests</h2>
-            <div id="requestsloading" class="container" style="background-color: #00000059;color:white;">
-                <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
-            </div>
-            <div id="norequests" class="container" style="background-color: #00000059;color:white;">
-                <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No requests.</p>
-                <p>No one wants to be your friend... yet.</p>
-            </div>
-            <div id="allRequests">
-                <div id="requestex" style="background-color: #00000059;color:white;" class="request container">
-                    <div>
-                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                        <p style="color:rgb(218, 218, 218)">UID: what</p>
-                    </div>
-                    <div>
-                        <button class="puffy_button green"><i class="fa-solid fa-circle-check"></i> Accept</button>
-                        <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Ignore</button>
-                        <button class="puffy_button danger" disabled><i class="fa-solid fa-ban"></i> Block</button>
-                    </div>
+                <div>
+                    <button class="puffy_button green"><i class="fa-solid fa-circle-check"></i> Accept</button>
+                    <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Ignore</button>
+                    <button class="puffy_button danger" disabled><i class="fa-solid fa-ban"></i> Block</button>
                 </div>
             </div>
-            <div class="space"></div>
-            <h2>Sent requests</h2>
-            <div id="sentrequestsloading" class="container" style="background-color: #00000059;color:white;">
-                <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
-            </div>
-            <div id="nosentrequests" class="container" style="background-color: #00000059;color:white;">
-                <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No sent requests.</p>
-                <p>Send someone a friend request, just maybe they accept ;]</p>
-            </div>
-            <div id="allSentRequests">
-                <div id="sentrequestex" style="background-color: #00000059;color:white;" class="request container">
-                    <div>
-                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                        <p style="color:rgb(218, 218, 218)">UID: what</p>
-                    </div>
-                    <div>
-                        <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Cancel</button>
-                    </div>
+        </div>
+        <div class="space"></div>
+        <h2>Sent requests</h2>
+        <div id="sentrequestsloading" class="container" style="background-color: #00000059;color:white;">
+            <p style="font-size: 1.75rem;"><i class="fa-solid fa-gear fa-spin fa-sm"></i> Loading...</p>
+        </div>
+        <div id="nosentrequests" class="container" style="background-color: #00000059;color:white;">
+            <p style="font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass fa-sm"></i> No sent requests.</p>
+            <p>Send someone a friend request, just maybe they accept ;]</p>
+        </div>
+        <div id="allSentRequests">
+            <div id="sentrequestex" style="background-color: #00000059;color:white;" class="request container">
+                <div>
+                    <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                    <p style="color:rgb(218, 218, 218)">UID: what</p>
+                </div>
+                <div>
+                    <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Cancel</button>
                 </div>
             </div>
         </div>

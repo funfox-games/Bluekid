@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, signOut, query, where, getDocs, limit, collection, FirebaseHelper, ONLINE_TEXT, updateDoc, OFFLINE_TEXT } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, signOut, query, where, getDocs, limit, collection, FirebaseHelper, ONLINE_TEXT, updateDoc, OFFLINE_TEXT, hasBluekidPlus } from "../util/firebase.js";
 
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
 
@@ -131,32 +131,14 @@ async function loadFriendRequests(data) {
             // Accept
             clone.children[1].children[0].innerHTML = "Working...";
             clone.children[1].children[0].setAttribute("disabled", "true");
-            await updateFriends(auth.currentUser.uid, request);
+            await CommunityUtilites.acceptFriendReq(auth.currentUser, request);
             clone.remove();
             location.reload();
         });
         clone.children[1].children[1].addEventListener("click", async () => {
             clone.children[1].children[1].innerHTML = "Working...";
             clone.children[1].children[1].setAttribute("disabled", "true");
-            // Remove sent request from other user
-            const localdoc = doc(db, "users", request);
-            let _sentRequests = [];
-            const localdata = await getDoc(localdoc).then((doc) => { return doc.data() });
-            _sentRequests = localdata.sentRequests;
-            _sentRequests.splice(_sentRequests.indexOf(request), 1);
-            await updateDoc(localdoc, {
-                sentRequests: _sentRequests
-            });
-
-            // Remove request from this user
-            const otherdoc = doc(db, "users", auth.currentUser.uid);
-            let _requests = [];
-            const otherdata = await getDoc(otherdoc).then((doc) => { return doc.data() });
-            _requests = otherdata.requests;
-            _requests.splice(_requests.indexOf(request), 1);
-            await updateDoc(otherdoc, {
-                requests: _requests
-            });
+            await CommunityUtilites.ignoreFriendReq(auth.currentUser, request);
 
             showNotification(4, "Success! Some factors may not be updated so please refresh.");
             clone.remove();
@@ -224,6 +206,11 @@ async function loadSentRequests(data) {
 
     document.getElementById("sentrequestsloading").remove();
 }
+const limitReached = async (length) => {
+    const hasbkp = await hasBluekidPlus();
+    return length >= 50 && !hasbkp;
+}
+let friendlgtnh = 0;
 async function loadFriends() {
     document.getElementById("friendLoadingStatus").innerHTML = "Fetching friends...";
     const friendspromise = await fetch("https://bluekidapi.netlify.app/.netlify/functions/api/social", {
@@ -234,6 +221,12 @@ async function loadFriends() {
     });
     const friends = await friendspromise.json();
     console.log(friends);
+
+    if (await limitReached(friends.length)) {
+        document.getElementById("limitReached").setAttribute("show", "");
+        document.getElementById("addfriend").setAttribute("disabled", "");
+    }
+    friendlgtnh = friends.length;
 
     for (let i = 0; i < friends.length; i++) {
         if (document.getElementById("nofriends") != null) {
@@ -314,8 +307,46 @@ async function searchUsers(query_username) {
         res(allDocs);
     });
 }
+async function sendRequest(fuid) {
+    return new Promise(async (res, rej) => {
+        const doc_ = doc(db, "users", auth.currentUser.uid);
+        /**
+         * @type {Array}
+         */
+        const allFriends = await getDoc(doc_).then((res) => {
+            return res.data().sentRequests
+        });
+        if (allFriends == undefined || allFriends == []) {
+            await updateDoc(doc_, {
+                sentRequests: [fuid]
+            })
+        } else {
+            allFriends.push(fuid);
+            await updateDoc(doc_, {
+                sentRequests: allFriends
+            });
+        }
+
+        let requestingPerson = await getDoc(doc(db, "users", fuid)).then((res) => {
+            return res.data().requests;
+        });
+
+        if (requestingPerson == undefined) {
+            requestingPerson = [];
+        }
+        const requests = requestingPerson;
+        requests.push(auth.currentUser.uid);
+        await updateDoc(doc(db, "users", fuid), {
+            requests
+        });
+        res()
+    });
+}
 
 onAuthStateChanged(auth, async (user) => {
+    if (document.getElementById("COMMUNITY_PAGE") == null) {
+        return;
+    }
     if (!user) {
         location.href = "../auth/login.html";
         return;
@@ -331,6 +362,46 @@ onAuthStateChanged(auth, async (user) => {
     await checkVaild(user, userData);
     let currentFriendUid = "";
 
+    loadFriendRequests(userData);
+    loadSentRequests(userData);
+    loadFriends();
+
+    let params = new URLSearchParams(document.location.search);
+    (async function() {
+        if (params.get("friend") == null) {
+            return;
+        }
+        if (userData.friends != null && userData.friends.includes(params.get("friend"))) {
+            document.getElementById("friendresult").innerHTML = `
+                <h1><i class="fa-solid fa-check fa-lg"></i> Already friends!</h1>
+                <form method="dialog">
+                    <button class="puffy_button primary">Ok</button>
+                </form>
+            `;
+            document.getElementById("friendresult").showModal();
+            return
+        }
+        if (userData.friends != null && userData.sentRequests.includes(params.get("friend"))) {
+            document.getElementById("friendresult").innerHTML = `
+                <h1><i class="fa-solid fa-check fa-lg"></i> Already sent a request!</h1>
+                <form method="dialog">
+                    <button class="puffy_button primary">Ok</button>
+                </form>
+            `;
+            document.getElementById("friendresult").showModal();
+            return
+        }
+        document.getElementById("friendprocessing").showModal();
+        await sendRequest(params.get("friend"));
+        document.getElementById("friendprocessing").close();
+        document.getElementById("friendresult").showModal();
+    })();
+    if (params.get("friend") != null) {
+        console.log("rwarawr");
+        window.history.pushState({page: location.pathname}, document.title, window.location.pathname);
+
+    }
+
     document.getElementById("friendSearch").addEventListener("change", () => {
         const allfriends = document.getElementById("allFriends").children;
         for (let i = 0; i < allfriends.length; i++) {
@@ -342,104 +413,77 @@ onAuthStateChanged(auth, async (user) => {
             }
         }
     });
-    document.getElementById("addfriend").addEventListener("click", async () => {
-        document.getElementById("addfriend").innerHTML = "Working...";
-        document.getElementById("addfriend").setAttribute("disabled", "true");
-        const searchuid = document.getElementById("friendid").value;
+    const limitreach = await limitReached(friendlgtnh)
+    if (limitreach == false) {
+        document.getElementById("addfriend").addEventListener("click", async () => {
+            document.getElementById("addfriend").innerHTML = "Working...";
+            document.getElementById("addfriend").setAttribute("disabled", "true");
+            const searchuid = document.getElementById("friendid").value;
 
-        if (searchuid == user.uid) {
-            showNotification(3, "You're not that lonely... aren't you?");
-            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-            document.getElementById("addfriend").removeAttribute("disabled");
-            return;
-        }
+            if (searchuid == user.uid) {
+                showNotification(3, "You're not that lonely... aren't you?");
+                document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+                document.getElementById("addfriend").removeAttribute("disabled");
+                return;
+            }
 
-        if (searchuid == "") {
-            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-            document.getElementById("addfriend").removeAttribute("disabled");
-            return;
-        }
-        var doc_ = doc(db, "users", searchuid);
-        var snapshot = await getDoc(doc_).then((res) => {
-            return res;
-        });
-        if (snapshot.exists() == false) {
-            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-            document.getElementById("addfriend").removeAttribute("disabled");
-            return;
-        }
-        if (snapshot.data().communitySettings != null && snapshot.data().communitySettings.allowFriendRequests == false) {
-            showNotification(3, "This person isn't accepting friend requests right now.");
-            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-            document.getElementById("addfriend").removeAttribute("disabled");
-            return;
-        }
-        currentFriendUid = searchuid;
-        const data = snapshot.data();
-        const username = data.username;
-        const friends = data.friends;
-        const requests = data.requests;
-
-        if (friends != undefined && friends.includes(user.uid)) {
-            showNotification(3, `You are already friends with ${username}.`);
-            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-            document.getElementById("addfriend").removeAttribute("disabled");
-            return;
-        }
-        
-        if (requests != undefined && requests.includes(user.uid)) {
-            showNotification(3, `You have already sent a request to ${username}.`);
-            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-            document.getElementById("addfriend").removeAttribute("disabled");
-            return;
-        }
-
-
-        document.getElementById("friendingperson").innerText = username;
-        document.getElementById("confirm").showModal();
-
-
-        document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
-        document.getElementById("addfriend").removeAttribute("disabled");
-    });
-    document.getElementById("sendrequest").addEventListener("click", async () => {
-        document.getElementById("sendrequest").innerHTML = "Working...";
-        document.getElementById("sendrequest").setAttribute("disabled", "");
-
-        const doc_ = doc(db, "users", user.uid);
-
-        /**
-         * @type {Array}
-         */
-        const allFriends = await getDoc(doc_).then((res) => {
-            return res.data().sentRequests
-        });
-        if (allFriends == undefined || allFriends == []) {
-            await updateDoc(doc_, {
-                sentRequests: [currentFriendUid]
-            })
-        } else {
-            allFriends.push(currentFriendUid);
-            await updateDoc(doc_, {
-                sentRequests: allFriends
+            if (searchuid == "") {
+                document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+                document.getElementById("addfriend").removeAttribute("disabled");
+                return;
+            }
+            var doc_ = doc(db, "users", searchuid);
+            var snapshot = await getDoc(doc_).then((res) => {
+                return res;
             });
-        }
+            if (snapshot.exists() == false) {
+                document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+                document.getElementById("addfriend").removeAttribute("disabled");
+                return;
+            }
+            if (snapshot.data().communitySettings != null && snapshot.data().communitySettings.allowFriendRequests == false) {
+                showNotification(3, "This person isn't accepting friend requests right now.");
+                document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+                document.getElementById("addfriend").removeAttribute("disabled");
+                return;
+            }
+            currentFriendUid = searchuid;
+            const data = snapshot.data();
+            const username = data.username;
+            const friends = data.friends;
+            const requests = data.requests;
 
-        let requestingPerson = await getDoc(doc(db, "users", currentFriendUid)).then((res) => {
-            return res.data().requests;
+            if (friends != undefined && friends.includes(user.uid)) {
+                showNotification(3, `You are already friends with ${username}.`);
+                document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+                document.getElementById("addfriend").removeAttribute("disabled");
+                return;
+            }
+            
+            if (requests != undefined && requests.includes(user.uid)) {
+                showNotification(3, `You have already sent a request to ${username}.`);
+                document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+                document.getElementById("addfriend").removeAttribute("disabled");
+                return;
+            }
+
+
+            document.getElementById("friendingperson").innerText = username;
+            document.getElementById("confirm").showModal();
+
+
+            document.getElementById("addfriend").innerHTML = `<i class="fa-solid fa-user-group"></i> Add friend`;
+            document.getElementById("addfriend").removeAttribute("disabled");
         });
+        document.getElementById("sendrequest").addEventListener("click", async () => {
+            document.getElementById("sendrequest").innerHTML = "Working...";
+            document.getElementById("sendrequest").setAttribute("disabled", "");
 
-        if (requestingPerson == undefined) {
-            requestingPerson = [];
-        }
-        const requests = requestingPerson;
-        requests.push(user.uid);
-        await updateDoc(doc(db, "users", currentFriendUid), {
-            requests
+            await sendRequest(currentFriendUid);
+
+            location.reload();
         });
-
-        location.reload();
-    });
+    }
     document.getElementById("searchFriends").addEventListener("click", () => {
         document.getElementById("searchuser").showModal();
     });
@@ -469,16 +513,19 @@ onAuthStateChanged(auth, async (user) => {
                 top.children[1].innerHTML = "Friends: " + data.friends.length || 0;
             }
             
-            if (data.badges) {
-                for (let ii = 0; ii < data.badges.length; ii++) {
-                    const badge = data.badges[ii];
-                    const newImg = document.createElement("img");
-                    newImg.src = "../asset/badges/" + badge.replace(" ", "") + ".png";
-                    newImg.width = "24";
-                    newImg.alt = badge;
-                    newImg.title = badge;
-                    usernamediv.children[1].append(newImg);
+            const badges = await FirebaseHelper.getBadges(id);
+            console.log(badges);
+            for (let ii = 0; ii < badges.length; ii++) {
+                const badge = badges[ii];
+                const newImg = document.createElement("img");
+                newImg.src = "../asset/badges/" + badge.replace(" ", "") + ".png";
+                newImg.width = "24";
+                newImg.alt = badge;
+                newImg.title = badge;
+                if (badge == "Bluekid Plus") {
+                    newImg.classList.add("badge--bkp");
                 }
+                usernamediv.children[1].append(newImg);
             }
             
 
@@ -492,11 +539,45 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById("allsearched").append(clone);
         }
     });
-    const userdoc = doc(db, "users", user.uid);
-    const data = await getDoc(userdoc).then((res) => {
-        return res.data();
-    });
-    loadFriendRequests(data);
-    loadSentRequests(data);
-    loadFriends();
+    
 });
+
+export class CommunityUtilites {
+    static async acceptFriendReq(user, uid) {
+        return new Promise(async (res, rej) => {
+            await updateFriends(user.uid, uid);
+            res();
+        });
+    }
+
+    static async ignoreFriendReq(user, uid) {
+        return new Promise(async (res, rej) => {
+            const localdoc = doc(db, "users", request);
+            let _sentRequests = [];
+            const localdata = await getDoc(localdoc).then((doc) => { return doc.data() });
+            _sentRequests = localdata.sentRequests;
+            _sentRequests.splice(_sentRequests.indexOf(request), 1);
+            await updateDoc(localdoc, {
+                sentRequests: _sentRequests
+            });
+
+            // Remove request from this user
+            const otherdoc = doc(db, "users", auth.currentUser.uid);
+            let _requests = [];
+            const otherdata = await getDoc(otherdoc).then((doc) => { return doc.data() });
+            _requests = otherdata.requests;
+            _requests.splice(_requests.indexOf(request), 1);
+            await updateDoc(otherdoc, {
+                requests: _requests
+            });
+            res();
+        });
+    }
+
+    static async getAllRequests(user) {
+        return new Promise(async (res, rej) => {
+            const data = await getDoc(doc(db, "users", user.uid));
+            res(data.data().requests);
+        });
+    }
+}
