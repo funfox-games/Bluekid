@@ -29,28 +29,33 @@
             <b>OR</b>
             <div style="width:50%;height:5px;background-color: white;border-radius: 3px;"></div>
         </div>
-        <div style="text-align: left;">
+        <div style="text-align: left;width: 100%;">
             <div style="display:flex;gap:3px;align-items: center;">
                 <i class="fa-solid fa-envelope"></i>
                 <p>Email</p>
             </div>
-            <input class="input" id="email" style="text-align: left;" type="email" required placeholder="Enter email...">
+            <input class="input" id="email" style="text-align: left;width:95%;" type="email" required placeholder="Enter email...">
         </div>
         
-        <div style="text-align: left;">
+        <div style="text-align: left;width: 100%;">
             <div style="display:flex;gap:3px;align-items: center;">
                 <i class="fa-solid fa-key"></i>
                 <p>Password</p>
             </div>
-            <input class="input" id="password" style="text-align: left;" type="password" required placeholder="Enter password...">
+            <input class="input" id="password" style="text-align: left;width:95%;" type="password" required placeholder="Enter password...">
         </div>
-        <div style="text-align: left;">
+        <div style="text-align: left;width: 100%;">
             <div style="display:flex;gap:3px;align-items: center;">
                 <i class="fa-solid fa-lock-open"></i>
                 <p>Confirm Password</p>
             </div>
-            <input class="input" id="confirmpassword" style="text-align: left;" type="password" required placeholder="Enter password...">
+            <input class="input" id="confirmpassword" style="text-align: left;width:95%;" type="password" required placeholder="Enter password...">
         </div>
+        <label class="toggle" for="agreement" style="color:white;margin: 10px;">
+            <input class="toggle_input" type="checkbox" required id="agreement">
+            <div class="toggle_fill"></div>
+            I agree to the <a style="color:white;" href="../privacy.html" target="_blank">Privacy Policy</a> and I am 13 years or older.
+        </label>
         <button class="puffy_button primary" id="loginbutton"><i class="fa-solid fa-door-open"></i> Sign up</button>
         <a href="login.html" style="color:white;">Already have an account?</a>
 
@@ -58,6 +63,6 @@
         <script type="module" src="./js/createdata.js"></script>
         <script type="module" src="js/signup.js"></script>
         <script src="../js/util/notification.js"></script>
-    </div>
+    </form>
 </body>
 </html>
