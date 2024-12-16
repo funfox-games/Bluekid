@@ -40,6 +40,7 @@ This is for me, funfox, to use when developing
 ### Things to add to the todo:
 - Increase kit question char limit
 - For custom gamemodes, add a custom programming lanugage: BPL (or BKPL)
+- Make firebase and webhooks stuff in .env file because now public repos
 
 ### FILES TO MERGE:
 - 
