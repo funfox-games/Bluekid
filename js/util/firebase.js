@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { FIREBASE_API_KEY, FIREBASE_APP_ID } from "https://bluekid.netlify.app/config.js";
+import { FIREBASE_API_KEY, FIREBASE_APP_ID } from "../../config.js";
 const firebaseConfig = {
     apiKey: FIREBASE_API_KEY,
     authDomain: "bluekid-303db.firebaseapp.com",
