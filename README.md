@@ -38,7 +38,7 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 This is for me, funfox, to use when developing
 
 ### Things to add to the todo:
-- 
+- Increase kit question char limit
 
 ### FILES TO MERGE:
 - 
