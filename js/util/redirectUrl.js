@@ -1,3 +1,1 @@
-export function getRedirectUrl() {
-    return encodeURIComponent(location.href)
-}
+function getRedirectUrl(){return encodeURIComponent(location.href)}export{getRedirectUrl};
