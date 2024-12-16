@@ -41,6 +41,7 @@ This is for me, funfox, to use when developing
 - Increase kit question char limit
 - For custom gamemodes, add a custom programming lanugage: BPL (or BKPL)
 - Make firebase and webhooks stuff in .env file because now public repos
+- Add loading screen of something to firebase.js and add functionality to all firebase pages
 
 ### FILES TO MERGE:
 - 
