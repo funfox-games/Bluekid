@@ -35,7 +35,7 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
   - Art gamemode: the game will choose something and everyone will have to make that item on the same canvas. Judging is decided by game host or chosen person
 
 ## Developer
-This is for me, funfox, to use when developing
+This is for me, funfox, to use when developing 
 
 ### Things to add to the todo:
 - 
