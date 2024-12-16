@@ -38,10 +38,7 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 This is for me, funfox, to use when developing
 
 ### Things to add to the todo:
-- Increase kit question char limit
-- For custom gamemodes, add a custom programming lanugage: BPL (or BKPL)
-- Make firebase and webhooks stuff in .env file because now public repos
-- Add loading screen of something to firebase.js and add functionality to all firebase pages
+- 
 
 ### FILES TO MERGE:
 - 
