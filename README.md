@@ -39,6 +39,10 @@ Bluekid+ is a subscription for $2.99/month which allows me to make hosting witho
 ## Developer
 This is for me, funfox, to use when developing 
 
+UPDATE HOME PAGE
+
+AFTER HOSTING, PRIORITIZE CLASS STATS
+
 ### Things to add to the todo:
 - 
 
