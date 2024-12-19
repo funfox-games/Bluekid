@@ -45,6 +45,9 @@ AFTER HOSTING, PRIORITIZE CLASS STATS
 
 ### Things to add to the todo:
 - Future idea: add "create google form quiz from kit"
+- Update blues pages to use firebase increment
+- also add loading when happening
+- also upgrade the buy screen [better anim and stuff]
 
 ### FILES TO MERGE:
 - 
