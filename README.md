@@ -48,6 +48,7 @@ AFTER HOSTING, PRIORITIZE CLASS STATS
 - Update blues pages to use firebase increment
 - also add loading when happening
 - also upgrade the buy screen [better anim and stuff]
+- redesign community and buy page
 
 ### FILES TO MERGE:
 - 
