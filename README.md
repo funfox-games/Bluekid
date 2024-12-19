@@ -44,7 +44,7 @@ UPDATE HOME PAGE
 AFTER HOSTING, PRIORITIZE CLASS STATS
 
 ### Things to add to the todo:
-- 
+- Future idea: add "create google form quiz from kit"
 
 ### FILES TO MERGE:
 - 
