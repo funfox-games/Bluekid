@@ -8,41 +8,44 @@
     <link rel="stylesheet" href="../../css/all.css">
     <link rel="stylesheet" href="../../css/profile.css">
     <link rel="stylesheet" href="../../css/user/index.css">
+    <link rel="shortcut icon" href="../../asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <dialog id="loading" noanim>
-        <h1><i class="fa-solid fa-spinner fa-spin"></i> Loading...</h1>
+        <h1><i class="fa-light fa-spinner fa-spin"></i> Loading...</h1>
         <p>Loading <span id="loading_progress">profile</span>...</p>
     </dialog>
 
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue">Blue</span>kid</h1>
+                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
+            <div class="side">
+                <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
+                <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
+            </div>
             <a href="../index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-house-user"></i> Home</button></a>
-            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-image"></i> Blues</button></a>
+                        class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
             <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-layer-group"></i> Kits</button></a>
-            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-shop"></i> Shop</button></a>
+                        class="fa-light fa-layer-group"></i> Kits</button></a>
+            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
             <a href="../community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-face-smile"></i> Social</button></a>
+                        class="fa-light fa-face-smile"></i> Social</button></a>
         </div>
         <div id="sidenav_lower">
-            <a href="../purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="../purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="../settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-gears"></i> Settings</button></a>
+                        class="fa-light fa-gears"></i> Settings</button></a>
             <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-newspaper"></i> News</button></a>
+                        class="fa-light fa-newspaper"></i> News</button></a>
         </div>
     
     </div>
     <section>
-        <div id="yourprofile" class="info" style="display: none;margin-bottom: 10px;color:black;"><i class="fa-solid fa-circle-info fa-xl"></i> This is your profile! Customize it in <a href="../settings.html">settings</a>.</div>
+        <div id="yourprofile" class="info" style="display: none;margin-bottom: 10px;color:black;"><i class="fa-light fa-circle-info fa-xl"></i> This is your profile! Customize it in <a href="../settings.html">settings</a>.</div>
         <div class="profile_card container" style="background-color: #0000001f;">
             <div id="basicInfo">
                 <img src="../../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
@@ -58,9 +61,9 @@
                     </div>
                 </div>
 
-                <button id="share" class="puffy_button green"><i class="fa-solid fa-share-nodes"></i> Share</button>
-                <a id="addfriend" href="../community.html"><button class="puffy_button primary"><i class="fa-solid fa-square-plus"></i> Add friend</button></a>
-                <button style="display:none;" id="removefriend" class="puffy_button danger"><i class="fa-solid fa-square-minus"></i> Unfriend</button>
+                <button id="share" class="puffy_button green"><i class="fa-light fa-share-nodes"></i> Share</button>
+                <a id="addfriend" href="../community.html"><button class="puffy_button primary"><i class="fa-light fa-square-plus"></i> Add friend</button></a>
+                <button style="display:none;" id="removefriend" class="puffy_button danger"><i class="fa-light fa-square-minus"></i> Unfriend</button>
             </div>
             
         </div>
@@ -99,11 +102,11 @@
                         </div>
                         <div>
                             <h1 style="font-size: 2.5rem;">Kit title</h1>
-                            <p style="font-size: 1.25rem;"><i id="private_indicator" class="fa-solid fa-lock"></i> Unshared</p>
+                            <p style="font-size: 1.25rem;"><i id="private_indicator" class="fa-light fa-lock"></i> Unshared</p>
                         </div>
                     </div>
                     <div class="kit_right">
-                        <a href="#"><button class="puffy_button primary"><i class="fa-solid fa-eye"></i> View</button></a>
+                        <a href="#"><button class="puffy_button primary"><i class="fa-light fa-eye"></i> View</button></a>
                     </div>
                 </div>
                 <div id="kits">

@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="../css/all.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/profile/settings.css">
+    <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <dialog id="membershipConfirmation">
         <h1>Membership Confirmation</h1>
         <p>If you haven't already, buy a membership <a href="https://buymeacoffee.com/funfox/membership" style="color: black;">here.</a></p>
-        <button class="puffy_button primary" id="continueMembershipConfirmation">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        <button class="puffy_button primary" id="continueMembershipConfirmation">Continue <i class="fa-light fa-arrow-right"></i></button>
     </dialog>
     <dialog id="membershipConfirmation2" noanim>
         <h1>Is this correct?</h1>
@@ -22,7 +23,7 @@
         <a style="color:black;" href="#" id="useDiffEmail">Use a different email</a>
         <a style="color:black;" href="#" id="resetToAccountEmail">Reset to account email</a>
         <hr>
-        <button class="puffy_button subscription_btn" id="confirmMembership"><i class="fa-solid fa-square-check"></i> Activate</button>
+        <button class="puffy_button subscription_btn" id="confirmMembership"><i class="fa-light fa-square-check"></i> Activate</button>
     </dialog>
     <dialog id="switchEmailCheck">
         <h1>Check different email</h1>
@@ -69,26 +70,26 @@
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue">Blue</span>kid</h1>
+                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
-            <div class="littlespace"></div>
+            <div class="side">
+                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
+                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
+                </div>
             <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-image"></i> Blues</button></a>
+                        class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
             <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-layer-group"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-shop"></i> Shop</button></a>
+                        class="fa-light fa-layer-group"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
             <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-face-smile"></i> Social</button></a>
+                        class="fa-light fa-face-smile"></i> Social</button></a>
         </div>
         <div id="sidenav_lower">
             <a href="settings.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i
-                        class="fa-solid fa-gears"></i> Settings</button></a>
+                        class="fa-light fa-gears"></i> Settings</button></a>
             <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-newspaper"></i> News</button></a>
+                        class="fa-light fa-newspaper"></i> News</button></a>
         </div>
     
     </div>
@@ -96,27 +97,68 @@
         <div id="settings_sidebar">
             <div>
                 <h2 nospacing>General</h2>
-                <p>Under construction...</p>
             </div>
-            <a disabled href="#sect.gamemode"><i class="fa-solid fa-gamepad fa-lg"></i> Gamemodes</a>
-            <a disabled href="#sect.experimental"><i class="fa-solid fa-flask fa-lg"></i> Experimental</a>
+            <a href="#sect.general"><i class="fa-light fa-splotch"></i> General</a>
+            <a disabled href="#sect.gamemode"><i class="fa-light fa-gamepad fa-lg"></i> Gamemodes</a>
+            <a disabled href="#sect.experimental"><i class="fa-light fa-flask fa-lg"></i> Experimental</a>
 
             <h2>Account</h2>
-            <a href="#sect.accountinfo"><i class="fa-solid fa-id-card fa-lg"></i> Account Info</a>
-            <a href="#sect.community"><i class="fa-solid fa-people-group fa-lg"></i> Community</a>
+            <a href="#sect.accountinfo"><i class="fa-light fa-id-card fa-lg"></i> Account Info</a>
+            <a href="#sect.community"><i class="fa-light fa-people-group fa-lg"></i> Community</a>
 
             <h2>Bluekid Plus</h2>
-            <a id="update_bkp" class="beforepurchase bkp" href="./purchase/index.html?ref=settings"><i class="fa-solid fa-circle-up fa-lg"></i> Upgrade</a>
-            <a class="beforepurchase" href="#sect.verify"><i class="fa-solid fa-lg fa-certificate"></i> Verify</a>
+            <a id="update_bkp" class="beforepurchase bkp" href="./purchase/index.html?ref=settings"><i class="fa-light fa-circle-up fa-lg"></i> Upgrade</a>
+            <a class="beforepurchase" href="#sect.verify"><i class="fa-light fa-lg fa-certificate"></i> Verify</a>
 
-            <a class="activesubscription" href="#sect.bkpmanagement"><i class="fa-solid fa-bars-progress"></i> Management</a>
+            <a class="activesubscription" href="#sect.bkpmanagement"><i class="fa-light fa-bars-progress"></i> Management</a>
 
         </div>
         <div id="content">
-            <div id="accountinfo" active>
+            <div id="general" active>
+                <h1 style="font-size: 2.75rem;">General settings</h1>
+                <p>These settings aren't saved on the server, they are stored on your computer.</p>
+                <div class="space"></div>
+                <h2 style="font-size: 2rem;">Website Preferences</h2>
+                <div class="container">
+                    <div style="display: flex;align-items: center;gap:5px;">
+                        <div>
+                            <b style="font-size: 1.5rem;">Color mode</b>
+                            <p>Not available, forced dark mode for now.</p>
+                        </div>
+                        <div id="kitviewswitcher" disabled class="viewswitcher">
+                            <div selected left>
+                                <i class="fa-light fa-moon"></i>
+                            </div>
+                            <div right>
+                                <i class="fa-light fa-sun"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                    <label class="toggle" for="allowThemes">
+                        <input class="toggle_input" checked type="checkbox" id="allowThemes">
+                        <div class="toggle_fill"></div>
+                        Allow holiday themes <i class="fa-light fa-circle-question" title="If colors and backgrounds are allowed to be shown."></i>
+                    </label>
+                    <div class="space"></div>
+                    <label class="toggle" for="allowProfileThemes">
+                        <input class="toggle_input" checked type="checkbox" id="allowProfileThemes">
+                        <div class="toggle_fill"></div>
+                        Allow profile themes <i class="fa-light fa-circle-question" title="If colors are allowed on user profiles."></i>
+                    </label>
+                    <div class="littlespace"></div>
+                        <label class="toggle" for="optimizeProfiles">
+                        <input disabled class="toggle_input" type="checkbox" id="optimizeProfiles">
+                        <div class="toggle_fill"></div>
+                        Optimize profiles <i class="fa-light fa-circle-question" title="!IN DEVELOPMENT! Doesn't load all of the profile details unless specified."></i>
+                    </label>
+                </div>
+                
+            </div>
+            <div id="accountinfo">
                 <!-- <h2>Account Plan</h2>
                 <p style="font-size: 1.25rem;">Bluekid <b>Standard</b></p>
-                <button id="confirmMember" class="puffy_button subscription_btn standardonly"><i class="fa-solid fa-check"></i> Confirm Membership</button> -->
+                <button id="confirmMember" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-check"></i> Confirm Membership</button> -->
                 <h2>Stats</h2>
                 <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
                     <p>UID: <b id="userid"></b></p>
@@ -124,23 +166,16 @@
                     <p>Username: <b id="username"></b></p>
                 </div>
                 <br>
-                <h2>Standard Options</h2>
-                <label class="toggle" for="optimizeProfiles">
-                    <input disabled class="toggle_input" type="checkbox" id="optimizeProfiles">
-                    <div class="toggle_fill"></div>
-                    Optimize profiles <i class="fa-solid fa-circle-question" title="!IN DEVELOPMENT! Doesn't load all of the profile details unless specified."></i>
-                </label>
-                <br>
                 <h2>Change name</h2>
                 <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
                     <input type="text" class="input" placeholder="Enter new name..." id="newname">
                     <input type="text" class="input" placeholder="Confirm new name..." id="confirmnewname">
-                    <button class="puffy_button primary" id="changename"><i class="fa-solid fa-shuffle"></i> Change name</button>
+                    <button class="puffy_button primary" id="changename"><i class="fa-light fa-shuffle"></i> Change name</button>
                 </div>
                 <br>
                 <h2>Change password</h2>
                 <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                    <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-solid fa-envelope"></i> Send password reset
+                    <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-light fa-envelope"></i> Send password reset
                         email</button>
                 </div>
                 
@@ -150,17 +185,17 @@
                 <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
                     <input type="text" class="input" placeholder="Enter old email..." id="newemail">
                     <input type="text" class="input" placeholder="Enter new email..." id="confirmemail">
-                    <button class="puffy_button primary" id="changemail"><i class="fa-solid fa-shuffle"></i> Change email</button>
+                    <button class="puffy_button primary" id="changemail"><i class="fa-light fa-shuffle"></i> Change email</button>
                 </div>
                 <br>
                 <h2>Danger</h2>
-                <button id="deleteaccount" class="puffy_button danger"><i class="fa-solid fa-user-slash"></i> Delete account</button>
+                <button id="deleteaccount" class="puffy_button danger"><i class="fa-light fa-user-slash"></i> Delete account</button>
             </div>
             <div needs_saved="saveProfileSettings" id="community">
-                <button class="puffy_button primary" id="saveProfileSettings"><i class="fa-solid fa-floppy-disk"></i> Save all profile settings</button>
+                <button class="puffy_button primary" id="saveProfileSettings"><i class="fa-light fa-floppy-disk"></i> Save all profile settings</button>
                 <div class="line"></div>
                 <h2>Community</h2>
-                <a id="openprofile" href=""><button class="puffy_button green"><i class="fa-solid fa-up-right-from-square"></i> Open
+                <a id="openprofile" href=""><button class="puffy_button green"><i class="fa-light fa-up-right-from-square"></i> Open
                         profile</button></a>
                 <div class="space"></div>
                 <label class="toggle" for="acceptFriendRequests">
@@ -230,13 +265,9 @@
                 </div>
                 <div class="line"></div>
                 <div class="side">
-                    <div class="locked">
-                        <h1><i class="fa-solid fa-lock"></i> Locked</h1>
-                        <p>You'll be able to change your featured blue after development!</p>
-                    </div>
-                    <div id="featuredblue">
-                        <img src="../asset/char/blue_broken.png">
-                    </div>
+                    <a id="featuredblue" href="./blues.html?function=profile">
+                        <img src="../asset/char/blue_notexture.png">
+                    </a>
                     <div>
                         <h2>Featured Blue</h2>
                         <p small>This will show up as your profile picture!</p>
@@ -256,7 +287,7 @@
                     <img src="../asset/bluekidplus/bkpbanner.png" width="720" alt="bluekid plus banner">
                     <h1>Made up your mind?</h1>
                     <p>Enjoy more fun with Bluekid Plus! See benifits and more info <a href="./purchase/index.html">here</a>.</p>
-                    <button class="puffy_button subscription_btn" style="margin: 12px;" id="confirmMember"><i class="fa-solid fa-money-check"></i> Verify</button>
+                    <button class="puffy_button subscription_btn" style="margin: 12px;" id="confirmMember"><i class="fa-light fa-money-check"></i> Verify</button>
                 </div>
                
             </div>
@@ -264,17 +295,19 @@
                 <h1>Subscription Active</h1>
                 <p>Been a member ever since <span id="membersince">--</span>.</p>
                 <br>
+                <p>Next 150 coins in <b id="monthlyCoins">--</b> days.</p>
+                <br>
                 <p>Subscription type: <b id="subtype">Monthly</b></p>
                 <p>Next renewal<span style="font-size: 1rem;">/expiration</span> in <b id="renewalspan">0</b> days.</p>
-                <p style="display: flex;align-items: center;gap:5px;"><button class="icon_button danger" id="transactionToggle"><i class="fa-solid fa-eye"></i></button> Transaction ID: <span id="subscriptionId" hide>unknown</span></p>
-                <p style="display: flex;align-items: center;gap:5px;margin-top: 5px;"><button class="icon_button danger" id="emailToggle"><i class="fa-solid fa-eye"></i></button> Payer email: <span id="payeremail" hide>unknown</span></p>
+                <p style="display: flex;align-items: center;gap:5px;"><button class="icon_button danger" id="transactionToggle"><i class="fa-light fa-eye"></i></button> Transaction ID: <span id="subscriptionId" hide>unknown</span></p>
+                <p style="display: flex;align-items: center;gap:5px;margin-top: 5px;"><button class="icon_button danger" id="emailToggle"><i class="fa-light fa-eye"></i></button> Payer email: <span id="payeremail" hide>unknown</span></p>
                 <br>
                 <p style="font-size: 1rem;">The button below removes the connection between your BuyMeACoffee account and Bluekid account.<br>Please be cautious, as this opens your email for use on other accounts.</p>
-                <button class="puffy_button danger" id="unlink"><i class="fa-solid fa-link-slash"></i> Unlink membership</button>
+                <button class="puffy_button danger" id="unlink"><i class="fa-light fa-link-slash"></i> Unlink membership</button>
                 <br>
                 <br>
                 <p style="font-size: 1rem;">The button below brings you to BuyMeACoffee where you can cancel your membership,<br>update your payment info, and see more details about Bluekid Plus.</p>
-                <a href="https://studio.buymeacoffee.com/my-account/payments/memberships"><button class="puffy_button primary"><i class="fa-solid fa-list-check"></i> Manage membership</button></a>
+                <a href="https://studio.buymeacoffee.com/my-account/payments/memberships"><button class="puffy_button primary"><i class="fa-light fa-list-check"></i> Manage membership</button></a>
             </div>
         </div>
         

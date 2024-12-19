@@ -1,4 +1,4 @@
-import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, setDoc, updateDoc, collection } from "../util/firebase.js";
+import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, setDoc, updateDoc, collection, insertLoadingScreen, updateLoadingInfo, finishLoading } from "../util/firebase.js";
 
 // import packdata from "../../asset/blues.json" with { type: "json" };
 import { isUserVaild, UserReasons } from "../util/auth_helper.js";
@@ -376,18 +376,23 @@ onAuthStateChanged(auth, async (user) => {
         location.href = "../auth/login.html";
         return;
     }
+    insertLoadingScreen("content", document.getElementById("content"));
     var uid = user.uid;
     var doc_ = doc(db, "users", uid);
+    updateLoadingInfo("content", "Fetching user data");
     var data = await getDoc(doc_).then((res) => {
         return res.data();
     });
+    localCost = data.tokens;
     await checkVaild(user, data);
     document.getElementById("allcoins").innerHTML = data.tokens.toLocaleString();
     if (localStorage.getItem("fastPackOpening") == "true") {
         document.getElementById("quickTransition").checked = true;
     }
 
+    updateLoadingInfo("content", "Retriving packs");
     await addAllPacks();
+    updateLoadingInfo("content", "Retriving specials");
     await addAllSpecials();
 
     document.getElementById("quickTransition").addEventListener("change", () => {
@@ -412,7 +417,7 @@ onAuthStateChanged(auth, async (user) => {
             body: JSON.stringify(msg)
         });
         document.getElementById("submitsuggestion").innerHTML = "Thanks!";
-    })
+    });
+    finishLoading("content");
 
-    localCost = data.tokens;
 });

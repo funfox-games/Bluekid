@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host | Bluekid</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../css/hosting/live.css">
+    <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="gameClosed">
+        <h1><i class="fa-light fa-clock"></i> Game closed due to inactivity</h1>
+        <button onclick="location.reload()" class="puffy_button primary"><i class="fa-light fa-clock-rotate-left"></i> Rehost</button>
+        <a href="../profile/index.html"><button class="puffy_button"><i class="fa-light fa-house-user"></i> Go to home</button></a>
+    </dialog>
+    <dialog id="firefoxnotsupported">
+        <h1>Firefox isn't supported.</h1>
+        <p>For some reason, Firebase Functions break on Firefox for Bluekid Hosting. Please switch to another browser.</p>
+        <b>You can however join games! (so far)</b>
+        <a href="../profile/index.html"><button class="puffy_button primary">Back</button></a>
+    </dialog>
+    <div class="settingsSection" id="sectex">
+        <h2>Setting Section Name</h2>
+        <div class="sectioncontent"></div>
+    </div>
+
+    <!-- BEGIN: SETTING TYPES -->
+
+    <div class="setting" example id="number">
+        <p>Setting Name</p>
+        <input type="number" class="input">
+    </div>
+
+    <div class="setting" example id="bool">
+        <label class="toggle" for="boolId">
+            <input class="toggle_input" type="checkbox" id="boolId">
+            <div class="toggle_fill"></div>
+            <span>Bool Text</span>
+        </label>
+    </div>
+
+    <!-- END: SETTING TYPES -->
+
+    <div id="codeAnimation">
+        <p>Be prepared! Go to <u>https://bluekid.netlify.app/join</u> to enter the code:</p>
+        <div id="code1" class="codepreview"></div>
+    </div>
+    <div id="host_preperation">
+        <section style="width: 75vw;display:flex;flex-direction: column;justify-content: space-between;gap:10px;" class="section__center">
+            <div style="flex:1 1 0;overflow-x:hidden;padding-right: 10px;">
+                <h1 id="gamemodename">GM-NAME</h1>
+                <hr>
+                <div class="settingsContainer">
+                    <h1>Gamemode Settings</h1>
+                    <div class="container" id="settings">
+                        
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="settingsContainer">
+                    <h1>Privacy Settings</h1>
+                    <div class="container">
+                        <div class="warning everyoneWarning" hide id="publicWarning"><i class="fa-light fa-triangle-exclamation fa-lg"></i> WARNING: Anyone who opens your profile can join you.</div>
+                        <p style="font-size: 1.25rem;"><i class="fa-light fa-right-to-bracket"></i> Who can join</p>
+                        <select id="privacy" class="input">
+                            <option value="public">Everyone</option>
+                            <option selected value="friends">Code &amp; Friends only</option>
+                            <option value="private">Code only</option>
+                        </select>
+                        <div class="littlespace"></div>
+                        <label class="toggle" for="codeAlwaysVisible">
+                            <input class="toggle_input" checked type="checkbox" id="codeAlwaysVisible">
+                            <div class="toggle_fill"></div>
+                            <span>Code always visible <i class="fa-light fa-circle-question" title="If disabled, you will have to show the code manually."></i></span>
+                        </label>
+                        <div class="littlespace"></div>
+                        <label class="toggle" for="requireAccount">
+                            <input class="toggle_input" type="checkbox" id="requireAccount">
+                            <div class="toggle_fill"></div>
+                            <span>Require account <i class="fa-light fa-circle-question" title="People must be logged in as a user. Also enforces 13+ users"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="settingsContainer">
+                    <h1>Player Settings</h1>
+                    <div class="container">
+                        <div id="maxPlayersLimit" class="container bkplusbanner">
+                            <img src="../asset/bluekidplus/bkpbanner.png" width="250" alt="bluekid plus banner">
+                            <div style="font-size: 1.25rem;">
+                                <h1>Player limit reached</h1>
+                                <p>The free limit is 45 people per game. Consider buying Bluekid+ to expand to 200 people!</p>
+                                <a href="../profile/purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+                                <button id="limitFixIt" class="puffy_button">Fix it</button>
+                            </div>
+                        </div>
+                        <p style="font-size: 1.25rem;"><i class="fa-light fa-users"></i> Max Players</p>
+                        <input type="number" class="input" id="maxPlayers" value="24" placeholder="24">
+                        <div class="littlespace"></div>
+                        <label class="toggle" for="randomizedUsernames">
+                            <input class="toggle_input" type="checkbox" id="randomizedUsernames">
+                            <div class="toggle_fill"></div>
+                            <span>Randomized Usernames</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex;gap:5px;">
+                <button style="flex:1;" id="startHosting" class="puffy_button green"><i class="fa-light fa-server"></i> Start hosting</button>
+                <a href="./index.html" style="flex:1;"><button style="width: 100%;" class="puffy_button danger">Back</button></a>
+            </div>
+            
+        </section>
+    </div>
+    <div id="host">
+        <div id="code">
+            <div id="innercode">
+                <p>Go to <u>https://bluekid.netlify.app/join</u> to enter the code:</p>
+                <div id="code2" style="font-size: 3.5rem;font-weight: bold;" class="codepreview"></div>
+                <div class="codeActions">
+                    <div>
+                        <button id="toggleCodeVisibility" class="icon_button primary" title="Toggle code visibility"><i class="fa-light fa-eye"></i></button>
+                        <button id="copyUrl" class="icon_button" title="Copy URL"><i class="fa-light fa-copy"></i></button>
+                    </div>
+                    <button id="fullscreenToggle" class="icon_button" title="Fullscreen toggle"><i class="fa-light fa-expand"></i></button>
+                </div>
+            </div>
+            
+            <div id="qrcode"></div>
+        </div>
+        <div class="infos">
+            <p id="version"></p>
+            <p><i class="fa-light fa-users"></i> <span id="people">0</span>/<span id="maxplayers">0</span></p>
+            <button class="puffy_button green">Start</button>
+        </div>
+
+        <div class="player" id="plrex">
+            <img src="../asset/char/blue_notexture.png" alt="blue" width="64">
+            <div>
+                <p>Username</p>
+                <div class="playerbadges">
+                    <!-- <img src="../asset/badges/Verified.png" alt="badge" width="24">
+                    <img src="../asset/badges/bluekidplus.png" alt="badge" width="24"> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="players">
+            
+        </div>
+    </div>
+
+    <script src="../js/util/jquery.js"></script>
+    <script src="../js/util/qrcode.js"></script>
+    <script src="../js/hosting/live.js" type="module"></script>
+</body>
+</html>

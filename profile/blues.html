@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/all.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/profile/blues.css">
+    <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -25,8 +26,8 @@
         <input type="number" value="1" step="1" id="sell_amount" onchange="document.getElementById('sell_amount').value = Math.round(parseFloat(document.getElementById('sell_amount').value))" oninput="if(parseInt(document.getElementById('sell_amount').value) < 0) { document.getElementById('sell_amount').value = 0 } if (parseInt(document.getElementById('sell_amount').value) > document.getElementById('sell_amount').max) { document.getElementById('sell_amount').value = document.getElementById('sell_amount').max }">
         <br>
         <form method="dialog">
-            <button class="puffy_button primary" id="sellbtn"><i class="fa-solid fa-coins"></i> SELL</button>
-            <button class="puffy_button secondary"><i class="fa-solid fa-close"></i> Cancel</button>
+            <button class="puffy_button primary" id="sellbtn"><i class="fa-light fa-coins"></i> SELL</button>
+            <button class="puffy_button secondary"><i class="fa-light fa-close"></i> Cancel</button>
         </form>
     </dialog>
     <dialog id="blueInfo">
@@ -34,27 +35,27 @@
             <img id="info_icon" alt="icon" width="128">
             <div>
                 <h1><span id="info_name"></span></h1>
-                <p><i class="fa-solid fa-coins"></i> Value: <span id="info_price">0</span> coins</p>
-                <p><i class="fa-solid fa-star"></i> Rarity: <span id="info_rarity"></span></p>
-                <p><i class="fa-solid fa-percent"></i> Chance: <span id="info_chance"></span></p>
+                <p><i class="fa-light fa-coins"></i> Value: <span id="info_price">0</span> coins</p>
+                <p><i class="fa-light fa-star"></i> Rarity: <span id="info_rarity"></span></p>
+                <p><i class="fa-light fa-percent"></i> Chance: <span id="info_chance"></span></p>
             </div>
         </div>
         
         <br>
         <form method="dialog">
-            <button class="puffy_button primary"><i class="fa-solid fa-close"></i> Close</button>
+            <button class="puffy_button primary"><i class="fa-light fa-close"></i> Close</button>
         </form>
     </dialog>
     <dialog id="bugged">
-        <h1><i class="fa-solid fa-triangle-exclamation"></i> Error</h1>
+        <h1><i class="fa-light fa-triangle-exclamation"></i> Error</h1>
         <p>Since this blue is bugged, no data is assigned to it.</p>
         <form method="dialog">
-            <button class="puffy_button primary"><i class="fa-solid fa-close"></i> Close</button>
+            <button class="puffy_button primary"><i class="fa-light fa-close"></i> Close</button>
         </form>
     </dialog>
     <dialog id="transaction">
         <div class="container" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;">
-            <i class="fa-solid fa-spinner fa-spin fa-xl"></i>
+            <i class="fa-light fa-spinner fa-spin fa-xl"></i>
             <h1>Working...</h1>
         </div>
         
@@ -67,38 +68,37 @@
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue">Blue</span>kid</h1>
+                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
-            <div class="littlespace"></div>
+            <div class="side">
+                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
+                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
+                </div>
             <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i
-                        class="fa-solid fa-image"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-layer-group"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-shop"></i> Shop</button></a>
-            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-face-smile"></i> Social</button></a>
+                        class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-face-smile"></i> Social</button></a>
         </div>
         <div id="sidenav_lower">
-            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-gears"></i> Settings</button></a>
+                        class="fa-light fa-gears"></i> Settings</button></a>
             <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-newspaper"></i> News</button></a>
+                        class="fa-light fa-newspaper"></i> News</button></a>
         </div>
     
     </div>
 
-    <section>
+    <section id="profile" style="display:none;">
+        <h1 style="font-size: 2.5rem;">Select your profile blue:</h1>
+        <div id="allBlues__profile"></div>
+    </section>
+    <section id="content">
         <h1>Blues</h1>
-        <div class="container" id="loading" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;">
-            <i class="fa-solid fa-spinner fa-spin fa-xl"></i>
-            <p style="font-size: 1.25rem;">Loading blues</p>
-        </div>
         <div class="littlespace"></div>
-        <button disabled class="puffy_button danger"><i class="fa-solid fa-code"></i> Bulk sell</button>
+        <button disabled class="puffy_button danger"><i class="fa-light fa-code"></i> Bulk sell</button>
         <!-- <div class="littlespace"></div> -->
         <div id="allBlues">
             <div class="bluechar" id="bluex">
@@ -120,9 +120,9 @@
             </div>
         </div>
         <div id="bottom_inspect_right">
-            <button class="puffy_button primary" id="sell"><i class="fa-solid fa-coins"></i> Sell</button>
-            <button class="puffy_button secondary" id="info"><i class="fa-solid fa-circle-info"></i> Info</button>
-            <button class="puffy_button secondary" id="trade" disabled><i class="fa-solid fa-xmark"></i> Trade</button>
+            <button class="puffy_button primary" id="sell"><i class="fa-light fa-coins"></i> Sell</button>
+            <button class="puffy_button secondary" id="info"><i class="fa-light fa-circle-info"></i> Info</button>
+            <button class="puffy_button secondary" id="trade" disabled><i class="fa-light fa-xmark"></i> Trade</button>
         </div>
     </div>
 

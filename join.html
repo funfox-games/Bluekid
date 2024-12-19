@@ -7,23 +7,19 @@
 
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/join.css">
+    <link rel="shortcut icon" href="./asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <dialog id="setUsername">
-        <input type="text" placeholder="Username" id="username" class="input">
-        <button id="setusernamejoin" class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i>Join</button>
-    </dialog>
-
     <!-- Background elem -->
     <div class="fullscreen"></div>
     <div class="section__center" style="color:white;display:flex;flex-direction: column;align-items: center;">
-        <a style="text-decoration: none;color:white;" href="./index.html"><h1 style="background-color: #0000001f;padding: 5px;border-radius: 10px;box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);padding-left: 20px;padding-right: 20px;"><span class="blue">Blue</span>kid</h1></a>
+        <a style="text-decoration: none;color:white;" href="./index.html"><h1 style="background-color: #0000001f;padding: 5px;border-radius: 10px;box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);padding-left: 20px;padding-right: 20px;" id="title"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1></a>
         <section class="container maincontainer" style="margin-top: 25px;">
             <div id="notloggedin" class="warning">Loading...</div>
             <p>Version <span id="hostingversion"></span></p>
-            <input class="input" style="height: 40px;" placeholder="Game ID" id="gid">
-            <button id="join" class="puffy_button primary"><i class="fa-solid fa-right-to-bracket"></i> Join</button>
+            <input class="input" style="height: 40px;" autocomplete="off" placeholder="Game ID" id="gid">
+            <button id="join" class="puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Join</button>
         </section>
     </div>
 

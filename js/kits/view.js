@@ -1,1 +1,136 @@
-import{onAuthStateChanged,auth,db,doc,getDoc,updateDoc}from"../util/firebase.js";let kitid_url=new URL(location.href).searchParams.get("id");function refreshQuestions(i){var t=document.getElementById("allQuestions").children;for(let e=0;e<t.length;e++)"ex"!=t[e].id&&t[e].remove();for(let e=0;e<i.length;e++){var n=i[e],d=(console.log(n),n.a1),r=n.a2,a=n.a3,l=n.a4,c=n.question,s=n.correctA,o=document.getElementById("ex").cloneNode(!0);o.id="",o.children[1].children[0].innerText=c,o.children[1].children[1].children[0].innerText=d,o.children[1].children[1].children[1].innerText=r,o.children[1].children[1].children[2].innerText=a,o.children[1].children[1].children[3].innerText=l,s.includes("1")&&(o.children[1].children[1].children[0].innerHTML='<i class="fa-solid fa-square-check"></i> '+d),s.includes("2")&&(o.children[1].children[1].children[1].innerHTML='<i class="fa-solid fa-square-check"></i> '+r),s.includes("3")&&(o.children[1].children[1].children[2].innerHTML='<i class="fa-solid fa-square-check"></i> '+a),s.includes("4")&&(o.children[1].children[1].children[3].innerHTML='<i class="fa-solid fa-square-check"></i> '+l),""==n.image||null==n.image?o.children[0].style.display="none":o.children[0].children[0].src=n.image,document.getElementById("allQuestions").append(o)}}onAuthStateChanged(auth,async e=>{if(e){var n=doc(db,"kits",kitid_url),n=await getDoc(n);if(n.exists()){n=(await getDoc(doc(db,"users",n.data().ownerUid,"kits",n.data().kitId))).data();if("private"==n.visibility)document.getElementById("notOwned").showModal(),document.getElementById("visibility").innerHTML=n.visibility;else{if("friends"==n.visibility){document.getElementById("preformingchecks").showModal();var d=await getDoc(doc(db,"kits",kitid_url)).then(async e=>(await getDoc(doc(db,"users",e.data().ownerUid))).data());if(document.getElementById("preformingchecks").close(),!d.friends.includes(e.uid)&&e.uid!=kitowner_url)return document.getElementById("visibility").innerHTML=n.visibility,void document.getElementById("notOwned").showModal()}document.getElementById("kitname").innerText=n.displayname,document.getElementById("desc").innerText=n.description,document.getElementById("coverimg").src=n.cover,null!=n.questions&&(refreshQuestions(n.questions),document.getElementById("questionamount").innerHTML=n.questions.length);let i=await getDoc(doc(db,"users",auth.currentUser.uid)),t=(null!=i.data().favoriteKits&&i.data().favoriteKits.includes(kitid_url)&&(document.getElementById("favoritekit").innerHTML='<i class="fa-solid fa-star"></i> Favorited kit'),!1);null!=i.data().favoriteKits&&i.data().favoriteKits.includes(kitid_url)&&(t=!0),document.getElementById("favoritekit").addEventListener("click",async()=>{var e;document.getElementById("favoritekit").innerHTML="Working...",document.getElementById("favoritekit").setAttribute("disabled",""),t=t?((e=i.data().favoriteKits||[])!=[]&&e.splice(e.indexOf(kitid_url),1),await updateDoc(doc(db,"users",auth.currentUser.uid),{favoriteKits:e}),document.getElementById("favoritekit").innerHTML='<i class="fa-regular fa-star"></i> Favorite kit',document.getElementById("favoritekit").removeAttribute("disabled"),!1):((e=i.data().favoriteKits||[]).push(kitid_url),await updateDoc(doc(db,"users",auth.currentUser.uid),{favoriteKits:e}),document.getElementById("favoritekit").innerHTML='<i class="fa-solid fa-star"></i> Favorited kit',document.getElementById("favoritekit").removeAttribute("disabled"),!0)})}}else document.getElementById("nonexistant").showModal()}else location.href="../../auth/login.html"});
+import { onAuthStateChanged, auth, db, doc, getDoc, updateDoc } from "../util/firebase.js";
+
+const kitid_url = new URL(location.href).searchParams.get("id");
+// const kitowner_url = new URL(location.href).searchParams.get("owner");
+
+function refreshQuestions(questions) {
+    const children = document.getElementById("allQuestions").children;
+    for (let i = 0; i < children.length; i++) {
+        if (children[i].id == "ex") { continue; }
+        children[i].remove();
+    }
+
+    for (let i = 0; i < questions.length; i++) {
+        const qdata = questions[i];
+        console.log(qdata);
+        const answer1 = qdata.a1;
+        const answer2 = qdata.a2;
+        const answer3 = qdata.a3;
+        const answer4 = qdata.a4;
+        const question = qdata.question;
+        const correct = qdata.correctA;
+
+        const clone = document.getElementById("ex").cloneNode(true);
+        clone.id = "";
+        clone.children[1].children[0].innerText = question;
+        clone.children[1].children[1].children[0].innerText = answer1;
+        clone.children[1].children[1].children[1].innerText = answer2;
+        clone.children[1].children[1].children[2].innerText = answer3;
+        clone.children[1].children[1].children[3].innerText = answer4;
+        if (correct.includes("1")) {
+            clone.children[1].children[1].children[0].innerHTML = `<i class="fa-light fa-square-check"></i> ${answer1}`;
+        }
+        if (correct.includes("2")) {
+            clone.children[1].children[1].children[1].innerHTML = `<i class="fa-light fa-square-check"></i> ${answer2}`;
+        }
+        if (correct.includes("3")) {
+            clone.children[1].children[1].children[2].innerHTML = `<i class="fa-light fa-square-check"></i> ${answer3}`;
+        }
+        if (correct.includes("4")) {
+            clone.children[1].children[1].children[3].innerHTML = `<i class="fa-light fa-square-check"></i> ${answer4}`;
+        }
+        if (qdata.image == "" || qdata.image == undefined) {
+            clone.children[0].style.display = "none";
+        } else {
+            clone.children[0].children[0].src = qdata.image;
+        }
+        document.getElementById("allQuestions").append(clone);
+    }
+}
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        location.href = "../../auth/login.html";
+        return;
+    }
+    var kitref = doc(db, "kits", kitid_url);
+    var kit_ = await getDoc(kitref);
+    if (!kit_.exists()) {
+        document.getElementById("nonexistant").showModal();
+        return;
+    }
+    var kit = await getDoc(doc(db, "users", kit_.data().ownerUid, "kits", kit_.data().kitId));
+    var kitdata = kit.data();
+    if (kitdata.visibility == "private") {
+        document.getElementById("notOwned").showModal();
+        document.getElementById("visibility").innerHTML = kitdata.visibility;
+        return;
+    }
+    if (kitdata.visibility == "friends"){
+        document.getElementById("preformingchecks").showModal();
+        const theirdata = await getDoc(doc(db, "kits", kitid_url)).then(async (res) => {
+            const data = await getDoc(doc(db, "users", res.data().ownerUid));
+            return data.data();
+        });
+        
+        document.getElementById("preformingchecks").close();
+        if (!theirdata.friends.includes(user.uid) && user.uid != kitowner_url) {
+            document.getElementById("visibility").innerHTML = kitdata.visibility;
+            document.getElementById("notOwned").showModal();
+            return;
+        }
+    }
+    document.getElementById("kitname").innerText = kitdata.displayname;
+    document.getElementById("desc").innerText = kitdata.description;
+    document.getElementById("coverimg").src = kitdata.cover;
+    if (kitdata.questions != undefined) {
+        refreshQuestions(kitdata.questions);
+        document.getElementById("questionamount").innerHTML = kitdata.questions.length;
+    }
+    const localdata = await getDoc(doc(db, "users", auth.currentUser.uid));
+    if (localdata.data().favoriteKits != undefined) {
+        if (localdata.data().favoriteKits.includes(kitid_url)) {
+            document.getElementById("favoritekit").innerHTML = `<i class="fa-light fa-star"></i> Favorited kit`;
+        }
+    }
+
+    let isFavorite = false;
+
+    if (localdata.data().favoriteKits != undefined) {
+        if (localdata.data().favoriteKits.includes(kitid_url)) {
+            isFavorite = true;
+        }
+    }
+    document.getElementById("favoritekit").addEventListener("click", async () => {
+        document.getElementById("favoritekit").innerHTML = "Working...";
+        document.getElementById("favoritekit").setAttribute("disabled", "");
+        if (isFavorite) {
+            /**
+             * @type {Array}
+             */
+            const favoriteKits = localdata.data().favoriteKits || [];
+            if (favoriteKits != []) {
+                favoriteKits.splice(favoriteKits.indexOf(kitid_url), 1);
+            }
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                favoriteKits
+            });
+            document.getElementById("favoritekit").innerHTML = `<i class="fa-light fa-star"></i> Favorite kit`;
+            document.getElementById("favoritekit").removeAttribute("disabled");
+            isFavorite = false;
+        } else {
+            /**
+             * @type {Array}
+             */
+            const favoriteKits = localdata.data().favoriteKits || [];
+            favoriteKits.push(kitid_url);
+            await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                favoriteKits
+            });
+            document.getElementById("favoritekit").innerHTML = `<i class="fa-light fa-star"></i> Favorited kit`;
+            document.getElementById("favoritekit").removeAttribute("disabled");
+            isFavorite = true;
+        }
+    });
+
+});

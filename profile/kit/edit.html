@@ -20,8 +20,8 @@
                         <img id="qimg" alt="cover" height="256" width="256">
                     </div>
                     <div id="questioncontainer_imgoptions">
-                        <button id="uploadurlquestion" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload URL</button>
-                        <button class="puffy_button"><i class="fa-solid fa-file-import"></i> Upload file</button>
+                        <button id="uploadurlquestion" class="puffy_button primary"><i class="fa-light fa-link"></i> Upload URL</button>
+                        <button class="puffy_button"><i class="fa-light fa-file-import"></i> Upload file</button>
                     </div>
                 </div>
                 
@@ -50,11 +50,11 @@
             
         </div>
 
-        <div class="caution" style="display:none;color: black;"><i class="fa-solid fa-circle-exclamation"></i> <span id="problem"></span></div>
+        <div class="caution" style="display:none;color: black;"><i class="fa-light fa-circle-exclamation"></i> <span id="problem"></span></div>
         <div class="littlespace"></div>
         <form method="dialog">
-            <button class="puffy_button primary" id="createquestion__btn" type="button"><i class="fa-solid fa-circle-plus"></i> Create</button>
-            <button class="puffy_button danger"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+            <button class="puffy_button primary" id="createquestion__btn" type="button"><i class="fa-light fa-circle-plus"></i> Create</button>
+            <button class="puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
         </form>
     </dialog>
     <dialog id="uploadurldialog__question">
@@ -63,9 +63,9 @@
             <input type="url" id="uploadurlurl__question" required class="input" placeholder="Enter URL..."
                 style="border:1px solid black;margin-bottom: 5px;">
             <div class="caution" style="color:black;display:none;" id="uploadurlnovaild__question"><i
-                    class="fa-solid fa-circle-exclamation"></i> Not a vaild image / URL.</div>
+                    class="fa-light fa-circle-exclamation"></i> Not a vaild image / URL.</div>
             <br>
-            <button id="uploadurluse__question" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i>
+            <button id="uploadurluse__question" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i>
                 Use</button>
             <button type="reset" id="uploadurlclose__question" class="puffy_button">Close</button>
         </form>
@@ -76,9 +76,9 @@
             <input type="url" id="uploadurlurl" required class="input" placeholder="Enter URL..."
                 style="border:1px solid black;margin-bottom: 5px;">
             <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i
-                    class="fa-solid fa-circle-exclamation"></i> Not a vaild image / URL.</div>
+                    class="fa-light fa-circle-exclamation"></i> Not a vaild image / URL.</div>
             <br>
-            <button id="uploadurluse" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i> Use</button>
+            <button id="uploadurluse" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
             <button onclick="document.getElementById('uploadurldialog').close()" id="uploadurlclose" class="puffy_button">Close</button>
             
         </form>
@@ -88,7 +88,7 @@
             <h1>Upload file</h1>
             <input type="file" id="fileupload" accept="image/*">
             <br>
-            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i>
+            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i>
                 Upload</button>
             <button type="reset" onclick="document.getElementById('uploadfiledialog').close()" id="uploadfileclose" class="puffy_button">Close</button>
         </form>
@@ -98,7 +98,7 @@
         <h1 style="font-size: 2rem;">File too big!</h1>
         <p>With Bluekid Plus, you can upload up to 35 MB. Currently, you can only upload 5 MB.</p>
         <div class="actions">
-            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a onclick="document.getElementById('toobig').close()"><button class="puffy_button">Back</button></a>
         </div>
     </dialog>
@@ -107,16 +107,16 @@
         <h1 style="font-size: 2rem;">Nice thumbnail!</h1>
         <p>Sadly, only Bluekid Plus users can use GIFs.</p>
         <div class="actions">
-            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a onclick="document.getElementById('gif').close()"><button class="puffy_button">Back</button></a>
         </div>
     </dialog>
     <section>
         <h1>Edit kit</h1>
         <div class="space"></div>
-        <button class="puffy_button danger" onclick="history.back()"><i class="fa-solid fa-circle-xmark"></i> Cancel</button>
+        <button class="puffy_button danger" onclick="history.back()"><i class="fa-light fa-circle-xmark"></i> Cancel</button>
         <div class="space"></div>
-        <div class="info"><i class="fa-solid fa-circle-info fa-xl"></i> You can now edit the cover by hovering over the image!</div>
+        <div class="info"><i class="fa-light fa-circle-info fa-xl"></i> You can now edit the cover by hovering over the image!</div>
         <div class="space"></div>
         <div class="container" id="main_container">
             <div id="basic_info" class="container">
@@ -124,13 +124,13 @@
                 <div id="covercontainer" style="background-color: black;width:512px;height: 288px;">
                     <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
                     <div id="cover__overlay">
-                        <button id="changecoverurl" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload with URL</button>
-                        <button id="changecoverfile" class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
+                        <button id="changecoverurl" class="puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
+                        <button id="changecoverfile" class="puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
                     </div>
                 </div>
                 <div id="button_container">
-                    <button id="share_kit" class="puffy_button primary"><i class="fa-solid fa-share-from-square"></i> Share</button>
-                    <button id="delete_kit" class="puffy_button danger"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                    <button id="share_kit" class="puffy_button primary"><i class="fa-light fa-share-from-square"></i> Share</button>
+                    <button id="delete_kit" class="puffy_button danger"><i class="fa-light fa-trash-can"></i> Delete</button>
                 </div>
                 <div style="display:flex;justify-content: space-between;width: 512px;align-items: center;">
                     <div>
@@ -148,14 +148,14 @@
                                 <option value="private" selected>Private</option>
                             </select>
                         </div>
-                        <button class="puffy_button primary" id="savekit"><i class="fa-solid fa-floppy-disk"></i> Save kit</button>
+                        <button class="puffy_button primary" id="savekit"><i class="fa-light fa-floppy-disk"></i> Save kit</button>
                     </div>
                 </div>
             </div>
             <div id="questions_container" class="container">
                 <p style="font-size: 1.25rem;"><span id="questionamount">0</span> questions.</p>
                 <div class="littlespace"></div>
-                <button id="createquestion" class="puffy_button green"><i class="fa-solid fa-circle-plus"></i> Create question</button>
+                <button id="createquestion" class="puffy_button green"><i class="fa-light fa-circle-plus"></i> Create question</button>
                 <div class="littlespace"></div>
                 <div id="allQuestions">
                     <div class="container question" id="ex">
@@ -170,7 +170,7 @@
                                 <p>Answer 3</p>
                                 <p>Answer 4</p>
                             </div>
-                            <button class="puffy_button danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                            <button class="puffy_button danger"><i class="fa-light fa-trash"></i> Delete</button>
                         </div>
                         
                     </div>

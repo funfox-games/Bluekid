@@ -29,7 +29,17 @@
             "graphic": "summerpack.png",
             "cost": 20,
             "buyable": true,
-            "buyBackground": ["rgb(41, 123, 255)", "rgb(41, 205, 255)"]
+            "buyBackground": ["rgb(41, 123, 255)", "rgb(41, 205, 255)"],
+            "ends_on": "Fri, 15 Dec 2024 20:38:48 GMT"
+        },
+        "christmas": {
+            "display_name": "Christmas Pack",
+            "blues": ["Elf", "Ornament", "Snowflake", "Reindeer", "Snowman", "Stocking", "Santa", "Elf on the shelf"],
+            "graphic": "christmaspack.png",
+            "cost": 20,
+            "buyable": true,
+            "buyBackground": ["rgb(227, 227, 227)", "rgb(166, 201, 227)"],
+            "ends_on": "Mon, 30 Dec 2024 20:38:48 GMT"
         },
         "secret": {
             "display_name": "Secret Blues",
@@ -148,6 +158,55 @@
             "rarity": "Mystical",
             "imgPath": "summer/theSun.png",
             "pack": "summer"
+        },
+        "//": "CHRISTMAS",
+        "Elf": {
+            "chance": 17,
+            "rarity": "Common",
+            "imgPath": "christmas/blue_elf.png",
+            "pack": "christmas"
+        },
+        "Ornament": {
+            "chance": 25,
+            "rarity": "Common",
+            "imgPath": "christmas/blue_orniment.png",
+            "pack": "christmas"
+        },
+        "Snowflake": {
+            "chance": 10,
+            "rarity": "Uncommon",
+            "imgPath": "christmas/blue_snowflake.png",
+            "pack": "christmas"
+        },
+        "Reindeer": {
+            "chance": 7,
+            "rarity": "Rare",
+            "imgPath": "christmas/blue_reindeer.png",
+            "pack": "christmas"
+        },
+        "Snowman": {
+            "chance": 4,
+            "rarity": "Epic",
+            "imgPath": "christmas/blue_snowman.png",
+            "pack": "christmas"
+        },
+        "Stocking": {
+            "chance": 2,
+            "rarity": "Lengendary",
+            "imgPath": "christmas/blue_stocking.png",
+            "pack": "christmas"
+        },
+        "Santa": {
+            "chance": 1,
+            "rarity": "Lengendary",
+            "imgPath": "blue_notexture.png",
+            "pack": "christmas"
+        },
+        "Elf on the shelf": {
+            "chance": 0.05,
+            "rarity": "Mystical",
+            "imgPath": "blue_notexture.png",
+            "pack": "christmas"
         },
         "//": "SECRETS",
         "Rainbow Bunny": {

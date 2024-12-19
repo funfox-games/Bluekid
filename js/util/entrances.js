@@ -1,1 +1,32 @@
-function isElementInViewport(e){var{top:e,bottom:t}=e.getBoundingClientRect(),n=window.innerHeight||document.documentElement.clientHeight;return(0<e||0<t)&&e<n}function updateScroll(){console.log("scroll");for(let e=0;e<document.getElementsByClassName("scroll").length;e++){var t=document.getElementsByClassName("scroll")[e];isElementInViewport(t)&&t.classList.add("animate__animated","animate__backInUp")}for(let e=0;e<document.getElementsByClassName("bounce").length;e++){var n=document.getElementsByClassName("bounce")[e];isElementInViewport(n)&&n.classList.add("animate__animated","animate__bounceIn")}for(let e=0;e<document.getElementsByClassName("fade").length;e++){var a=document.getElementsByClassName("fade")[e];isElementInViewport(a)&&a.classList.add("animate__animated","animate__fadeInUp")}}window.addEventListener("scroll",updateScroll),document.documentElement.style.setProperty("--animate-duration","1s");
+function isElementInViewport(ele) {
+    const { top, bottom } = ele.getBoundingClientRect();
+    const vHeight = (window.innerHeight || document.documentElement.clientHeight);
+
+    return (
+        (top > 0 || bottom > 0) &&
+        top < vHeight
+    );
+}
+function updateScroll() {
+    console.log("scroll");
+    for (let i = 0; i < document.getElementsByClassName("scroll").length; i++) {
+        const element = document.getElementsByClassName("scroll")[i];
+        if (isElementInViewport(element)) {
+            element.classList.add("animate__animated", "animate__backInUp");
+        }
+    }
+    for (let i = 0; i < document.getElementsByClassName("bounce").length; i++) {
+        const element = document.getElementsByClassName("bounce")[i];
+        if (isElementInViewport(element)) {
+            element.classList.add("animate__animated", "animate__bounceIn");
+        }
+    }
+    for (let i = 0; i < document.getElementsByClassName("fade").length; i++) {
+        const element = document.getElementsByClassName("fade")[i];
+        if (isElementInViewport(element)) {
+            element.classList.add("animate__animated", "animate__fadeInUp");
+        }
+    }
+}
+window.addEventListener("scroll", updateScroll);
+document.documentElement.style.setProperty('--animate-duration', '1s');

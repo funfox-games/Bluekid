@@ -154,10 +154,43 @@ onAuthStateChanged(auth, async (user) => {
                 elem.style.display = "none";
             }   
         }
-
         // console.log(await filterMessage("hello users, im going to cream"));
     }
 });
+
+export function insertLoadingScreen(id, parent) {
+    let _parent = parent;
+    if (parent == null) {
+        _parent = document.body;
+    } else {
+        _parent.style.position = "relative";
+    }
+
+    let innerHTML = `
+        <i class="fa-solid fa-spinner-third fa-spin" style="--fa-animation-duration: 0.75s;--fa-animation-timing: ease-in-out;"></i>
+        <p class="_loading_info">Extra info</p>
+    `;
+    let creation = document.createElement("div");
+    creation.className = "__loading_screen";
+    creation.id = "LOADING__" + id;
+    creation.innerHTML = innerHTML;
+    _parent.append(creation);
+    updateLoadingInfo(id);
+    return creation;
+}
+
+export function updateLoadingInfo(id, info) {
+    const loadingscreen = document.getElementById("LOADING__" + id);
+    loadingscreen.children[1].style.display = "unset";
+    if (info == "" || info == null) {
+        loadingscreen.children[1].style.display = "none";
+    }
+    loadingscreen.children[1].innerHTML = info;
+}
+
+export function finishLoading(id) {
+    document.getElementById("LOADING__" + id).remove();
+}
 
 export class FirebaseHelper {
     static async getUserStatus(uid) {

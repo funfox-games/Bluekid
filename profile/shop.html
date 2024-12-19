@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/all.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/profile/shop.css">
+    <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,41 +17,40 @@
             <img id="info_icon" alt="icon" width="128">
             <div>
                 <h1><span id="info_name"></span></h1>
-                <p><i class="fa-solid fa-coins"></i> Cost: <span id="info_price">0</span> coins</p>
-                <p><i class="fa-solid fa-layer-group"></i> Blues: <span id="info_blues"></span></p>
-                <p id="limited"><i class="fa-solid fa-clock"></i> Offer ends on: <span id="offer_end"></span></p>
+                <p><i class="fa-light fa-coins"></i> Cost: <span id="info_price">0</span> coins</p>
+                <p><i class="fa-light fa-cubes"></i> Blues: <span id="info_blues"></span></p>
+                <p id="limited"><i class="fa-light fa-clock"></i> Offer ends on: <span id="offer_end"></span></p>
             </div>
         </div>
         <br>
-        <div style="color:black" class="info"><i class="fa-solid fa-circle-info"></i> Blue listing is a preview. I need to find a better way to display it :/</div>
+        <div style="color:black" class="info"><i class="fa-light fa-circle-info"></i> Blue listing is a preview. I need to find a better way to display it :/</div>
         <form method="dialog">
-            <button class="puffy_button danger"><i class="fa-solid fa-rectangle-xmark"></i> Close</button>
+            <button class="puffy_button danger"><i class="fa-light fa-rectangle-xmark"></i> Close</button>
         </form>
     </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue">Blue</span>kid</h1>
+                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
-            <div class="littlespace"></div>
+            <div class="side">
+                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
+                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
+                </div>
             <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-image"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-layer-group"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i
-                        class="fa-solid fa-shop"></i> Shop</button></a>
+                        class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
             <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-face-smile"></i> Social</button></a>
+                        class="fa-light fa-face-smile"></i> Social</button></a>
         </div>
         <div id="sidenav_lower">
-            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-gears"></i> Settings</button></a>
+                        class="fa-light fa-gears"></i> Settings</button></a>
             <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-newspaper"></i> News</button></a>
+                        class="fa-light fa-newspaper"></i> News</button></a>
         </div>
     
     </div>
@@ -73,15 +73,15 @@
         </div>
     </div>
 
-    <section>
+    <section id="content">
         <div id="shop_top" class="container">
             <h1>Shop</h1>
             <div style="font-size: 1.5rem;">
-                <p><i class="fa-solid fa-coins"></i> <b id="allcoins">0</b> coins</p>
+                <p><i class="fa-light fa-coins"></i> <b id="allcoins">0</b> coins</p>
                 
             </div>
         </div>
-        <!-- <div class="caution"><i class="fa-solid fa-circle-exclamation"></i> Nothing saves, next update will save bought blues.</div> -->
+        <!-- <div class="caution"><i class="fa-light fa-circle-exclamation"></i> Nothing saves, next update will save bought blues.</div> -->
         <br>
         <label class="toggle" for="quickTransition">
             <input class="toggle_input" type="checkbox" id="quickTransition">
@@ -97,8 +97,8 @@
                     <h1>Unknown</h1>
                     <p>Cost: idk</p>
                     <div style="display:flex;flex-direction: column;gap:3px;">
-                        <button class="puffy_button primary"><i class="fa-solid fa-cart-shopping"></i> Buy</button>
-                        <button class="puffy_button secondary"><i class="fa-solid fa-circle-info"></i> Info</button>
+                        <button class="puffy_button primary"><i class="fa-light fa-cart-shopping"></i> Buy</button>
+                        <button class="puffy_button secondary"><i class="fa-light fa-circle-info"></i> Info</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
         <!-- Specials -->
         <h2>Specials</h2>
         <div id="nolimitedtime" class="container" style="background-color: #00000059;color:white;">
-            <p style="font-size: 1.75rem;"><i class="fa-solid fa-medal fa-sm"></i> No specials available.</p>
+            <p style="font-size: 1.75rem;"><i class="fa-light fa-medal fa-sm"></i> No specials available.</p>
             <p>Come back later and maybe a special will be on sale!</p>
         </div>
         <div id="allSpecials">
@@ -120,7 +120,7 @@
                     <p>Cost: idk</p>
                     <div style="display:flex;flex-direction: column;gap:3px;margin-top: 5px;">
                         <b>Offer ends in <i>00</i> days!</b>
-                        <button class="puffy_button primary"><i class="fa-regular fa-star"></i> Claim</button>
+                        <button class="puffy_button primary"><i class="fa-light fa-star"></i> Claim</button>
                     </div>
                 </div>
             </div>
@@ -130,16 +130,16 @@
 
         <h2>Contribute</h2>
         <p>Send a suggestion of what could be in the shop! <b>(Please do general ones and not persenal ones)</b></p>
-        <h3><i class="fa-solid fa-heading"></i> Title</h3>
+        <h3><i class="fa-light fa-heading"></i> Title</h3>
         <input id="packnamesuggest" type="text" placeholder="Ex: My cool pack" class="input">
         <br>
-        <h3><i class="fa-solid fa-coins"></i> Cost</h3>
+        <h3><i class="fa-light fa-coins"></i> Cost</h3>
         <input id="packcostsuggest" type="number" placeholder="Ex: 20" class="input">
         <br>
-        <h3><i class="fa-solid fa-layer-group"></i> Blues</h3>
+        <h3><i class="fa-light fa-cubes"></i> Blues</h3>
         <input id="packbluessuggest" type="text" placeholder="ex: Bluename (Rarity), etc." class="input">
         <br>
-        <button id="submitsuggestion" class="puffy_button primary"><i class="fa-solid fa-paper-plane"></i> Submit</button>
+        <button id="submitsuggestion" class="puffy_button primary"><i class="fa-light fa-paper-plane"></i> Submit</button>
     </section>
 
     <script type="module" src="../js/profile/shop.js"></script>

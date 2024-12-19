@@ -1,1 +1,39 @@
-class UserReasons{static VAILD=0;static OVERDUE=1;static BANNED=2;static TEMPBANNED=3;static EMAIL_NOT_VERIFIED=4;static OTHER=99}function isUserVaild(e,s){if(null==e||""==s||"UNKNOWN"==s)return{reason:UserReasons.OTHER};if(null!=s.banned){var n=s.banned.endsOn;if(null==n)return{reason:UserReasons.BANNED,banReason:s.banned.reason};var a=1e3*n.seconds,a=new Date(a).getTime();if(0<Math.floor(a-Date.now()))return{reason:UserReasons.TEMPBANNED,banReason:s.banned.reason,endsOn:n}}a=Date.parse(s.creation)-new Date,n=-Math.floor(a/864e5);return 0==(1==e.emailVerified||e.email.includes("@libertyunion.org"))&&30<n?{reason:UserReasons.OVERDUE}:0!=e.emailVerified||e.email.includes("@libertyunion.org")?{reason:UserReasons.VAILD}:{reason:UserReasons.EMAIL_NOT_VERIFIED}}export{UserReasons,isUserVaild};
+export class UserReasons {
+    static VAILD = 0
+    static OVERDUE = 1
+    static BANNED = 2
+    static TEMPBANNED = 3
+    static EMAIL_NOT_VERIFIED = 4
+    static OTHER = 99
+}
+
+export function isUserVaild(user, udata) {
+    if (user == null || udata == "" || udata == "UNKNOWN") {
+        return {reason: UserReasons.OTHER};
+    }
+    if (udata.banned != undefined) {
+        const endsOn = udata.banned.endsOn;
+        const perm = endsOn == undefined || endsOn == null;
+        if (perm) {
+            return { reason: UserReasons.BANNED, banReason: udata.banned.reason };
+        }
+        const date = endsOn.seconds * 1000;
+        var createdAt = (new Date(date).getTime());
+        let difference = Math.floor((createdAt - Date.now()));
+        if (difference > 0) {
+            return { reason: UserReasons.TEMPBANNED, banReason: udata.banned.reason, endsOn };
+        }
+    }
+    var time = (Date.parse(udata.creation) - new Date()); // milliseconds between now & user creation
+    var diffDays = -Math.floor(time / 86400000); // days
+    if ((user.emailVerified == true || user.email.includes("@libertyunion.org")) == false) {
+        if (diffDays > 30) {
+            return { reason: UserReasons.OVERDUE };
+        }
+    }
+    if (user.emailVerified == false && !user.email.includes("@libertyunion.org")) {
+        return { reason: UserReasons.EMAIL_NOT_VERIFIED };
+    }
+
+    return {reason: UserReasons.VAILD};
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client | Bluekid</title>
+
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../css/hosting/client.css">
+    <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog id="beforeJoin">
+        <h1>Joinning Options</h1>
+        <div class="info" style="color:black;"><i class="fa-light fa-circle-info fa-lg"></i> A temp. screen for the time being. I will hopefully have better thoughts in the future...</div>
+        <div class="space"></div>
+        <h2>Privacy</h2>
+        <div class="specialContainer">
+            <label class="toggle" for="useAccount">
+                <input class="toggle_input" disabled type="checkbox" id="useAccount">
+                <div class="toggle_fill"></div>
+                <span>[Unavailable] Use account <i class="fa-light fa-circle-question" title="Play as a player that is not linked to your account (this game will still go into your history)"></i></span>
+            </label>
+        </div>
+        
+        <h2>Username</h2>
+        <div class="specialContainer">
+            <div id="randomUsername" hide>
+                <p>This game uses randomized usernames.</p>
+                <div class="littlespace"></div>
+                <button class="puffy_button primary" id="randomize">Randomize</button>
+                <b id="randomName">NAME</b>
+            </div>
+            <div id="normalUsername">
+                <label class="toggle" for="useUsername">
+                    <input class="toggle_input" type="checkbox" id="useUsername">
+                    <div class="toggle_fill"></div>
+                    <span>Use account username</span>
+                </label>
+                <div class="littlespace"></div>
+                <input type="text" id="usernameinput" class="input" placeholder="Enter name...">
+            </div>
+        </div>
+
+        
+        <button class="puffy_button primary" id="confirmJoin">Join</button>
+    </dialog>
+    <dialog id="joinning">
+        <h1><i class="fa-light fa-spinner fa-spin"></i> Joinning via functions...</h1>
+        <p>The functions may need a minute to warm up</p>
+    </dialog>
+    <div class="topnav">
+        <p id="topnavusername">Username</p>
+
+    </div>
+    <br><br><br>
+    <div class="container" style="margin:10px;">
+        <div id="changeWithAccount" class="info" style="color:black;"><i class="fa-light fa-circle-info fa-lg"></i> Change your blue with an <b>account.</b></div>
+        <p>Choose your blue:</p>
+        <select class="input" id="blues">
+            <optgroup label="Default">
+                <option value="default">Default [No texture]</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <script src="../js/hosting/client.js" type="module"></script>
+</body>
+</html>

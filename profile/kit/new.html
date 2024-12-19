@@ -16,7 +16,7 @@
         <h1 style="font-size: 2rem;">You've reached your limit!</h1>
         <p>With Bluekid Plus, you can create 100 kits!</p>
         <div class="actions">
-            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="../kits.html"><button class="puffy_button">Back</button></a>
         </div>
     </dialog>
@@ -26,9 +26,9 @@
         <form method="dialog" style="text-align: center;">
             <h1>Upload by URL</h1>
             <input type="url" id="uploadurlurl" required class="input" placeholder="Enter URL..." style="border:1px solid black;margin-bottom: 5px;">
-            <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i class="fa-solid fa-circle-exclamation"></i> Not a vaild image / URL.</div>
+            <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i class="fa-light fa-circle-exclamation"></i> Not a vaild image / URL.</div>
             <br>
-            <button id="uploadurluse" class="puffy_button primary"><i class="fa-solid fa-file-image"></i> Use</button>
+            <button id="uploadurluse" class="puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
             <button type="reset" id="uploadurlclose" class="puffy_button">Close</button>
         </form>
     </dialog>
@@ -37,7 +37,7 @@
             <h1>Upload file</h1>
             <input type="file" id="fileupload" accept="image/*">
             <br>
-            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-solid fa-file-image"></i> Upload</button>
+            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i> Upload</button>
             <button type="reset" id="uploadfileclose" class="puffy_button">Close</button>
         </form>
     </dialog>
@@ -50,26 +50,26 @@
                     <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
                 </div>
                 <div id="cover_options">
-                    <button id="uploadurl" class="puffy_button primary"><i class="fa-solid fa-link"></i> Upload with URL</button>
-                    <button id="uploadfile" class="puffy_button"><i class="fa-solid fa-file"></i> Upload file</button>
+                    <button id="uploadurl" class="puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
+                    <button id="uploadfile" class="puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
                 </div>
             </div>
             <div id="basic_info" style="background-color: #ffffff48;" class="container">
                 <h1>Basic Info</h1>
                 <i>* Required</i>
                 <hr>
-                <h2><i class="fa-solid fa-book-open"></i> Title*</h2>
+                <h2><i class="fa-light fa-book-open"></i> Title*</h2>
                 <input type="text" style="text-align: left;" id="kittitle" class="input">
                 
-                <h2><i class="fa-solid fa-scroll"></i> Description</h2>
+                <h2><i class="fa-light fa-scroll"></i> Description</h2>
                 <textarea style="text-align: left;resize: none;" id="kitdesc" rows="4" cols="40" class="input"></textarea>
 
                 
             </div>
             <div id="privacy" style="background-color: #ffffff48;" class="container">
-                <h1><i class="fa-solid fa-shield-halved"></i> Privacy</h1>
+                <h1><i class="fa-light fa-shield-halved"></i> Privacy</h1>
                 <hr>
-                <h3><i class="fa-solid fa-eye"></i> Kit visibility</h3>
+                <h3><i class="fa-light fa-eye"></i> Kit visibility</h3>
                 <select id="kit_visibility">
                     <option value="public">Public</option>
                     <option value="friends">Friends</option>
@@ -82,7 +82,7 @@
                     <input class="toggle_input" type="checkbox" id="canclone">
                     <div class="toggle_fill"></div>
                     <div>
-                        Can clone <i title="Is anyone who finds this kit able to clone it and edit it?" class="fa-solid fa-circle-question fa-sm"></i>
+                        Can clone <i title="Is anyone who finds this kit able to clone it and edit it?" class="fa-light fa-circle-question fa-sm"></i>
                     </div>
                 </label>
 
@@ -92,8 +92,8 @@
             </div>
         </div>
         <div class="space"></div>
-        <button class="puffy_button green" id="createkit"><i class="fa-solid fa-square-plus"></i> Create</button>
-        <button class="puffy_button danger" onclick="history.back()"><i class="fa-solid fa-circle-xmark"></i> Cancel</button>
+        <button class="puffy_button green" id="createkit"><i class="fa-light fa-square-plus"></i> Create</button>
+        <button class="puffy_button danger" onclick="history.back()"><i class="fa-light fa-circle-xmark"></i> Cancel</button>
         
     </section>
 

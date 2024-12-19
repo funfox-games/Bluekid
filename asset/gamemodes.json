@@ -5,83 +5,51 @@
             "defaultValue": 32
         }
     },
-    "gamemodes": {
-        "solo": [
-            {
-                "id": "funfox.flashcards",
-                "display": "Flashcards",
-                "description": "The simple yet effective way of studying!",
-                "limitedAccess": true,
-                "isSoloOnly": true,
-                "tags": ["Classic"],
-                "cover": "../asset/templates/kit_temp.png",
-                "settings": {
-                    "cardSettings": {
-                        "display": "Card Settings",
-                        "settings": {
-                            "showDefinitionFirst":  {
-                                "type": "bool",
-                                "display": "Show definition first",
-                                "extraInfo": "Show definition on the front instead of the back.",
-                                "defaultValue": false
-                            }
-                        }
-                    }
-                    
-                }
-            },
-            {
-                "id": "funfox.quiz",
-                "display": "Quiz",
-                "description": "A practice quiz for testing your knowledge!",
-                "limitedAccess": true,
-                "isSoloOnly": true,
-                "tags": ["Classic"],
-                "cover": "../asset/templates/kit_temp.png",
-                "settings": {
+    "gamemodes": [
+        {
+            "id": "art",
+            "display": "Art",
+            "description": "Draw a theme and anwser questions to refill ink!",
+            "limitedAccess": true,
+            "bluekidPlusOnly": false,
+            "tags": ["2D"],
+            "cover": "../asset/templates/kit_temp.png",
+            "releaseDate": "Friday, 29-Nov-24 01:51:12 GMT+0000",
+            "consideredNewUntil": "Wednesday, 04-Dec-24 01:51:12 GMT+0000",
+            "ideaCreator": "funfoxrr",
+            "idealPlaytime": 10,
+            "minimumPlayerCount": 2,
+            "settings": {
+                "Ink": {
+                    "display": "Ink Settings",
                     "settings": {
-                        "display": "Basic Settings",
-                        "settings": {
-                            "allowTypingAnswers": {
-                                "type": "bool",
-                                "display": "Allow typing answers",
-                                "defaultValue": true
-                            },
-                            "answerWithTerm": {
-                                "type": "bool",
-                                "display": "Answer with term",
-                                "extraInfo": "[EXPERIMENTAL] Instead of answering with the answers, you answer with the question.",
-                                "defaultValue": false
-                            }
+                        "startingInk":  {
+                            "type": "number",
+                            "display": "Starting ink",
+                            "defaultValue": 50,
+                            "icon": "pen-nib"
+                        },
+                        "inkDrainage":  {
+                            "type": "number",
+                            "display": "Ink Drain Speed",
+                            "extraInfo": "The amount of ink that drains every second their pen is drawing.",
+                            "defaultValue": 10,
+                            "icon": "subtract"
+                        },
+                        "inkPerQuestion":  {
+                            "type": "number",
+                            "display": "Ink Per Question",
+                            "extraInfo": "The amount of ink you get for every right anwser",
+                            "defaultValue": 10,
+                            "icon": "plus"
                         }
                     }
-                    
                 }
-            }
-        ],
-        "competitive": [
-            {
-                "id": "funfox.classic",
-                "display": "Classic",
-                "description": "Choose the anwser the fastest to end on top!",
-                "limitedAccess": true,
-                "tags": ["Timed"],
-                "cover": "../asset/templates/kit_temp.png",
-                "settings": {
-                    "questions": {
-                        "display": "Questions",
-                        "settings": {
-                            "maxTime":  {
-                                "type": "number",
-                                "display": "Max time (s)",
-                                "defaultValue": 10
-                            }
-                        }
-                    }
-                    
-                }
-            }
-        ]
-    }
+                
+            },
+            "host_redirect_uri": "art/host.html",
+            "client_redirect_uri": "art/client.html"
+        }
+    ]
     
 }

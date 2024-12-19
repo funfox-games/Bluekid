@@ -4,6 +4,10 @@
     gap:15px;
     flex-wrap: wrap;
 }
+body{
+    flex-direction: column;
+    align-items: unset;
+}
 .bluechar {
     display:flex;
     align-items: center;
@@ -51,18 +55,19 @@
 #bottom_inspect {
     display: flex;
     gap: 5px;
+    border-radius: 10px;
     justify-content:space-between;
-    position: fixed;
-    left:var(--sidenav-size);
+    /* position: fixed;
+    left:var(--sidenav-size); */
     padding: 10px;
-    bottom:0;
-    width: calc(100% - var(--sidenav-size));
+    /* bottom:0; */
+    /* width: calc(100% - var(--sidenav-size)); */
     height: 75px;
-    background-color: #0000001f;
-    border-top: 5px solid black;
+    background-color: #0000002a;
     padding-left: 15px;
     backdrop-filter: blur(8px);
     z-index: 8;
+    margin-bottom: 10px;
 }
 #bottom_inspect_left {
     display: flex;

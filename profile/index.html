@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../css/all.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -14,8 +15,8 @@
         <h1>DataV2 is out!</h1>
         <p>Switch now! or don't...</p>
         <form method="dialog">
-            <a href="../auth/transfer.html"><button class="puffy_button primary" type="button"><i class="fa-solid fa-bolt-lightning"></i> Go To</button></a>
-            <button class="puffy_button"><i class="fa-solid fa-xmark"></i> Close</button>
+            <a href="../auth/transfer.html"><button class="puffy_button primary" type="button"><i class="fa-light fa-bolt-lightning"></i> Go To</button></a>
+            <button class="puffy_button"><i class="fa-light fa-xmark"></i> Close</button>
         </form>
     </dialog>
     <dialog id="developer">
@@ -23,57 +24,59 @@
         <button class="puffy_button" id="usecurrent">Use current UID</button>
         <div style="display:flex;gap:5px;margin-top:10px;margin-bottom: 10px;">
             <input type="text" class="input" id="searchuid" style="background-color: #0000001f;" placeholder="Enter UID...">
-            <button class="puffy_button primary" id="searchuser"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            <button class="puffy_button primary" id="searchuser"><i class="fa-light fa-magnifying-glass"></i> Search</button>
         </div>
         <div id="userdata" class="container" style="background-color: #0000001f;">Output here</div>
 
         <br>
         <form method="dialog">
-            <button class="puffy_button danger"><i class="fa-solid fa-rectangle-xmark"></i> Close</button>
+            <button class="puffy_button danger"><i class="fa-light fa-rectangle-xmark"></i> Close</button>
         </form>
     </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue">Blue</span>kid</h1>
+                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <a href="../join.html" style="width:100%;"><button style="width:100%;" class="puffy_button primary"><i class="fa-solid fa-play"></i> Play</button></a>
-            <div class="littlespace"></div>
-            <a href="#" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-solid fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-image"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-layer-group"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-shop"></i> Shop</button></a>
+            <div class="side">
+                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
+                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
+                </div>
+            <a href="#" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
             <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-solid fa-face-smile"></i> Social</button></a>
-            <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="puffy_button danger"><i class="fa-solid fa-screwdriver-wrench"></i> Developer</button></a>
+                        class="fa-light fa-face-smile"></i> Social</button></a>
+            <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="puffy_button danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a>
         </div>
         <div id="sidenav_lower">
-            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
-            <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-gears"></i> Settings</button></a>
-            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-solid fa-newspaper"></i> News</button></a>
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-newspaper"></i> News</button></a>
         </div>
         
     </div>
-    <section>
-        <div class="warning" style="color:black;font-size: 18px;" id="notemailverified"><i class="fa-solid fa-triangle-exclamation fa-xl"></i> <b>Your email is not verified.</b> You're account will be <b>locked in a month</b> if your account is still not verified. <a href="../auth/verify.html"><button class="puffy_button primary"><i class="fa-solid fa-envelope-circle-check"></i> Verify</button></a></div>
+    <section id="content">
+        <div class="warning" style="color:black;font-size: 18px;" id="notemailverified"><i class="fa-light fa-triangle-exclamation fa-xl"></i> <b>Your email is not verified.</b> You're account will be <b>locked in a month</b> if your account is still not verified. <a href="../auth/verify.html"><button class="puffy_button primary"><i class="fa-light fa-envelope-circle-check"></i> Verify</button></a></div>
         <div class="maincontainer">
             <div left>
                 <!-- LEFT -->
                 <div id="datav2">
                     <div style="display:flex;align-items: center;gap:5px;">
-                        <i class="fa-solid fa-star fa-xl"></i>
+                        <i class="fa-light fa-star fa-xl"></i>
                         <div>
                             <h3>Data V2</h3>
                             <p style="font-size: 12px;color:rgb(20,20,20)">Upgrade now!</p>
                         </div>
                     </div>
-                    <a href="../auth/transfer.html" style="display:block;width: fit-content;margin-left: 10px;" title="Upgrade!"><button class="puffy_button primary"><i class="fa-solid fa-circle-up"></i> Upgrade</button></a>
+                    <a href="../auth/transfer.html" style="display:block;width: fit-content;margin-left: 10px;" title="Upgrade!"><button class="puffy_button primary"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
                 </div>
                 <div class="profile_card">
                     <div id="basicInfo">
                         <img src="../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
                         <div style="margin-left:5px;text-align: right;">
-                            <a href="./settings.html#sect.accountinfo" style="display: flex;align-items: center;gap:5px;color:black;text-decoration: none;"><div id="username"></div> <i class="fa-solid fa-edit fa-sm"></i></a>
+                            <a href="./settings.html#sect.accountinfo" style="display: flex;align-items: center;gap:5px;color:black;text-decoration: none;"><div id="username"></div> <i class="fa-light fa-edit fa-sm"></i></a>
                         </div>
                     </div>
                     <div id="badges">
@@ -97,14 +100,14 @@
                         </a>
                     </div>
                     <div style="display: flex;gap:5px;">
-                        <a href="./settings.html"><button class="puffy_button" style="width: 100%;"><i class="fa-solid fa-gears"></i> Settings</button></a>
-                        <button id="logout" class="puffy_button danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                        <a href="./settings.html"><button class="puffy_button" style="width: 100%;"><i class="fa-light fa-gears"></i> Settings</button></a>
+                        <button id="logout" class="puffy_button danger"><i class="fa-light fa-right-from-bracket"></i> Logout</button>
                     </div>
                 </div>
                 <div class="container" id="incoming_friend_requests">
                     <h1>Incoming friend requests</h1>
                     <div id="noincomingfriends">
-                        <i class="fa-solid fa-user-group fa-xl"></i>
+                        <i class="fa-light fa-user-group fa-xl"></i>
                         <h1>No incoming requests</h1>
                     </div>
                     <div id="incomingfriendreq">
@@ -114,9 +117,9 @@
                                 <p>UID: what</p>
                             </div>
                             <div actions>
-                                <button class="icon_button green"><i class="fa-solid fa-circle-check"></i></button>
-                                <button class="icon_button"><i class="fa-solid fa-xmark"></i></button>
-                                <button class="icon_button danger" disabled><i class="fa-solid fa-ban"></i></button>
+                                <button class="icon_button green"><i class="fa-light fa-circle-check"></i></button>
+                                <button class="icon_button"><i class="fa-light fa-xmark"></i></button>
+                                <button class="icon_button danger" disabled><i class="fa-light fa-ban"></i></button>
                             </div>
                         </div>
                     </div>
@@ -126,12 +129,12 @@
                 <!-- RIGHT -->
                 <h1>Feed</h1>
                 <div class="info">
-                    <i class="fa-solid fa-circle-info fa-xl"></i> Here is where you will see your friends' activity! (According to their privacy settings, of course.)
+                    <i class="fa-light fa-circle-info fa-xl"></i> Here is where you will see your friends' activity! (According to their privacy settings, of course.)
                 </div>
                 <br>
                 <h1>Popular kits</h1>
                 <div class="info">
-                    <i class="fa-solid fa-circle-info fa-xl"></i> The most trending kits!
+                    <i class="fa-light fa-circle-info fa-xl"></i> The most trending kits!
                 </div>
             </div>
         </div>

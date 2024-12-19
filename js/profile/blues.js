@@ -1,14 +1,471 @@
-import{onAuthStateChanged,auth,db,doc,getDoc,getDocs,updateDoc,deleteDoc,signOut,collection}from"../util/firebase.js";let pack_data=null,_data=await fetch("../../asset/blues.json");pack_data=await _data.json();import{isUserVaild,UserReasons}from"../util/auth_helper.js";async function checkVaild(o,c){return new Promise(async(e,t)=>{var n=isUserVaild(o,c);if(n.reason==UserReasons.OVERDUE)location.href="../auth/overdue.html";else if(n.reason==UserReasons.BANNED)(a=document.createElement("dialog")).innerHTML=`
+import { onAuthStateChanged, auth, db, doc, getDoc, getDocs, updateDoc, deleteDoc, signOut, collection, insertLoadingScreen, updateLoadingInfo, finishLoading } from "../util/firebase.js";
+
+// import * as __data from "../../asset/blues.json" with { type: "json" };
+let pack_data = null;
+const _data = await fetch("../../asset/blues.json");
+pack_data = await _data.json();
+
+import { isUserVaild, UserReasons } from "../util/auth_helper.js";
+
+async function checkVaild(user, userData) {
+    return new Promise(async (res, rej) => {
+
+        const USER_CONFIRMATION_CHECK = isUserVaild(user, userData);
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.OVERDUE) {
+            location.href = "../auth/overdue.html";
+            return;
+        }
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.BANNED) {
+            const popup = document.createElement("dialog");
+            popup.innerHTML = `
             <h1>You're banned.</h1>
-            <p>Reason: ${n.banReason}</p>
+            <p>Reason: ${USER_CONFIRMATION_CHECK.banReason}</p>
             <br>
             <b>You can resolve this by contacting the developer.</b>
             <button class="puffy_button danger" id="logout__ban">Logout</button>
-        `,document.body.append(a),a.showModal(),document.getElementById("logout__ban").addEventListener("click",async()=>{await signOut(auth),location.href="../index.html"});else if(n.reason==UserReasons.TEMPBANNED){var a=document.createElement("dialog"),l=1e3*n.endsOn.seconds,l=new Date(l).getTime();let e=Math.floor((l-Date.now())/864e5),t="days";console.log(e),0==e&&(e=Math.floor((l-Date.now())/36e5),t="hours",0==e)&&(e=Math.floor((l-Date.now())/6e4),t="minutes"),a.innerHTML=`
+        `;
+            document.body.append(popup);
+            popup.showModal();
+            document.getElementById("logout__ban").addEventListener("click", async () => {
+                await signOut(auth);
+                location.href = "../index.html";
+            })
+            return;
+        }
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.TEMPBANNED) {
+            const popup = document.createElement("dialog");
+            const date = USER_CONFIRMATION_CHECK.endsOn.seconds * 1000;
+            var createdAt = (new Date(date).getTime());
+            let difference = Math.floor((createdAt - Date.now()) / 86400000);
+            let timeType = "days";
+            console.log(difference);
+            if (difference == 0) {
+                difference = Math.floor((createdAt - Date.now()) / 3600000);
+                timeType = "hours";
+                if (difference == 0) {
+                    difference = Math.floor((createdAt - Date.now()) / 60000);
+                    timeType = "minutes";
+                }
+            }
+            popup.innerHTML = `
             <h1>You're banned.</h1>
-            <p>Reason: ${n.banReason}</p>
-            <p>Ends in ${e} ${t}.</p>
+            <p>Reason: ${USER_CONFIRMATION_CHECK.banReason}</p>
+            <p>Ends in ${difference} ${timeType}.</p>
             <br>
             <b>You can resolve this sooner by contacting the developer.</b>
             <button class="puffy_button danger" id="logout__ban">Logout</button>
-        `,document.body.append(a),a.showModal(),void document.getElementById("logout__ban").addEventListener("click",async()=>{await signOut(auth),location.href="../index.html"})}else n.reason==UserReasons.OTHER&&showNotification(3,"Something went wrong checking user info. Continuing as normal."),e()})}var cachedBlues=null,allAddedSections=[],currentlySelected="",currentAmount=-1;async function getAllUserBlues(l){return new Promise(async(e,t)=>{var n,a;null!=cachedBlues?e(cachedBlues):(n=collection(db,"users",l,"blues"),n=await getDocs(n),a=[],n.forEach(e=>{var t=e.data(),e=e.id;a.push({id:e,data:t})}),e(cachedBlues=a))})}async function updateBluesAmount(a,l){return new Promise(async e=>{document.getElementById("transaction").showModal();var t=0;for(let e=0;e<cachedBlues.length;e++)if(cachedBlues[e].id==a){console.log(cachedBlues[e].data.amount,l),t=cachedBlues[e].data.amount-l,cachedBlues[e].data.amount=t;break}var n=doc(db,"users",auth.currentUser.uid,"blues",currentlySelected);await updateDoc(n,{amount:t}),document.getElementById("preview_amount").innerHTML=t+" Owned",document.getElementById("transaction").close(),e(t)})}function createSection(e){var t,n;allAddedSections.includes(e)||allAddedSections.includes("undefined")||(t="undefined",(n=document.createElement("h2")).style.marginTop="5px",null==e||null==pack_data.packs[e]?(n.innerHTML="Bugged Blues",allAddedSections.push("undefined")):(n.innerHTML=pack_data.packs[e].display_name,allAddedSections.push(e),t=e),document.getElementById("allBlues").append(n),(e=document.getElementById("sectex").cloneNode(!0)).id=t,document.getElementById("allBlues").append(e))}function clickListener(n){n.addEventListener("click",async()=>{if(null!=n.getAttribute("given")){currentlySelected=n.id,document.getElementById("sell").innerHTML='<i class="fa-solid fa-coins"></i> Sell',null==pack_data.blues[n.id]?(document.getElementById("preview_img").src="../asset/char/blue_broken.png",document.getElementById("sell").innerHTML="Remove"):document.getElementById("preview_img").src="../asset/char/"+pack_data.blues[n.id].imgPath,document.getElementById("preview_name").innerHTML=n.id;var t=await getAllUserBlues(auth.currentUser.uid);for(let e=0;e<t.length;e++)if(t[e].id==n.id){console.log(t[e]),document.getElementById("preview_amount").innerHTML=t[e].data.amount+" Owned",currentAmount=t[e].data.amount;break}}})}function getPriceFromRarity(e){switch(e.toLocaleLowerCase()){case"common":return 2;case"uncommon":return 5;case"rare":return 25;case"epic":return 50;case"lengendary":return 75;case"mystical":return 200}}function resetPreview(){currentlySelected="",currentAmount=0,document.getElementById("preview_name").innerHTML="None selected.",document.getElementById("preview_amount").innerHTML="0 Owned",document.getElementById("preview_img").src="../asset/char/blue_notexture.png"}function sellBluePopup(){var e=pack_data.blues[currentlySelected];if(null==e)return""==currentlySelected?void document.getElementById("bugged").showModal():(document.getElementById("removename").innerText=currentlySelected,document.getElementById("removeamount").innerHTML=currentAmount,void document.getElementById("removeblue").showModal());var t=getPriceFromRarity(e.rarity);console.log(currentlySelected,e),document.getElementById("sell_name").innerHTML=currentlySelected,document.getElementById("sell_price").innerHTML=t,document.getElementById("sell_amount").max=currentAmount,document.getElementById("sell_amount").value="1",document.getElementById("sellblue").showModal()}async function sellBlue(){var e,t,n=getPriceFromRarity(pack_data.blues[currentlySelected].rarity),a=parseInt(document.getElementById("sell_amount").value);0==a?showNotification(3,"Canceled sell."):"NaN"==a.toString()?showNotification(3,"Can't sell NaN blues"):(t=doc(db,"users",auth.currentUser.uid),e=(await getDoc(t)).data().tokens,console.log(e,n*a),await updateDoc(t,{tokens:t=e+n*a}),showNotification(4,`You now have <b>${t.toLocaleString()}</b> tokens! (+${a*n})`),0==await updateBluesAmount(currentlySelected,a)&&(document.getElementById(currentlySelected).removeAttribute("given"),resetPreview()))}onAuthStateChanged(auth,async e=>{if(e){var t=e.uid,n=doc(db,"users",t),n=await getDoc(n).then(e=>e.exists()?e.data():"UNKNOWN"),n=(await checkVaild(e,n),pack_data.blues),a=(Object.entries(n).forEach(([e,t])=>{var n;"//"!=e&&(createSection(t.pack),(n=document.getElementById("bluex").cloneNode(!0)).id=e,null==pack_data.blues[e]?n.children[0].src="../asset/char/blue_broken.png":n.children[0].src="../asset/char/"+pack_data.blues[e].imgPath,clickListener(n),(null==t.pack||null==t.pack||""==t.pack?document.getElementById("undefined"):document.getElementById(t.pack)).append(n))}),await getAllUserBlues(t));for(let e=0;e<a.length;e++){var l,o,c=a[e].id,d=a[e].data;if(!(d.amount<=0)){if("memes"==d.pack&&(d.pack="meme"),createSection(d.pack),null!=pack_data.blues[c]){let e="#000000";switch(pack_data.blues[c].rarity.toLocaleLowerCase()){case"common":e="#cfcfcf";break;case"uncommon":e="#0bd900";break;case"rare":e="#0090d9";break;case"epic":e="#ae00ff";break;case"lengendary":e="#ccb800";break;case"mystical":e="#00d0f0","secret"!=pack_data.blues[c].pack&&((l=document.getElementById("wheelex").cloneNode(!0)).id="",o=document.getElementById(c.toString()).getBoundingClientRect(),l.style.right=o.width/2+"px",l.style.left=o.width/2+"px",document.getElementById(c.toString()).append(l))}document.getElementById(c.toString()).style.backgroundColor=e,document.getElementById(c.toString()).style.border="2px solid "+e,document.getElementById(c.toString()).style.boxShadow="0px 0px 10px 2px "+e}null==document.getElementById(c)&&(createSection("undefined"),(d=document.getElementById("bluex").cloneNode(!0)).id=c,null==pack_data.blues[c]?d.children[0].src="../asset/char/blue_broken.png":d.children[0].src="../asset/char/"+pack_data.blues[c].imgPath,clickListener(d),document.getElementById("undefined").append(d)),document.getElementById(c.toString()).setAttribute("given","")}}document.getElementById("sell").addEventListener("click",sellBluePopup),document.getElementById("info").addEventListener("click",()=>{var e,t=pack_data.blues[currentlySelected];(null==t?document.getElementById("bugged"):(e=getPriceFromRarity(t.rarity),document.getElementById("info_icon").src="../asset/char/"+t.imgPath,document.getElementById("info_name").innerHTML=currentlySelected,document.getElementById("info_price").innerHTML=e,document.getElementById("info_rarity").innerHTML=t.rarity,document.getElementById("info_chance").innerHTML=t.chance+"%",document.getElementById("blueInfo"))).showModal()}),document.getElementById("sellbtn").addEventListener("click",sellBlue),document.getElementById("removeblue_confirm").addEventListener("click",async()=>{document.getElementById("removeblue_confirm").innerHTML="Waiting...",document.getElementById("removeblue_confirm").setAttribute("disabled",""),await deleteDoc(doc(db,"users",e.uid,"blues",currentlySelected)),document.getElementById(currentlySelected).remove(),document.getElementById("removeblue").close(),document.getElementById("removeblue_confirm").innerHTML="Remove (x<span id='removeamount'>1</span>)",document.getElementById("removeblue_confirm").removeAttribute("disabled")}),document.getElementById("loading").style.display="none"}else location.href="../auth/login.html"});
+        `;
+
+            document.body.append(popup);
+            popup.showModal();
+            document.getElementById("logout__ban").addEventListener("click", async () => {
+                await signOut(auth);
+                location.href = "../index.html";
+            })
+            return;
+        }
+        
+        if (USER_CONFIRMATION_CHECK.reason == UserReasons.OTHER) {
+            showNotification(3, "Something went wrong checking user info. Continuing as normal.");
+        }
+        res();
+    });
+}
+
+
+var cachedBlues = null;
+var allAddedSections = [];
+
+var currentlySelected = "";
+var currentAmount = -1;
+
+async function getAllUserBlues(uid) {
+    return new Promise(async (res, rej) => {
+        if (cachedBlues != null) {
+            res(cachedBlues);
+            return;
+        }
+        var blues = collection(db, "users", uid, "blues");
+        var snapshot = await getDocs(blues);
+        var all = [];
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+            all.push({
+                id,
+                data
+            });
+        });
+        cachedBlues = all;
+        res(all);
+    });
+}
+async function updateBluesAmount(id, subtract) {
+    return new Promise(async (res) => {
+        document.getElementById("transaction").showModal();
+        var newamount = 0;
+        for (let i = 0; i < cachedBlues.length; i++) {
+            if (cachedBlues[i].id == id) {
+                console.log(cachedBlues[i].data.amount, subtract);
+                newamount = cachedBlues[i].data.amount - subtract;
+                cachedBlues[i].data.amount = newamount;
+                break;
+            }
+        }
+
+        var docref = doc(db, "users", auth.currentUser.uid, "blues", currentlySelected);
+        await updateDoc(docref, {
+            amount: newamount
+        });
+
+        document.getElementById("preview_amount").innerHTML = newamount + " Owned";
+        document.getElementById("transaction").close();
+        res(newamount);
+    })
+}
+
+function createSection(id, appendthing) {
+    if (!allAddedSections.includes(id) && !allAddedSections.includes("undefined")) {
+        var setid = "undefined";
+        const header = document.createElement("h2");
+        header.style.marginTop = "5px";
+        if (id == undefined || pack_data.packs[id] == undefined) {
+            header.innerHTML = "Bugged Blues";
+            allAddedSections.push("undefined");
+        } else {
+            header.innerHTML = pack_data.packs[id].display_name;
+            allAddedSections.push(id);
+            setid = id;
+        }
+        document.getElementById("allBlues").append(header);
+        const sect = document.getElementById("sectex").cloneNode(true);
+        sect.id = setid;
+        if (appendthing != null) {document.getElementById(appendthing).append(sect);}
+        else {document.getElementById("allBlues").append(sect);}
+        
+    }
+}
+function clickListener(obj) {
+    obj.addEventListener("click", async () => {
+        if (obj.getAttribute("given") == null) {return;}
+        currentlySelected = obj.id;
+
+        document.getElementById("sell").innerHTML = `<i class="fa-light fa-coins"></i> Sell`;
+        if (pack_data.blues[obj.id] == undefined) {
+            document.getElementById("preview_img").src = "../asset/char/blue_broken.png";
+            document.getElementById("sell").innerHTML = "Remove";
+        } else {
+            document.getElementById("preview_img").src = "../asset/char/" + pack_data.blues[obj.id].imgPath;
+        }
+        
+        document.getElementById("preview_name").innerHTML = obj.id;
+        const blues = await getAllUserBlues(auth.currentUser.uid);
+        for (let i = 0; i < blues.length; i++) {
+            if (blues[i].id == obj.id) {
+                console.log(blues[i]);
+                document.getElementById("preview_amount").innerHTML = blues[i].data.amount + " Owned";
+                currentAmount = blues[i].data.amount;
+                break;
+            }
+        }
+
+    });
+}
+
+function getPriceFromRarity(rarity) {
+    switch (rarity.toLocaleLowerCase()) {
+        case "common":
+            return 2;
+        case "uncommon":
+            return 5;
+        case "rare":
+            return 25;
+        case "epic":
+            return 50;
+        case "lengendary":
+            return 75;
+        case "mystical":
+            return 200;
+    }
+}
+
+function resetPreview() {
+    currentlySelected = "";
+    currentAmount = 0;
+    document.getElementById("preview_name").innerHTML = "None selected.";
+    document.getElementById("preview_amount").innerHTML = "0 Owned";
+    document.getElementById("preview_img").src = "../asset/char/blue_notexture.png";
+}
+
+function sellBluePopup() {
+    const data = pack_data.blues[currentlySelected];
+    if (data == null) {
+        if (currentlySelected == "") {
+            document.getElementById("bugged").showModal();
+            return;
+        }
+        document.getElementById("removename").innerText = currentlySelected;
+        document.getElementById("removeamount").innerHTML = currentAmount;
+        document.getElementById("removeblue").showModal();
+        return;
+    }
+    const amount = getPriceFromRarity(data.rarity);
+    console.log(currentlySelected, data);
+    document.getElementById("sell_name").innerHTML = currentlySelected;
+    document.getElementById("sell_price").innerHTML = amount;
+    document.getElementById("sell_amount").max = currentAmount;
+    document.getElementById('sell_amount').value = "1";
+
+    document.getElementById("sellblue").showModal();
+}
+
+async function sellBlue() {
+    const data = pack_data.blues[currentlySelected];
+    const amount = getPriceFromRarity(data.rarity);
+    const amountToSell = parseInt(document.getElementById("sell_amount").value);
+    if (amountToSell == 0) {
+        showNotification(3, `Canceled sell.`);
+        return;
+    }
+    if (amountToSell.toString() == "NaN") {
+        showNotification(3, "Can't sell NaN blues");
+        return;
+    }
+
+    const doc__ = doc(db, "users", auth.currentUser.uid);
+
+    const doccc = await getDoc(doc__);
+    const tokens = doccc.data().tokens;
+
+    console.log(tokens, amount * amountToSell);
+
+    var newTokenAmount = tokens + (amount * amountToSell)
+    await updateDoc(doc__, {
+        tokens: newTokenAmount
+    });
+    showNotification(4, `You now have <b>${newTokenAmount.toLocaleString()}</b> tokens! (+${amountToSell * amount})`);
+    var newBlueAmount = await updateBluesAmount(currentlySelected, amountToSell);
+    if (newBlueAmount == 0) {
+        document.getElementById(currentlySelected).removeAttribute("given");
+        resetPreview();
+        return;
+    }
+}
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        location.href = "../auth/login.html";
+        return;
+    }
+    const search = new URLSearchParams(location.search);
+    if (search.get("function") == "profile") {
+        var uid = user.uid;
+        var doc_ = doc(db, "users", uid);
+        document.getElementById("content").style.display = "none";
+        document.getElementById("profile").style.display = "block";
+        document.getElementById("bottom_inspect").style.display = "none";
+        insertLoadingScreen("content", document.getElementById("profile"));
+        var allBlues = pack_data.blues;
+        updateLoadingInfo("content", "Inserting blues...");
+        Object.entries(allBlues).forEach(([key, val]) => {
+            var blue = key;
+            var data = val;
+            // console.log(data);
+            if (blue == "//") {return;}
+
+            createSection(data.pack, "allBlues__profile");
+
+            const clone = document.getElementById("bluex").cloneNode(true);
+            clone.id = blue;
+            if (pack_data.blues[blue] == undefined) {
+                return
+            } else {
+                clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
+            }
+            clone.addEventListener("click", async () => {
+                insertLoadingScreen("updateprofile", document.getElementById("profile"));
+                updateLoadingInfo("updateprofile", "Updating document");
+                await updateDoc(doc_, {
+                    profileBlue: pack_data.blues[blue].imgPath
+                });
+                updateLoadingInfo("updateprofile", "Redirecting");
+                location.replace("./settings.html#sect.community");
+            });
+            if (data.pack == undefined || data.pack == null || data.pack == "") {
+                document.getElementById("undefined").append(clone);
+            } else {
+                document.getElementById(data.pack).append(clone);
+            }
+        });
+        var userBlues = await getAllUserBlues(uid);
+        for (let i = 0; i < userBlues.length; i++) {
+            var blue = userBlues[i].id;
+            var data = userBlues[i].data;
+
+            if (data.amount <= 0) {
+                continue;
+            }
+
+            if (data.pack == "memes") {
+                data.pack = "meme";
+            }
+
+            if (document.getElementById(blue) == undefined) {
+                createSection("undefined", "allBlues__profile");
+                const clone = document.getElementById("bluex").cloneNode(true);
+                clone.id = blue;
+                if (pack_data.blues[blue] == undefined) {
+                    clone.children[0].src = "../asset/char/blue_broken.png";
+                } else {
+                    clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
+                }
+                clickListener(clone);
+                document.getElementById("undefined").append(clone);
+            }
+            document.getElementById(blue.toString()).setAttribute("given", "");
+        }
+        finishLoading("content");
+        return;
+    }
+    insertLoadingScreen("content", document.getElementById("content"));
+    var uid = user.uid;
+    var doc_ = doc(db, "users", uid);
+    updateLoadingInfo("content", "Fetching user data");
+    var userData = await getDoc(doc_).then((res) => {
+        if (!res.exists()) {
+            return "UNKNOWN";
+        }
+        return res.data();
+    });
+    await checkVaild(user, userData);
+    var allBlues = pack_data.blues;
+
+    Object.entries(allBlues).forEach(([key, val]) => {
+        var blue = key;
+        var data = val;
+        // console.log(data);
+        if (blue == "//") {return;}
+
+        createSection(data.pack);
+
+        const clone = document.getElementById("bluex").cloneNode(true);
+        clone.id = blue;
+        if (pack_data.blues[blue] == undefined) {
+            clone.children[0].src = "../asset/char/blue_broken.png";
+        } else {
+            clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
+        }
+        clickListener(clone);
+        if (data.pack == undefined || data.pack == null || data.pack == "") {
+            document.getElementById("undefined").append(clone);
+        } else {
+            document.getElementById(data.pack).append(clone);
+        }
+    });
+
+    updateLoadingInfo("content", "Retriving blues");
+    var userBlues = await getAllUserBlues(uid);
+    for (let i = 0; i < userBlues.length; i++) {
+        var blue = userBlues[i].id;
+        var data = userBlues[i].data;
+
+        if (data.amount <= 0) {
+            continue;
+        }
+
+        if (data.pack == "memes") {
+            data.pack = "meme";
+        }
+
+        createSection(data.pack);
+
+        // Add outline here
+        if(pack_data.blues[blue] != null) {
+            const rarity = pack_data.blues[blue].rarity;
+            let color = "#000000";
+            switch (rarity.toLocaleLowerCase()) {
+                case "common":
+                    color = "#cfcfcf";
+                    break;
+                case "uncommon":
+                    color = "#0bd900";
+                    break;
+                case "rare":
+                    color = "#0090d9";
+                    break;
+                case "epic":
+                    color = "#ae00ff";
+                    break;
+                case "lengendary":
+                    color = "#ccb800";
+                    break;
+                case "mystical":
+                    color = "#00d0f0";
+
+                    if (pack_data.blues[blue].pack != "secret") {
+                        const wheel = document.getElementById("wheelex").cloneNode(true);
+                        wheel.id = "";
+
+                        const bounding = document.getElementById(blue.toString()).getBoundingClientRect();
+                        // wheel.style.right = (bounding.width / 2) - 75 + "px";
+                        wheel.style.right = (bounding.width / 2) + "px";
+                        wheel.style.left = (bounding.width/2) + "px";
+                        
+                        document.getElementById(blue.toString()).append(wheel);
+                    }
+                    
+
+                    break;
+                default:
+                    break;
+            }
+            document.getElementById(blue.toString()).style.backgroundColor = color;
+            document.getElementById(blue.toString()).style.border = `2px solid ${color}`;
+            document.getElementById(blue.toString()).style.boxShadow = "0px 0px 10px 2px " + color;
+        }
+        
+
+        if (document.getElementById(blue) == undefined) {
+            createSection("undefined");
+            const clone = document.getElementById("bluex").cloneNode(true);
+            clone.id = blue;
+            if (pack_data.blues[blue] == undefined) {
+                clone.children[0].src = "../asset/char/blue_broken.png";
+            } else {
+                clone.children[0].src = "../asset/char/" + pack_data.blues[blue].imgPath;
+            }
+            clickListener(clone);
+            document.getElementById("undefined").append(clone);
+        }
+        document.getElementById(blue.toString()).setAttribute("given", "");
+    }
+
+    document.getElementById("sell").addEventListener("click", sellBluePopup);
+    document.getElementById("info").addEventListener("click", () => {
+        const data = pack_data.blues[currentlySelected];
+        if (data == null) {
+            document.getElementById("bugged").showModal();
+            return;
+        }
+        const amount = getPriceFromRarity(data.rarity);
+        document.getElementById("info_icon").src = "../asset/char/" + data.imgPath;
+        document.getElementById("info_name").innerHTML = currentlySelected;
+        document.getElementById("info_price").innerHTML = amount;
+        document.getElementById("info_rarity").innerHTML = data.rarity;
+        document.getElementById("info_chance").innerHTML = data.chance + "%";
+
+        document.getElementById("blueInfo").showModal();
+    });
+    document.getElementById("sellbtn").addEventListener("click", sellBlue);
+    document.getElementById("removeblue_confirm").addEventListener("click", async () => {
+        document.getElementById("removeblue_confirm").innerHTML = "Waiting...";
+        document.getElementById("removeblue_confirm").setAttribute("disabled", "");
+        await deleteDoc(doc(db, "users", user.uid, "blues", currentlySelected));
+        document.getElementById(currentlySelected).remove();
+        document.getElementById("removeblue").close();
+        document.getElementById("removeblue_confirm").innerHTML = "Remove (x<span id='removeamount'>1</span>)";
+        document.getElementById("removeblue_confirm").removeAttribute("disabled");
+    })
+
+    finishLoading("content");
+});

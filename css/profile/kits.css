@@ -1,3 +1,11 @@
+body {
+    display: flex;
+}
+.all {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+}
 #kits {
     display:flex;
     flex-direction: column;
@@ -45,4 +53,28 @@
     display:flex;
     flex-direction: column;
     gap:10px;
+}
+.puffy_button.blooket {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    background-color: #07919b;
+}
+.puffy_button.quizlet {
+    display: flex;
+    align-items: center;
+    gap:2px;
+    background-color: #423ed8;
+}
+.puffy_button.gimkit {
+    display: flex;
+    align-items: center;
+    gap:2px;
+    background-color: #57067e;
+}
+.btnlist {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    margin: 10px;
 }
