@@ -372,6 +372,7 @@ async function addAllSpecials() {
 }
 
 onAuthStateChanged(auth, async (user) => {
+    try {
     if (!user) {
         location.href = "../auth/login.html";
         return;
@@ -419,5 +420,7 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById("submitsuggestion").innerHTML = "Thanks!";
     });
     finishLoading("content");
-
+    } catch (error) {
+        alert("ERRROR: " + error);
+    }
 });
