@@ -131,8 +131,50 @@ document.body.onload = () => {
     }
 }
 
+/**
+ * 
+ * @param {string} id 
+ * @param {string} title
+ * @param {string} message 
+ * @param {Date} expires 
+ */
+function addDisclaimer(id, title, message, expires) {
+    if (new Date() > expires) {
+        localStorage.removeItem("disclaimer__" + id);
+        return;
+    }
+    if (localStorage.getItem("disclaimer__" + id) == true) {
+        return;
+    }
+    const dialog = document.createElement("dialog");
+    dialog.id = id;
+    dialog.innerHTML = title;
+    var time = (expires - new Date()); // milliseconds between now & user creation
+    var diffDays = -Math.floor(time / 86400000); // days
+    dialog.innerHTML = `
+    <h1>${title}</h1>
+    <p>${message}</p>
+    <label class="toggle" for="${id}__showAgain">
+        <input class="toggle_input" type="checkbox" id="${id}__showAgain">
+        <div class="toggle_fill"></div>
+        Don't show again
+    </label>
+    <p>Notice expires in <span title="${expires}">${diffDays}</span></p>
+    <form method="dialog">
+        <button class="puffy_green primary" id="${id}__btn">Close</button>
+    </form>
+    `;
+    document.getElementById(id + "__btn").addEventListener("click", () => {
+        if (document.getElementById(id + "__showAgain").checked) {
+            localStorage.setItem("disclaimer__" + id, true);
+        }
+    });
+    document.body.prepend(dialog);
+}
+
 onAuthStateChanged(auth, async (user) => {
     if (user && !user.isAnonymous) {
+        addDisclaimer("temp__someAspects", "Some Bluekid pages are down.", "Due to a backend issue of mine, Bluekid will be temporarily down.", new Date("2024-12-20T15:00:00+00:00"))
         const statusref = ref(realtime, "statuses/" + user.uid);
         console.log("alr");
         onValue(statusref, (snapshot) => {
