@@ -160,9 +160,7 @@ function addDisclaimer(id, title, message, expires) {
         Don't show again
     </label>
     <b style="font-size:1.5rem;">Notice expires in <span title="${expires}">${diffHours}</span> hours</b>
-    <form method="dialog">
-        <button class="puffy_button primary" id="${id}__btn">Close</button>
-    </form>
+    <button class="puffy_button primary" id="${id}__btn">Close</button>
     `;
     document.body.prepend(dialog);
 
@@ -170,6 +168,7 @@ function addDisclaimer(id, title, message, expires) {
         if (document.getElementById(id + "__showAgain").checked) {
             localStorage.setItem("disclaimer__" + id, true);
         }
+        dialog.close();
     });
     dialog.showModal();
 }
