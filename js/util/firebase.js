@@ -159,9 +159,9 @@ function addDisclaimer(id, title, message, expires) {
         <div class="toggle_fill"></div>
         Don't show again
     </label>
-    <p>Notice expires in <span title="${expires}">${diffDays}</span></p>
+    <b style="font-size:1.5rem;">Notice expires in <span title="${expires}">${diffDays}</span> days</b>
     <form method="dialog">
-        <button class="puffy_green primary" id="${id}__btn">Close</button>
+        <button class="puffy_button primary" id="${id}__btn">Close</button>
     </form>
     `;
     document.body.prepend(dialog);
