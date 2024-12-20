@@ -317,7 +317,9 @@ async function addAllPacks() {
 async function addAllSpecials() {
     return new Promise(async (res, rej) => {
         const list = Object.entries(allSpecials);
-        const allBlues = await getDocs(collection(db, "users", auth.currentUser.uid, "blues"));
+        const allBlues = await getDocs(collection(db, "users", auth.currentUser.uid, "blues")).catch((err) => {
+            rej(err);
+        });
         let allBlueIds = [];
         allBlues.forEach((val, _) => {
             allBlueIds.push(val.id);
