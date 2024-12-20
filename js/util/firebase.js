@@ -150,7 +150,7 @@ function addDisclaimer(id, title, message, expires) {
     dialog.id = id;
     dialog.innerHTML = title;
     var time = (expires - new Date()); // milliseconds between now & user creation
-    var diffHours = -Math.floor((time / 86400000) * 24); // days
+    var diffHours = Math.floor((time / 86400000) * 24); // days
     dialog.innerHTML = `
     <h1>${title}</h1>
     <p>${message}</p>
