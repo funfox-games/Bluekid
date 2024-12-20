@@ -164,12 +164,14 @@ function addDisclaimer(id, title, message, expires) {
         <button class="puffy_green primary" id="${id}__btn">Close</button>
     </form>
     `;
+    document.body.prepend(dialog);
+
     document.getElementById(id + "__btn").addEventListener("click", () => {
         if (document.getElementById(id + "__showAgain").checked) {
             localStorage.setItem("disclaimer__" + id, true);
         }
     });
-    document.body.prepend(dialog);
+    dialog.showModal();
 }
 
 onAuthStateChanged(auth, async (user) => {
