@@ -150,7 +150,7 @@ function addDisclaimer(id, title, message, expires) {
     dialog.id = id;
     dialog.innerHTML = title;
     var time = (expires - new Date()); // milliseconds between now & user creation
-    var diffDays = -Math.floor(time / 86400000); // days
+    var diffHours = -Math.floor((time / 86400000) * 24); // days
     dialog.innerHTML = `
     <h1>${title}</h1>
     <p>${message}</p>
@@ -159,7 +159,7 @@ function addDisclaimer(id, title, message, expires) {
         <div class="toggle_fill"></div>
         Don't show again
     </label>
-    <b style="font-size:1.5rem;">Notice expires in <span title="${expires}">${diffDays}</span> days</b>
+    <b style="font-size:1.5rem;">Notice expires in <span title="${expires}">${diffHours}</span> hours</b>
     <form method="dialog">
         <button class="puffy_button primary" id="${id}__btn">Close</button>
     </form>
@@ -176,7 +176,12 @@ function addDisclaimer(id, title, message, expires) {
 
 onAuthStateChanged(auth, async (user) => {
     if (user && !user.isAnonymous) {
-        addDisclaimer("temp__someAspects", "Some Bluekid pages are down.", "Due to a backend issue of mine, Bluekid will be temporarily down.", new Date("2024-12-20T15:00:00+00:00"))
+        addDisclaimer(
+            "temp__someAspects",
+            "Some Bluekid pages are down.",
+            "Due to a backend issue of mine, Bluekid will be temporarily down.",
+            new Date("2024-12-20T15:00:00-05:00")
+        );
         const statusref = ref(realtime, "statuses/" + user.uid);
         console.log("alr");
         onValue(statusref, (snapshot) => {
