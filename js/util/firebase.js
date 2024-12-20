@@ -143,7 +143,7 @@ function addDisclaimer(id, title, message, expires) {
         localStorage.removeItem("disclaimer__" + id);
         return;
     }
-    if (localStorage.getItem("disclaimer__" + id) == true) {
+    if (localStorage.getItem("disclaimer__" + id) != null) {
         return;
     }
     const dialog = document.createElement("dialog");
