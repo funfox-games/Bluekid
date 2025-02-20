@@ -1,7 +1,4 @@
-section{
-    overflow-y: scroll;
-    height: 95%;
-}
+
 #coverimg {
     object-fit: contain;
 }
@@ -12,20 +9,28 @@ section{
     display:flex;
     gap:10px;
     flex-direction: column;
-    background-color: #0000002f;
-    height: fit-content;
+    justify-content: space-between;
+    /* background-color: #0000002f; */
+    /* height: fit-content; */
 }
 #questions_container {
     flex-basis: 100%;
 }
-#main_container {
+#main_container, #advancedSettings{
+    display: none;
+}
+#sectioncontent[main] > #main_container {
     display:flex;
     gap: 20px;
 }
-.question {
-    background-color: #0000002f;
+#sectioncontent[advanced] > #advancedSettings {
     display:flex;
-    gap:5px;
+    gap: 5px;
+    flex-direction: column;
+}
+.question {
+    display:flex;
+    gap:10px;
     align-items: center;
 }
 #questions {
@@ -45,7 +50,6 @@ section{
 }
 #allQuestions {
     display:flex;
-    overflow-y: scroll;
     gap:10px;
     flex-direction: column;
 }
@@ -79,8 +83,10 @@ section{
     gap:10px;
     background-color: #00000081;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     opacity: 0;
+    padding: 0 5rem;
+    box-sizing: border-box;
     
     transition-duration: 250ms;
 }
@@ -92,4 +98,53 @@ section{
     align-items: center;
     justify-content: space-evenly;
     gap: 5px;
+}
+#pluskit {
+    position: absolute;
+    top:10px;
+    right:10px;
+}
+.question_content{
+    display: flex;
+    flex-direction: column;
+}
+.question_content > * {
+    flex:1;
+}
+.question_answers{
+    display: flex;
+    padding: 1rem;
+    gap:10px;
+}
+.question_answers > * {
+    padding: 1rem 2rem;
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap:5px;
+    font-size: 2rem;
+    background-color: var(--container);
+    border-radius: 5px;
+}
+.question_answers i.fa-square-check {
+    color: rgb(169, 255, 169);
+}
+.question_actions{
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+    align-items: center;
+}
+.question_answers > *[correct] {
+    background-image: linear-gradient(rgba(120, 248, 152, 0.199), var(--container));
+}
+.unsaved {
+    padding: 0 15px;
+    background-color: var(--accent-trans);
+    border-radius: 5px;
+    display: flex;
+    gap:5px;
+    align-items: center;
 }

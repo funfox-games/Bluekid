@@ -1,34 +1,36 @@
 body {
+    overflow-x: hidden;
+    /* background-image: linear-gradient(#ebf5ff, #85c4ff); */
+    background-color: var(--background);
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-image: linear-gradient(var(--other), var(--background));
     height: 100vh;
-    overflow:hidden;
-    background-repeat: no-repeat;
 
     padding-left:235px;
     margin: 0;
-}
-body {
-    background-image: linear-gradient(#ffffff, #80b5d8);
-    background-size: cover;
-
     display: flex;
     align-items: center;
 }
-body:not([disableThemes]) {
+/* body:not([disableThemes]) {
     background-image: url("../asset/detail/christmasBackground.png");
     backdrop-filter: blur(24px);
 
     background-size: cover;
-}
+} */
 section {
     height: 90%;
     overflow-y: scroll;
     flex:1;
     margin: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap:10px;
 }
-body:not([disableThemes]) section {
+/* body:not([disableThemes]) section {
     
     background-color: rgba(255,255,255,.3);
-}
+} */
 :root {
     --sidenav-size: 225px;
 }
@@ -41,10 +43,13 @@ body:not([disableThemes]) section {
     top: 0;
     width: var(--sidenav-size);
     height: 100vh;
-    background-color: #00000075;
+    background-color: var(--container);
     border-right: 5px solid black;
 
     --side-spacing: 10px;
+}
+#sidenav * {
+    text-decoration: none;
 }
 #sidenav_upper {
     display: flex;
@@ -70,10 +75,11 @@ body:not([disableThemes]) section {
     align-items: center;
     flex-direction: column;
     border-radius: 8px;
-    background-color: #0000001f;
+    background-color: var(--container);
     padding: 15px;
     gap:5px;
     overflow: hidden;
+    color: var(--text);
 }
 #basicInfo {
     display: flex;
@@ -84,10 +90,9 @@ body:not([disableThemes]) section {
 }
 #badges {
     display:flex;
-    gap:10px;
+    align-items: center;
     justify-content: end;
-    width: 100%;
-    justify-content: space-evenly;
+    gap:10px;
 }
 #badges2 {
     display: flex;
@@ -106,29 +111,15 @@ body:not([disableThemes]) section {
 
 .maincontainer {
     display:flex;
-    /* align-items:start; */
-    justify-content: stretch;
-}
-.maincontainer > div {
-    padding: 10px;
-    /* background-color: #0000001f; */
-    border-radius: 8px;
-}
-.maincontainer > div[left] {
-    display:flex;
     flex-direction: column;
-    gap:5px;
-    border-right: 1px solid black;
-}
-.maincontainer > div[right] {
-    border-left: 1px solid black;
-    flex: 1;
+    gap:10px;
+    flex:1;
 }
 #datav2 {
-    margin-bottom: 5px;
-    padding: 5px;
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 5px;
     display:flex;
+    align-items: center;
     background-color: #00a2ff3b;
     justify-content: space-between;
 }
@@ -139,19 +130,19 @@ body:not([disableThemes]) section {
     justify-content: space-evenly;
 }
 
-.quickstat {
-    color:black;
+/* .quickstat {
+    color:var(--text);
     text-decoration: none;
     text-align: center;
 }
 .quickstat:hover {
     text-decoration: underline;
-}
+} */
 #incoming_friend_requests {
-    background-color: #0000001f;
+    background-color: var(--container);
 }
 .request {
-    background-color: #0000001f;
+    background-color: var(--container);
     display:flex;
     justify-content: space-between;
     color:black;
@@ -167,8 +158,73 @@ body:not([disableThemes]) section {
 #noincomingfriends {
     display:flex;
     gap:5px;
-    background-color: #0000001f;
+    background-color: var(--container);
     padding: 10px;
     align-items: center;
     border-radius: 10px;
+}
+
+a, button {
+    text-decoration: none;
+}
+#notemailverified {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile_data {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile {
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+.profile #username {
+    font-size: 2rem;
+}
+.quickies {
+    display: flex;
+    gap:10px;
+}
+.quickies > * {
+    flex:1;
+}
+.profile #uid {
+    opacity: .5;
+    font-size: .75rem;
+}
+.quickstat > i {
+    font-size: 3rem;
+}
+.quickstat > p {
+    opacity: .6;
+}
+.quickstat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:10px;
+    padding: 2rem;
+    font-size: 1.25rem;
+    transition-duration: 250ms;
+    border-radius: 5px;
+    background-color: var(--container);
+}
+.maincontainer > * {
+    flex: 0 0 auto;
+}
+.fullflex {
+    flex: 1 0 auto;
+}
+.seperated {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#originalCreation {
+    font-size: .75rem;
 }

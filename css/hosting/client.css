@@ -1,5 +1,7 @@
 body {
-    background-image: linear-gradient(#ffffff, #80b5d8);
+    /* background-image: linear-gradient(#ffffff, #80b5d8); */
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-image: linear-gradient(var(--other), var(--background));
     background-size: contain;
     background-repeat: no-repeat;
     width: 100vw;
@@ -25,6 +27,168 @@ body {
     /* height: 50vh; */
     align-items: normal;
 }
+#joinInfo {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-image: linear-gradient(var(--other), var(--background));
+    display: flex;
+    padding: 2rem;
+    box-sizing: border-box;
+    gap:5px;
+}
+#joinInfo > * {
+    flex:1;
+    color: var(--text);
+}
+
+#joinInfo > .left {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.aditionalInfo{
+    display: flex;
+    gap:5px;
+    justify-content: space-evenly;
+    padding: 1rem 0;
+}
+.aditionalInfo > * {
+    padding: clamp(0rem, 2vw, .75rem) clamp(0rem, 2vw, 2rem);
+    display: flex;
+    gap:5px;
+    align-items: center;
+    font-size: 1rem;
+}
+.aditionalInfo a {
+    transition-duration: 0ms;
+}
+.kitDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+#joinInfo > .right {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    overflow-y: auto;
+    display: flex;
+    gap:5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.rightContent {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    padding: 0 2rem;
+}
+.usernameOptions {
+    display: flex;
+    gap:5px;
+    align-items: center;
+}
+.basicKitDetails {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.title {
+    text-align: center;
+    width: 125%;
+    align-self: center;
+    margin-bottom: 10px;
+}
+.userProfile {
+    position: relative;
+    aspect-ratio: 1/1;
+    max-width: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.profileEdit {
+    position: absolute;
+    right:-10px;
+    bottom:-10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: .75rem;
+    background-color: var(--background);
+    border-radius: 50%;
+    transition-duration: 250ms;
+}
+.userDetails { 
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.userProfile > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+.userProfile:hover .profileEdit {
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-color: var(--other);
+}
+@media(max-width:768px) {
+    #joinInfo {
+        flex-direction: column;
+    }
+    .aditionalInfo {
+        flex-direction: column;
+        justify-content: unset;
+        /* font-size: .75rem; */
+
+    }
+    .kitDetails {
+        flex-direction: row;
+        /* flex:1; */
+    }
+    .basicKitDetails {
+        flex:1;
+    }
+    .basicKitDetails #desc {
+        flex:1;
+    }
+    .kitImage {
+        width: 30vw;
+        border-radius: .5rem !important;
+    }
+    #joinInfo > .right {
+        padding-top: 15rem;
+        padding-bottom: 5rem;
+    }
+}
+.kitImage{
+    /* width: 512px;
+    height: 288px; */
+    aspect-ratio: 16/9;
+    background-color: black;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.kitImage > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
 .specialContainer {
     background-image: linear-gradient(90deg, rgba(0, 110, 255, 0.25), rgba(255, 255, 255, 0));
     border-left: rgba(0, 0, 0, 0.5) 2px solid;
@@ -44,4 +208,105 @@ body {
 }
 #normalUsername[hide] {
     display:none;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text);
+}
+.userinfo {
+    display: flex;
+    gap:5px;
+    align-items: center;
+}
+#postjoin{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    align-self: stretch;
+}
+.quickies {
+    display: flex;
+    gap:5px;
+    padding: .5rem;
+}
+.quickies > * {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:.5rem;
+    padding: 1.25rem 0;
+}
+.quickies > * > i {
+    font-size: 2.5rem;
+}
+#chooseBlue {
+    width: 80vw;
+    height: 80vh;
+}
+.blue_section {
+    display: flex;
+    gap:5px;
+}
+.bluechar {
+    position: relative;
+    cursor: pointer;
+    transition: 250ms transform;
+    filter: brightness(0%);
+}
+.bluechar[given] {
+    filter: brightness(100%);
+}
+.bluechar:hover {
+    transform: translateY(2px);
+}
+#allPlayers {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.player {
+    display: flex;
+    gap:5px;
+    justify-content: space-between;
+}
+.playerContent {
+    display: flex;
+    gap:5px;
+    align-items: center;
+}
+.player .badges {
+    display: flex;
+    gap:5px;
+}
+.player .playerActions {
+    display: flex;
+    gap:5px;
+}
+.player .playerActions a > btn {
+    width: 100%;
+    height: 100%;
+}
+#plrex {
+    display: none;
+}
+#game {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    z-index: 99;
+}
+#game:not([show]) {
+    display: none;
+}
+#gamecontent {
+    width: 100%;
+    height: 100%;
+    color: var(--text);
 }

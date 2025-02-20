@@ -20,8 +20,8 @@
                         <img id="qimg" alt="cover" height="256" width="256">
                     </div>
                     <div id="questioncontainer_imgoptions">
-                        <button id="uploadurlquestion" class="puffy_button primary"><i class="fa-light fa-link"></i> Upload URL</button>
-                        <button class="puffy_button"><i class="fa-light fa-file-import"></i> Upload file</button>
+                        <button id="uploadurlquestion" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload URL</button>
+                        <button class="new_puffy_button"><i class="fa-light fa-file-import"></i> Upload file</button>
                     </div>
                 </div>
                 
@@ -53,8 +53,8 @@
         <div class="caution" style="display:none;color: black;"><i class="fa-light fa-circle-exclamation"></i> <span id="problem"></span></div>
         <div class="littlespace"></div>
         <form method="dialog">
-            <button class="puffy_button primary" id="createquestion__btn" type="button"><i class="fa-light fa-circle-plus"></i> Create</button>
-            <button class="puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
+            <button class="new_puffy_button primary" id="createquestion__btn" type="button"><i class="fa-light fa-circle-plus"></i> Create</button>
+            <button class="new_puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
         </form>
     </dialog>
     <dialog id="uploadurldialog__question">
@@ -65,12 +65,12 @@
             <div class="caution" style="color:black;display:none;" id="uploadurlnovaild__question"><i
                     class="fa-light fa-circle-exclamation"></i> Not a vaild image / URL.</div>
             <br>
-            <button id="uploadurluse__question" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i>
+            <button id="uploadurluse__question" type="button" class="new_puffy_button primary"><i class="fa-light fa-file-image"></i>
                 Use</button>
-            <button type="reset" id="uploadurlclose__question" class="puffy_button">Close</button>
+            <button type="reset" id="uploadurlclose__question" class="new_puffy_button">Close</button>
         </form>
     </dialog>
-    <dialog id="uploadurldialog">
+    <!-- <dialog id="uploadurldialog">
         <form method="dialog" style="text-align: center;">
             <h1>Upload by URL</h1>
             <input type="url" id="uploadurlurl" required class="input" placeholder="Enter URL..."
@@ -78,19 +78,32 @@
             <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i
                     class="fa-light fa-circle-exclamation"></i> Not a vaild image / URL.</div>
             <br>
-            <button id="uploadurluse" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
-            <button onclick="document.getElementById('uploadurldialog').close()" id="uploadurlclose" class="puffy_button">Close</button>
+            <button id="uploadurluse" type="button" class="new_puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
+            <button onclick="document.getElementById('uploadurldialog').close()" id="uploadurlclose" class="new_puffy_button">Close</button>
+            
+        </form>
+    </dialog> -->
+    <dialog class="newdialog" id="uploadurldialog">
+        <form method="dialog" style="text-align: center;flex-direction: column;">
+            <h1>Upload by URL</h1>
+            <input type="url" id="uploadurlurl" class="input" placeholder="Enter URL..." style="border:1px solid black;margin-bottom: 5px;">
+            <div class="container" id="uploadurlnovaild" style="display: none;"><i class="fa-light fa-circle-exclamation fa-xl"></i> Not a vaild image URL.</div>
+            <div style="display: flex;gap:5px;">
+                <button id="uploadurluse" style="flex:1;" type="button" class="new_puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
+                <button id="uploadurlclose" class="new_puffy_button">Close</button>
+            </div>
             
         </form>
     </dialog>
-    <dialog id="uploadfiledialog">
-        <form method="dialog" style="text-align: center;">
+    <dialog class="newdialog" id="uploadfiledialog">
+        <form method="dialog" style="text-align: center;flex-direction: column;">
             <h1>Upload file</h1>
             <input type="file" id="fileupload" accept="image/*">
-            <br>
-            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i>
-                Upload</button>
-            <button type="reset" onclick="document.getElementById('uploadfiledialog').close()" id="uploadfileclose" class="puffy_button">Close</button>
+            <div class="container" style="display: none;" id="uploadFileInvalidType"><i class="fa-light fa-circle-exclamation fa-xl"></i> Invalid file type.</div>
+            <div style="display: flex;gap:5px;">
+                <button id="uploadFileUse" type="button" style="flex:1;" class="new_puffy_button primary"><i class="fa-light fa-file-image"></i> Upload</button>
+                <button id="uploadfileclose" class="new_puffy_button">Close</button>
+            </div>
         </form>
     </dialog>
     <dialog id="toobig">
@@ -98,84 +111,124 @@
         <h1 style="font-size: 2rem;">File too big!</h1>
         <p>With Bluekid Plus, you can upload up to 35 MB. Currently, you can only upload 5 MB.</p>
         <div class="actions">
-            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
-            <a onclick="document.getElementById('toobig').close()"><button class="puffy_button">Back</button></a>
+            <a href="../purchase/index.html"><button class="new_puffy_button bkp"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a onclick="document.getElementById('toobig').close()"><button class="new_puffy_button">Back</button></a>
         </div>
     </dialog>
     <dialog id="gif">
         <img src="../../asset/bluekidplus/bkpbanner.png" alt="" style="border-radius: 10px;" width="720">
         <h1 style="font-size: 2rem;">Nice thumbnail!</h1>
-        <p>Sadly, only Bluekid Plus users can use GIFs.</p>
+        <p>Sadly, only Bluekid Plus users can use animated thumbnails.</p>
         <div class="actions">
-            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
-            <a onclick="document.getElementById('gif').close()"><button class="puffy_button">Back</button></a>
+            <a href="../purchase/index.html"><button class="new_puffy_button bkp"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a onclick="document.getElementById('gif').close()"><button class="new_puffy_button">Back</button></a>
         </div>
     </dialog>
-    <section>
-        <h1>Edit kit</h1>
-        <div class="space"></div>
-        <button class="puffy_button danger" onclick="history.back()"><i class="fa-light fa-circle-xmark"></i> Cancel</button>
-        <div class="space"></div>
-        <div class="info"><i class="fa-light fa-circle-info fa-xl"></i> You can now edit the cover by hovering over the image!</div>
-        <div class="space"></div>
-        <div class="container" id="main_container">
+    <section id="sectioncontent" main>
+        <div class="container actions" style="align-items: center; justify-content: space-between;">
+            <h1>Edit kit</h1>
+            <p><i class="fa-light fa-triangle-exclamation fa-xl"></i> Kit redesigns aren't fully done. Some parts may not be added / unfinished.</p>
+        </div>
+        <div class="container actions" id="kitactions" style="justify-content: space-between;">
+            <button class="new_puffy_button danger" onclick="history.back()"><i class="fa-light fa-circle-xmark"></i> Back</button>
+            <div class="actions">
+                <div class="unsaved">
+                    <i class="fa-light fa-triangle-exclamation fa-xl"></i>
+                    Unsaved changes
+                </div>
+                <button class="new_puffy_button primary" id="savekit"><i class="fa-light fa-floppy-disk"></i> Save kit</button>
+                <button class="new_puffy_button" id="saveleavekit"><i class="fa-light fa-floppy-disk"></i> Save &amp; Leave</button>    
+            </div>
+        </div>
+        <div id="main_container">
             <div id="basic_info" class="container">
-                <h2>Basic info</h2>
-                <div id="covercontainer" style="background-color: black;width:512px;height: 288px;">
-                    <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
-                    <div id="cover__overlay">
-                        <button id="changecoverurl" class="puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
-                        <button id="changecoverfile" class="puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
-                    </div>
-                </div>
-                <div id="button_container">
-                    <button id="share_kit" class="puffy_button primary"><i class="fa-light fa-share-from-square"></i> Share</button>
-                    <button id="delete_kit" class="puffy_button danger"><i class="fa-light fa-trash-can"></i> Delete</button>
-                </div>
-                <div style="display:flex;justify-content: space-between;width: 512px;align-items: center;">
-                    <div>
-                        <input type="text" style="text-align: left;" placeholder="Enter name..." id="kitname" class="input">
-                        <div class="space"></div>
-                        <textarea style="text-align: left;resize: none;" class="input" id="desc" cols="20" rows="2"
-                            placeholder="Enter description..."></textarea>
-                    </div>
-                    <div style="display: flex;flex-direction: column;gap:10px;">
-                        <div style="display:flex;gap:5px;">
-                            <label for="kit_visibility">Kit Visibility</label>
-                            <select id="kit_visibility" style="flex-grow: 1;">
-                                <option value="public">Public</option>
-                                <option value="friends">Friends</option>
-                                <option value="private" selected>Private</option>
-                            </select>
+                <div>
+                    <h2 class="container">Basic info</h2>
+                    <div id="covercontainer" style="background-color: black;width:512px;height: 288px;position: relative;">
+                        <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
+                        <div class="bkptag" hide id="pluskit">PLUS</div>
+                        <div id="cover__overlay">
+                            <button id="changecoverurl" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
+                            <button id="changecoverfile" class="new_puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
                         </div>
-                        <button class="puffy_button primary" id="savekit"><i class="fa-light fa-floppy-disk"></i> Save kit</button>
+                    </div>
+                    <!-- <div id="button_container">
+                        <button id="share_kit" class="new_puffy_button primary"><i class="fa-light fa-share-from-square"></i> Share</button>
+                        <button id="delete_kit" class="new_puffy_button danger"><i class="fa-light fa-trash-can"></i> Delete</button>
+                    </div> -->
+                    <div style="display:flex;flex-direction: column;">
+                        <div class="inputfield" style="flex:1;">
+                            <input type="text" class="input2 saveableProperty" placeholder="" autocomplete="off" id="kitname" required />
+                            <label for="kitname" class="label"><i class="fa-regular fa-file-signature"></i> Kit name</label>
+                        </div>
+                        <div class="inputfield" style="flex:1;">
+                            <input type="text" class="input2 saveableProperty" placeholder="" autocomplete="off" id="desc" required />
+                            <label for="desc" class="label"><i class="fa-regular fa-file"></i> Description</label>
+                        </div>
+                        <div class="space"></div>
+                        <label for="kit_visibility">Privacy</label>
+                        <select class="new_select saveableProperty" style="font-size: large;" id="kit_visibility">
+                            <option value="public">Public</option>
+                            <option value="friends">Friends</option>
+                            <option value="private" selected>Private</option>
+                        </select>
+                        <div class="space"></div>
+                        <button class="new_puffy_button primary" id="advancedSettingsBtn"><i class="fa-light fa-gears"></i> Advanced settings</button>
+                        <div class="littlespace"></div>
+                        <a href="#" id="viewPublicLink"><button style="width: 100%;" class="new_puffy_button"><i class="fa-light fa-globe"></i> View public link</button></a>
                     </div>
                 </div>
+                <!-- <button onclick="document.getElementById('sectioncontent').scrollTo({ top: 0, behavior: 'smooth' })" class="new_puffy_button accent"><i class="fa-light fa-up-to-line"></i> Go to top</button> -->
             </div>
             <div id="questions_container" class="container">
-                <p style="font-size: 1.25rem;"><span id="questionamount">0</span> questions.</p>
+                <div class="container" style="display: flex;justify-content: space-between;align-items: center;">
+                    <div>
+                        <h1>Questions (<span id="questionamount">0</span>)</h1>
+                        <p style="font-size: .9rem; opacity: .5;">Add questions for your players to answer</p>
+                    </div>
+                    <button id="createquestion" class="new_puffy_button green"><i class="fa-light fa-circle-plus"></i> Add</button>
+                </div>
                 <div class="littlespace"></div>
-                <button id="createquestion" class="puffy_button green"><i class="fa-light fa-circle-plus"></i> Create question</button>
                 <div class="littlespace"></div>
                 <div id="allQuestions">
                     <div class="container question" id="ex">
                         <div style="background-color: black;width:200px;height: 200px;float:left;">
-                            <img style="object-fit: contain;" alt="cover" height="200" width="200">
+                            <img style="object-fit: contain;border-radius: 5px;" alt="cover" height="200" width="200">
                         </div>
-                        <div>
-                            <h1>question</h1>
-                            <div>
+                        <div class="question_content" style="flex:1;">
+                            <div class="question_actions">
+                                <h1>question</h1>
+                                <div>
+                                    <button class="new_puffy_button icon danger pilled"><i class="fa-light fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="question_answers">
                                 <p>Answer 1</p>
                                 <p>Answer 2</p>
                                 <p>Answer 3</p>
                                 <p>Answer 4</p>
                             </div>
-                            <button class="puffy_button danger"><i class="fa-light fa-trash"></i> Delete</button>
                         </div>
                         
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="advancedSettings" class="container">
+            <div style="display:flex; justify-content: space-between;align-items: center;" class="container">
+                <h1>Advanced Settings</h1>
+                <button id="closeAdvancedSettings" class="new_puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
+            </div>
+            <div class="littlespace"></div>
+            <label class="toggle bluekidplus" for="onlyBkp">
+                <input class="toggle_input" type="checkbox" id="onlyBkp">
+                <div class="toggle_fill"></div>
+                <span>
+                    Mark kit as Bluekid+ only
+                    <br>
+                    <span style="font-size: .75rem;opacity: .75;">Only Bluekid+ users will be able to use this kit</span>
+                </span>
+            </label>
         </div>
     </section>
 

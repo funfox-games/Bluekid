@@ -1,451 +1,66 @@
-import { onAuthStateChanged, auth, getDoc, doc, db, FirebaseHelper, ONLINE_TEXT, OFFLINE_TEXT, collection, getDocs, query, where, updateDoc } from "../util/firebase.js";
-
-// import * as blue_data from "../../asset/blues.json" with { type: "json" };
-let blue_data = null;
-const _data = await fetch("../../asset/blues.json");
-blue_data = await _data.json();
-
-async function checkImage(url) {
-    return new Promise((res, rej) => {
-        var image = new Image();
-        image.onload = function () {
-            if (this.width > 0) {
-                res(true);
-            }
-        }
-        image.onerror = function () {
-            res(false);
-        }
-        image.src = url;
-    })
-}
-
-function updatePrivacy(userProfile, all) {
-    switch (all.showBlues) {
-        case "none":
-            document.getElementById("blues").setAttribute("locked", "privacy");
-            document.getElementById("blues").innerHTML = `
-            <div class="container" style="background-color: #0000001f;font-size:18px;">
+import{onAuthStateChanged,auth,getDoc,doc,db,FirebaseHelper,ONLINE_TEXT,OFFLINE_TEXT,collection,getDocs,query,where,updateDoc,insertLoadingScreen,updateLoadingInfo,finishLoading,onSnapshot,onValue,ref,realtime}from"../util/firebase.js";let blue_data=null,_data=await fetch("../../asset/blues.json");async function checkImage(i){return new Promise((e,t)=>{var n=new Image;n.onload=function(){0<this.width&&e(!0)},n.onerror=function(){e(!1)},n.src=i})}function updatePrivacy(e,t){switch(t.showBlues){case"none":document.getElementById("blues").setAttribute("locked","privacy"),document.getElementById("blues").innerHTML=`
+            <div class="container" style="font-size:18px;">
                 <i class="fa-light fa-shield-halved fa-xl"></i>
-                This section is protected.
+                This section is hidden.
             </div>
-            `;
-            break;
-        case "friends":
-            if (!userProfile.data().friends.includes(auth.currentUser.uid)) {
-                document.getElementById("blues").setAttribute("locked", "privacy");
-                document.getElementById("blues").innerHTML = `
-                <div class="container" style="background-color: #0000001f;font-size:18px;">
+            `;break;case"friends":e.data().friends.includes(auth.currentUser.uid)||(document.getElementById("blues").setAttribute("locked","privacy"),document.getElementById("blues").innerHTML=`
+                <div class="container" style="font-size:18px;">
                     <i class="fa-light fa-shield-halved fa-xl"></i>
-                    This section is protected.
+                    This section is hidden.
                 </div>
-                `;
-                break;
-            }
-
-            break;
-        default:
-            break;
-    }
-    switch (all.showGameHistory) {
-        case "none":
-            document.getElementById("gameHistory").setAttribute("locked", "privacy");
-            document.getElementById("gameHistory").innerHTML = `
-            <div class="container" style="background-color: #0000001f;font-size:18px;">
+                `)}switch(t.showGameHistory){case"none":document.getElementById("gameHistory").setAttribute("locked","privacy"),document.getElementById("gameHistory").innerHTML=`
+            <div class="container" style=" font-size:18px;">
                 <i class="fa-light fa-shield-halved fa-xl"></i>
-                This section is protected.
+                This section is hidden.
             </div>
-            `;
-            break;
-        case "friends":
-            if (!userProfile.data().friends.includes(auth.currentUser.uid)) {
-                document.getElementById("gameHistory").setAttribute("locked", "privacy");
-                document.getElementById("gameHistory").innerHTML = `
-                <div class="container" style="background-color: #0000001f;font-size:18px;">
+            `;break;case"friends":e.data().friends.includes(auth.currentUser.uid)||(document.getElementById("gameHistory").setAttribute("locked","privacy"),document.getElementById("gameHistory").innerHTML=`
+                <div class="container" style=" font-size:18px;">
                     <i class="fa-light fa-shield-halved fa-xl"></i>
-                    This section is protected.
+                    This section is hidden.
                 </div>
-                `;
-            }
-
-            break;
-        default:
-            break;
-    }
-    switch (all.showKits) {
-        case "none":
-            document.getElementById("kits").setAttribute("locked", "privacy");
-            document.getElementById("kits").innerHTML = `
-            <div class="container" style="background-color: #0000001f;font-size:18px;">
+                `)}switch(t.showKits){case"none":document.getElementById("kits").setAttribute("locked","privacy"),document.getElementById("kits").innerHTML=`
+            <div class="container" style=" font-size:18px;">
                 <i class="fa-light fa-shield-halved fa-xl"></i>
-                This section is protected.
+                This section is hidden.
             </div>
-            `;
-            break;
-        case "friends":
-            if (!userProfile.data().friends.includes(auth.currentUser.uid)) {
-                document.getElementById("kits").setAttribute("locked", "privacy");
-                document.getElementById("kits").innerHTML = `
-                <div class="container" style="background-color: #0000001f;font-size:18px;">
+            `;break;case"friends":e.data().friends.includes(auth.currentUser.uid)||(document.getElementById("kits").setAttribute("locked","privacy"),document.getElementById("kits").innerHTML=`
+                <div class="container" style=" font-size:18px;">
                     <i class="fa-light fa-shield-halved fa-xl"></i>
-                    This section is protected.
+                    This section is hidden.
                 </div>
-                `;
-            }
-
-            break;
-        default:
-            break;
-    }
-    switch (all.showStatus) {
-        case "none":
-            document.getElementById("status_container").setAttribute("locked", "privacy");
-            document.getElementById("status_container").innerHTML = `
-            <div class="container" style="background-color: #0000001f;font-size:18px;">
+                `)}switch(t.showStatus){case"none":document.getElementById("status_container").setAttribute("locked","privacy"),document.getElementById("status_container").innerHTML=`
+            <div class="container" style=" font-size:18px;">
                 <i class="fa-light fa-shield-halved fa-xl"></i>
-                This section is protected.
+                This section is hidden.
             </div>
-            `;
-            break;
-        case "friends":
-            if (!userProfile.data().friends.includes(auth.currentUser.uid)) {
-                document.getElementById("status_container").setAttribute("locked", "privacy");
-                document.getElementById("status_container").innerHTML = `
-                <div class="container" style="background-color: #0000001f;font-size:18px;">
+            `;break;case"friends":e.data().friends.includes(auth.currentUser.uid)||(document.getElementById("status_container").setAttribute("locked","privacy"),document.getElementById("status_container").innerHTML=`
+                <div class="container" style=" font-size:18px;">
                     <i class="fa-light fa-shield-halved fa-xl"></i>
-                    This section is protected.
+                    This section is hidden.
                 </div>
-                `;
-            }
-
-            break;
-        default:
-            break;
-    }
-    switch (all.showLastOnline) {
-        case "none":
-            if (all.showStatus == "none") {break;}
-            if (document.getElementById("lastonline") == null) {
-                break;
-            }
-            document.getElementById("lastonline").parentElement.setAttribute("locked", "privacy");
-            document.getElementById("lastonline").parentElement.innerHTML = `
-            <div class="container" style="background-color: #0000001f;font-size:18px;">
+                `)}switch(t.showLastOnline){case"none":"none"!=t.showStatus&&null!=document.getElementById("lastonline")&&(document.getElementById("lastonline").parentElement.setAttribute("locked","privacy"),document.getElementById("lastonline").parentElement.innerHTML=`
+            <div>
                 <i class="fa-light fa-shield-halved fa-xl"></i>
-                Last online is protected.
+                Last online is hidden.
             </div>
-            `;
-            break;
-        case "friends":
-            if (!userProfile.data().friends.includes(auth.currentUser.uid)) {
-                if (all.showStatus == "friends") { break; }
-                document.getElementById("lastonline").parentElement.setAttribute("locked", "privacy");
-                document.getElementById("lastonline").parentElement.innerHTML = `
-                <div class="container" style="background-color: #0000001f;font-size:18px;">
+            `);break;case"friends":if(!e.data().friends.includes(auth.currentUser.uid)){if("friends"==t.showStatus)break;document.getElementById("lastonline").parentElement.setAttribute("locked","privacy"),document.getElementById("lastonline").parentElement.innerHTML=`
+                <div class="container" style=" font-size:18px;">
                     <i class="fa-light fa-shield-halved fa-xl"></i>
-                    Last online is protected.
+                    Last online is hidden.
                 </div>
-                `;
-            }
-
-            break;
-        default:
-            break;
-    }
-}
-
-async function loadBadges(uid) {
-    const badges = await FirebaseHelper.getBadges(uid);
-
-    for (let i = 0; i < badges.length; i++) {
-        const badgeName = badges[i];
-        const clone = document.getElementById("badgeex").cloneNode(true);
-        clone.id = "";
-        clone.title = badgeName;
-        const friendlyName = badgeName.replace(" ", "");
-        clone.children[0].src = `../../asset/badges/${friendlyName}.png`;
-        if (friendlyName == "BluekidPlus") {
-            clone.classList.add("badge--bkp");
-        }
-
-        document.getElementById("badges").appendChild(clone);
-    }
-}
-
-async function loadBlues(uid) {
-    var badges_ref = collection(db, "users", uid, "blues");
-    var docs = await getDocs(badges_ref);
-    docs.forEach((doc) => {
-        var data = doc.data();
-        const id = doc.id;
-        const bluedata = blue_data.blues[id];
-
-        const clone = document.getElementById("blue_ex").cloneNode(true);
-        clone.id = "";
-
-        let imagePath;
-        if (bluedata == null) {
-            imagePath = "blue_broken.png";
-            clone.title = `${id}: Bugged`;
-        } else {
-            imagePath = bluedata.imgPath;
-            clone.title = `${id}: ${bluedata.rarity} (${data.amount} Owned)`;
-        }
-        clone.children[0].src = "../../asset/char/" + imagePath;
-        
-        document.getElementById("blues").append(clone);
-    });
-}
-
-async function loadKits(uid) {
-    var allKits = collection(db, "users", uid, "kits");
-    const q = query(allKits, where("visibility", "==", "public"));
-    
-    const all = await getDocs(q);
-    all.forEach((doc) => {
-        const id = doc.id;
-        const data = doc.data();
-
-        const clone = document.getElementById("kitex").cloneNode(true);
-        clone.id = id;
-        const left = clone.children[0];
-        const right = clone.children[1];
-
-        left.children[0].children[0].src = data.cover;
-        left.children[1].children[0].innerText = data.displayname;
-        left.children[1].children[1].innerHTML = `<i class="fa-light fa-globe"></i> Public`;
-
-        right.children[0].href = location.origin + "/profile/kit/view.html?id=" + id;
-
-        document.getElementById("kits").append(clone);
-    });
-}
-
-async function showFriendedKits(uid) {
-    var allKits = collection(db, "users", uid, "kits");
-    const q = query(allKits, where("visibility", "!=", "private"));
-    
-    const all = await getDocs(q);
-    all.forEach((doc) => {
-        const id = doc.id;
-        const data = doc.data();
-
-        const clone = document.getElementById("kitex").cloneNode(true);
-        clone.id = id;
-        const left = clone.children[0];
-        const right = clone.children[1];
-
-        left.children[0].children[0].src = data.cover;
-        left.children[1].children[0].innerText = data.displayname;
-        left.children[1].children[1].innerHTML = `<i class="fa-light fa-globe"></i> Public`;
-
-        right.children[0].href = location.origin + "/profile/kit/view.html?id=" + id;
-
-        document.getElementById("kits").append(clone);
-    });
-}
-
-onAuthStateChanged(auth, async (user) => {
-    const userProfileId = new URL(location).searchParams.get("id");
-    const userProfile = await getDoc(doc(db, "users", userProfileId));
-
-    if (userProfileId == user.uid) {
-        document.getElementById("yourprofile").style.display = "block";
-        document.getElementById("addfriend").style.display = "none";
-    }
-    if (!userProfile.exists()) {
-        return;
-    }
-
-    document.getElementById("loading").showModal();
-
-    const communitySettings = userProfile.data().communitySettings;
-    let showBlues = "friends";
-    let showGameHistory = "friends";
-    let showKits = "all";
-    let hideTokens = false;
-    let showStatus = "all";
-    let showLastOnline = "all";
-    if (communitySettings != null) {
-        showBlues = communitySettings.privacy.showBlues;
-        showGameHistory = communitySettings.privacy.showGameHistory; 
-        showKits = communitySettings.privacy.showKits; 
-        hideTokens = communitySettings.privacy.hideTokens; 
-        showStatus = communitySettings.privacy.showStatus; 
-        showLastOnline = communitySettings.privacy.showLastOnline; 
-        if (auth.currentUser.uid != userProfileId) {
-            updatePrivacy(userProfile, {
-                showBlues,
-                showGameHistory,
-                showKits,
-                hideTokens,
-                showStatus,
-                showLastOnline
-            });
-        }
-    }
-
-    try {
-        document.getElementById("loading_progress").innerHTML = "user data";
-        var localuid = user.uid;
-        var localdoc_ = doc(db, "users", localuid);
-        var localData = await getDoc(localdoc_).then((res) => {
-            if (!res.exists()) {
-                return "UNKNOWN";
-            }
-            return res.data();
-        });
-        const isFriended = localData.friends != undefined && localData.friends.includes(userProfileId);
-
-        // Load user stuffs
-
-        if (localData.profileBlue != null) {
-            document.getElementById("pfp").src = "../../asset/char/" + localData.profileBlue;
-        }
-
-        document.getElementById("loading_progress").innerHTML = "badges";
-        await loadBadges(userProfileId);
-        document.getElementById("loading_progress").innerHTML = "blues";
-        if (showBlues == "all") {
-            await loadBlues(userProfileId);
-        }
-        if (showBlues == "friends" && isFriended) {
-            await loadBlues(userProfileId);
-        }
-    
-        document.getElementById("loading_progress").innerHTML = "kits";
-        if (showKits == "all") {
-            await loadKits(userProfileId);
-        }
-        if (showKits == "friends" && isFriended) {
-            await showFriendedKits(userProfileId);
-        }
-
-        if (userProfile.data().friends != undefined) {
-            document.getElementById("friendAmount").innerHTML = userProfile.data().friends.length;
-        }
-        document.getElementById("loading_progress").innerHTML = "metadata";
-        const metadata = await FirebaseHelper.getUserMetadata(userProfileId);
-        const creationDate = new Date(metadata.createdOn);
-        var time = (Date.parse(creationDate) - new Date()); // milliseconds between now & user creation
-        var diffDays = -Math.floor(time / 86400000); // days
-        document.getElementById("joinned").innerHTML = diffDays;
-
-        if (isFriended) {
-            document.getElementById("addfriend").style.display = "none";
-            document.getElementById("removefriend").style.display = "unset";
-        }
-
-        const userProfileData = userProfile.data();
-
-        if (userProfileData.profileSettings != null) {
-            document.body.style.backgroundImage = `linear-gradient(${userProfileData.profileSettings.primaryColor}, ${userProfileData.profileSettings.secondaryColor})`;
-        }
-
-        document.getElementById("username").innerText = userProfileData.username;
-        document.getElementById("uid").innerHTML = userProfileId;
-
-        document.getElementById("addfriend").href = "../community.html?friend=" + userProfileId;
-
-        // Load user data
-
-        document.getElementById("loading_progress").innerHTML = "user status";
-        const status = await FirebaseHelper.getUserStatus(userProfileId);
-        if (document.getElementById("status")) document.getElementById("status").innerHTML = status.status;
-
-        if (status.status == ONLINE_TEXT && document.getElementById("status_container").getAttribute("locked") == null) {
-            document.getElementById("online").style.display = "unset";
-            document.getElementById("status_container").classList.add("online");
-            if (false) {
-                // Check if in game
-
-                document.getElementById("online").style.display = "none";
-                document.getElementById("ingame").style.display = "unset";
-                document.getElementById("status_container").classList.add("ingame");
-
-            }
-        } else if (status.status == OFFLINE_TEXT && document.getElementById("status_container").getAttribute("locked") == null) {
-            document.getElementById("offline").style.display = "unset";
-        }
-
-        document.getElementById("loading_progress").innerHTML = "profile picture";
-        const isImageGood = await checkImage(metadata.photoURL);
-        if (isImageGood) {
-            document.getElementById("pfp").src = metadata.photoURL;
-        }
-    } catch (error) {
-        alert("Loading error: " + error);
-        console.error("ERROR: ", error);
-        alert("Please either refresh or post a new issue in the Home page.")
-    }
-    
-    document.getElementById("loading").close();
-
-    let status = await FirebaseHelper.getUserStatus(userProfileId);
-    setInterval(async () => {
-        
-        const time = -(Date.parse(status.lastOnline) - new Date()); // milliseconds between now & user creation
-        const diffSeconds = Math.floor(time / 1000);
-        const diffMin = Math.floor(time / 60000);
-        const diffDays = Math.floor(time / 86400000); // days
-        const diffHours = Math.floor(time / 3.6e+6);
-        const diffWeeks = Math.floor(time / 6.048e+8);
-        const diffMonth = Math.floor(time / 2.628e+9);
-        if (document.getElementById("lastonline") == null) {
-            return;
-        }
-        if (diffMonth > 0) {
-            document.getElementById("lastonline").innerHTML = `${diffMonth} month${diffMonth == 1 ? '' : 's'}`;
-        } else if (diffWeeks > 0) {
-            document.getElementById("lastonline").innerHTML = `${diffWeeks} week${diffWeeks == 1 ? '' : 's'}`;
-        } else if (diffDays > 0) {
-            document.getElementById("lastonline").innerHTML = `${diffDays} day${diffDays == 1 ? '' : 's'}`;
-        } else if (diffHours > 0) {
-            document.getElementById("lastonline").innerHTML = `${diffHours} hour${diffHours == 1 ? '' : 's'}`;
-        } else if (diffMin > 0) {
-            document.getElementById("lastonline").innerHTML = `${diffMin} minute${diffMin == 1 ? '' : 's'}`;
-        } else if (diffSeconds > 0) {
-            document.getElementById("lastonline").innerHTML = `${diffSeconds} second${diffSeconds == 1 ? '' : 's'}`;
-        }
-    }, 100);
-    
-    if (status.lastOnline == null) {
-        document.getElementById("lastonline").parentElement.style.display = `none`;
-    }
-
-    document.getElementById("share").addEventListener("click", () => {
-        navigator.clipboard.writeText(location.toString());
-        showNotification(4, "Copied to clipboard!")
-    });
-
-    const removefriendhtml = document.getElementById("removefriend").innerHTML;
-    document.getElementById("removefriend").addEventListener("click", async () => {
-        const localDoc = doc(db, "users", auth.currentUser.uid);
-        const theirDoc = doc(db, "users", userProfileId);
-        document.getElementById("removefriend").innerHTML = "Waiting...";
-        document.getElementById("removefriend").setAttribute("disabled", "");
-
-        let _friends = [];
-        const localdata = await getDoc(localDoc).then((doc) => { return doc.data() });
-        _friends = localdata.friends;
-        _friends.splice(_friends.indexOf(userProfileId), 1);
-
-        await updateDoc(localDoc, {
-            friends: _friends
-        });
-
-        _friends = [];
-        const theirdata = await getDoc(theirDoc).then((doc) => { return doc.data() });
-        _friends = theirdata.friends;
-        _friends.splice(_friends.indexOf(userProfileId), 1);
-
-        await updateDoc(theirDoc, {
-            friends: _friends
-        });
-
-        document.getElementById("addfriend").style.display = "unset";
-        document.getElementById("removefriend").style.display = "none";
-        document.getElementById("removefriend").innerHTML = removefriendhtml;
-        document.getElementById("removefriend").removeAttribute("disabled");
-    });
-});
+                `}}switch(t.showLastPage){case"none":"none"!=t.showStatus&&null!=document.getElementById("lastonline")&&(document.getElementById("lastWebpage").parentElement.setAttribute("locked","privacy"),document.getElementById("lastWebpage").parentElement.innerHTML=`
+            <div>
+                <i class="fa-light fa-shield-halved fa-xl"></i>
+                Last page is hidden.
+            </div>
+            `);break;case"friends":if(!e.data().friends.includes(auth.currentUser.uid)){if("friends"==t.showStatus)break;document.getElementById("lastonline").parentElement.setAttribute("locked","privacy"),document.getElementById("lastonline").parentElement.innerHTML=`
+                <div class="container" style=" font-size:18px;">
+                    <i class="fa-light fa-shield-halved fa-xl"></i>
+                    Last online is hidden.
+                </div>
+                `}}}async function loadBadges(e){var t=await FirebaseHelper.getBadges(e);for(let e=0;e<t.length;e++){var n=t[e],i=document.getElementById("badgeex").cloneNode(!0),n=(i.id="",(i.title=n).replace(" ",""));i.children[0].src=`../../asset/badges/${n}.png`,"BluekidPlus"==n&&i.classList.add("badge--bkp"),document.getElementById("badges").appendChild(i)}}async function loadBlues(e){e=collection(db,"users",e,"blues");(await getDocs(e)).forEach(e=>{var t=e.data(),e=e.id,n=blue_data.blues[e],i=document.getElementById("blue_ex").cloneNode(!0);i.id="";let a;null==n?(a="blue_broken.png",i.title=e+": Bugged"):(a=n.imgPath,i.title=`${e}: ${n.rarity} (${t.amount} Owned)`),i.children[0].src="../../asset/char/"+a,document.getElementById("allblues").append(i)})}async function loadKits(e){e=collection(db,"users",e,"kits"),e=query(e,where("visibility","==","public"));(await getDocs(e)).forEach(e=>{var t=e.id,e=e.data(),n=document.getElementById("kitex").cloneNode(!0),i=(n.id=t,n.children[0]),a=n.children[1];i.children[0].children[0].src=e.cover,i.children[1].children[0].innerText=e.displayname,i.children[1].children[1].innerHTML='<i class="fa-light fa-globe"></i> Public',a.children[0].href=location.origin+"/profile/kit/view.html?id="+t,document.getElementById("allkits").append(n)})}async function showFriendedKits(e){e=collection(db,"users",e,"kits"),e=query(e,where("visibility","!=","private"));(await getDocs(e)).forEach(e=>{var t=e.id,e=e.data(),n=document.getElementById("kitex").cloneNode(!0),i=(n.id=t,n.children[0]),a=n.children[1];i.children[0].children[0].src=e.cover,i.children[1].children[0].innerText=e.displayname,i.children[1].children[1].innerHTML='<i class="fa-light fa-globe"></i> Public',a.children[0].href=location.origin+"/profile/kit/view.html?id="+t,document.getElementById("kits").append(n)})}blue_data=await _data.json();let showBlues="friends",showGameHistory="friends",showKits="all",hideTokens=!1,showStatus="all",showLastOnline="all",userProfileId=new URL(location).searchParams.get("id"),isFriended,kitsLoaded=!1,bluesLoaded=!1,userProfile,localData;async function onTab(e){if("true"==localStorage.getItem("settings-optimizeProfiles"))switch(e){case"kits":kitsLoaded||(kitsLoaded=!0,insertLoadingScreen("main",document.getElementById("content")),updateLoadingInfo("main","Loading kits"),"all"==showKits&&await loadKits(userProfileId),"friends"==showKits&&isFriended&&await showFriendedKits(userProfileId),finishLoading("main"));break;case"blues":bluesLoaded||(bluesLoaded=!0,insertLoadingScreen("main",document.getElementById("content")),updateLoadingInfo("main","Loading blues"),"all"==showBlues&&await loadBlues(userProfileId),"friends"==showBlues&&isFriended&&await loadBlues(userProfileId),finishLoading("main"));break;case"friends":if(null==userProfile.data().friends)console.log("no friends. dang.");else for(let e=0;e<userProfile.data().friends.length;e++){var t,n,i=userProfile.data().friends[e];localData.friends.includes(i)&&(0==(t=await getDoc(doc(db,"users",i))).exists()?console.log("Friend doesn't exist."):((n=document.getElementById("friendex").cloneNode(!0)).id="",null!=t.data().profileBlue&&(n.children[0].children[0].src="../../asset/char/"+t.data().profileBlue),n.children[0].children[1].innerText=t.data().username,n.children[1].children[0].href="./index.html?id="+i,document.getElementById("allfriends").append(n)))}}}function setupTabs(){let n=document.getElementById("tabs").children;for(let t=0;t<n.length;t++){let e=n[t];e.addEventListener("click",()=>{for(let e=0;e<n.length;e++)n[e].classList.remove("primary");e.classList.add("primary");for(let e=0;e<document.getElementsByClassName("section").length;e++)document.getElementsByClassName("section")[e].removeAttribute("show");document.getElementById(e.id.replace("btn__","")).setAttribute("show",""),onTab(e.id.replace("btn__",""))})}}function getFunctionalNameFromUrl(e){e=e.split("/");e[e.length-2];switch(e[e.length-1].replace(".html","")){case"index":return"profile";case"":case"index":return"home";case"kits":return"kits";case"blues":return"blues";case"settings":return"settings";case"shop":return"packages";case"community":return"social";case"edit":return"kit editing";case"view":return"kit viewing";case"new":return"kit creating";case"index":return"Bluekid+";case"login":return"login";case"signup":return"signup";case"":return"landing";case"about":return"about";case"join":return"joinning";case"live":return"hosting page";case"utilities":return"modding [If this is not a mod please report]"}}function getFunctionalStringFromUrl(e){var t=e.split("/"),n=t[t.length-2],t=t[t.length-1].replace(".html","");switch(console.log(n,t),t){case"index":return"viewing a profile";case"":case"index":return"at home";case"kits":return"viewing kits";case"blues":return"viewing blues";case"settings":return"adjusting settings";case"shop":return"opening packages";case"community":return"socializing";case"edit":return"editing a kit";case"view":return"looking at a kit";case"new":return"creating a kit";case"index":return"looking at Bluekid+";case"login":return"on login page";case"signup":return"on signup page";case"":return"on landing page";case"about":return"reading about";case"join":return"joinning a game";case"live":return"starting to host";case"utilities":return getFunctionalNameFromUrl(e)}}onAuthStateChanged(auth,async e=>{if(userProfile=await getDoc(doc(db,"users",userProfileId)),userProfileId==e.uid&&(document.getElementById("yourprofile").style.display="block",document.getElementById("addfriend").style.display="none"),userProfile.exists()){insertLoadingScreen("main",document.getElementById("content")),setupTabs();var n="true"==localStorage.getItem("settings-optimizeProfiles"),t=userProfile.data().communitySettings;null!=t&&(showBlues=t.privacy.showBlues,showGameHistory=t.privacy.showGameHistory,showKits=t.privacy.showKits,hideTokens=t.privacy.hideTokens,showStatus=t.privacy.showStatus,showLastOnline=t.privacy.showLastOnline,auth.currentUser.uid!=userProfileId)&&updatePrivacy(userProfile,{showBlues:showBlues,showGameHistory:showGameHistory,showKits:showKits,hideTokens:hideTokens,showStatus:showStatus,showLastOnline:showLastOnline});try{updateLoadingInfo("main","Loading user data");var i=e.uid,s=doc(db,"users",i);if(localData=await getDoc(s).then(e=>e.exists()?e.data():"UNKNOWN"),isFriended=null!=localData.friends&&localData.friends.includes(userProfileId),null!=userProfile.data().profileBlue&&(document.getElementById("pfp").src="../../asset/char/"+userProfile.data().profileBlue),updateLoadingInfo("main","Loading badges"),await loadBadges(userProfileId),n||(updateLoadingInfo("main","Loading blues"),"all"==showBlues&&await loadBlues(userProfileId),"friends"==showBlues&&isFriended&&await loadBlues(userProfileId)),n||(updateLoadingInfo("main","Loading kits"),"all"==showKits&&await loadKits(userProfileId),"friends"==showKits&&isFriended&&await showFriendedKits(userProfileId)),!n)if(updateLoadingInfo("main","Loading friends"),null!=userProfile.friends)for(let e=0;e<userProfile.friends.length;e++){var l,d,o=userProfile.friends[e];localData.friends.includes(o)&&(0==(l=await getDoc(doc(db,"users",o))).exists()?console.log("Friend doesn't exist."):((d=document.getElementById("friendex").cloneNode(!0)).id="",d.children[0].children[0].src=l.data().profileBlue,d.children[0].children[1].innerText=l.data().username,d.children[1].children[0].href="./index.html?id="+o,document.getElementById("allfriends").append(d)))}else console.log("no friends :[");null!=userProfile.data().friends&&(document.getElementById("friendAmount").innerHTML=userProfile.data().friends.length),updateLoadingInfo("main","Loading metadata");var r=await FirebaseHelper.getUserMetadata(userProfileId),c=new Date(r.createdOn),u=Date.parse(c)-new Date,m=-Math.floor(u/864e5),g=(document.getElementById("joinned").innerHTML=m,isFriended&&(document.getElementById("addfriend").style.display="none",document.getElementById("removefriend").style.display="unset"),userProfile.data()),f=(null!=g.profileSettings&&"false"!=localStorage.getItem("settings-allowProfileThemes")&&(document.body.style.backgroundImage=`linear-gradient(${g.profileSettings.primaryColor}, ${g.profileSettings.secondaryColor})`),document.getElementById("username").innerText=g.username,document.getElementById("uid").innerHTML=userProfileId,document.getElementById("addfriend").href="../community.html?friend="+userProfileId,updateLoadingInfo("main","Loading user status"),await FirebaseHelper.getUserStatus(userProfileId));let t=l=>{if(document.getElementById("status")&&(document.getElementById("status").innerHTML=l.status),document.getElementById("status_container").classList.remove("online"),document.getElementById("status_container").classList.remove("ingame"),document.getElementById("offline").style.display="none",document.getElementById("online").style.display="none",document.getElementById("ingame").style.display="none",l.status==ONLINE_TEXT&&null==document.getElementById("status_container").getAttribute("locked")){if(document.getElementById("online").style.display="unset",console.log(l),null==l.lastWebpage?document.getElementById("currentWebpage").parentElement.style.display="none":(document.getElementById("currentWebpage").parentElement.style.display="block",document.getElementById("currentWebpage").innerHTML=getFunctionalStringFromUrl(l.lastWebpage)),document.getElementById("status_container").classList.add("online"),null!=l.ingame){var e=()=>{document.getElementById("ingame").innerHTML=`
+                        <div class="space"></div>
+                        <p class="container"><i class="fa-light fa-hashtag fa-lg"></i> Game ID: ${l.ingame.gameId}</p>
+                        <div class="space"></div>
+                        <a href="../../join.html?id=${l.ingame.gameId}"><button class="new_puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Join game</button></a>
+                        `},t=e=>{document.getElementById("ingame").innerHTML=e?"<p>Game is only joinable by code and friends.</p>":"<p>Game is only joinable by code.</p>"};if(document.getElementById("status").innerHTML=l.ingame.isHosting?"Hosting":"In Game",l.ingame.isHosting)switch(l.ingame.whoCanJoin){case"friends":isFriended||auth.currentUser.uid==userProfileId?e():t(!0);break;case"public":e();default:t()}document.getElementById("online").style.display="none",document.getElementById("ingame").style.display="unset",document.getElementById("status_container").classList.remove("online"),document.getElementById("status_container").classList.add("ingame")}}else l.status==OFFLINE_TEXT&&null==document.getElementById("status_container").getAttribute("locked")&&(document.getElementById("offline").style.display="unset",null==l.lastWebpage?document.getElementById("lastWebpage").parentElement.style.display="none":(document.getElementById("lastWebpage").parentElement.style.display="block",document.getElementById("lastWebpage").innerHTML=getFunctionalNameFromUrl(l.lastWebpage)));setInterval(async()=>{var e=-(Date.parse(l.lastOnline)-new Date),t=Math.floor(e/1e3),n=Math.floor(e/6e4),i=Math.floor(e/864e5),a=Math.floor(e/36e5),s=Math.floor(e/6048e5),e=Math.floor(e/2628e6);null!=document.getElementById("lastonline")&&(0<e?document.getElementById("lastonline").innerHTML=e+" month"+(1==e?"":"s"):0<s?document.getElementById("lastonline").innerHTML=s+" week"+(1==s?"":"s"):0<i?document.getElementById("lastonline").innerHTML=i+" day"+(1==i?"":"s"):0<a?document.getElementById("lastonline").innerHTML=a+" hour"+(1==a?"":"s"):0<n?document.getElementById("lastonline").innerHTML=n+" minute"+(1==n?"":"s"):0<t&&(document.getElementById("lastonline").innerHTML=t+" second"+(1==t?"":"s")))},100),null==l.lastOnline&&(document.getElementById("lastonline").parentElement.style.display="none")};t(f),onValue(ref(realtime,"statuses/"+userProfileId),e=>{e=e.val();t(e)}),updateLoadingInfo("main","Loading profile picture"),finishLoading("main")}catch(e){console.error("ERROR: ",e),updateLoadingInfo("main","<span style='font-size:1.5rem'>Something went wrong :/</span><br><p style='opacity:.5;'>"+e+"</p>")}document.getElementById("share").addEventListener("click",()=>{navigator.clipboard.writeText(location.toString()),showNotification(4,"Copied to clipboard!")});let a=document.getElementById("removefriend").innerHTML;document.getElementById("removefriend").addEventListener("click",async()=>{var e=doc(db,"users",auth.currentUser.uid),t=doc(db,"users",userProfileId);document.getElementById("removefriend").innerHTML="Waiting...",document.getElementById("removefriend").setAttribute("disabled","");let n=[];var i=await getDoc(e).then(e=>e.data()),i=((n=i.friends).splice(n.indexOf(userProfileId),1),await updateDoc(e,{friends:n}),n=[],await getDoc(t).then(e=>e.data()));(n=i.friends).splice(n.indexOf(userProfileId),1),await updateDoc(t,{friends:n}),document.getElementById("addfriend").style.display="unset",document.getElementById("removefriend").style.display="none",document.getElementById("removefriend").innerHTML=a,document.getElementById("removefriend").removeAttribute("disabled")})}});

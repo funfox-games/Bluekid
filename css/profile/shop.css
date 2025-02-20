@@ -1,5 +1,5 @@
 .pack {
-    background-color: #0000002f;
+    background-color: var(--container);
 }
 .pack.compact {
     display:flex;
@@ -21,7 +21,7 @@
     padding-right: 30px;
     gap: 10px;
     align-items: center;
-    background-color: #0000001f;
+    background-color: var(--container);
 }
 #unlockScreen {
     background-color: rgb(180, 180, 180);
@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
+    z-index: 13;
     user-select: none;
 }
 #unlockScreen[hide] {
@@ -44,7 +44,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 3;
+    z-index: 13;
 }
 #unlockcenter[hide] {
     display:none;
@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    z-index: 2;
+    z-index: 12;
 }
 @keyframes shake {
     0% {
@@ -104,7 +104,7 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #0000001f;
+    /* background-color: #0000001f; */
 }
 #allPacks{
     display:flex;
@@ -129,26 +129,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
+    z-index: 13;
     user-select: none;
 }
 #unlockSpecial[hide] {
     display: none;
 }
 #unlockedimg {
-    z-index: 2;
+    z-index: 12;
 }
-#specialUnlock {
+/* #specialUnlock {
     transition-duration: 250ms;
-
-    /* animation-name: unlocked;
-    animation-timing-function: ease-in-out;
-    animation-duration: 1s;
-    animation-iteration-count: infinite; */
-}
-#specialUnlock[hide] {
-    filter: brightness(0%);
-}
+} */
 #unlockedText{
     position: absolute;
     left: 50%;
@@ -159,7 +151,7 @@
     animation-timing-function: ease-in-out;
     font-size: 48px;
     font-weight: bold;
-    z-index: 0;
+    z-index: 10;
 }
 #unlockedText[hide] {
     top: 50%;
@@ -183,4 +175,107 @@
     100% {
         scale: 1;
     }
+}
+#tabs{
+    display: flex;
+    gap:10px;
+}
+#tabs > * {
+    flex:1;
+    font-size: 1.25rem;
+}
+.section:not([show]) {
+    display: none;
+}
+.bottoms {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+}
+.tops {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+}
+.btn_notification{
+    --font-size: 18px;
+    position: absolute;
+    right: calc(0px - (var(--font-size)/2));
+    top:calc(0px - (var(--font-size)/2));
+    width: calc(var(--font-size) + 10px);
+    height: calc(var(--font-size) + 10px);
+    background-color: var(--accent);
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    font-weight: bold;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    font-size: var(--font-size);
+    z-index: 9;
+}
+.btn_notification[show] {
+    display: flex;
+}
+.suggestblues{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+#packbluessuggestex {
+    display:none;
+}
+#bluesuggestions {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+#newUnlockScreen {
+    background-color: rgb(180, 180, 180);
+    width: 100vw;
+    height: 100vh;
+    position:absolute;
+    left:0;
+    top:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 13;
+    user-select: none;
+}
+#newUnlockScreen > canvas {
+    z-index: 14;
+}
+#newUnlockScreen[hide] {
+    display:none;
+}
+.unlockcenter {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    scale:1.25;
+
+    position: absolute;
+    transform: translateY(0);
+    opacity: 1;
+    transition-duration: 1s;
+}
+.unlockcenter[hide] {
+    opacity: 0;
+}
+.unlockcenter[offscreen] {
+    bottom: 5%;
+    transform: translateY(100px);
+}
+.unlockcenter > div {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
 }

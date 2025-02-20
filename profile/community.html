@@ -18,7 +18,7 @@
     <dialog id="friendresult" noanim>
         <h1><i class="fa-light fa-check fa-lg"></i> Success!</h1>
         <form method="dialog">
-            <button class="puffy_button primary">Yippe!</button>
+            <button class="new_puffy_button primary">Yippe!</button>
         </form>
     </dialog>
     <dialog id="confirm">
@@ -34,11 +34,11 @@
         <p>Are you <b>sure</b> you want to friend this person?</p>
 
         <form method="dialog">
-            <button id="sendrequest" class="puffy_button green" type="button"><i class="fa-light fa-paper-plane"></i> Send request</button>
-            <button class="puffy_button" ><i class="fa-light fa-rectangle-xmark"></i> Cancel</button>
+            <button id="sendrequest" class="new_puffy_button green" type="button"><i class="fa-light fa-paper-plane"></i> Send request</button>
+            <button class="new_puffy_button" ><i class="fa-light fa-rectangle-xmark"></i> Cancel</button>
         </form>
     </dialog>
-    <dialog id="searchuser">
+    <!-- <dialog id="searchuser">
         <h1>Search users</h1>
         <div style="display: flex;flex-direction: column;gap:5px;">
             <input type="search" class="input" placeholder="Enter username..." id="username_seaching" style="text-align:left;border: 1px solid black;">
@@ -48,15 +48,13 @@
                 <div class="toggle_fill"></div>
                 Include friends
             </label>
-            <button class="puffy_button primary" id="searchusers"><i class="fa-light fa-magnifying-glass"></i> Serch</button>
+            <button class="new_puffy_button primary" id="searchusers"><i class="fa-light fa-magnifying-glass"></i> Serch</button>
 
             <div class="queryeduser" id="queryedex">
                 <div class="queryeduser__top">
                     <div class="queryeduser__top__username">
-                        <!-- Username -->
                         <div style="font-size: 20px;">Username</div>
                         <div class="queryeduser__top__badges">
-                            <!-- All badges -->
             
                         </div>
                     </div>
@@ -76,27 +74,63 @@
        
 
         <form method="dialog">
-            <button class="puffy_button">Close</button>
+            <button class="new_puffy_button">Close</button>
         </form>
+    </dialog> -->
+    <dialog class="newdialog" id="findfriend">
+        <!-- <a href="#" ><i class="fa-light fa-xmark"></i> Close</a> -->
+        <div class="container side" style="align-items: center;">
+            <h1>Add friend</h1>
+            <button class="new_puffy_button danger icon" style="flex:none;" onclick="document.getElementById('findfriend').close()"><i class="fa-light fa-xmark"></i></button>
+        </div>
+        <div class="inputfield" style="flex:1;">
+            <input type="text" class="input2" placeholder="" autocomplete="off" id="searchfriend" required />
+            <label for="searchfriend" class="label"><i class="fa-light fa-magnifying-glass"></i> Friend name</label>
+        </div>
+        <button id="searchusers" class="new_puffy_button primary"><i class="fa-light fa-magnifying-glass"></i> Serch</button>
+        <div class="queryeduser container" id="queryedex">
+            <div class="userinfoparent">
+                <img src="../asset/char/blue_notexture.png" width="56" alt="icon">
+                <div class="userinfo">
+                    <!-- Username -->
+                    <div>Username</div>
+                    <div class="userbadges">
+                        <!-- All badges -->
+        
+                    </div>
+                </div>
+            </div>
+            <div class="userfriendactions">
+                <button class="new_puffy_button icon primary"><i class="fa-light fa-sm fa-user-plus"></i></button>
+                <a href="#"><button class="new_puffy_button icon"><i class="fa-light fa-user"></i></button></a>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div id="allsearched">
+            <h2 class="container" id="nousers"><i class="fa-light fa-magnifying-glass-location"></i> Search for a user!</h2>
+            
+        </div>
     </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+                <h1 style="color:var(--text);"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <div class="side">
-                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
-                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
-                </div>
-            <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-cubes"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
-            <a href="community.html" style="width:100%;"><button disabled style="width:100%;" class="puffy_button"><i
+            <div class="container" style="width:80%;display:flex;flex-direction: column;gap:5px;">
+                <a href="../join.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-play"></i> Play</button></a>
+                <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-server"></i> Host</button></a>
+            </div>
+            <!-- <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-server"></i> Host</button></a> -->
+            <a href="index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" disabled class="new_puffy_button medium"><i
                         class="fa-light fa-face-smile"></i> Social</button></a>
+            <!-- <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a> -->
         </div>
         <div id="sidenav_lower">
+<<<<<<< Updated upstream
             <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-light fa-gears"></i> Settings</button></a>
@@ -104,44 +138,53 @@
                         class="fa-light fa-newspaper"></i> News</button></a>
             <a href="https://bluekid-main-branch.netlify.app/" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-globe"></i> Testing branch</button></a>
 
+=======
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium bkp standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="settings.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-newspaper"></i> News</button></a>
+            <a href="https://discord.gg/T56pNa98mF" target="_blank" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-brands fa-discord"></i> Discord</button></a>
+>>>>>>> Stashed changes
         </div>
-    
+        
     </div>
     <section id="content">
-        <h1>Community</h1>
-        <div class="space"></div>
-        <div id="tabContainer">
-            <!-- Tabs -->
+        <h1 class="container">Community</h1>
+        <div id="tabs" class="container">
+            <button id="btn__friends" class="new_puffy_button primary"><i class="fa-regular fa-user-group"></i> Friends</button>
+            <!-- <button id="btn__addfriends" class="new_puffy_button"><i class="fa-light fa-user-plus"></i> Add friends</button> -->
+            <button id="btn__posts" disabled style="text-decoration: line-through;" class="new_puffy_button"><i class="fa-light fa-message"></i> Posts</button>
         </div>
-        <div class="container" style="background-color: #0000002f;">
-            <h2>Add friend</h2>
-            <div class="info"><i class="fa-light fa-circle-info fa-lg"></i> I'm going to redo this some point</div>
-            <div class="littlespace"></div>
-            <div id="limitReached" class="container bkplusbanner">
-                <img src="../asset/bluekidplus/bkpbanner.png" alt="bluekid plus banner" width="250">
-                <div>
-                    <h1>Friend limit reached</h1>
-                    <p>You can only have <b>50</b> friends with standard. Consider getting Bluekid Plus, and in return, you can get <b>200</b>!</p>
-                    <a href="./purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+        <div id="friends" class="sect">
+            <div class="container" style="display: none;">
+                <h2>Add friend</h2>
+                <div class="info"><i class="fa-light fa-circle-info fa-lg"></i> I'm going to redo this some point</div>
+                <div class="littlespace"></div>
+                <div id="limitReached" class="container bkplusbanner">
+                    <img src="../asset/bluekidplus/bkpbanner.png" alt="bluekid plus banner" width="250">
+                    <div>
+                        <h1>Friend limit reached</h1>
+                        <p>You can only have <b>50</b> friends with standard. Consider getting Bluekid Plus, and in return, you can get <b>200</b>!</p>
+                        <a href="./purchase/index.html"><button class="new_puffy_button bkp"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+                    </div>
+                </div>
+                <button id="searchFriends" class="new_puffy_button primary"><i class="fa-light fa-user-group"></i> Search users</button>
+                <div style="display: flex;gap:5px;margin-top: 5px;">
+                    <input type="text" id="friendid" placeholder="Enter UID..." class="input">
+                    <button class="new_puffy_button green"><i class="fa-light fa-user-group"></i> Add friend</button>
                 </div>
             </div>
-            <button id="searchFriends" class="puffy_button primary"><i class="fa-light fa-user-group"></i> Search users</button>
-            <div style="display: flex;gap:5px;margin-top: 5px;">
-                <input type="text" id="friendid" placeholder="Enter UID..." class="input">
-                <button id="addfriend" class="puffy_button green"><i class="fa-light fa-user-group"></i> Add friend</button>
+            <div class="container side">
+                <div>
+                    <button id="addfriend" class="new_puffy_button green"><i class="fa-light fa-user-plus"></i> Add friend</button>
+                </div>
+                <input type="search" style="text-align: right;" class="input" placeholder="Search" id="friendSearch">
             </div>
-        </div>
-        <div class="largespace"></div>
-        <div>
-            <h2>Friends</h2>
-            <input type="search" class="input" placeholder="Search..." id="friendSearch">
-            <div class="littlespace"></div>
-            <div id="nofriends" class="container" style="background-color: #00000059;color:white;">
+            <div id="nofriends" class="container">
                 <p style="font-size: 1.75rem;"><i class="fa-light fa-square-person-confined fa-sm"></i> No friends found.</p>
-                <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p>
+                <!-- <p>It's ok. Your not <b><i>alone</i></b>. (get it? im sorry)</p> -->
             </div>
             
-            <div id="friendex" style="background-color: #00000059;color:white;" class="friend container">
+            <div id="friendex" class="friend container">
                 <img src="../asset/char/blue_notexture.png" width="64" alt="">
                 <a href="#" class="innerinfo">
                     <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
@@ -151,43 +194,44 @@
             <div id="allFriends">
                 
             </div>
-        </div>
-        <div class="space"></div>
-        <h2>Requests</h2>
-        <div id="norequests" class="container" style="background-color: #00000059;color:white;">
-            <p style="font-size: 1.75rem;"><i class="fa-light fa-magnifying-glass fa-sm"></i> No requests.</p>
-            <p>No one wants to be your friend... yet.</p>
-        </div>
-        <div id="allRequests">
-            <div id="requestex" style="background-color: #00000059;color:white;" class="request container">
-                <div>
-                    <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                    <p style="color:rgb(218, 218, 218)">UID: what</p>
+            <div class="space"></div>
+            <h2 class="container">Requests</h2>
+            <div id="norequests" class="container">
+                <p style="font-size: 1.75rem;"><i class="fa-light fa-magnifying-glass fa-sm"></i> No requests.</p>
+                <p>No one wants to be your friend... yet.</p>
+            </div>
+            <div id="allRequests">
+                <div id="requestex" class="request container">
+                    <div>
+                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                        <p style="color:rgb(218, 218, 218)">UID: what</p>
+                    </div>
+                    <div class="requestaction">
+                        <button class="new_puffy_button green"><i class="fa-light fa-circle-check"></i> Accept</button>
+                        <button class="new_puffy_button"><i class="fa-light fa-xmark"></i> Ignore</button>
+                        <button class="new_puffy_button danger" disabled><i class="fa-light fa-ban"></i> Block</button>
+                    </div>
                 </div>
-                <div>
-                    <button class="puffy_button green"><i class="fa-light fa-circle-check"></i> Accept</button>
-                    <button class="puffy_button"><i class="fa-light fa-xmark"></i> Ignore</button>
-                    <button class="puffy_button danger" disabled><i class="fa-light fa-ban"></i> Block</button>
+            </div>
+            <div class="space"></div>
+            <h2 class="container">Sent requests</h2>
+            <div id="nosentrequests" class="container">
+                <p style="font-size: 1.75rem;"><i class="fa-light fa-magnifying-glass fa-sm"></i> No sent requests.</p>
+                <p>Send someone a friend request, just maybe they accept ;]</p>
+            </div>
+            <div id="allSentRequests">
+                <div id="sentrequestex" class="request container">
+                    <div>
+                        <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
+                        <p style="color:rgb(218, 218, 218)">UID: what</p>
+                    </div>
+                    <div>
+                        <button class="new_puffy_button"><i class="fa-light fa-xmark"></i> Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="space"></div>
-        <h2>Sent requests</h2>
-        <div id="nosentrequests" class="container" style="background-color: #00000059;color:white;">
-            <p style="font-size: 1.75rem;"><i class="fa-light fa-magnifying-glass fa-sm"></i> No sent requests.</p>
-            <p>Send someone a friend request, just maybe they accept ;]</p>
-        </div>
-        <div id="allSentRequests">
-            <div id="sentrequestex" style="background-color: #00000059;color:white;" class="request container">
-                <div>
-                    <p style="font-size: 1.75rem;font-weight: 700;">Username</p>
-                    <p style="color:rgb(218, 218, 218)">UID: what</p>
-                </div>
-                <div>
-                    <button class="puffy_button"><i class="fa-light fa-xmark"></i> Cancel</button>
-                </div>
-            </div>
-        </div>
+        
     </section>
 
     <script type="module" src="../js/profile/community.js"></script>

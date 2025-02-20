@@ -1,168 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bluekid</title>
-
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/all.css">
-    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-    <meta content="Bluekid" property="og:title" />
-    <meta content="The educational gaming website!" property="og:description" />
-    <meta content="https://bluekid.netlify.app/" property="og:url" />
-    <meta content="#34abeb" data-react-helmet="true" name="theme-color" />
-
     <link rel="shortcut icon" href="./asset/bklogo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!-- https://animate.style/ -->
+
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/all.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
-<body onload="updateScroll()">
-    <div id="topnav">
-        <div class="topnav_item" id="topnav__left">
-            <a style="text-decoration: none;" href="index.html">
-                <h2><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h2>
-            </a>
-        </div>
-        <div class="topnav_item" id="topnav__right">
-            <a href="about.html" class="topnav__link">About</a>
-            <a href="join.html" class="topnav__link">Join Game</a>
-            <a href="auth/login.html" id="signin" class="topnav__link">Sign in</a>
-        </div>
-    </div>
-    <br><br><br>
-    <dialog id="yourLoggedIn">
-        <h1>You're logged in!</h1>
-        <p>You're logged in as <i id="login_name">Unknown</i>.</p>
+<body>
+    <dialog id="mobilenotice">
+        <h1>Heya mobile user!</h1>
+        <p>Bluekid is still in alpha, and mobile support has not been accounted for yet. <b>Your experience will be effected.</b> If you are wanting to use Bluekid, please switch to a bigger screen.</p>
         <form method="dialog">
-            <a href="profile/index.html"><button class="puffy_button primary" type="button" value="profile" autofocus><i class="fa-light fa-person"></i> Go to profile</button></a>
-            <button class="puffy_button secondary" value="home"><i class="fa-light fa-home"></i> View home</button>
-            <br>
-            <button class="puffy_button secondary" style="width:100%;" value="signout"><i class="fa-light fa-right-from-bracket"></i> Sign out</button>
+            <button class="new_puffy_button primary">Proceed</button>
         </form>
     </dialog>
-    <section class="left_right" id="top">
-        <div class="topdown">
-            <div>
-                <h1 style="font-size: 3.5rem;">Join fun, free forever!</h1>
-                <p style="font-size: 1.5rem;">Host games, play games, learn something new!</p>
-                <div class="flex_center">
-                    <a href="auth/signup.html"><button class="puffy_button primary" style="width:100%;"><i class="fa-light fa-right-to-bracket"></i> Sign up</button></a>
-                    <a href="join.html"><button class="puffy_button secondary" style="width:100%;"><i class="fa-light fa-gamepad"></i> Join Game</button></a>
-                    <a href="about.html"><button class="puffy_button secondary" style="width: 100%;"><i class="fa-light fa-house-user"></i> About the creator</button></a>
-                    <a href="OLD_PROJECT_FILES/home.html"><button tabindex="-1" class="puffy_button secondary" style="width:100%;"><i class="fa-light fa-gear"></i> View old project</button></a>
+    <div class="topnav">
+        <a href="#"><h1 style="color: var(--text)"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1></a>
+        <div class="links">
+            <a style="color: var(--accent)" href="join.html"><i class="fa-light fa-right-to-bracket"></i> Join game</a>
+            <a style="color: var(--accent)" href="about.html"><i class="fa-light fa-circle-info"></i> About me</a>
+            <a href="auth/login.html"><button class="new_puffy_button primary pilled" style="font-size: 1.05rem;"><i class="fa-light fa-user"></i> Sign in</button></a>
+        </div>
+    </div>
+    <div id="pageswitcher" class="pageswitcher">
+        <i id="moveup" class="fa-solid fa-up"></i>
+        <i id="movedown" class="fa-solid fa-down"></i>
+    </div>
+    <p id="homepage_revision">Revision #3 (HOME_ALPHA_V3.0.0.0) rawr</p>
+    <div class="full">
+        <div class="frontcontainer">
+            <div class="blues" style="left: 50%; top: 50%;">
+                <div id="left" class="left">
+                    <img draggable="false" rotate1 src="./asset/char/blue_bunny.png" alt="blue" width="100">
+                    <img draggable="false" rotate2 src="./asset/char/Blue_Dog.png" alt="blue" width="85">
+                    <img draggable="false" rotate3 src="./asset/char/christmas/blue_snowman.png" alt="blue" width="100">
                 </div>
-                
+                <div id="right" class="right">
+                    <img draggable="false" rotate1 src="./asset/char/secret/aliencat_blue.png" alt="blue" width="100">
+                    <img draggable="false" rotate2 src="./asset/char/meme/blue_borzi.png" alt="blue" width="85">
+                    <img draggable="false" rotate3 src="./asset/char/summer/theSun.png" alt="blue" width="100">
+                </div>
             </div>
-            <div class="bottom">
-                <a href="./privacy.html">Privacy Policy</a>
-                <p>Created by funfoxrr. Everything is subject to change, as Bluekid is still in the <i>ALPHA</i> stage.</p>
+            <div id="loggedIn">
+                <p>You're logged in!</p>
+                <div style="display:flex;flex-direction: row;justify-content:space-between;gap:5px;width: 100%;">
+                    <a href="./profile/index.html"><button class="new_puffy_button primary" style="flex:1;"><i class="fa-regular fa-house-user fa-lg"></i> Home</button></a>
+                    <button onclick="document.getElementById('loggedIn').removeAttribute('show')" class="new_puffy_button" style="flex:1;">Dismiss</button>
+                    <button id="logout" class="new_puffy_button" style="flex:1;">Logout</button>
+                </div>
+            </div>
+            <div class="front">
+                <h1 style="font-size: 2.75rem;">Classroom Level Up</h1>
+                <p style="color: rgba(225,225,225);font-size: 1rem;">Introducing Bluekid, the newest addition of the hosted education apps! Everything I add is what I would love to introduce into the classroom. <b>Entertaining learning starts here!</b></p>
+                <div class="benefits">
+                    <div id="members">
+                        <h2><i class="fa-light fa-users"></i> Members</h2>
+                        <p>Bluekid is rapidly growing, currently at <span id="membercount">0</span> members!</p>
+                        <!-- <a href="./auth/signup.html"><button class="new_puffy_button primary"><i class="fa-regular fa-arrow-right-to-arc fa-lg"></i> Become a member!</button></a> -->
+                    </div>
+                    <div id="joinviacode">
+                        <h2><i class="fa-light fa-right-to-bracket"></i> Code joinning</h2>
+                        <p>You can host and share a code for people to join!</p>
+                        <!-- <a href="./join.html"><button class="new_puffy_button primary"><i class="fa-regular fa-right-to-bracket fa-lg"></i> Join a game</button></a> -->
+                    </div>
+                    <div id="customization">
+                        <h2><i class="fa-regular fa-paintbrush-pencil"></i> Customization</h2>
+                        <p>Bluekid is very customizable! Includes: Custom public profiles, custom profile blue, and more to come!</p>
+                    </div>
+                    <div id="bkp">
+                        <h2 style="color: rgb(255, 255, 119);"><i class="fa-kit fa-bluekid-fill"></i> Bluekid Plus</h2>
+                        <p>If you really enjoy Bluekid, you can buy Bluekid Plus! It is $3 a month ($30/year) and gives a whole ton of benefits!</p>
+                        <a href="./profile/purchase/index.html"><button class="new_puffy_button bkp"><i class="fa-light fa-shop"></i> View benefits</button></a>
+                    </div>
+                </div>
+                <div class="frontactions">
+                    <a href="./join.html"><button class="new_puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Join a game</button></a>
+                    <a href="./auth/signup.html"><button class="new_puffy_button"><i class="fa-light fa-user"></i> Become a member</button></a>
+                </div>
+                <p style="opacity: .5;">Made by <a style="color: white; text-decoration: underline;" href="./about.html">funfoxrr</a>. Bluekid is currently in development and is subject to change.</p>
+            </div>
+        </div>
+        <i id="downarrow" class="fa-regular fa-arrow-down"></i>
+    </div>
+    <div class="full" id="doc2">
+        <div class="centercontainer">
+            <div>
+                <img draggable="false" src="./asset/packs/summerpack.png" id="pack1">
+                <img draggable="false" class="seperated" src="./asset/packshowcase.png" alt="showcase" width="512">
+                <h1>Fun included!</h1>
+                <p>Buy packs to get characters and then use them in-game!<br>Some are rarer then others, and if you like a particular one<br>show them off on your profile!</p>
+            </div>
+            <div>
+                <img draggable="false" src="./asset/packs/christmaspack.png" id="pack2">
+                <img draggable="false" class="seperated" src="./asset/hostshowcase.png" alt="showcase" width="512">
+                <h1>Easy to use</h1>
+                <p>Bluekid has an easy-to-use hosting system to you can educate faster!<br>You first click the blue host button, select a kit and gamemode,<br>change some settings, and you're good to go!</p>
             </div>
         </div>
         
-        <div>
-            <img style="width:100%;height:100%;" src="asset/index/banner.png" alt="banner" width="900">
+    </div>
+    <div class="full" id="doc3">
+        <div class="centercontainer">
+            <h1 id="pointsheader">Why Bluekid?</h1>
+            <section id="point1">
+                <h1><i class="fa-regular fa-calendar-star"></i> Active updates</h1>
+                <p>I love improving and making a better user experience. New features, gamemodes, and packs!</p>
+            </section>
+            <section id="point2">
+                <h1><i class="fa-regular fa-head-side-heart"></i> You are important!</h1>
+                <p>My vision is the community is everything. A business or app cannot be without users like you! <br>The community, in my eyes, are the most important part of a game/app/company/anything.</p>
+            </section>
+            <section id="point3">
+                <h1><i class="fa-light fa-graduation-cap"></i> Education</h1>
+                <p>Sometimes it's hard to focus in class. Using Bluekid, you can entertain while teaching!<br>It presents a question, and students have to proceed with the correct answer*.</p>
+            </section>
+            <p id="finalpointsstar" style="transform: translateX(0);">*Depends on kit type and gamemode</p>
         </div>
-    </section>
-    <br>
-    <section>
-        <h1 style="font-size: 3rem;">So what is this, "Bluekid" thing?</h1>
-        <p style="font-size: 1.25rem;">Inspired off of Blooket, Bluekid provides free, fun learning! Here are the essentaials:</p>
-        <div class="flex_spread">
+        
+    </div>
 
-            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 102, 255, 0.35);">
-                <div>
-                    <i class="fa-light fa-gamepad fa-xl"></i>
-                    <h2>Play Games</h2>
-                </div>
-                <p>Either hosting or playing,<br>get to participate in serval fun different gamemodes!</p>
-            </div>
-            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 255, 98, 0.35);">
-                <div>
-                    <i class="fa-light fa-treasure-chest fa-xl"></i>
-                    <h2>Earn Awards</h2>
-                </div>
-                <p>Get coins, buy packs!<br>Get fun blues, get other awesome treats!</p>
-            </div>
-            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(255, 0, 255, 0.35);">
-                <div>
-                    <i class="fa-light fa-stars fa-xl"></i>
-                    <h2>Have Fun</h2>
-                </div>
-                <p>Play user created kits,<br>and get awards!</p>
-            </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script type="module" src="./js/index.js"></script>
+    <script>
+    // use a script tag or an external JS file
+    document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('.front', {
+            // ScrollTrigger: '.front',
+            opacity: 0,
+            transform: "translateY(100px)",
+            duration: 1
+        });
 
-        </div>
-    </section>
-    <br>
-    <section>
-        <h1 style="font-size: 3rem;">Customization!</h1>
-        <p style="font-size: 1.5rem;">Bluekid gives the option to customize your character! You can also personalize your experince with the different settings.</p>
-        <br>
-        <div class="flex_spread full_width container">
-            <img class="bounce" src="asset/char/Blue_Dog.png" alt="dog" width="128">
-            <img class="bounce" src="asset/char/Blue_Cat.png" alt="cat" width="128">
-            <img class="bounce" src="asset/char/blue_bunny.png" alt="bunny" width="128">
-            <img class="bounce" src="asset/char/meme/blue_amongus.png" alt="amongus" width="128">
-            <img class="bounce" src="asset/char/meme/blue_borzi.png" alt="borzi" width="128">
-            <img class="bounce" src="asset/char/christmas/blue_elf.png" alt="elf" width="128">
-            <img class="bounce" src="asset/char/meme/blue_troll.png" alt="troll" width="128">
-        </div>
-    </section>
-    <br>
-    <section>
-        <h1 style="font-size: 3rem;">How is it done?</h1>
-        <p style="font-size: 1.5rem;">It's not that hard! Follow the steps below to get a fast kickstart in Bluekid.</p>
-        <br>
-        <div class="container flex_center largegap" style="background-color: #0000001e;">
-            <div class="container fade" style="background-color: #0000001e;">
-                <h2><i class="fa-light fa-person"></i> 1. Create an account</h2>
-                <p style="font-size: 1.25rem;">Create an account to get into the fun! <b>An account is not needed for joinning, but is recommended!</b></p>
-                <a href="#top"><button class="puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Sign up</button></a>
-            </div>
-            <div class="container fade" style="background-color: #0000001e;">
-                <h2><i class="fa-light fa-download"></i> 2. Choose / create a kit</h2>
-                <p style="font-size: 1.25rem;">Kits hold a bunch of settings and questions to play with!</p>
-            </div>
-            <div class="container fade" style="background-color: #0000001e;">
-                <h2><i class="fa-light fa-dice"></i> 3. Select a mode</h2>
-                <p style="font-size: 1.25rem;">There is several gamemodes to choose from. New modes are activly being created!</p>
-            </div>
-            <div class="container fade" style="background-color: #0000001e;">
-                <h2><i class="fa-light fa-circle-play"></i> 4. Host / Join</h2>
-                <p style="font-size: 1.25rem;">Join your teacher in a game or just have some fun!</p>
-                <a href="#top"><button class="puffy_button primary"><i class="fa-light fa-headset"></i> Join a game</button></a>
-            </div>
-            <div class="container fade" style="background-color: #0000001e;">
-                <h2><i class="fa-light fa-chart-simple"></i> 5. See results</h2>
-                <p style="font-size: 1.25rem;">See the players avarage, see what was the most missed, etc.</p>
-            </div>
-        </div>
-    </section>
+        let tween;
+        // tween.pause();
+        gsap.to('#pack1', {
+            opacity: 0,
+            // rotate: 45,
+            scale: .5,
+            transform: "translate(-50%, 25%)",
+            delay: .5,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '#pack1',
+                start: "top center",
+                end: "bottom center",
+                onEnter: () => {
+                    tween = gsap.to('#pack2', {
+                        opacity: 0,
+                        // rotate: 45,
+                        scale: .5,
+                        transform: "translate(-50%, 25%)",
+                        duration: 1,
+                        delay: 1
+                    });
+                },
+            },
+        })
+        
+        const duration = .5;
+        const delay = .05;
+        gsap.to('#pointsheader', {
+            opacity: 1,
+            transform: "translateX(0px)",
+            duration,
+            delay: delay + .2,
+            scrollTrigger: {
+                trigger: '#doc3',
+                start: "top center",
+                end: "bottom center",
+                
+            },
+            onComplete: () => {
+                gsap.to('#point1', {
+                    opacity: 1,
+                    transform: "translateX(0px)",
+                    duration,
+                    delay: delay + .25,
+                    onComplete: () => {
+                        gsap.to('#point2', {
+                            opacity: 1,
+                            transform: "translateX(0px)",
+                            duration,
+                            delay,
+                            onComplete: () => {
+                                gsap.to('#point3', {
+                                    opacity: 1,
+                                    transform: "translateX(0px)",
+                                    duration,
+                                    delay,
+                                    onComplete: () => {
+                                        gsap.to('#finalpointsstar', {
+                                            opacity: .5,
+                                            duration: duration + 1,
+                                            delay: delay + 1,
+                                            onComplete: () => {
 
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            },
+        });
+    });
 
-    <!-- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script defer>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
-            authDomain: "bluekid-303db.firebaseapp.com",
-            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
-            projectId: "bluekid-303db",
-            storageBucket: "bluekid-303db.appspot.com",
-            messagingSenderId: "207140973406",
-            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script> -->
-    <script async type="module" src="js/index.js"></script>
-    <script src="js/util/entrances.js"></script>
-    <script src="js/util/notification.js"></script>
+    </script>
 </body>
 </html>

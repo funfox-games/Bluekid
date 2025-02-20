@@ -1,14 +1,14 @@
 {
     "specials": {
         "Alien Cat": {
-            "cost": 5,
+            "cost": 0,
             "bluedata": "Alien Cat",
-            "endsOn": "Sat Oct 30 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
+            "endsOn": "Fri Feb 28 2025 00:00:00 GMT-0400 (Eastern Daylight Time)"
         }
     },
     "packs": {
         "meme": {
-            "display_name": "Meme Pack",
+            "display_name": "Meme Package",
             "blues": ["Borzi", "Quandale Dingle", "Among Us", "Baller", "Troll", "Ok", "Rick Astley", "No"],
             "graphic": "memepack.png",
             "cost": 20,
@@ -24,7 +24,7 @@
             "ends_on": "Sun Oct 18 2024 00:00:00 GMT-0400 (Eastern Daylight Time)"
         },
         "summer": {
-            "display_name": "Summer Pack",
+            "display_name": "Summer Package",
             "blues": ["Water", "Beachball", "Inner tube", "Goggles", "Flippers", "Pool Noodle", "The Sun"],
             "graphic": "summerpack.png",
             "cost": 20,
@@ -33,7 +33,7 @@
             "ends_on": "Fri, 15 Dec 2024 20:38:48 GMT"
         },
         "christmas": {
-            "display_name": "Christmas Pack",
+            "display_name": "Christmas Package",
             "blues": ["Elf", "Ornament", "Snowflake", "Reindeer", "Snowman", "Stocking", "Santa", "Elf on the shelf"],
             "graphic": "christmaspack.png",
             "cost": 20,

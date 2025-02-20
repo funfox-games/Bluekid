@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    /* background-image: linear-gradient(#ebf5ff, #85c4ff); */
+    background-color: var(--background);
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-image: linear-gradient(var(--other), var(--background));
+    height: 100vh;
+    color: var(--text);
+}
+h1 {
+    font-size: 2.75rem;
+}
+.main {
+    padding-top:5.5rem;
+    display: flex;
+    gap:5px;
+    margin: 0 1rem;
+}
+#content {
+    flex:1;
+    background-color: var(--container);
+    border-radius: 5px;
+}
+.sidenav {
+    font-size: 1.25rem;
+}
+.sidenav ul {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    margin: 0;
+    padding: 0;
+    list-style-type:none;
+}
+.sidenav ul li {
+    padding: 1rem;
+    background-color: var(--container);
+    border-radius: 5px;
+    cursor: pointer;
+}

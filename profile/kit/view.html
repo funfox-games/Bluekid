@@ -30,51 +30,113 @@
         <p>This kit is classified as <b id="visibility">private</b>. If you think this is a mistake, contact the owner.</p>
         <a href="../kits.html"><button class="puffy_button primary"><i class="fa-light fa-cubes"></i> Go to kits</button></a>
     </dialog>
+    <dialog id="likedPeople" class="newdialog">
+        <h1 style="text-align: center;">Likes</h1>
+        <div class="container" id="nolikes"><i class="fa-xl fa-light fa-thumbs-down"></i> No likes :[</div>
+        <a href="#" class="container liked" id="likedex">
+            <img src="../../asset/char/blue_notexture.png" width="46" alt="icon">
+            <p>Username</p>
+        </a>
+        <div id="allLiked"></div>
+        <form method="dialog">
+            <button class="new_puffy_button primary">Close</button>
+        </form>
+    </dialog>
+    <dialog id="dislikedPeople" class="newdialog">
+        <h1 style="text-align: center;">Dislikes</h1>
+        <div class="container">Note: dislikes are only visible to moderators.</div>
+        <div class="container" id="nodislikes"><i class="fa-xl fa-light fa-thumbs-up"></i> No dislikes :]</div>
+        <div id="allDisliked"></div>
+        <form method="dialog">
+            <button class="new_puffy_button primary">Close</button>
+        </form>
+    </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
-            <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+            <a href="../../index.html" style="text-decoration: none;color:black;">
+                <h1 style="color:var(--text);"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <a href="../index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-house-user"></i> Home</button></a>
-            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
-            <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-layer-group"></i> Kits</button></a>
-            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
-            <a href="../community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+            <div class="container" style="width:80%;display:flex;flex-direction: column;gap:5px;">
+                <a href="../join.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-play"></i> Play</button></a>
+                <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-server"></i> Host</button></a>
+            </div>            <!-- <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-server"></i> Host</button></a> -->
+            <a href="../index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="../community.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i
                         class="fa-light fa-face-smile"></i> Social</button></a>
+            <!-- <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a> -->
         </div>
         <div id="sidenav_lower">
-            <a href="../purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
-            <a href="../settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-gears"></i> Settings</button></a>
-            <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-newspaper"></i> News</button></a>
+            <a href=".././purchase/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium bkp standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="../settings.html" style="width:100%;"><button style="width:100%;" disabled class="new_puffy_button medium"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-newspaper"></i> News</button></a>
+            <a href="https://discord.gg/T56pNa98mF" target="_blank" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-brands fa-discord"></i> Discord</button></a>
         </div>
-    
+        
     </div>
     <section>
-        <h1>View kit</h1>
-        <div class="container" id="main_container">
+        <div id="main_container">
             <div id="basic_info" class="container">
-                <h2>Basic info</h2>
-                <div style="background-color: black;width:512px;height: 288px;">
-                    <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
+                <div style="background-color: black;width:768px;height: 432px;position: relative;">
+                    <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="432" width="768">
+                    <div class="bkptag" hide id="kitplus">PLUS</div>
                 </div>
-                <div style="display:flex;justify-content: space-between;width: 512px;align-items: center;">
+                <div class="kit_info">
                     <div>
-                        <h2 id="kitname">Name</h2>
-                        <p id="desc">Desc</p>
+                        <h2><span id="kitname">Name</span> <i id="verified" style="display: none;" class="fa-solid fa-badge-check"></i></h2>
+                        <a href="#" id="author">@user</a>
+                        <p class="container" style="margin: 5px 0;" id="desc">Desc</p>
+                        <div id="rating" hide>
+                            <i class="fa-light fa-thumbs-down"></i>
+                            <div class="ratingBar" style="flex:1;">
+                                <div id="negitiveRating"></div>
+                                <div id="positiveRating"></div>
+                            </div>
+                            <i class="fa-light fa-thumbs-up"></i>
+                        </div>
+                        <div id="notEnoughRates">
+                            Not enough votes to display like to dislike ratio.
+                        </div>
                     </div>
-
+                    <div style="display: flex;gap:5px;flex-direction: column;">
+                        <div class="kit_actions">
+                            <button class="new_puffy_button primary" disabled id="hostkit"><i class="fa-light fa-play"></i> Host</button>
+                            <button class="new_puffy_button" id="favoritekit"><i class="fa-light fa-star"></i> Favorite</button>
+                            <button class="new_puffy_button" id="clonekit"><i class="fa-light fa-clone"></i> Clone</button>
+                        </div>
+                        <div class="aditionalActions">
+                            <button id="rateup" class="new_puffy_button ratingBtn"><i class="fa-light fa-thumbs-up"></i> <p id="upvotes">0</p></button>
+                            <button id="ratedown" class="new_puffy_button ratingBtn"><i class="fa-light fa-thumbs-down"></i> <p id="downvotes">0</p></button>
+                            <button class="new_puffy_button icon danger"><i class="fa-kit fa-light-flag-circle-exclamation"></i></button>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
-                <button class="puffy_button primary" id="favoritekit"><i class="fa-light fa-star"></i> Favorite kit</button>
             </div>
-            <div id="questions_container" class="container">
-                <p style="font-size: 1.25rem;"><span id="questionamount">0</span> questions.</p>
-                <div class="littlespace"></div>
+            <div class="quickies">
+                <div class="quickstat">
+                    <i class="fa-light fa-gamepad-modern"></i>
+                    <p><b id="kitType">///</b> kit type</p>
+                </div>
+                <div class="quickstat">
+                    <i class="fa-light fa-rectangle-history"></i>
+                    <p>Hosted <b id="hostedAmount">0</b> times</p>
+                </div>
+            </div>
+            <div id="questions_container">
+                <p style="font-size: 1.25rem;" class="container"><span id="questionamount">0</span> questions.</p>
+                <div class="space"></div>
+                <div class="container bkplusbanner" style="flex-direction: column;" id="bkponly">
+                    <h1>For Bluekid+, By Bluekid+</h1>
+                    <p>This kit is only available for Bluekid+ users. (As defined by the kit creator)</p>
+                    <a href="../purchase/index.html"><button class="new_puffy_button bkp"><i class="fa-light fa-circle-up" aria-hidden="true"></i> Upgrade</button></a>
+                </div>
                 <div id="allQuestions">
-                    <div class="container question" id="ex">
+                    
+                    <!-- <div class="container question" id="ex">
                         <div style="background-color: black;width:200px;height: 200px;float:left;">
                             <img src="#" style="object-fit: contain;" alt="cover" height="200" width="200">
                         </div>
@@ -87,12 +149,30 @@
                                 <p>Answer 4</p>
                             </div>
                         </div>
+                    </div> -->
+                    <div class="container question" id="ex">
+                        <div style="background-color: black;width:200px;height: 200px;">
+                            <img src="../../asset/bklogo.png" style="object-fit: contain;border-radius: 5px;" alt="cover" height="200" width="200">
+                        </div>
+                        <div class="question_content" style="flex:1;">
+                            <div class="question_actions">
+                                <h1>question</h1>
+                            </div>
+                            <div class="question_answers">
+                                <p>Answer 1</p>
+                                <p>Answer 2</p>
+                                <p>Answer 3</p>
+                                <p>Answer 4</p>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <script src="../../js/util/notification.js"></script>
     <script type="module" src="../../js/kits/view.js"></script>
 </body>
 

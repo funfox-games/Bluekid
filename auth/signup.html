@@ -10,18 +10,15 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="topnav">
-        <div class="topnav_item" id="topnav__left">
-            <a style="text-decoration: none;" href="../index.html">
-                <h2><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h2>
-            </a>
-        </div>
-        <div class="topnav_item" id="topnav__right">
-            <a href="../join.html" class="topnav__link">Join Game</a>
+    <div class="topnav">
+        <a href="../index.html"><h1 style="color: var(--secondary)"><span style="color: var(--primary)">Blue</span>kid</h1></a>
+        <div class="links">
+            <a style="color: var(--accent)" href="../join.html"><i class="fa-light fa-right-to-bracket"></i> Join game</a>
+            <a style="color: var(--accent)" href="../about.html"><i class="fa-light fa-circle-info"></i> About me</a>
+            <a href="./login.html"><button class="new_puffy_button primary pilled" style="font-size: 1.05rem;"><i class="fa-light fa-user"></i> Sign in</button></a>
         </div>
     </div>
-    <br><br><br>
-    <form class="section__center container flex-center smallgap" action="#" id="login" style="background-color: #00000025;">
+    <!-- <form class="section__center container flex-center smallgap" action="#" id="login" style="background-color: #00000025;">
         <h1>Sign up</h1>
         <button class="puffy_button" id="google" type="button" style="align-items: center;display:flex;gap:7px;color: black;background-image: linear-gradient(45deg, #fff, #cfcfcf);"><img src="../asset/google.webp" alt="googleLogo" width="22"> Sign up with Google</button>
         <div style="display:flex;width:100%;align-items: center;gap:10px;color:white;">
@@ -63,6 +60,74 @@
         <script type="module" src="./js/createdata.js"></script>
         <script type="module" src="js/signup.js"></script>
         <script src="../js/util/notification.js"></script>
-    </form>
+    </form> -->
+    <div class="contentparnet">
+        <div class="contentleft">
+            <div class="contentbg"></div>
+            <h1 style="font-size: 2.25rem;">Welcome!</h1>
+            <p>You are moments away from joinning countless others and hosting your own games!</p>
+            <div class="littlespace"></div>
+            <div class="actions">
+                <a href="./login.html" style="text-decoration: none;"><button class="new_puffy_button primary" style="font-size: 1.25rem;"><i class="fa-light fa-user-plus"></i> Log in instead</button></a>
+
+            </div>
+        </div>
+        <form class="content" action="#" id="login" novalidate>
+            <div class="notice warning" style="width: 100%;" id="loggedin">
+                <i class="fa-regular fa-triangle-exclamation fa-xl"></i>
+                <div class="notice__content">
+                    <p>You are already logged in.</p>
+                    <div class="notice__actions">
+                        <a href="../profile/index.html" style="text-decoration: none;"><button class="new_puffy_button primary pilled" type="button" style="width: 100%;"><i class="fa-light fa-house-user"></i> Home</button></a>
+                        <!-- <button class="new_puffy_button pilled">Logout</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="innercontent">
+                <h1>Sign Up</h1>
+                <!-- <br> -->
+                <!-- <div class="inputfield">
+                    <i class="fa-light fa-envelopes"></i>
+                    <input class="input" id="email" style="text-align: left;" type="email" required placeholder="Email">
+                </div> -->
+                <div class="inputfield">
+                    <input type="email" class="input2" placeholder="" autocomplete="off" id="email" required />
+                    <label for="name" class="label"><i class="fa-light fa-envelopes"></i> Email</label>
+                </div>
+                
+                <!-- <div style="text-align: left;">
+                    <div style="display:flex;gap:3px;align-items: center;">
+                        <i class="fa-light fa-key"></i>
+                        <p>Password</p>
+                    </div>
+                    <input class="input" id="password" style="text-align: left;" type="password" required placeholder="Enter password...">
+                </div> -->
+                <div class="inputfield">
+                    <input type="password" class="input2" placeholder="" autocomplete="off" id="password" required />
+                    <label for="password" class="label"><i class="fa-light fa-key"></i> Password</label>
+                </div>
+                <div class="inputfield">
+                    <input type="password" class="input2" placeholder="" autocomplete="off" id="confirmpassword" required />
+                    <label for="confirmpassword" class="label"><i class="fa-light fa-key"></i> Confirm Password</label>
+                </div>
+                <label class="toggle" for="agreement" style="color:white;margin: 10px;">
+                    <input class="toggle_input" type="checkbox" required id="agreement">
+                    <div class="toggle_fill"></div>
+                    I agree to the <a style="color:white;" href="../privacy.html" target="_blank">Privacy Policy</a> and I am 13 years or older.
+                </label>
+                <button class="new_puffy_button primary pilled medium" id="loginbutton" type="submit"><i class="fa-light fa-door-open"></i> Sign up</button>
+                <div style="display:flex;width:100%;align-items: center;gap:10px;color:white;opacity: .5;">
+                    <div style="width:50%;height:3px;background-color: white;border-radius: 3px;"></div>
+                    <b>OR</b>
+                    <div style="width:50%;height:3px;background-color: white;border-radius: 3px;"></div>
+                </div>
+                <button class="new_puffy_button primary pilled" id="google" type="button" style="align-items: center;font-size: large;display:flex;gap:7px;color: black;background-image: linear-gradient(45deg, #fff, #cfcfcf);"><img src="../asset/google.webp" alt="googleLogo" width="22"> Sign up with Google</button>
+            </div>
+            
+            <script type="module" src="./js/createdata.js"></script>
+            <script type="module" src="js/signup.js"></script>
+            <script src="../js/util/notification.js"></script>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+
+body {
+    background-image: linear-gradient(#ffffff, #80b5d8);
+    background-size:contain;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.full_width{
+    width:100%;
+}
+
+.left_right {
+    display: flex;
+    justify-content: space-between;
+}
+.topdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.flex_center {
+    display:flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.bottom {
+    padding-top: 5px;
+}
+.flex_spread {
+    display: flex;
+    justify-content: space-evenly;
+    gap:10px;
+}
+.txtcenter {
+    text-align: center;
+}
+.alignedCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flexColumn {
+    flex-direction: column;
+}

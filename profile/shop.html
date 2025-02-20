@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="../css/profile/shop.css">
     <link rel="shortcut icon" href="../asset/bklogo.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@latest/build/three.module.js",
+                "GLTFLoader": "https://unpkg.com/three@latest/examples/jsm/loaders/GLTFLoader.js",
+                "OrbitControls": "https://unpkg.com/three@0.172.0/examples/jsm/controls/OrbitControls.js"
+            }
+        }
+    </script>
 </head>
 <body>
     <dialog id="packdata">
@@ -25,27 +34,29 @@
         <br>
         <div style="color:black" class="info"><i class="fa-light fa-circle-info"></i> Blue listing is a preview. I need to find a better way to display it :/</div>
         <form method="dialog">
-            <button class="puffy_button danger"><i class="fa-light fa-rectangle-xmark"></i> Close</button>
+            <button class="new_puffy_button danger"><i class="fa-light fa-rectangle-xmark"></i> Close</button>
         </form>
     </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+                <h1 style="color:var(--text);"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <div class="side">
-                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
-                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
-                </div>
-            <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-cubes"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
-            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+            <div class="container" style="width:80%;display:flex;flex-direction: column;gap:5px;">
+                <a href="../join.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-play"></i> Play</button></a>
+                <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-server"></i> Host</button></a>
+            </div>
+            <!-- <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-server"></i> Host</button></a> -->
+            <a href="index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" disabled class="new_puffy_button medium"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i
                         class="fa-light fa-face-smile"></i> Social</button></a>
+            <!-- <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a> -->
         </div>
         <div id="sidenav_lower">
+<<<<<<< Updated upstream
             <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-light fa-gears"></i> Settings</button></a>
@@ -53,8 +64,14 @@
                         class="fa-light fa-newspaper"></i> News</button></a>
             <a href="https://bluekid-main-branch.netlify.app/" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-globe"></i> Testing branch</button></a>
 
+=======
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium bkp standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="settings.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-newspaper"></i> News</button></a>
+            <a href="https://discord.gg/T56pNa98mF" target="_blank" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-brands fa-discord"></i> Discord</button></a>
+>>>>>>> Stashed changes
         </div>
-    
+        
     </div>
 
     <div hide id="unlockScreen">
@@ -68,10 +85,23 @@
         </div>
     </div>
 
+    <div hide id="newUnlockScreen">
+        <div id="newUnlockedblue" offscreen class="unlockcenter container">
+            <img src="../asset/char/blue_notexture.png" id="newunlockedimg" width="128">
+            <div>
+                <h1 style="font-size: 3rem;" id="newunlockedName">Hello</h1>
+                <p style="font-size: 1rem;" id="newunlockedRarity">If you see this, something went wrong :[</p>
+            </div>
+        </div>
+    </div>
+
     <div hide id="unlockSpecial">
-        <div id="special_unlockcenter">
-            <img hide id="specialUnlock" src="../asset/char/blue_notexture.png" width="400" alt="blue">
-            <p hide id="unlockedText">Unlocked '<i id="unlockeddd"></i>'!</p>
+        <div id="specialBlue" offscreen class="unlockcenter container">
+            <img hide id="specialUnlock" src="../asset/char/blue_notexture.png" width="128" alt="blue">
+            <div>
+                <h1 style="font-size: 3rem;" id="unlockeddd">Special name</h1>
+                <p style="font-size: 1rem;">Mystical</p>
+            </div>
         </div>
     </div>
 
@@ -83,65 +113,100 @@
                 
             </div>
         </div>
-        <!-- <div class="caution"><i class="fa-light fa-circle-exclamation"></i> Nothing saves, next update will save bought blues.</div> -->
-        <br>
-        <label class="toggle" for="quickTransition">
-            <input class="toggle_input" type="checkbox" id="quickTransition">
-            <div class="toggle_fill"></div>
-            Fast pack [Experimental]
-        </label>
-        <div class="littlespace"></div>
-        <h2>Packs</h2>
-        <div id="allPacks">
-            <div class="pack long container" id="packex">
-                <img class="packimg" src="../asset/char/blue_notexture.png" alt="pack" width="140">
-                <div>
-                    <h1>Unknown</h1>
-                    <p>Cost: idk</p>
-                    <div style="display:flex;flex-direction: column;gap:3px;">
-                        <button class="puffy_button primary"><i class="fa-light fa-cart-shopping"></i> Buy</button>
-                        <button class="puffy_button secondary"><i class="fa-light fa-circle-info"></i> Info</button>
+        <div class="space"></div>
+        <div id="tabs" class="container tops">
+            <button id="btn__packs" class="new_puffy_button primary"><i class="fa-regular fa-box-open"></i> Packages</button>
+            <button id="btn__specials" class="new_puffy_button"><i class="fa-solid fa-sparkles"></i> Specials <div id="specialsNotif" class="btn_notification"></div></button>
+            <button id="btn__contribute" class="new_puffy_button"><i class="fa-sharp fa-light fa-lightbulb"></i> Contribute</button>
+            <button id="btn__buy" class="new_puffy_button" style="text-decoration: line-through;" disabled><i class="fa-light fa-dollar-sign"></i> Buy</button>
+        </div>
+        <div id="packs" show class="container section bottoms">
+            <div class="space"></div>
+            <label class="toggle" for="quickTransition">
+                <input class="toggle_input" type="checkbox" id="quickTransition">
+                <div class="toggle_fill"></div>
+                Fast package
+            </label>
+            <div class="space"></div>
+            <div id="allPacks">
+                <div class="pack long container" id="packex">
+                    <img class="packimg" src="../asset/char/blue_notexture.png" alt="pack" width="140">
+                    <div>
+                        <h1>Unknown</h1>
+                        <p>Cost: idk</p>
+                        <div style="display:flex;flex-direction: column;gap:3px;">
+                            <button class="new_puffy_button primary"><i class="fa-light fa-cart-shopping"></i> Buy</button>
+                            <button class="new_puffy_button secondary"><i class="fa-light fa-circle-info"></i> Info</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <br>
-
-        <!-- Specials -->
-        <h2>Specials</h2>
-        <div id="nolimitedtime" class="container" style="background-color: #00000059;color:white;">
-            <p style="font-size: 1.75rem;"><i class="fa-light fa-medal fa-sm"></i> No specials available.</p>
-            <p>Come back later and maybe a special will be on sale!</p>
-        </div>
-        <div id="allSpecials">
-            <div class="pack long container" id="specialex">
-                <img class="packimg" src="../asset/char/blue_notexture.png" alt="pack" width="140">
-                <div>
-                    <h1>Unknown</h1>
-                    <p>Cost: idk</p>
-                    <div style="display:flex;flex-direction: column;gap:3px;margin-top: 5px;">
-                        <b>Offer ends in <i>00</i> days!</b>
-                        <button class="puffy_button primary"><i class="fa-light fa-star"></i> Claim</button>
+        <div id="specials" class="container section bottoms">
+            <!-- <h2>Specials</h2> -->
+            <div id="nolimitedtime" class="container">
+                <p style="font-size: 1.75rem;"><i class="fa-light fa-medal fa-sm"></i> No specials available.</p>
+                <p>Come back later and maybe a special will be on sale!</p>
+            </div>
+            <div id="allSpecials">
+                <div class="pack long container" id="specialex">
+                    <img class="packimg" src="../asset/char/blue_notexture.png" alt="pack" width="140">
+                    <div>
+                        <h1>Unknown</h1>
+                        <p>Cost: idk</p>
+                        <div style="display:flex;flex-direction: column;gap:3px;margin-top: 5px;">
+                            <b>Offer ends in <i>00</i> days!</b>
+                            <button class="new_puffy_button primary"><i class="fa-light fa-star"></i> Claim</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div id="contribute" class="container section bottoms">
+            <h2>Contribute</h2>
+            <p>Send a suggestion of what could be in the shop!</p>
+            <!-- <h3><i class="fa-light fa-heading"></i> Title</h3> -->
+            <!-- <input id="packnamesuggest" type="text" placeholder="Ex: My cool pack" class="input"> -->
+            <div class="inputfield">
+                <input type="text" class="input2" placeholder="" autocomplete="off" id="packnamesuggest" required />
+                <label for="packnamesuggest" class="label"><i class="fa-light fa-signature"></i> Kit Name</label>
+            </div>
+            <!-- <br> -->
+            <!-- <h3><i class="fa-light fa-coins"></i> Cost</h3> -->
+            <!-- <input id="packcostsuggest" type="number" placeholder="Ex: 20" class="input"> -->
+            <div class="inputfield">
+                <input type="number" class="input2" placeholder="" autocomplete="off" id="packcostsuggest" required />
+                <label for="packcostsuggest" class="label"><i class="fa-sharp fa-light fa-coins"></i> Cost</label>
+            </div>
+            <br>
+            <div class="container" style="display: flex;justify-content: space-between;align-items: center;">
+                <h2><i class="fa-light fa-cubes"></i> Blues</h2>
+                <button id="addblue" class="new_puffy_button green"><i class="fa-regular fa-plus"></i> Add blue</button>
+            </div>
+            <div class="space"></div>
+            <div id="bluesuggestions">
 
-        <br>
-
-        <h2>Contribute</h2>
-        <p>Send a suggestion of what could be in the shop! <b>(Please do general ones and not persenal ones)</b></p>
-        <h3><i class="fa-light fa-heading"></i> Title</h3>
-        <input id="packnamesuggest" type="text" placeholder="Ex: My cool pack" class="input">
-        <br>
-        <h3><i class="fa-light fa-coins"></i> Cost</h3>
-        <input id="packcostsuggest" type="number" placeholder="Ex: 20" class="input">
-        <br>
-        <h3><i class="fa-light fa-cubes"></i> Blues</h3>
-        <input id="packbluessuggest" type="text" placeholder="ex: Bluename (Rarity), etc." class="input">
-        <br>
-        <button id="submitsuggestion" class="puffy_button primary"><i class="fa-light fa-paper-plane"></i> Submit</button>
+            </div>
+            <div id="packbluessuggestex" class="container suggestblues">
+                <div class="inputfield">
+                    <input type="text" class="input2" placeholder="" autocomplete="off" id="packbluessuggestex__input" required />
+                    <label for="packbluessuggestex__input" class="label">Blue #1</label>
+                </div>
+                <select class="new_select">
+                    <option value="Common">Common</option>
+                    <option value="Uncommon">Uncommon</option>
+                    <option value="Rare">Rare</option>
+                    <option value="Epic">Epic</option>
+                    <option value="Legendary">Legendary</option>
+                    <option value="Mystical">Mystical</option>
+                </select>
+                <button class="new_puffy_button pilled danger"><i class="fa-light fa-xmark"></i> Remove</button>
+            </div>
+            
+            <br>
+            <button id="submitsuggestion" class="new_puffy_button primary"><i class="fa-light fa-paper-plane"></i> Submit</button>
+        </div>
+        
     </section>
 
     <script type="module" src="../js/profile/shop.js"></script>

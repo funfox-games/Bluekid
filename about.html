@@ -16,14 +16,12 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="topnav">
-        <div class="topnav_item" id="topnav__left">
-            <a style="text-decoration: none;" href="index.html">
-                <h2><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h2>
-            </a>
-        </div>
-        <div class="topnav_item" id="topnav__right">
-            <a href="join.html" class="topnav__link">Join Game</a>
+    <div class="topnav">
+        <a href="./index.html"><h1 style="color: var(--secondary)"><span style="color: var(--primary)">Blue</span>kid</h1></a>
+        <div class="links">
+            <a style="color: var(--accent)" href="join.html"><i class="fa-light fa-right-to-bracket"></i> Join game</a>
+            <a style="color: var(--accent)" href="about.html"><i class="fa-light fa-circle-info"></i> About me</a>
+            <a href="auth/login.html"><button class="new_puffy_button primary pilled" style="font-size: 1.05rem;"><i class="fa-light fa-user"></i> Sign in</button></a>
         </div>
     </div>
     <br><br><br>
@@ -31,12 +29,17 @@
         <h1 style="font-size: 3rem;">About me</h1>
         <p style="font-size: 1.25rem;">Hi, I'm FunFoxRR. I am a solo developer who loves making games. When I heard of Blooket, Gimkit, and Kahoot, I knew I had to make my own. I started this project in 5th grade, and grew ever since. Some of my other projects are <a href="https://gamejolt.com/games/gateways/758848" target="_blank">Gateways</a>, <a href="https://gamejolt.com/games/uwb/930871" target="_blank">Untitled Word Bombardment</a>, and this, Bluekid!</p>
         <h2 style="font-size: 2rem;">Contacts</h2>
-        <button class="puffy_button primary" id="discord" onclick="copy()"><i class="fa-brands fa-discord"></i> Discord</button>
-        <a href="https://gamejolt.com/@FunFoxRR" target="_blank"><button class="puffy_button secondary"><i class="fa-light fa-bolt"></i> Gamejolt</button></a>
-        <br>
-        <br>
+        <div class="contacts">
+            <button class="new_puffy_button primary" id="discord" onclick="copy()"><i class="fa-brands fa-discord"></i> Discord</button>
+            <a href="mailto:info.ffgames@gmail.com?body=%5Bcontent%5D%0A%0A---%0ASent%20from%20contacts%20page%20(https%3A%2F%2Fbluekid.netlify.app%2Fabout)"><button class="new_puffy_button primary"><i class="fa-light fa-envelope"></i> Email (mailto)</button></a>
+            <button class="new_puffy_button primary" onclick="copyemail()"><i class="fa-light fa-envelope"></i> Email (copy to clipboard)</button>
+            <a href="https://gamejolt.com/@FunFoxRR" target="_blank"><button class="new_puffy_button secondary"><i class="fa-light fa-bolt"></i> Gamejolt</button></a>
+        </div>
         <h1 style="font-size: 3rem;">About Bluekid</h1>
-        <a href="./privacy.html"><button class="puffy_button primary"><i class="fa-light fa-shield-halved"></i> Privacy Policy</button></a>
+        <div class="contacts">
+            <a href="./privacy.html"><button class="new_puffy_button primary"><i class="fa-light fa-shield-halved"></i> Privacy Policy</button></a>
+        </div>
+        <div class="space"></div>
         <p style="font-size: 1.25rem;">Bluekid is an easy-to-use education app for all purposes! You can host games, make friends, study, and learn while having fun! You share a code with your students / friends and they can join the fun of your own hosted gam, and with the help of Blues, you can bring customization and creativity to learning!</p>
         
     </section>
@@ -46,6 +49,10 @@
         function copy() {
             navigator.clipboard.writeText("funfoxrr");
             showNotification(4, "Copied Discord @ to clipboard.");
+        }
+        function copyemail() {
+            navigator.clipboard.writeText("info.ffgames@gmail.com");
+            showNotification(4, "Copied email to clipboard.");
         }
     </script>
 </body>

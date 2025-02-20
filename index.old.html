@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluekid</title>
+
+    <link rel="stylesheet" href="css/index.old.css">
+    <link rel="stylesheet" href="css/all.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <meta content="Bluekid" property="og:title" />
+    <meta content="The educational gaming website!" property="og:description" />
+    <meta content="https://bluekid.netlify.app/" property="og:url" />
+    <meta content="#34abeb" data-react-helmet="true" name="theme-color" />
+
+    <link rel="shortcut icon" href="./asset/bklogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- https://animate.style/ -->
+</head>
+<body onload="updateScroll()">
+    <div id="topnav">
+        <div class="topnav_item" id="topnav__left">
+            <a style="text-decoration: none;" href="index.html">
+                <h2><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h2>
+            </a>
+        </div>
+        <div class="topnav_item" id="topnav__right">
+            <a href="about.html" class="topnav__link">About</a>
+            <a href="join.html" class="topnav__link">Join Game</a>
+            <a href="auth/login.html" id="signin" class="topnav__link">Sign in</a>
+        </div>
+    </div>
+    <br><br><br>
+    <dialog id="yourLoggedIn">
+        <h1>You're logged in!</h1>
+        <p>You're logged in as <i id="login_name">Unknown</i>.</p>
+        <form method="dialog">
+            <a href="profile/index.html"><button class="puffy_button primary" type="button" value="profile" autofocus><i class="fa-light fa-person"></i> Go to profile</button></a>
+            <button class="puffy_button secondary" value="home"><i class="fa-light fa-home"></i> View home</button>
+            <br>
+            <button class="puffy_button secondary" style="width:100%;" value="signout"><i class="fa-light fa-right-from-bracket"></i> Sign out</button>
+        </form>
+    </dialog>
+    <section class="left_right" id="top">
+        <div class="topdown">
+            <div>
+                <h1 style="font-size: 3.5rem;">Join fun, free forever!</h1>
+                <p style="font-size: 1.5rem;">Host games, play games, learn something new!</p>
+                <div class="flex_center">
+                    <a href="auth/signup.html"><button class="puffy_button primary" style="width:100%;"><i class="fa-light fa-right-to-bracket"></i> Sign up</button></a>
+                    <a href="join.html"><button class="puffy_button secondary" style="width:100%;"><i class="fa-light fa-gamepad"></i> Join Game</button></a>
+                    <a href="about.html"><button class="puffy_button secondary" style="width: 100%;"><i class="fa-light fa-house-user"></i> About the creator</button></a>
+                    <a href="OLD_PROJECT_FILES/home.html"><button tabindex="-1" class="puffy_button secondary" style="width:100%;"><i class="fa-light fa-gear"></i> View old project</button></a>
+                </div>
+                
+            </div>
+            <div class="bottom">
+                <a href="./privacy.html">Privacy Policy</a>
+                <p>Created by funfoxrr. Everything is subject to change, as Bluekid is still in the <i>ALPHA</i> stage.</p>
+            </div>
+        </div>
+        
+        <div>
+            <img style="width:100%;height:100%;" src="asset/index/banner.png" alt="banner" width="900">
+        </div>
+    </section>
+    <br>
+    <section>
+        <h1 style="font-size: 3rem;">So what is this, "Bluekid" thing?</h1>
+        <p style="font-size: 1.25rem;">Inspired off of Blooket, Bluekid provides free, fun learning! Here are the essentaials:</p>
+        <div class="flex_spread">
+
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 102, 255, 0.35);">
+                <div>
+                    <i class="fa-light fa-gamepad fa-xl"></i>
+                    <h2>Play Games</h2>
+                </div>
+                <p>Either hosting or playing,<br>get to participate in serval fun different gamemodes!</p>
+            </div>
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(0, 255, 98, 0.35);">
+                <div>
+                    <i class="fa-light fa-treasure-chest fa-xl"></i>
+                    <h2>Earn Awards</h2>
+                </div>
+                <p>Get coins, buy packs!<br>Get fun blues, get other awesome treats!</p>
+            </div>
+            <div class="txtcenter container alignedCenter largegap" style="background-color: rgba(255, 0, 255, 0.35);">
+                <div>
+                    <i class="fa-light fa-stars fa-xl"></i>
+                    <h2>Have Fun</h2>
+                </div>
+                <p>Play user created kits,<br>and get awards!</p>
+            </div>
+
+        </div>
+    </section>
+    <br>
+    <section>
+        <h1 style="font-size: 3rem;">Customization!</h1>
+        <p style="font-size: 1.5rem;">Bluekid gives the option to customize your character! You can also personalize your experince with the different settings.</p>
+        <br>
+        <div class="flex_spread full_width container">
+            <img class="bounce" src="asset/char/Blue_Dog.png" alt="dog" width="128">
+            <img class="bounce" src="asset/char/Blue_Cat.png" alt="cat" width="128">
+            <img class="bounce" src="asset/char/blue_bunny.png" alt="bunny" width="128">
+            <img class="bounce" src="asset/char/meme/blue_amongus.png" alt="amongus" width="128">
+            <img class="bounce" src="asset/char/meme/blue_borzi.png" alt="borzi" width="128">
+            <img class="bounce" src="asset/char/christmas/blue_elf.png" alt="elf" width="128">
+            <img class="bounce" src="asset/char/meme/blue_troll.png" alt="troll" width="128">
+        </div>
+    </section>
+    <br>
+    <section>
+        <h1 style="font-size: 3rem;">How is it done?</h1>
+        <p style="font-size: 1.5rem;">It's not that hard! Follow the steps below to get a fast kickstart in Bluekid.</p>
+        <br>
+        <div class="container flex_center largegap" style="background-color: #0000001e;">
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-light fa-person"></i> 1. Create an account</h2>
+                <p style="font-size: 1.25rem;">Create an account to get into the fun! <b>An account is not needed for joinning, but is recommended!</b></p>
+                <a href="#top"><button class="puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Sign up</button></a>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-light fa-download"></i> 2. Choose / create a kit</h2>
+                <p style="font-size: 1.25rem;">Kits hold a bunch of settings and questions to play with!</p>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-light fa-dice"></i> 3. Select a mode</h2>
+                <p style="font-size: 1.25rem;">There is several gamemodes to choose from. New modes are activly being created!</p>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-light fa-circle-play"></i> 4. Host / Join</h2>
+                <p style="font-size: 1.25rem;">Join your teacher in a game or just have some fun!</p>
+                <a href="#top"><button class="puffy_button primary"><i class="fa-light fa-headset"></i> Join a game</button></a>
+            </div>
+            <div class="container fade" style="background-color: #0000001e;">
+                <h2><i class="fa-light fa-chart-simple"></i> 5. See results</h2>
+                <p style="font-size: 1.25rem;">See the players avarage, see what was the most missed, etc.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script defer>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB3PJ-cXM9thcOYhajlz15b8LiirZ44Kk",
+            authDomain: "bluekid-303db.firebaseapp.com",
+            databaseURL: "https://bluekid-303db-default-rtdb.firebaseio.com",
+            projectId: "bluekid-303db",
+            storageBucket: "bluekid-303db.appspot.com",
+            messagingSenderId: "207140973406",
+            appId: "1:207140973406:web:888dcf699a0e7d1e30fdcf"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script> -->
+    <script async type="module" src="js/index.old.js"></script>
+    <script src="js/util/entrances.js"></script>
+    <script src="js/util/notification.js"></script>
+</body>
+</html>

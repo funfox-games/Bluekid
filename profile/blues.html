@@ -16,21 +16,26 @@
         <h1>Remove <span id="removename"></span>?</h1>
         <p>Since this blue is bugged, no token value is assigned!<br>To remove this blue entirely, confirm below.</p>
         <form method="dialog">
-            <button id="removeblue_confirm" type="button" class="puffy_button primary">Remove (x<span id="removeamount"></span>)</button>
-            <button class="puffy_button">Close</button>
+            <button id="removeblue_confirm" type="button" class="new_puffy_button primary">Remove (x<span id="removeamount"></span>)</button>
+            <button class="new_puffy_button">Close</button>
         </form>
     </dialog>
-    <dialog id="sellblue">
-        <h1>Sell <span id="sell_name">_</span>?</h1>
-        <p>Value: <span id="sell_price">0</span></p>
-        <input type="number" value="1" step="1" id="sell_amount" onchange="document.getElementById('sell_amount').value = Math.round(parseFloat(document.getElementById('sell_amount').value))" oninput="if(parseInt(document.getElementById('sell_amount').value) < 0) { document.getElementById('sell_amount').value = 0 } if (parseInt(document.getElementById('sell_amount').value) > document.getElementById('sell_amount').max) { document.getElementById('sell_amount').value = document.getElementById('sell_amount').max }">
-        <br>
+    <dialog id="sellblue" class="newdialog">
+        <h1 style="text-align: center;">Sell <span id="sell_name">_</span>?</h1>
+        <!-- <p>Value: <span id="sell_price">0</span></p> -->
+        <!-- <input type="number" value="1" step="1" id="sell_amount" > -->
+        <div class="inputfield" style="flex:1;">
+            <input type="number" class="input2" placeholder="" autocomplete="off"  id="sell_amount" required onchange="document.getElementById('sell_amount').value = Math.round(parseFloat(document.getElementById('sell_amount').value))" oninput="if(parseInt(document.getElementById('sell_amount').value) < 0) { document.getElementById('sell_amount').value = 0 } if (parseInt(document.getElementById('sell_amount').value) > document.getElementById('sell_amount').max) { document.getElementById('sell_amount').value = document.getElementById('sell_amount').max }" />
+            <label for="sell_amount" class="label"><i class="fa-light fa-hashtag"></i> Amount</label>
+        </div>
+
+        <p style="font-size: .75rem;opacity: .5;">New balance after transaction: <i class="fa-light fa-coins"></i> <span id="newCoinAmount">0</span></p>
         <form method="dialog">
-            <button class="puffy_button primary" id="sellbtn"><i class="fa-light fa-coins"></i> SELL</button>
-            <button class="puffy_button secondary"><i class="fa-light fa-close"></i> Cancel</button>
+            <button class="new_puffy_button primary" id="sellbtn"><i class="fa-light fa-coins"></i> Sell</button>
+            <button class="new_puffy_button secondary"><i class="fa-light fa-close"></i> Cancel</button>
         </form>
     </dialog>
-    <dialog id="blueInfo">
+    <dialog id="blueInfo" class="newdialog">
         <div id="info__container" class="container">
             <img id="info_icon" alt="icon" width="128">
             <div>
@@ -43,22 +48,18 @@
         
         <br>
         <form method="dialog">
-            <button class="puffy_button primary"><i class="fa-light fa-close"></i> Close</button>
+            <button class="new_puffy_button primary"><i class="fa-light fa-close"></i> Close</button>
         </form>
     </dialog>
-    <dialog id="bugged">
+    <dialog class="newdialog" id="bugged">
         <h1><i class="fa-light fa-triangle-exclamation"></i> Error</h1>
-        <p>Since this blue is bugged, no data is assigned to it.</p>
+        <p>Since this blue is bugged, no info is avaliable.</p>
         <form method="dialog">
-            <button class="puffy_button primary"><i class="fa-light fa-close"></i> Close</button>
+            <button class="new_puffy_button primary"><i class="fa-light fa-close"></i> Close</button>
         </form>
     </dialog>
-    <dialog id="transaction">
-        <div class="container" style="display:flex;gap: 5px;background-color: #00000028;align-items: center;text-align: center;">
-            <i class="fa-light fa-spinner fa-spin fa-xl"></i>
-            <h1>Working...</h1>
-        </div>
-        
+    <dialog class="newdialog" id="transaction">
+        <h1><i class="fa-regular fa-spinner-third fa-spin fa-lg"></i> Working...</h1>
     </dialog>
 
     <div class="wheel" id="wheelex">
@@ -68,20 +69,23 @@
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+                <h1 style="color:var(--text);"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <div class="side">
-                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
-                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
-                </div>
-            <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-cubes"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
-            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-face-smile"></i> Social</button></a>
+            <div class="container" style="width:80%;display:flex;flex-direction: column;gap:5px;">
+                <a href="../join.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-play"></i> Play</button></a>
+                <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-server"></i> Host</button></a>
+            </div>
+            <!-- <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-server"></i> Host</button></a> -->
+            <a href="index.html" style="width:100%;"><button style="width:100%;"  class="new_puffy_button medium"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" disabled class="new_puffy_button medium"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i
+                        class="fa-light fa-face-smile"></i> Social</button></a>
+            <!-- <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a> -->
         </div>
         <div id="sidenav_lower">
+<<<<<<< Updated upstream
             <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
             <a href="settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-light fa-gears"></i> Settings</button></a>
@@ -89,8 +93,14 @@
                         class="fa-light fa-newspaper"></i> News</button></a>
             <a href="https://bluekid-main-branch.netlify.app/" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-globe"></i> Testing branch</button></a>
 
+=======
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium bkp standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="settings.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-newspaper"></i> News</button></a>
+            <a href="https://discord.gg/T56pNa98mF" target="_blank" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-brands fa-discord"></i> Discord</button></a>
+>>>>>>> Stashed changes
         </div>
-    
+        
     </div>
 
     <section id="profile" style="display:none;">
@@ -98,9 +108,15 @@
         <div id="allBlues__profile"></div>
     </section>
     <section id="content">
-        <h1>Blues</h1>
+        <!-- <h1>Blues</h1> -->
+        <div style="display: flex;justify-content: space-between;" class="container">
+            <h1>Blues</h1>
+            <div style="font-size: 1.5rem;">
+                <p><i class="fa-light fa-coins"></i> <b id="allcoins">0</b> coins</p>
+            </div>
+        </div>
         <div class="littlespace"></div>
-        <button disabled class="puffy_button danger"><i class="fa-light fa-code"></i> Bulk sell</button>
+        <button disabled class="new_puffy_button danger"><i class="fa-light fa-code"></i> Bulk sell</button>
         <!-- <div class="littlespace"></div> -->
         <div id="allBlues">
             <div class="bluechar" id="bluex">
@@ -113,7 +129,7 @@
         </div>
     </section>
 
-    <div id="bottom_inspect">
+    <div id="bottom_inspect" class="container">
         <div id="bottom_inspect_left">
             <img src="../asset/char/blue_notexture.png" width="64" alt="preview" id="preview_img">
             <div>
@@ -122,9 +138,9 @@
             </div>
         </div>
         <div id="bottom_inspect_right">
-            <button class="puffy_button primary" id="sell"><i class="fa-light fa-coins"></i> Sell</button>
-            <button class="puffy_button secondary" id="info"><i class="fa-light fa-circle-info"></i> Info</button>
-            <button class="puffy_button secondary" id="trade" disabled><i class="fa-light fa-xmark"></i> Trade</button>
+            <button class="new_puffy_button primary" id="sell"><i class="fa-light fa-coins"></i> Sell</button>
+            <button class="new_puffy_button secondary" id="info"><i class="fa-light fa-circle-info"></i> Info</button>
+            <button class="new_puffy_button secondary" id="trade" disabled><i class="fa-light fa-xmark"></i> Trade</button>
         </div>
     </div>
 

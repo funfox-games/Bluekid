@@ -12,131 +12,161 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <dialog id="loading" noanim>
+    <!-- <dialog id="loading" noanim>
         <h1><i class="fa-light fa-spinner fa-spin"></i> Loading...</h1>
         <p>Loading <span id="loading_progress">profile</span>...</p>
-    </dialog>
+    </dialog> -->
 
     <div id="sidenav">
         <div id="sidenav_upper">
-            <a href="../../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+            <a href="../index.html" style="text-decoration: none;color:black;">
+                <h1 style="color:var(--text);"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <div class="side">
-                <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
-                <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
+            <div class="container" style="width:80%;display:flex;flex-direction: column;gap:5px;">
+                <a href="../join.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-play"></i> Play</button></a>
+                <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-server"></i> Host</button></a>
             </div>
-            <a href="../index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-house-user"></i> Home</button></a>
-            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
-            <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-layer-group"></i> Kits</button></a>
-            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
-            <a href="../community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+            <!-- <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-server"></i> Host</button></a> -->
+            <a href="../index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="../blues.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="../kits.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="../shop.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="../community.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i
                         class="fa-light fa-face-smile"></i> Social</button></a>
+            <!-- <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a> -->
         </div>
         <div id="sidenav_lower">
-            <a href="../purchase/index.html" style="width:100%;"><button style="width:100%;" class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
-            <a href="../settings.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-gears"></i> Settings</button></a>
-            <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-newspaper"></i> News</button></a>
+            <a href=".././purchase/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium bkp standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="../settings.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../../news.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-newspaper"></i> News</button></a>
+            <a href="https://discord.gg/T56pNa98mF" target="_blank" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-brands fa-discord"></i> Discord</button></a>
         </div>
-    
+        
     </div>
-    <section>
-        <div id="yourprofile" class="info" style="display: none;margin-bottom: 10px;color:black;"><i class="fa-light fa-circle-info fa-xl"></i> This is your profile! Customize it in <a href="../settings.html">settings</a>.</div>
-        <div class="profile_card container" style="background-color: #0000001f;">
-            <div id="basicInfo">
-                <img src="../../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
-                <div style="margin-left:5px;">
-                    <div id="username">[DELETED USER]</div>
-                    <div style="font-size: 16px;">UID: <span id="uid">unknown</span></div>
-                </div>
-            </div>
-            <div style="display: flex; gap:15px;align-items: center;">
-                <div id="badges" style="height: fit-content;">
-                    <div class="badge container" id="badgeex" style="background-color: #00000054;color:white;height: fit-content;padding: 5px;">
-                        <img src="../../asset/badges/Verified.png" width="32" alt="badge">
+    <section id="content">
+        <div id="yourprofile" class="container" style="display: none;margin-bottom: 10px;"><i class="fa-light fa-circle-info fa-xl"></i> This is your profile! Customize it in <a style="color:var(--text);text-decoration: underline;" href="../settings.html">settings</a>.</div>
+        <div class="container topcontainer">
+            <div class="topprofile">
+                <div id="basicInfo">
+                    <img src="../../asset/char/blue_notexture.png" id="pfp" width="64" alt="profile">
+                    <div style="margin-left:5px;">
+                        <div id="username">[DELETED USER]</div>
+                        <div style="font-size: 16px;opacity: .5;"><span id="uid">unknown</span></div>
                     </div>
                 </div>
+                <div style="display: flex; gap:15px;align-items: center;">
+                    <div id="badges" style="height: fit-content;">
+                        <div class="badge container" id="badgeex">
+                            <img src="../../asset/badges/Verified.png" width="32" alt="badge">
+                        </div>
+                    </div>
 
-                <button id="share" class="puffy_button green"><i class="fa-light fa-share-nodes"></i> Share</button>
-                <a id="addfriend" href="../community.html"><button class="puffy_button primary"><i class="fa-light fa-square-plus"></i> Add friend</button></a>
-                <button style="display:none;" id="removefriend" class="puffy_button danger"><i class="fa-light fa-square-minus"></i> Unfriend</button>
+                    
+                </div>
             </div>
-            
+            <div class="space"></div>
+            <div class="quickies">
+                <button id="share" class="new_puffy_button green"><i class="fa-light fa-share-nodes"></i> Share</button>
+                <a id="addfriend" href="../community.html"><button style="width: 100%;" class="new_puffy_button primary"><i class="fa-light fa-square-plus"></i> Add friend</button></a>
+                <button style="display:none;" id="removefriend" class="new_puffy_button danger"><i class="fa-light fa-square-minus"></i> Unfriend</button>
+            </div>
         </div>
-        <br>
-        <div id="status_container" class="status container">
+        <div id="status_container" class="status container bottomcontainer">
             <h1 id="status">Offline</h1>
             <div id="offline" style="display:none;">
-                <p>Last online <span id="lastonline">0 days</span> ago.</p>
+                <p class="container"><i class="fa-light fa-clock-rotate-left fa-xl"></i> Last online <span id="lastonline">0 days</span> ago.</p>
+                <div class="littlespace"></div>
+                <p class="container"><i class="fa-light fa-location-dot fa-xl"></i> Last at <span id="lastWebpage">undefined</span></p>
             </div>
             <div id="online" style="display:none;">
-
+                <p>Currently <span id="currentWebpage">undefined</span></p>
             </div>
             <div id="ingame" style="display:none;">
 
             </div>
         </div>
-        <br>
-        <div class="littlespace"></div>
-        <div class="user_info_containers">
-            <div class="user_container container">
-                <h1>User Info</h1>
-                <div id="userInfoContainer">
-                    <!-- Creation date, friend amount, etc. -->
-                    <ul style="margin: 0;">
-                        <li>Creation date: Joined <i id="joinned">0</i> days ago.</li>
-                        <li><i id="friendAmount">0</i> Friends</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="user_container container">
-                <h1>Kits</h1>
-                <div class="kit container" id="kitex">
-                    <div class="kit_left">
-                        <div style="background-color: black;width:124px;height: 80.5px;">
-                            <img style="object-fit: contain;" src="../../asset/templates/kit_temp.png" width="124" height="80.5" alt="img">
-                        </div>
-                        <div>
-                            <h1 style="font-size: 2.5rem;">Kit title</h1>
-                            <p style="font-size: 1.25rem;"><i id="private_indicator" class="fa-light fa-lock"></i> Unshared</p>
-                        </div>
+        <div class="space"></div>
+        <div id="tabs" class="container topcontainer">
+            <button id="btn__overview" class="new_puffy_button primary"><i class="fa-regular fa-id-card"></i> Overview</button>
+            <button id="btn__kits" class="new_puffy_button"><i class="fa-light fa-layer-group"></i> Kits</button>
+            <button id="btn__blues" class="new_puffy_button"><i class="fa-kit fa-bluekid fa-xl"></i> Blues</button>
+            <button id="btn__friends" class="new_puffy_button"><i class="fa-light fa-users"></i> Friends</button>
+            <button id="btn__history" class="new_puffy_button"><i class="fa-light fa-clock-rotate-left"></i> History</button>
+        </div>
+        <div id="overview" show class="container section bottomcontainer">
+            <h1>User Info</h1>
+            <div class="space"></div>
+            <div id="userInfoContainer">
+                <!-- Creation date, friend amount, etc. -->
+                <!-- <ul style="margin: 0;">
+                    <li>Creation date: </li>
+                    <li><i id="friendAmount">0</i> Friends</li>
+                </ul> -->
+                <div class="quickies">
+                    <div class="quickstat">
+                        <i class="fa-light fa-calendar"></i>
+                        <p>Joined <span id="joinned">0</span> days ago.</p>
                     </div>
-                    <div class="kit_right">
-                        <a href="#"><button class="puffy_button primary"><i class="fa-light fa-eye"></i> View</button></a>
+                    <div class="quickstat">
+                        <i class="fa-light fa-users"></i>
+                        <p><span id="friendAmount">0</span> friends</p>
                     </div>
                 </div>
-                <div id="kits">
+            </div>
+        </div>
+        <div id="kits" class="container section bottomcontainer">
+            <h1>Kits</h1>
+            <div class="kit container" id="kitex">
+                <div class="kit_left">
+                    <div style="background-color: black;width:124px;height: 80.5px;">
+                        <img style="object-fit: contain;" src="../../asset/templates/kit_temp.png" width="124" height="80.5" alt="img">
+                    </div>
+                    <div>
+                        <h1 style="font-size: 2.25rem;">Kit title</h1>
+                        <p style="opacity: .5;"><i id="private_indicator" class="fa-light fa-lock"></i> Unshared</p>
+                    </div>
+                </div>
+                <div class="kit_right">
+                    <a href="#"><button class="new_puffy_button primary"><i class="fa-light fa-eye"></i> View</button></a>
+                </div>
+            </div>
+            <div id="allkits">
 
+            </div>
+        </div>
+        <div id="blues" class="container section bottomcontainer">
+            <h1>Blues</h1>
+            <div class="space"></div>
+            <div class="container"><i class="fa-sharp fa-light fa-circle-info fa-xl"></i> Blues will be formated better in the future</div>
+            <div class="space"></div>
+            <div class="bluek" id="blue_ex">
+                <img src="../../asset/char/blue_notexture.png" width="64" alt="blue">
+            </div>
+            <div id="allblues">
+                
+            </div>
+        </div>
+        <div id="friends" class="container section bottomcontainer">
+            <h1>Mutal Friends</h1>
+            <div id="allfriends">
+                <div class="friend container" id="friendex">
+                    <div class="friendinfo">
+                        <img src="../../asset/char/blue_notexture.png" width="48" alt="icon">
+                        <p>Username</p>
+                    </div>
+                    <div class="friendactions">
+                        <a href="#"><button class="new_puffy_button primary"><i class="fa-light fa-user-group"></i> View profile</button></a>
+                    </div>
                 </div>
             </div>
-            <div class="user_container container">
-                <h1>History</h1>
-                <div id="gameHistory">
+        </div>
+        <div id="history" class="container section bottomcontainer">
+            <h1>History</h1>
+            <div class="littlespace"></div>
+            <div class="container"><i class="fa-sharp fa-light fa-circle-info fa-xl"></i> Since hosting is not out yet, history is still in the making.</div>
+            <div id="gameHistory">
 
-                </div>
-                <!-- Game history -->
             </div>
-            <div class="user_container container">
-                <h1>Blues</h1>
-                <div class="bluek" id="blue_ex">
-                    <img src="../../asset/char/blue_notexture.png" width="64" alt="blue">
-                </div>
-                <div id="blues">
-                    
-                </div>
-            </div>
-            <div class="user_container container">
-                <h1>Friends</h1>
-                <p>Showing: Mutal friends</p>
-                <div id="friends">
-                    
-                </div>
-            </div>
-            
         </div>
     </section>
 

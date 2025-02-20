@@ -16,65 +16,116 @@
         <h1 style="font-size: 2rem;">You've reached your limit!</h1>
         <p>With Bluekid Plus, you can create 100 kits!</p>
         <div class="actions">
-            <a href="../purchase/index.html"><button class="puffy_button subscription_btn"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
-            <a href="../kits.html"><button class="puffy_button">Back</button></a>
+            <a href="../purchase/index.html"><button class="new_puffy_button bkp"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="../kits.html"><button class="new_puffy_button">Back</button></a>
         </div>
     </dialog>
 
-    <dialog id="uploadurldialog">
-        
-        <form method="dialog" style="text-align: center;">
+    <dialog class="newdialog" id="uploadurldialog">
+        <form method="dialog" style="text-align: center;flex-direction: column;">
             <h1>Upload by URL</h1>
             <input type="url" id="uploadurlurl" required class="input" placeholder="Enter URL..." style="border:1px solid black;margin-bottom: 5px;">
-            <div class="caution" style="color:black;display:none;" id="uploadurlnovaild"><i class="fa-light fa-circle-exclamation"></i> Not a vaild image / URL.</div>
-            <br>
-            <button id="uploadurluse" class="puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
-            <button type="reset" id="uploadurlclose" class="puffy_button">Close</button>
+            <div class="container" id="uploadurlnovaild"><i class="fa-light fa-circle-exclamation fa-xl"></i> Not a vaild image URL.</div>
+            <div style="display: flex;gap:5px;">
+                <button id="uploadurluse" style="flex:1;" type="button" class="new_puffy_button primary"><i class="fa-light fa-file-image"></i> Use</button>
+                <button type="reset" id="uploadurlclose" class="new_puffy_button">Close</button>
+            </div>
+            
         </form>
     </dialog>
-    <dialog id="uploadfiledialog">
-        <form method="dialog" style="text-align: center;">
+    <dialog class="newdialog" id="uploadfiledialog">
+        <form method="dialog" style="text-align: center;flex-direction: column;">
             <h1>Upload file</h1>
             <input type="file" id="fileupload" accept="image/*">
-            <br>
-            <button id="uploadFileUse" type="button" class="puffy_button primary"><i class="fa-light fa-file-image"></i> Upload</button>
-            <button type="reset" id="uploadfileclose" class="puffy_button">Close</button>
+            <div class="container" style="display: none;" id="uploadFileInvalidType"><i class="fa-light fa-circle-exclamation fa-xl"></i> Invalid file type.</div>
+            <div style="display: flex;gap:5px;">
+                <button id="uploadFileUse" type="button" style="flex:1;" class="new_puffy_button primary"><i class="fa-light fa-file-image"></i> Upload</button>
+                <button type="reset" id="uploadfileclose" class="new_puffy_button">Close</button>
+            </div>
         </form>
     </dialog>
     <section>
-        <h1>Create kit</h1>
+        <h1 class="container">Create kit</h1>
 
-        <div id="main_info" style="background-color: #0000002f;" class="container">
-            <div id="cover">
+        <div id="main_info" class="seperated_row">
+            <div id="cover" class="container">
                 <div style="background-color: black; width:512px;height: 288px;">
                     <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
                 </div>
                 <div id="cover_options">
-                    <button id="uploadurl" class="puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
-                    <button id="uploadfile" class="puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
+                    <button id="uploadurl" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
+                    <button id="uploadfile" class="new_puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
                 </div>
             </div>
-            <div id="basic_info" style="background-color: #ffffff48;" class="container">
-                <h1>Basic Info</h1>
-                <i>* Required</i>
-                <hr>
-                <h2><i class="fa-light fa-book-open"></i> Title*</h2>
-                <input type="text" style="text-align: left;" id="kittitle" class="input">
-                
-                <h2><i class="fa-light fa-scroll"></i> Description</h2>
-                <textarea style="text-align: left;resize: none;" id="kitdesc" rows="4" cols="40" class="input"></textarea>
-
-                
+            <div id="basic_info" class="container">
+                <h1 class="container">Basic Info</h1>
+                <!-- <div class="littlespace"></div> -->
+                <!-- <input type="text" style="text-align: left;" id="kittitle" class="input"> -->
+                <div class="inputfield">
+                    <input type="text" class="input2" placeholder="" autocomplete="off" id="kittitle" required />
+                    <label for="kittitle" class="label"><i class="fa-regular fa-file-signature"></i> Name*</label>
+                </div>
+                <!-- <h2><i class="fa-light fa-scroll"></i> Description</h2> -->
+                <!-- <textarea style="text-align: left;resize: none;" id="kitdesc" rows="4" cols="40" class="input"></textarea> -->
+                <div class="inputfield">
+                    <input type="text" class="input2" placeholder="" autocomplete="off" id="kitdesc" required />
+                    <label for="kitdesc" class="label"><i class="fa-regular fa-file"></i> Description</label>
+                </div>
+                <div class="space"></div>
+                <h2>Kit type</h2>
+                <p style="opacity: .75;font-size: .75rem;">Each gamemode either requires a certain kit type or manipulates the type to fit the mode.</p>
+                <div class="littlespace"></div>
+                <div id="kittype" class="row_options" data-active-option="standard">
+                    <div class="container" data-id="standard">
+                        <i class="fa-light fa-cubes"></i>
+                        <div>
+                            <h1>Standard</h1>
+                            <p>The normal kit, questions with 4 anwser choices.</p>
+                        </div>
+                    </div>
+                    <div class="container" disabled>
+                        <i class="fa-regular fa-cards-blank"></i>
+                        <div>
+                            <h1>Flashcards</h1>
+                            <p>Flashcard-like, one question and one anwser.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="privacy" style="background-color: #ffffff48;" class="container">
-                <h1><i class="fa-light fa-shield-halved"></i> Privacy</h1>
-                <hr>
+        </div>
+        <div class="seperated_row">
+            <div id="privacy" class="container">
+                <h1 class="container"><i class="fa-solid fa-shield-halved"></i> Privacy</h1>
+                <div class="space"></div>
                 <h3><i class="fa-light fa-eye"></i> Kit visibility</h3>
-                <select id="kit_visibility">
+                <div id="kitprivacy" class="row_options" data-active-option="private">
+                    <div class="container" data-id="private">
+                        <i class="fa-light fa-eye-slash"></i>
+                        <div>
+                            <h1>Private</h1>
+                            <p>No one but you!</p>
+                        </div>
+                    </div>
+                    <div class="container" data-id="friends">
+                        <i class="fa-light fa-user-group"></i>
+                        <div>
+                            <h1>Friends</h1>
+                            <p>Any friend can view this.</p>
+                        </div>
+                    </div>
+                    <div class="container" data-id="public">
+                        <i class="fa-light fa-globe"></i>
+                        <div>
+                            <h1>Everyone</h1>
+                            <p>Anyone who uses Bluekid can see this kit.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <select class="new_select" id="kit_visibility">
                     <option value="public">Public</option>
                     <option value="friends">Friends</option>
                     <option value="private" selected>Private</option>
-                </select>
+                </select> -->
 
                 <div class="space"></div>
 
@@ -91,9 +142,12 @@
                 <!-- more privacy crap here -->
             </div>
         </div>
+        <div style="display: flex;gap:10px;">
+            <button onclick="history.back()" style="flex:1;" class="new_puffy_button danger"><i class="fa-solid fa-left"></i> Go back</button>
+            <button style="flex:1;" class="new_puffy_button green" id="createkit"><i class="fa-light fa-square-plus"></i> Create</button>
+        </div>
         <div class="space"></div>
-        <button class="puffy_button green" id="createkit"><i class="fa-light fa-square-plus"></i> Create</button>
-        <button class="puffy_button danger" onclick="history.back()"><i class="fa-light fa-circle-xmark"></i> Cancel</button>
+        
         
     </section>
 

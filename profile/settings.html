@@ -12,10 +12,31 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <dialog class="newdialog" id="needpass">
+        <h1 class="container"><i class="fa-light fa-circle-xmark"></i> Cannot remove provider</h1>
+        <p>A password is required to remove a provider.</p>
+        <form method="dialog">
+            <button class="new_puffy_button primary" onclick="document.getElementById('addPassword').showModal()"><i class="fa-light fa-plus"></i> Add password</button>
+            <button class="new_puffy_button"><i class="fa-light fa-circle-xmark"></i> Close</button>
+        </form>
+    </dialog>
+    <dialog class="newdialog" id="addPassword">
+        <h1 class="container">Add Password</h1>
+        <p>Adding a password is an extra security layer for your account.</p>
+        <div class="inputfield">
+            <input type="password" class="input2" placeholder="" autocomplete="off" id="addpasswordinput" required />
+            <label for="addpasswordinput" class="label"><i class="fa-regular fa-file-signature"></i> New password</label>
+        </div>
+        <div class="inputfield">
+            <input type="password" class="input2" placeholder="" autocomplete="off" id="confirmpasswordinput" required />
+            <label for="confirmpasswordinput" class="label"><i class="fa-regular fa-file-signature"></i> Confirm password</label>
+        </div>
+        <button class="new_puffy_button primary" id="addpassconfirm"><i class="fa-light fa-key"></i> Add</button>
+    </dialog>
     <dialog id="membershipConfirmation">
         <h1>Membership Confirmation</h1>
         <p>If you haven't already, buy a membership <a href="https://buymeacoffee.com/funfox/membership" style="color: black;">here.</a></p>
-        <button class="puffy_button primary" id="continueMembershipConfirmation">Continue <i class="fa-light fa-arrow-right"></i></button>
+        <button class="new_puffy_button primary" id="continueMembershipConfirmation">Continue <i class="fa-light fa-arrow-right"></i></button>
     </dialog>
     <dialog id="membershipConfirmation2" noanim>
         <h1>Is this correct?</h1>
@@ -23,7 +44,7 @@
         <a style="color:black;" href="#" id="useDiffEmail">Use a different email</a>
         <a style="color:black;" href="#" id="resetToAccountEmail">Reset to account email</a>
         <hr>
-        <button class="puffy_button subscription_btn" id="confirmMembership"><i class="fa-light fa-square-check"></i> Activate</button>
+        <button class="new_puffy_button bkp" id="confirmMembership"><i class="fa-light fa-square-check"></i> Activate</button>
     </dialog>
     <dialog id="switchEmailCheck">
         <h1>Check different email</h1>
@@ -32,8 +53,8 @@
             <input type="email" class="input" style="width: 100%;" id="switchedEmail" required>
             <br>
             <div style="width: 100%;display:flex;gap:5px;">
-                <button style="flex:1;" class="puffy_button primary">Use</button>
-                <button style="flex:1;" id="switchEmailCheckBack" class="puffy_button" type="button">Go back</button>
+                <button style="flex:1;" class="new_puffy_button primary">Use</button>
+                <button style="flex:1;" id="switchEmailCheckBack" class="new_puffy_button" type="button">Go back</button>
             </div>
         </form>
         
@@ -45,8 +66,8 @@
         <div class="space"></div>
 
         <form method="dialog">
-            <button type="button" id="confirmdelete" class="puffy_button danger">Confirm delete</button>
-            <button class="puffy_button">Close</button>
+            <button type="button" id="confirmdelete" class="new_puffy_button danger">Confirm delete</button>
+            <button class="new_puffy_button">Close</button>
         </form>
     </dialog>
     <dialog id="unlinkmembership">
@@ -63,37 +84,44 @@
             I understand
         </label>
         <form method="dialog">
-            <button class="puffy_button danger" id="confirmunlink" type="button" disabled>Confirm unlink</button>
-            <button class="puffy_button">Cancel</button>
+            <button class="new_puffy_button danger" id="confirmunlink" type="button" disabled>Confirm unlink</button>
+            <button class="new_puffy_button">Cancel</button>
         </form>
     </dialog>
     <div id="sidenav">
         <div id="sidenav_upper">
             <a href="../index.html" style="text-decoration: none;color:black;">
-                <h1><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+                <h1 style="color:var(--text);"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
             </a>
-            <div class="side">
-                    <a href="../join.html" title="Play"><button class="puffy_button green"><i class="fa-light fa-play"></i></button></a>
-                    <a href="../hosting/index.html" title="Host"><button class="puffy_button primary"><i class="fa-light fa-server"></i></button></a>
-                </div>
-            <a href="index.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-house-user"></i> Home</button></a>
-            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
-            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
-                        class="fa-light fa-layer-group"></i> Kits</button></a>
-            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
-            <a href="community.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
+            <div class="container" style="width:80%;display:flex;flex-direction: column;gap:5px;">
+                <a href="../join.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-play"></i> Play</button></a>
+                <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium accent"><i class="fa-light fa-server"></i> Host</button></a>
+            </div>
+            <!-- <a href="../hosting/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-server"></i> Host</button></a> -->
+            <a href="index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-house-user"></i> Home</button></a>
+            <a href="blues.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-kit fa-xl fa-bluekid"></i> Blues</button></a>
+            <a href="kits.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-cubes"></i> Kits</button></a>
+            <a href="shop.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-basket-shopping"></i> Shop</button></a>
+            <a href="community.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i
                         class="fa-light fa-face-smile"></i> Social</button></a>
+            <!-- <a href="../mod/utilities.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium danger"><i class="fa-light fa-screwdriver-wrench"></i> Developer</button></a> -->
         </div>
         <div id="sidenav_lower">
+<<<<<<< Updated upstream
             <a href="settings.html" style="width:100%;"><button style="width:100%;" disabled class="puffy_button"><i
                         class="fa-light fa-gears"></i> Settings</button></a>
             <a href="../news.html" style="width:100%;"><button style="width:100%;" class="puffy_button"><i
                         class="fa-light fa-newspaper"></i> News</button></a>
             <a href="https://bluekid-main-branch.netlify.app/" style="width:100%;"><button style="width:100%;" class="puffy_button"><i class="fa-light fa-globe"></i> Testing branch</button></a>
 
+=======
+            <a href="./purchase/index.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium bkp standardonly"><i class="fa-light fa-circle-up"></i> Upgrade</button></a>
+            <a href="settings.html" style="width:100%;"><button style="width:100%;" disabled class="new_puffy_button medium"><i class="fa-light fa-gears"></i> Settings</button></a>
+            <a href="../news.html" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-light fa-newspaper"></i> News</button></a>
+            <a href="https://discord.gg/T56pNa98mF" target="_blank" style="width:100%;"><button style="width:100%;" class="new_puffy_button medium"><i class="fa-brands fa-discord"></i> Discord</button></a>
+>>>>>>> Stashed changes
         </div>
-    
+        
     </div>
     <section class="outercontent">
         <div id="settings_sidebar">
@@ -104,7 +132,11 @@
             <a disabled href="#sect.gamemode"><i class="fa-light fa-gamepad fa-lg"></i> Gamemodes</a>
             <a disabled href="#sect.experimental"><i class="fa-light fa-flask fa-lg"></i> Experimental</a>
 
-            <h2>Account</h2>
+            <h2>Auth</h2>
+            <a href="#sect.connectedAccounts"><i class="fa-light fa-link"></i> Providers</a>
+            <a href="#sect.security"><i class="fa-solid fa-shield-halved"></i> Security</a>
+
+            <h2>Data &amp; Profile</h2>
             <a href="#sect.accountinfo"><i class="fa-light fa-id-card fa-lg"></i> Account Info</a>
             <a href="#sect.community"><i class="fa-light fa-people-group fa-lg"></i> Community</a>
 
@@ -117,11 +149,11 @@
         </div>
         <div id="content">
             <div id="general" active>
-                <h1 style="font-size: 2.75rem;">General settings</h1>
-                <p>These settings aren't saved on the server, they are stored on your computer.</p>
+                <p class="container"><i class="fa-light fa-circle-info fa-xl"></i> These settings aren't saved on the server, they are stored on your computer.</p>
                 <div class="space"></div>
-                <h2 style="font-size: 2rem;">Website Preferences</h2>
-                <div class="container">
+                <h2 class="container" style="font-size: 2rem;">Website Preferences</h2>
+                <div class="space"></div>
+                <div class="container tabbed">
                     <div style="display: flex;align-items: center;gap:5px;">
                         <div>
                             <b style="font-size: 1.5rem;">Color mode</b>
@@ -140,19 +172,19 @@
                     <label class="toggle" for="allowThemes">
                         <input class="toggle_input" checked type="checkbox" id="allowThemes">
                         <div class="toggle_fill"></div>
-                        Allow holiday themes <i class="fa-light fa-circle-question" title="If colors and backgrounds are allowed to be shown."></i>
+                        Allow holiday themes <i class="fa-light fa-circle-question" data-tooltip="If colors and backgrounds are allowed to be shown."></i>
                     </label>
                     <div class="space"></div>
                     <label class="toggle" for="allowProfileThemes">
                         <input class="toggle_input" checked type="checkbox" id="allowProfileThemes">
                         <div class="toggle_fill"></div>
-                        Allow profile themes <i class="fa-light fa-circle-question" title="If colors are allowed on user profiles."></i>
+                        Allow profile themes <i class="fa-light fa-circle-question" data-tooltip="If colors are allowed on user profiles."></i>
                     </label>
                     <div class="littlespace"></div>
                         <label class="toggle" for="optimizeProfiles">
-                        <input disabled class="toggle_input" type="checkbox" id="optimizeProfiles">
+                        <input class="toggle_input" type="checkbox" id="optimizeProfiles">
                         <div class="toggle_fill"></div>
-                        Optimize profiles <i class="fa-light fa-circle-question" title="!IN DEVELOPMENT! Doesn't load all of the profile details unless specified."></i>
+                        Optimize profiles <i class="fa-light fa-circle-question" data-tooltip="Doesn't load all of the profile details unless specified."></i>
                     </label>
                 </div>
                 
@@ -160,140 +192,270 @@
             <div id="accountinfo">
                 <!-- <h2>Account Plan</h2>
                 <p style="font-size: 1.25rem;">Bluekid <b>Standard</b></p>
-                <button id="confirmMember" class="puffy_button subscription_btn standardonly"><i class="fa-light fa-check"></i> Confirm Membership</button> -->
-                <h2>Stats</h2>
-                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                <button id="confirmMember" class="new_puffy_button bkp standardonly"><i class="fa-light fa-check"></i> Confirm Membership</button> -->
+                <div class="container" style="display:flex;flex-direction: column;gap:05px;">
+                    <h2 class="container">Stats</h2>
+                    <div class="littlespace"></div>
                     <p>UID: <b id="userid"></b></p>
                     <p>Tokens: <b id="tokens"></b> coins</p>
                     <p>Username: <b id="username"></b></p>
                 </div>
-                <br>
-                <h2>Change name</h2>
-                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                    <input type="text" class="input" placeholder="Enter new name..." id="newname">
-                    <input type="text" class="input" placeholder="Confirm new name..." id="confirmnewname">
-                    <button class="puffy_button primary" id="changename"><i class="fa-light fa-shuffle"></i> Change name</button>
+                <div class="space"></div>
+                <div class="container">
+                    <h2 class="container">Change name</h2>
+                    <div style="display:flex;flex-direction: column;gap:05px;">
+                        <div style="display: flex;gap:10px;">
+                            <div class="inputfield" style="flex:1;">
+                                <input type="text" class="input2" placeholder="" autocomplete="off" id="newname" required />
+                                <label for="newname" class="label"><i class="fa-regular fa-file-signature"></i> New name</label>
+                            </div>
+                            <div class="inputfield" style="flex:1;">
+                                <input type="text" class="input2" placeholder="" autocomplete="off" id="confirmnewname" required />
+                                <label for="confirmnewname" class="label"><i class="fa-light fa-check"></i> Confirm new name</label>
+                            </div>
+                        </div>
+                        <button class="new_puffy_button primary" id="changename"><i class="fa-light fa-shuffle"></i> Change name</button>
+                    </div>
                 </div>
-                <br>
-                <h2>Change password</h2>
-                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                    <button class="puffy_button primary" id="sendpasswordreset"><i class="fa-light fa-envelope"></i> Send password reset
-                        email</button>
+                <div class="space"></div>
+                <div class="container">
+                    <h2 class="container">Change password</h2>
+                    <div class="littlespace"></div>
+                    <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
+                        <a href="#sect.accountinfo"><button disabled id="addpasswordbtn" class="new_puffy_button primary"><i class="fa-light fa-plus"></i> Add password</button></a>
+                        <button class="new_puffy_button primary" id="sendpasswordreset"><i class="fa-light fa-envelope"></i> Send password reset
+                            email</button>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="container">
+                    <h2 class="container">Change Email</h2>
+                    <div class="littlespace"></div>
+                    <div style="display:flex;flex-direction: column;gap:05px;">
+                        <div style="display: flex;gap:10px;">
+                            <div class="inputfield" style="flex:1;">
+                                <input type="email" class="input2" placeholder="" autocomplete="off" id="newemail" required />
+                                <label for="newemail" class="label"><i class="fa-light fa-envelope"></i> Old email</label>
+                            </div>
+                            <div class="inputfield" style="flex:1;">
+                                <input type="email" class="input2" placeholder="" autocomplete="off" id="confirmemail" required />
+                                <label for="confirmemail" class="label"><i class="fa-light fa-inbox"></i> New email</label>
+                            </div>
+                        </div>
+                        
+                        <button class="new_puffy_button primary" id="changemail"><i class="fa-light fa-shuffle"></i> Change email</button>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="container" style="background-color: rgba(255, 0, 0, 0.151);">
+                    <h2 class="container">Danger</h2>
+                    <div class="littlespace"></div>
+                    <button id="deleteaccount" class="new_puffy_button danger"><i class="fa-light fa-user-slash"></i> Delete account</button>
                 </div>
                 
-                <br>
-                
-                <h2>Change Email</h2>
-                <div style="display:flex;flex-direction: column;gap:05px;width: fit-content;">
-                    <input type="text" class="input" placeholder="Enter old email..." id="newemail">
-                    <input type="text" class="input" placeholder="Enter new email..." id="confirmemail">
-                    <button class="puffy_button primary" id="changemail"><i class="fa-light fa-shuffle"></i> Change email</button>
+            </div>
+            <div id="connectedAccounts">
+                <p class="container"><i class="fa-light fa-circle-info fa-xl"></i> Providers allow you to sign into Bluekid in different ways, also allowing you to get more functionality out of Bluekid.</p>
+                <div class="space"></div>
+                <h1 class="container">Connected Providers</h1>
+                <div class="littlespace"></div>
+                <div class="container accountlist" id="activeAccounts">
+                    <div id="google" class="container account ex">
+                        <div class="providerdetails">
+                            <img src="../asset/bklogo.png" style="border-radius: 5px;" alt="user" width="48">
+                            <p>Username (email)</p>
+                        </div>
+                        <div class="providerdetails" style="gap:10px;">
+                            <img src="../asset/google.webp" alt="google-logo" width="24">
+                            <button class="new_puffy_button danger removebtn"><i class="fa-light fa-circle-xmark"></i> Remove</button>
+                        </div>
+                    </div>
+                    <div id="pass" class="container account ex">
+                        <div class="providerdetails">
+                            <i class="fa-light fa-lock-keyhole fa-xl"></i>
+                            <p>Password</p>
+                        </div>
+                        <div class="providerdetails" style="gap:10px;">
+                            <a href="#sect.accountinfo"><button class="new_puffy_button accent"><i class="fa-light fa-pen"></i> Change</button></a>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h2>Danger</h2>
-                <button id="deleteaccount" class="puffy_button danger"><i class="fa-light fa-user-slash"></i> Delete account</button>
+                <div class="space"></div>
+                <h1 class="container">Add new providers<br><span style="font-size: 1rem;opacity: .5;font-weight: normal;">More connections are coming soon</span></h1>
+                <div class="littlespace"></div>
+                <div class="container accountlist" id="linkNew">
+                    <div id="linkgoogle" class="container account ex">
+                        <div class="providerdetails">
+                            <img src="../asset/google.webp" alt="google-logo" width="32">
+                            <p>Google</p>
+                        </div>
+                        <button class="new_puffy_button green"><i class="fa-light fa-link"></i> Connect</button>
+                    </div>
+                    <div id="linkpass" class="container account ex">
+                        <div class="providerdetails">
+                            <i class="fa-light fa-lock-keyhole fa-xl"></i>
+                            <p>Password</p>
+                        </div>
+                        <button class="new_puffy_button green"><i class="fa-light fa-link"></i> Connect</button>
+                    </div>
+                </div>
+            </div>
+            <div id="security">
+                <p style="font-size: 3rem;position: absolute;left:50%;top:50%;transform:translate(-25%, -25%);opacity: .25;">Bluekid is soon pairing with Auth0 to improve your security!</p>
             </div>
             <div needs_saved="saveProfileSettings" id="community">
-                <button class="puffy_button primary" id="saveProfileSettings"><i class="fa-light fa-floppy-disk"></i> Save all profile settings</button>
-                <div class="line"></div>
-                <h2>Community</h2>
-                <a id="openprofile" href=""><button class="puffy_button green"><i class="fa-light fa-up-right-from-square"></i> Open
-                        profile</button></a>
                 <div class="space"></div>
-                <label class="toggle" for="acceptFriendRequests">
-                    <input class="toggle_input" checked type="checkbox" id="acceptFriendRequests">
-                    <div class="toggle_fill"></div>
-                    Accept friend requests
-                </label>
+                <button class="new_puffy_button primary medium" id="saveProfileSettings"><i class="fa-light fa-floppy-disk"></i> Save all profile settings</button>
+                <!-- <div class="line"></div> -->
+                <div class="space"></div>
+                <div class="container">
+                    <h2 class="container">Community</h2>
+                    <div class="littlespace"></div>
+                    <a id="openprofile" href=""><button class="new_puffy_button green"><i class="fa-light fa-up-right-from-square"></i> Open
+                        profile</button></a>
+                    <div class="space"></div>
+                    <label class="toggle" for="acceptFriendRequests">
+                        <input class="toggle_input" checked type="checkbox" id="acceptFriendRequests">
+                        <div class="toggle_fill"></div>
+                        Accept friend requests
+                    </label>
+                </div>
 
                 <div class="space"></div>
-                <h2>Privacy</h2>
-                <h3>Hide sections</h3>
-                <label for="showBlues">Show blues to</label>
-                <select id="showBlues">
-                    <option value="none">No one</option>
-                    <option value="friends" selected>Friends only</option>
-                    <option value="all">Everyone</option>
-                </select>
-                <br>
-                <label for="showGameHistory">Show game history to</label>
-                <select id="showGameHistory">
-                    <option value="none">No one</option>
-                    <option value="friends" selected>Friends only</option>
-                    <option value="all">Everyone</option>
-                </select>
-                <br>
-                <label for="showKits">Show kits to</label>
-                <select id="showKits">
-                    <option value="none">No one</option>
-                    <option value="friends">Friends only</option>
-                    <option value="all" selected>Everyone</option>
-                </select>
-                <h3>Hide specific info</h3>
-                <label class="toggle" for="hideTokens">
-                    <input disabled class="toggle_input" type="checkbox" id="hideTokens">
-                    <div class="toggle_fill"></div>
-                    Hide tokens
-                </label>
-                <label for="showStatus">Show status to</label>
-                <select id="showStatus">
-                    <option value="none">No one</option>
-                    <option value="friends">Friends only</option>
-                    <option value="all" selected>Everyone</option>
-                </select>
-                <br>
-                <label for="showLastOnline">Show last online to</label>
-                <select id="showLastOnline">
-                    <option value="none">No one</option>
-                    <option value="friends">Friends only</option>
-                    <option value="all" selected>Everyone</option>
-                </select>
-                <div class="littlespace"></div>
-                
-                <h2>Customization</h2>
-                <div class="colorpicker">
-                    <input type="color" value="#ffffff" id="primarycolor">
-                    <label for="primarycolor">Primary color</label>
-                </div>
-                <div class="littlespace"></div>
-                <div class="colorpicker">
-                    <input type="color" value="#80b5d8" id="secondarycolor">
-                    <label for="secondarycolor">Secondary color</label>
+                <div class="container">
+                    <h2>Privacy</h2>
                 </div>
                 <div class="space"></div>
-                <div class="side">
-                    <div style="background-image: linear-gradient(#ffffff, #80b5d8);" id="clrpreview"></div>
-                    <p>Color preview</p>
+                <div class="container tabbed">
+                    <div class="container">
+                        <h3>Hide sections</h3>
+                    </div>
+                    <div class="space"></div>
+                    <label for="showBlues">Show blues to</label>
+                    <select class="new_select" id="showBlues">
+                        <option value="none">No one</option>
+                        <option value="friends" selected>Friends only</option>
+                        <option value="all">Everyone</option>
+                    </select>
+                    <div class="space"></div>
+                    <label for="showGameHistory">Show game history to</label>
+                    <select class="new_select" id="showGameHistory">
+                        <option value="none">No one</option>
+                        <option value="friends" selected>Friends only</option>
+                        <option value="all">Everyone</option>
+                    </select>
+                    <div class="space"></div>
+                    <label for="showKits">Show kits to</label>
+                    <select class="new_select" id="showKits">
+                        <option value="none">No one</option>
+                        <option value="friends">Friends only</option>
+                        <option value="all" selected>Everyone</option>
+                    </select>
                 </div>
-                <div class="line"></div>
-                <div class="side">
-                    <a id="featuredblue" href="./blues.html?function=profile">
-                        <img src="../asset/char/blue_notexture.png">
-                    </a>
-                    <div>
-                        <h2>Featured Blue</h2>
-                        <p small>This will show up as your profile picture!</p>
+                <div class="space"></div>
+                <div class="container tabbed">
+                    <div class="container">
+                        <h3>Hide specific info</h3>
+                    </div>
+                    <div class="space"></div>
+                    <label class="toggle" for="hideTokens">
+                        <input disabled class="toggle_input" type="checkbox" id="hideTokens">
+                        <div class="toggle_fill"></div>
+                        Hide tokens
+                    </label>
+                    <div class="space"></div>
+                    <label for="showStatus">Show status to</label>
+                    <select class="new_select" id="showStatus">
+                        <option value="none">No one</option>
+                        <option value="friends">Friends only</option>
+                        <option value="all" selected>Everyone</option>
+                    </select>
+                    <div class="space"></div>
+                    <label for="showLastOnline">Show last online to</label>
+                    <select class="new_select" id="showLastOnline">
+                        <option value="none">No one</option>
+                        <option value="friends">Friends only</option>
+                        <option value="all" selected>Everyone</option>
+                    </select>
+                    <div class="space"></div>
+                    <label for="showPage">Show page to</label>
+                    <p class="subtitle">Show your last visited page / currently active page</p>
+                    <select class="new_select" id="showPage">
+                        <option value="none">No one</option>
+                        <option value="friends" selected>Friends only</option>
+                        <option value="all">Everyone</option>
+                    </select>
+                    
+                </div>
+                
+                <div class="space"></div>
+                
+                <div class="container">
+                    <h2 class="container">Customization</h2>
+                    <div class="littlespace"></div>
+                    <div class="colorpicker">
+                        <input type="color" value="#ffffff" id="primarycolor">
+                        <label for="primarycolor">Primary color</label>
+                    </div>
+                    <div class="littlespace"></div>
+                    <div class="colorpicker">
+                        <input type="color" value="#80b5d8" id="secondarycolor">
+                        <label for="secondarycolor">Secondary color</label>
+                    </div>
+                    <div class="space"></div>
+                    <div class="side">
+                        <div style="background-image: linear-gradient(#ffffff, #80b5d8);" id="clrpreview"></div>
+                        <p>Color preview</p>
+                    </div>
+                    <div class="line"></div>
+                    <div class="side">
+                        <a id="featuredblue" href="./blues.html?function=profile">
+                            <img src="../asset/char/blue_notexture.png">
+                        </a>
+                        <div>
+                            <h2>Featured Blue</h2>
+                            <p small>This will show up as your profile picture!</p>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div show class="container bkplusbanner">
+                        <img src="../asset/bluekidplus/expandedprofiles.png" width="250" alt="bluekid plus banner">
+                        <div style="font-size: 1.25rem;">
+                            <h1>More customization coming soon!</h1>
+                            <p>As promised, Bluekid+ members will get expanded profile customization. This feature is currently in development! Don't worry Standard users, more is coming to you too!</p>
+                        </div>
                     </div>
                 </div>
-                <div class="line"></div>
-                <div show class="container bkplusbanner">
-                    <img src="../asset/bluekidplus/expandedprofiles.png" width="250" alt="bluekid plus banner">
-                    <div style="font-size: 1.25rem;">
-                        <h1>More customization coming soon!</h1>
-                        <p>As promised, Bluekid+ members will get expanded profile customization. This feature is currently in development! Don't worry Standard users, more is coming to you too!</p>
-                    </div>
-                </div>
+                
             </div>
             <div id="verify" class="center">
                 <div class="inner">
                     <img src="../asset/bluekidplus/bkpbanner.png" width="720" alt="bluekid plus banner">
                     <h1>Made up your mind?</h1>
                     <p>Enjoy more fun with Bluekid Plus! See benifits and more info <a href="./purchase/index.html">here</a>.</p>
-                    <button class="puffy_button subscription_btn" style="margin: 12px;" id="confirmMember"><i class="fa-light fa-money-check"></i> Verify</button>
+                    <button class="new_puffy_button bkp" style="margin: 12px;" id="confirmMember"><i class="fa-light fa-money-check"></i> Verify</button>
                 </div>
                
             </div>
-            <div id="bkpmanagement" style="font-size: 1.75rem;">
+            <div id="bkpmanagement" style="font-size: 1.75rem;position: relative;">
+                <div id="usingbmac">
+                    <div class="container">
+                        <h1 class="container"><i class="fa-regular fa-coffee-pot"></i> Subscription warning!</h1>
+                        <div style="padding: 10px;">
+                            <p style="font-size: 1.25rem;">Your subscription is using the old BMAC system. Please use the new Stripe system.</p>
+                        </div>
+                        <button class="new_puffy_button primary medium"><i class="fa-light fa-arrows-repeat"></i> Switch</button>
+                    </div>
+                </div>
+
+                <div style="display: flex;flex-direction: column;" class="container">
+                    <b class="container"><i class="fa-regular fa-circle-info fa-lg"></i> Switch is coming soon</b>
+                    <div class="space"></div>
+                    <p style="font-size: 1.25rem;">BuyMeACoffee will soon be replaced with Stripe. Stripe allows for better control and moderation. I will update this page when more info is available. Join the Discord server for instant notices!</p>
+                    <div class="space"></div>
+                    <a href="https://discord.gg/T56pNa98mF"><button class="new_puffy_button primary"><i class="fa-brands fa-discord"></i> Join the discord</button></a>
+                </div>
+                <div class="space"></div>
                 <h1>Subscription Active</h1>
                 <p>Been a member ever since <span id="membersince">--</span>.</p>
                 <br>
@@ -305,11 +467,10 @@
                 <p style="display: flex;align-items: center;gap:5px;margin-top: 5px;"><button class="icon_button danger" id="emailToggle"><i class="fa-light fa-eye"></i></button> Payer email: <span id="payeremail" hide>unknown</span></p>
                 <br>
                 <p style="font-size: 1rem;">The button below removes the connection between your BuyMeACoffee account and Bluekid account.<br>Please be cautious, as this opens your email for use on other accounts.</p>
-                <button class="puffy_button danger" id="unlink"><i class="fa-light fa-link-slash"></i> Unlink membership</button>
-                <br>
+                <button class="new_puffy_button danger" id="unlink"><i class="fa-light fa-link-slash"></i> Unlink membership</button>
                 <br>
                 <p style="font-size: 1rem;">The button below brings you to BuyMeACoffee where you can cancel your membership,<br>update your payment info, and see more details about Bluekid Plus.</p>
-                <a href="https://studio.buymeacoffee.com/my-account/payments/memberships"><button class="puffy_button primary"><i class="fa-light fa-list-check"></i> Manage membership</button></a>
+                <a href="https://studio.buymeacoffee.com/my-account/payments/memberships"><button class="new_puffy_button primary"><i class="fa-light fa-list-check"></i> Manage membership</button></a>
             </div>
         </div>
         

@@ -6,7 +6,7 @@ body {
     flex-direction: column;
     gap:5px;
 }
-#kits {
+#kits, #favoritekits {
     display:flex;
     flex-direction: column;
     gap: 10px;
@@ -15,7 +15,7 @@ body {
 .kit {
     display:flex;
     justify-content: space-between;
-    background-color: #0000002f;
+    /* background-color: #0000002f; */
 }
 .kit_left {
     display:flex;
@@ -38,6 +38,7 @@ body {
     position: absolute;
     background-color: #00000073;
     border-radius: 5px;
+    z-index: 8;
 }
 #kit_contextmenu[show] {
     display: flex;
@@ -77,4 +78,17 @@ body {
     flex-direction: column;
     gap:5px;
     margin: 10px;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+.top > div {
+    display: flex;
+    gap:5px;
+}
+.bkptag {
+    position: absolute;
+    top: .5rem;
+    right:.25rem;
 }

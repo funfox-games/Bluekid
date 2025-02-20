@@ -1,6 +1,132 @@
+/* .counter {
+    padding: 10px;
+    background-color: var(--container);
+    border-radius: 5px;
+}
+.counter > h1 {
+    font-size: 3rem;
+}
+.numbers { 
+    display: flex;
+    gap:5px;
+}
+.number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    background-color: rgba(0,0,0,.1);
+    border-radius: 5px;
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    position: relative;
+}
+.number > div {
+    position: absolute;
+    transform: translateY(100%);
+    
+    65 difference
+    bottom: 70px;
+} */
+
+* {
+    box-sizing: border-box;
+}
 body {
-    background-image: linear-gradient(#b9e4ff, #83a2b6);
-    background-size: contain;
-    background-repeat: no-repeat;
+    margin: 0;
+    overflow-x: hidden;
+    /* background-image: linear-gradient(#ebf5ff, #85c4ff); */
+    background-color: var(--background);
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-image: linear-gradient(var(--other), var(--background));
     height: 100vh;
+
+}
+.content {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--container);
+    color:var(--text);
+}
+.contentparnet {
+    padding: 75px;
+    display:flex;
+    flex-direction: column;
+    /* justify-content:stretch;
+    align-items: stretch; */
+    gap:10px;
+    height: 100%;
+}
+.contentleft {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--container);
+    color:var(--text);
+}
+
+.contentleft {
+    position: relative;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    font-size: 1.25rem;
+    z-index: 1;
+    text-align: center;
+}
+.contentbg {
+    content: "";
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    z-index: -1;
+    width: 150%;
+    height: 150%;
+    background-image: url("../asset/join/repeatBg.png");
+    background-repeat: repeat;
+    background-position: 25% 90deg;
+    background-size: 50%;
+    /* transform: rotate(25deg); */
+    opacity: 0.05;
+}
+.actions { 
+    display:flex;
+    gap:10px;
+    --sides: 15px;
+    margin-left: var(--sides);
+    margin-right: var(--sides);
+    
+}
+.actions > * {
+    flex:1;
+}
+.actions > a > button {
+    width: 100%;
+}
+
+.content {
+    flex:2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:5rem;
+}
+.innercontent {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap:5px;
+    font-size: 1.25rem;
+    scale:1.25;
+    /* flex:.3; */
+    width: 35%;
+}
+.innercontent a {
+    font-size: 1rem;
+    text-align: left;
+    opacity: .5;
 }

@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <dialog id="beforeJoin">
+    <!-- <dialog id="beforeJoin">
         <h1>Joinning Options</h1>
         <div class="info" style="color:black;"><i class="fa-light fa-circle-info fa-lg"></i> A temp. screen for the time being. I will hopefully have better thoughts in the future...</div>
         <div class="space"></div>
@@ -45,25 +45,134 @@
 
         
         <button class="puffy_button primary" id="confirmJoin">Join</button>
+    </dialog> -->
+    <dialog id="chooseBlue" class="newdialog">
+        <h1 class="container">Choose a blue:</h1>
+        <div id="blueContainer">
+
+        </div>
+        <form method="dialog">
+            <button class="new_puffy_button primary">Close</button>
+        </form>
     </dialog>
-    <dialog id="joinning">
+    <div id="game">
+        <div id="gamecontent">
+
+        </div>
+    </div>
+    <div id="joinInfo">
+        <div class="left container">
+            <div class="kitDetails">
+                <div class="kitImage">
+                    <img src="../asset/templates/kit_temp.png" id="kitimg" alt="kit_img">
+                </div>
+                <div class="basicKitDetails">
+                    <h1 class="container" id="title" style="font-size: clamp(1rem, 5vw, 3rem);">Title</h1>
+                    <p class="container" id="desc" style="font-size: clamp(.75rem, 2vw, 1.25rem);">Description</p>
+                </div>
+            </div>
+            <div class="aditionalInfo">
+                <div class="container">
+                    <i class="fa-light fa-lock fa-lg" id="kitPrivacyIcon"></i>
+                    <span id="kitPrivacy">Private</span>
+                </div>
+                <div class="container" id="likesContainer">
+                    <i class="fa-light fa-thumbs-up fa-lg"></i>
+                    <span>0 (0%)</span>
+                </div>
+                <div class="container">
+                    <i class="fa-light fa-user fa-lg"></i>
+                    <a href="#" style="color: var(--text)" id="kitCreator">Kit Author</a>
+                </div>
+            </div>
+        </div>
+        <div class="right container">
+            <div id="prejoin" class="rightContent">
+                <h1 class="container title" style="text-align: center;">User settings</h1>
+                <div class="userProfile" style="align-self: center;">
+                    <img id="userProfileImg" relativelocation="blue_notexture.png" src="../asset/char/blue_notexture.png" alt="blue">
+                    <i class="profileEdit fa-light fa-pen"></i>
+                </div>
+                <div class="littlespace"></div>
+                <div class="container" id="requiresRandom" style="display: none;"><i class="fa-light fa-circle-info fa-lg"></i> This game requires generated names.</div>
+                <div class="usernameOptions">
+                    <div class="inputfield" style="flex:1;margin-top: 0;">
+                        <input type="text" class="input2" placeholder="" autocomplete="off" id="username" required />
+                        <label for="username" class="label"><i class="fa-light fa-signature"></i> Username</label>
+                    </div>
+                    <button id="randomize" class="new_puffy_button icon"><i class="fa-light fa-dice"></i></button>
+                </div>
+                
+                <div class="space"></div>
+                <h1 class="container title">Privacy settings</h1>
+                <label class="toggle" for="publicProfile">
+                    <input class="toggle_input" checked type="checkbox" id="publicProfile">
+                    <div class="toggle_fill"></div>
+                    <div style="display: flex;flex-direction: column;">
+                        <span>Public profile</span>
+                        <span class="subtitle">Make your profile accessable by the host / other players.</span>
+                    </div>
+                </label>
+                <div class="littlespace"></div>
+                <button class="new_puffy_button primary" id="confirmJoin"><i class="fa-light fa-right-to-bracket"></i> Join game</button>
+            </div>
+            <div id="postjoin" style="display: none;">
+                <h1 class="container"><i class="fa-regular fa-spinner-third fa-spin"></i> Waiting for the host to start...</h1>
+                <div class="space"></div>
+                <div class="userinfo container">
+                    <div class="userProfile" style="align-self: center;">
+                        <img id="postjoinUserProfileImg" src="../asset/char/blue_notexture.png" alt="blue">
+                        <i class="profileEdit fa-light fa-pen"></i>
+                    </div>
+                    <h1 id="postgameusername">Username</h1>
+                </div>
+                <div class="space"></div>
+                <div class="quickies">
+                    <div class="container">
+                        <i class="fa-light fa-gamepad-modern"></i>
+                        <p><span style="font-style: italic; font-weight: bold;" id="gamemode">Classic</span> gamemode</p>
+                    </div>
+                    <div class="container">
+                        <p>Bored? Play a game while you wait!</p>
+                        <button disabled class="new_puffy_button primary">Play</button>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <h1 class="container">Players <span class="subtitle" style="font-weight: normal; font-size: 1rem;">(<span id="playerCount">0</span> total)</span></h1>
+                <p id="noPlayers" class="subtitle" style="margin:1rem;font-size: 1rem;">You're the only one! Once people start joinning, they'll show up here.</p>
+                <div class="space"></div>
+                <div id="players"></div>
+                <div id="plrex" class="player container">
+                    <div class="playerContent">
+                        <img src="../asset/char/blue_notexture.png" width="64" alt="blueicon">
+                        <div style="font-size: 1.5rem;">
+                            <p>Username</p>
+                            <div class="badges">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="playerActions">
+                        <a target="_blank" data-tooltip="View profile"><button class="new_puffy_button icon primary"><i class="fa-light fa-user"></i></button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <dialog id="joinning">
         <h1><i class="fa-light fa-spinner fa-spin"></i> Joinning via functions...</h1>
         <p>The functions may need a minute to warm up</p>
-    </dialog>
-    <div class="topnav">
-        <p id="topnavusername">Username</p>
-
-    </div>
-    <br><br><br>
-    <div class="container" style="margin:10px;">
-        <div id="changeWithAccount" class="info" style="color:black;"><i class="fa-light fa-circle-info fa-lg"></i> Change your blue with an <b>account.</b></div>
-        <p>Choose your blue:</p>
-        <select class="input" id="blues">
-            <optgroup label="Default">
-                <option value="default">Default [No texture]</option>
-            </optgroup>
-        </select>
-    </div>
+    </dialog> -->
+    <!-- <div class="content" style="margin:10px;">
+        <div class="container userinfo">
+            <div class="userProfile" style="align-self: center;">
+                <img id="userProfileImg_ingame" src="../asset/char/blue_notexture.png" alt="blue">
+                <i class="profileEdit fa-light fa-pen"></i>
+            </div>
+            <h1 id="usernameDisplay">username</h1>
+        </div>
+        <div class="container playerHeader"><h1>Players <span class="subtitle">(0)</span></h1></div>
+    </div> -->
 
     <script src="../js/hosting/client.js" type="module"></script>
 </body>

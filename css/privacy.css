@@ -1,8 +1,14 @@
 body {
-    background-image: linear-gradient(#ffffff, #80b5d8);
-    background-size:contain;
-    background-repeat: no-repeat;
-    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    /* background-image: linear-gradient(#ebf5ff, #85c4ff); */
+    background-color: var(--background);
+    --other: hsl(from var(--background) h s calc(l + 5));
+    background-image: linear-gradient(var(--other), var(--background));
+    color: var(--text);
+}
+* {
+    box-sizing: border-box;
 }
 h1,h2,h3,h4,h5 {
     position: relative;
@@ -15,7 +21,7 @@ h2:not([normal]):after {
     transform: translateY(-50%);
     width: 10px;
     height: 10px;
-    background-color: black;
+    background-color: var(--text);
     border-radius: 50%;
 }
 
@@ -29,8 +35,8 @@ h3::after {
     height: 10px;
     /* background-color: black; */
     rotate: 45deg;
-    border-top: 3px solid black;
-    border-right: 3px solid black;
+    border-top: 3px solid var(--text);
+    border-right: 3px solid var(--text);
 }
 
 h4::after {
@@ -41,7 +47,7 @@ h4::after {
     transform: translateY(-50%);
     width: 10px;
     height: 5px;
-    background-color: black;
+    background-color: var(--text);
     border-radius: 5px;
 }
 
@@ -63,4 +69,9 @@ h4 {
 h5 {
     padding-left: 4rem;
     font-size: 1.25rem;
+}
+.content{
+    padding: 25px;
+    padding-top: 5rem;
+
 }

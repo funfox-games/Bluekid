@@ -14,12 +14,25 @@
     <!-- Background elem -->
     <div class="fullscreen"></div>
     <div class="section__center" style="color:white;display:flex;flex-direction: column;align-items: center;">
-        <a style="text-decoration: none;color:white;" href="./index.html"><h1 style="background-color: #0000001f;padding: 5px;border-radius: 10px;box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);padding-left: 20px;padding-right: 20px;" id="title"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1></a>
-        <section class="container maincontainer" style="margin-top: 25px;">
+        <a style="text-decoration: none;color:white;" href="./index.html">
+            <h1 style="background-color: var(--container);padding: 5px;border-radius: 10px;box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);padding-left: 20px;padding-right: 20px;" id="title"><span class="blue"><i class="fa-kit fa-bluekid-fill"></i> Blue</span>kid</h1>
+            <div class="space"></div>
+            <p style="opacity: .5;">Version <span id="hostingversion"></span></p>
+        </a>
+        <section class="container maincontainer" style="margin-top: 5px;">
             <div id="notloggedin" class="warning">Loading...</div>
-            <p>Version <span id="hostingversion"></span></p>
-            <input class="input" style="height: 40px;" autocomplete="off" placeholder="Game ID" id="gid">
-            <button id="join" class="puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Join</button>
+            <!-- <input class="input" style="height: 40px;" autocomplete="off" placeholder="Game ID" id="gid"> -->
+            <div class="inputfield">
+                <input type="email" class="input2" placeholder="" autocomplete="off" id="gid" required />
+                <label for="gid" class="label"><i class="fa-light fa-gamepad-modern"></i> Game ID</label>
+            </div>
+            <button id="join" class="new_puffy_button primary"><i class="fa-light fa-right-to-bracket"></i> Join</button>
+            <div class="otheractions">
+                <a id="home" href="./profile/index.html" hide><i class="fa-light fa-house-user fa-lg"></i> Home</a>
+                <a id="login" href="./auth/login.html" hide><i class="fa-light fa-arrow-right-to-arc fa-lg"></i> Log In</a>
+                <a id="history" style="text-decoration: line-through;opacity: .5;" href="#" hide><i class="fa-light fa-clock-rotate-left"></i> Game history</a>
+            </div>
+            
         </section>
     </div>
 

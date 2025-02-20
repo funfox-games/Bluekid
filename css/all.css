@@ -24,23 +24,54 @@ p {
 }
 section {
     box-shadow: 10px 10px 15px -6px rgba(0, 0, 0, .5);
-    padding: 15px;
+    padding: 20px;
     border-radius: 5px;
-    background-color: #00000021;
+    color: var(--text);
+    background-color: var(--container);
 }
 .container {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--container);
+}
+.container.tabbed {
+    margin-left: 1rem;
+    box-sizing: border-box;
+}
+.container.tabbed2 {
+    margin-left: 2rem;
+    box-sizing: border-box;
+}
+.container.tabbed3 {
+    margin-left: 3rem;
+    box-sizing: border-box;
 }
 :root {
-    --primary-color: #1677ff;
-    --primary-color-outline: #1154b3;
-    --secondary-color: #6b6b6b;
-    --secondary-color-outline: #808080;
-    --plus-color:rgb(255, 217, 0);
+    --text: #e3fdee;
+    --text-rgb: 227, 253, 238;
+    --background: #021d29;
+    
+    /* #55c2da */
+    --primary: #218cd9;
+    --primary-rgb: 33, 140, 217;
+
+    /* #82aacf */
+    --secondary: rgb(118, 177, 216);
+    --secondary-rgb: 118, 177, 216;
+    --accent: rgb(110, 202, 255);
+    --accent-rgb:148, 205, 255;
+    --accent-trans: rgb(148, 205, 255, .25);
+    --plus-color:#ffd900;
+
+    --container: rgba(255,255,255,.04);
+    --container-rgb: 255, 255, 255;
+
+    --warning: rgba(255,255,0,.1);
+    --error: rgba(255,0,0,.1)
 }
 .blue {
-    color: #92e0ff;
+    /* color: #92e0ff; */
+    color: var(--accent);
 }
 .section__center {
     position: absolute;
@@ -49,22 +80,39 @@ section {
     transform: translate(-50%, -50%);
     text-align: center;
 }
-#topnav {
+.topnav {
     position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: space-around;
     padding: 15px;
-    z-index: 3;
-    backdrop-filter: blur(5px);
-    color: white;
-    background-color: rgba(0, 0, 0, 0.45);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.738);
+    padding-right: 35px;
+    box-sizing: border-box;
+    z-index: 9;
+    width: 100vw;
+    background-color: transparent;
+    backdrop-filter: blur(16px);
+
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.links {
+    display: flex;
+    gap:10px;
+    align-items: center;
+    font-size: 1.1rem;
+}
+.links > a {
+    padding-right: 10px;
+    border-right: 1px solid rgba(0,0,0,.5);
+}
+.topnav * {
+    text-decoration: none;
+    color:var(--accent);
+}
+.links > a > button > i {
+    color: black;
 }
 
-#topnav__right {
+/* #topnav__right {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,7 +127,7 @@ section {
 
 #topnav a:hover {
     text-decoration: wavy;
-}
+} */
 .puffy_button{
     --side-padding: 40px;
     padding: 10px;
@@ -87,7 +135,7 @@ section {
     padding-right: var(--side-padding);
     border-radius: 5px;
     transition-duration: 250ms;
-    background-color: var(--secondary-color);
+    background-color: var(--secondary);
     outline: none;
     font-size: 20px;
     color: white;
@@ -95,6 +143,9 @@ section {
     border-style: solid;
     outline: none;
     border: 2px solid black;
+
+    /* Secondary props */
+
 }
 .puffy_button:not([disabled]):not(.subscription_btn):hover {
     filter:brightness(110%);
@@ -110,27 +161,27 @@ section {
 }
 button:active,
 button:focus {
-    filter: brightness(130%);
+    /* filter: brightness(130%); */
     outline: none;
 }
 a:active,
 a:focus {
-    filter: brightness(130%);
+    /* filter: brightness(130%); */
     outline: none;
 }
 .puffy_button.primary {
-    background-color: var(--primary-color);
-    /* border: 3px solid var(--primary-color-outline); */
+    background-color: var(--primary);
+    /* border: 3px solid var(--primary-outline); */
 
 }
 .puffy_button.secondary {
-    background-color: var(--secondary-color);
-    /* border: 3px solid var(--secondary-color-outline); */
+    background-color: var(--secondary);
+    /* border: 3px solid var(--secondary-outline); */
 
 }
 .puffy_button.danger {
     background-color: rgb(160, 0, 0);
-    /* border: 3px solid var(--primary-color-outline); */
+    /* border: 3px solid var(--primary-outline); */
 
 }
 .puffy_button.green {
@@ -140,10 +191,7 @@ a {
     transition-duration: 250ms;
 }
 a.primary {
-    color: var(--primary-color);
-}
-a:hover{
-    filter:brightness(110%);
+    color: var(--primary);
 }
 .white {
     color:white;
@@ -165,15 +213,27 @@ dialog[open] {
 dialog::backdrop {
     background-color: #00000083;
 }
+dialog a {
+    color: var(--text);
+    text-decoration: none;
+}
+dialog a:hover {
+    text-decoration: underline;
+}
 .input {
     padding: 5px;
     border-radius: 5px;
     text-align: center;
     font-size: 1.25rem;
-    border: none;
+    border: 1px solid grey;
+    background-color: transparent;
+    color: var(--text);
+    outline: none;
+
+    transition-duration: 250ms;
 }
 .input:active,.input:focus {
-    outline: none;
+    border-color: var(--primary);
 }
 .warning{
     padding: 10px;
@@ -268,7 +328,7 @@ dialog::backdrop {
     width: 45px;
     height: 45px;
     transition-duration: 250ms;
-    background-color: var(--secondary-color);
+    background-color: var(--secondary);
     outline: none;
     font-size: 20px;
     color: white;
@@ -277,12 +337,12 @@ dialog::backdrop {
     border: 1.75px solid black;
 }
 .icon_button.primary {
-    background-color: var(--primary-color);
-    /* border: 3px solid var(--primary-color-outline); */
+    background-color: var(--primary);
+    /* border: 3px solid var(--primary-outline); */
 }
 .icon_button.secondary {
-    background-color: var(--secondary-color);
-    /* border: 3px solid var(--secondary-color-outline); */
+    background-color: var(--secondary);
+    /* border: 3px solid var(--secondary-outline); */
 }
 .icon_button:hover {
     filter: brightness(110%);
@@ -293,7 +353,7 @@ dialog::backdrop {
 }
 .icon_button.danger {
     background-color: rgb(160, 0, 0);
-    /* border: 3px solid var(--primary-color-outline); */
+    /* border: 3px solid var(--primary-outline); */
 
 }
 .icon_button.green {
@@ -323,8 +383,8 @@ dialog::backdrop {
     filter: brightness(100%);
 }
 .optionbtn[selected] {
-    background-color: var(--primary-color);
-    border: 1px solid var(--primary-color-outline);
+    background-color: var(--primary);
+    border: 1px solid var(--primary-outline);
 }
 
 .toggle {
@@ -345,11 +405,14 @@ dialog::backdrop {
     width: var(--width);
     height: var(--height);
     border-radius: var(--border-radius);
-    background: #0000007a;
+    background: rgba(18,18,18, 0.478);
     transition: background 0.2s;
 }
 .toggle_input:checked ~ .toggle_fill {
-    background: var(--primary-color);
+    background: var(--accent);
+}
+.toggle.bluekidplus .toggle_input:checked ~ .toggle_fill {
+    background: var(--plus-color);
 }
 .toggle_input:disabled ~ .toggle_fill {
     background: rgba(126, 126, 126, 0.478);
@@ -466,7 +529,7 @@ dialog::backdrop {
     overflow: hidden;
     filter: drop-shadow(0px 0px 10px #f700ff);
 }
-.badge--bkp::after{
+.badge--bkp::before{
     content: "";
     position:absolute;
     left: -30%;
@@ -545,7 +608,7 @@ dialog::backdrop {
     background-color: rgb(155, 186, 255);
     border-radius: 100px;
     color: black;
-    padding: 5px;
+    padding: 5px 10px;
     font-size: .75rem;
     font-weight: bold;
     width: fit-content;
@@ -555,6 +618,24 @@ dialog::backdrop {
     -webkit-box-shadow: 0px 0px 19px 4px rgba(155,187,255,1);
     -moz-box-shadow: 0px 0px 19px 4px rgba(155,187,255,1);
     box-shadow: 0px 0px 19px 4px rgba(155,187,255,1);
+}
+.bkptag {
+    background-color: var(--plus-color);
+    border-radius: 100px;
+    color: black;
+    padding: 5px 10px;
+    font-size: .75rem;
+    font-weight: bold;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 5px;
+    margin-right: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px var(--plus-color);
+    -moz-box-shadow: 0px 0px 10px 0px var(--plus-color);
+    box-shadow: 0px 0px 10px 0px var(--plus-color);
+}
+.bkptag[hide] {
+    display: none;
 }
 #sidenav .side {
     display:flex;
@@ -604,7 +685,7 @@ dialog::backdrop {
     border-bottom-right-radius: var(--round);
 }
 .viewswitcher:not([disabled]) > *[selected] {
-    background-color: var(--primary-color);
+    background-color: var(--primary);
 }
 .viewswitcher > *[selected]:hover {
     filter: brightness(125%);
@@ -627,9 +708,346 @@ dialog::backdrop {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99;
+    z-index: 9999;
     gap:10px;
 }
 .__loading_screen ._loading_info {
     font-size: 1rem;
+}
+
+.new_puffy_button {
+    padding:8px 30px;
+    /* --sides: 25px; */
+    /* padding-left: var(--sides); */
+    /* padding-right: var(--sides); */
+    background-color: var(--secondary);
+    border-radius: 5px;
+    /* color:white; */
+    outline: none;
+    cursor:pointer;
+    border-style: solid;
+    border: none;
+    transition-duration: 250ms;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap:5px;
+    color: black;
+    position: relative;
+
+    /* Secondary styling */
+    background-color: transparent;
+    color: var(--text);
+
+}
+.new_puffy_button.small {
+    font-size: 14px;
+    padding: 7px 20px;
+}
+.new_puffy_button.medium {
+    font-size: 18px;
+}
+.new_puffy_button.large {
+    font-size: 24px;
+    padding: 15px 35px;
+}
+.new_puffy_button.pilled {
+    border-radius: 50px;
+}
+.new_puffy_button.primary {
+    background-color: var(--primary);
+    color:black !important;
+}
+.new_puffy_button.accent {
+    background-color: var(--accent);
+    color:black;
+}
+.new_puffy_button.danger {
+    background-color: rgb(160, 0, 0);
+    color:white;
+}
+
+.new_puffy_button.green {
+    background-color: rgb(0, 160, 0);
+    color:black;
+}
+
+.new_puffy_button:not(:disabled):hover { 
+    -webkit-box-shadow: -10px 0px 13px -7px #000, 10px 0px 13px -7px #000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: -10px 0px 13px -7px #000, 10px 0px 13px -7px #000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+.new_puffy_button:disabled {
+    opacity: .5;
+    /* text-decoration:line-through; */
+}
+.new_puffy_button:not(.primary):not(.bkp):not(.danger):not(.green){
+    border: 1px solid var(--secondary);
+}
+.new_puffy_button:not(.primary):not(.bkp):not(.danger):not(.green):hover{
+    /* --other: hsl(from var(--secondary) h s calc(l + 5));
+    background-color: var(--other); */
+    background-color: rgba(var(--secondary-rgb), .5);
+}
+.new_puffy_button.primary:hover {
+    --other: hsl(from var(--primary) h s calc(l + 5));
+    background-color: var(--other);
+}
+.new_puffy_button.danger:hover {
+    background-color: rgb(182, 0, 0);
+}
+.new_puffy_button.green:hover {
+    background-color: rgb(0, 194, 0);
+}
+.new_puffy_button.icon {
+    height: 1rem;
+    width: 1rem;
+
+    padding: 1rem;
+}
+.new_puffy_button.primary.outline {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--text) !important;
+}
+.new_puffy_button.green.outline {
+    background-color: transparent;
+    border: 1px solid rgb(0, 194, 0);
+    color: var(--text) !important;
+}
+.new_puffy_button.green.outline:hover {
+    background-color: rgba(var(--secondary-rgb), .25);
+}
+.new_puffy_button.danger.outline {
+    background-color: transparent;
+    border: 1px solid rgb(182, 0, 0);
+    color: var(--text) !important;
+}
+.new_puffy_button.outline {
+    background-color: transparent;
+    border: 1px solid var(--secondary);
+    color: var(--text) !important;
+}
+.new_puffy_button.bkp {
+    position: relative;
+    background-color: var(--plus-color);
+    color: black;
+    overflow: hidden;
+}
+.new_puffy_button.bkp:hover {
+    box-shadow: rgb(224, 255, 85) 0px 0px 0px 3px, rgb(170, 194, 64) 0px 0px 0px 6px, rgb(144, 167, 55) 0px 0px 0px 9px, rgb(84, 97, 32) 0px 0px 0px 12px;
+}
+.new_puffy_button.bkp::after{
+    content: "";
+    position:absolute;
+    left: -10%;
+    top: -10%;
+    width: 10px;
+    height: 120%;
+    rotate: 20deg;
+    background-color: white;
+    animation: shine 3s forwards infinite;
+}
+#sidenav .fa-bluekid {
+    font-size: 1rem;
+}
+#sidenav .new_puffy_button:not(.accent){
+    border: none !important;
+    background-color: transparent;
+    text-align: left;
+    justify-content: start;
+    box-shadow: none;
+}
+#sidenav .new_puffy_button:not(.accent):hover {
+    background-color: rgba(var(--secondary-rgb), .25);
+}
+#sidenav .new_puffy_button.accent:hover {
+    background-color: rgb(var(--primary-rgb));
+}
+#sidenav .new_puffy_button.bkp {
+    text-align: center;
+    justify-content: center;
+    background-color: var(--plus-color);
+}
+.inputfield * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* Taken from https://codepen.io/lucasyem/pen/ZEEYKdj */
+.inputfield {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  /* width: 50%; */
+}
+
+.inputfield > .input2 {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 1.3rem;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  /* From stack overflow */
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+.inputfield > .input2::placeholder {
+    color: transparent;
+}
+.inputfield > .input2:placeholder-shown ~ .label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: gray;
+}
+
+.inputfield > .input2:focus {
+  padding-bottom: 6px;
+  /* font-weight: 700; */
+  border-width: 3px;
+  border-image: linear-gradient(to right, var(--primary),var(--secondary));
+  border-image-slice: 1;
+}
+.inputfield > .input2:focus ~ .label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight:700;
+}
+/* reset input */
+.inputfield > .input2:required,
+.inputfield > .input2:invalid{
+    box-shadow:none;
+}
+.notice {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: var(--container);
+    display: none;
+    align-items: center;
+    gap:10px;
+    font-size: 2rem;
+    justify-content: center;
+}
+.notice[show] {
+    display:flex;
+}
+.notice.warning {
+    background-color: var(--warning);
+}
+.notice__content{
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.notice__actions {
+    display: flex;
+    gap:5px;
+}
+.notice__actions > * {
+    flex: 1;
+}
+
+.new_select {
+    padding: 8px 12px;
+    /* color: black; */
+    color: white;
+    background-color: var(--container);
+    border: 1px solid rgba(0, 0, 0, .2);
+    cursor: pointer;
+    border-radius: 50px;
+
+    outline: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50"><polygon points="0,0 100,0 50,50" style="fill:%23FFFFFF" /></svg>');
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    background-size: 10px;
+    padding-right: 30px;
+}
+.new_select:hover:focus {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50"><polygon points="0,50 100,50 50,0" style="fill:%23FFFFFF" /></svg>');
+}
+.new_select option {
+    background-color: var(--background);
+}
+dialog.newdialog[show] {
+    display: flex;
+}
+dialog.newdialog {
+    flex-direction: column;
+    align-items: stretch;
+    /* justify-content: stretch; */
+    gap:5px;
+    background-color: var(--background);
+    color:white;
+    padding: 20px;
+    border-radius: 5px;
+}
+dialog.newdialog::backdrop {
+    background-image: linear-gradient(rgba(0, 26, 51, 0.486)rgba(0, 26, 51, 0.7));
+}
+dialog.newdialog > form {
+    display: flex;
+    gap:10px;
+}
+dialog.newdialog > form > * {
+    flex:1;
+}
+.subtitle {
+    opacity: .5;
+    font-size: .75rem;
+}
+[data-tooltip] {
+    position: relative;
+}
+[data-tooltip]::after {
+    --scale: 0;
+    position: absolute;
+    top: -.25rem;
+    left: 50%;
+    border-radius: 5px;
+    background-color: var(--background);
+    transform: translateX(-50%) translateY(-100%) scale(var(--scale));
+    transition: 250ms transform;
+
+    content: attr(data-tooltip);
+    color: var(--text);
+    text-align: center;
+    padding: .5rem;
+    width: max-content;
+    max-width: 20vw;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-size: 1rem;
+    pointer-events: none;
+}
+[data-tooltip][data-tooltip-pos="bottom"]::after {
+    transform: translateX(-50%) translateY(100%) scale(var(--scale));
+    top: .25rem;
+}
+[data-tooltip]:hover::after {
+    --scale: 1;
 }
