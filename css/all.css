@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-/* * {box-sizing:border-box;} */
+
 *{
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
@@ -47,21 +47,34 @@ section {
     box-sizing: border-box;
 }
 :root {
-    --text: #e3fdee;
+    /* --text: #e3fdee;
     --text-rgb: 227, 253, 238;
     --background: #021d29;
+    --background-rgb: 2, 29, 41;
     
-    /* #55c2da */
     --primary: #218cd9;
     --primary-rgb: 33, 140, 217;
 
-    /* #82aacf */
     --secondary: rgb(118, 177, 216);
     --secondary-rgb: 118, 177, 216;
     --accent: rgb(110, 202, 255);
     --accent-rgb:148, 205, 255;
     --accent-trans: rgb(148, 205, 255, .25);
-    --plus-color:#ffd900;
+    --plus-color:#ffd900; */
+    --text: rgb(0, 255, 106);
+    --text-rgb: 0, 255, 106;
+    --background: rgb(0, 172, 157);
+    --background-rgb: 0, 172, 157;
+    
+    --primary: rgb(217, 255, 0);
+    --primary-rgb: 217, 255, 0;
+
+    --secondary: rgb(205, 118, 216);
+    --secondary-rgb: 205, 118, 216;
+    --accent: rgb(255, 255, 0);
+    --accent-rgb:255, 255, 0;
+    --accent-trans: rgba(255, 255, 0, 0.25);
+    --plus-color:#ff0000;
 
     --container: rgba(255,255,255,.04);
     --container-rgb: 255, 255, 255;

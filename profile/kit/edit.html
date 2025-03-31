@@ -11,13 +11,13 @@
     <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
 </head>
 <body style="padding: 0;">
-    <dialog id="createquestionpopup">
+    <!-- <dialog class="newdialog" id="createquestionpopup">
         <div id="questioncontainer">
             <div id="questioncontainer_top">
                 <h3>Image options</h3>
                 <div id="imageoptions">
-                    <div style="background-color: black;width:256px;height: 256px;">
-                        <img id="qimg" alt="cover" height="256" width="256">
+                    <div style="background-color: black;width:512px;height: 256px;">
+                        <img id="qimg" alt="cover" height="256" width="512">
                     </div>
                     <div id="questioncontainer_imgoptions">
                         <button id="uploadurlquestion" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload URL</button>
@@ -52,6 +52,63 @@
 
         <div class="caution" style="display:none;color: black;"><i class="fa-light fa-circle-exclamation"></i> <span id="problem"></span></div>
         <div class="littlespace"></div>
+        <form method="dialog">
+            <button class="new_puffy_button primary" id="createquestion__btn" type="button"><i class="fa-light fa-circle-plus"></i> Create</button>
+            <button class="new_puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
+        </form>
+    </dialog> -->
+    <dialog class="newdialog" id="createquestionpopup">
+        <div id="questioncontainer">
+            <div class="container" style="text-align: center;">
+                <p style="opacity: .5;"><i class="fa-light fa-square-question"></i> Question text</p>
+                <div class="inputfield" style="margin-top: 0;padding-top: 0;">
+                    <input type="text" style="text-align: center;font-size: 2rem;font-weight: bold;" class="input2" placeholder="" autocomplete="off" id="questiontext" required />
+                    <!-- <label for="questionText" class="label"><i class="fa-light fa-square-question"></i> Question text</label> -->
+                </div>
+            </div>
+            <div id="imageoptions">
+                <div class="questionImageContainer">
+                    <div id="imgDragDrop">
+                        <p>Drop images here!</p>
+                    </div>
+                    <div class="centerImageOptions">
+                        <h1>Image Options</h1>
+                        <button class="new_puffy_button primary" id="uploadImgBtn"><i class="fa-light fa-upload"></i> Upload</button>
+                        <button class="new_puffy_button" id="uploadImgUrlBtn"><i class="fa-light fa-link-simple"></i> From link</button>
+                    </div>
+                    <img id="qimg" src="./asset/templates/kit_temp.png" alt="cover">
+                </div>
+                <!-- <div id="questioncontainer_imgoptions">
+                    <button id="uploadurlquestion" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload URL</button>
+                    <button class="new_puffy_button"><i class="fa-light fa-file-import"></i> Upload file</button>
+                </div> -->
+            </div>
+            <div id="questions" style="margin-top: 5px;">
+                <div class="questionbox container">
+                    <textarea id="q1" autocomplete="off" placeholder="*Enter answer text..."></textarea>
+                    <input type="checkbox" id="q1a">
+                </div>
+                <div class="questionbox container">
+                    <textarea id="q2" autocomplete="off" placeholder="*Enter answer text..."></textarea>
+                    <input type="checkbox" id="q2a">
+                </div>
+                <div class="questionbox container">
+                    <textarea id="q3" autocomplete="off" placeholder="Enter answer text..."></textarea>
+                    <input type="checkbox" id="q3a">
+                </div>
+                <div class="questionbox container">
+                    <textarea id="q4" autocomplete="off" placeholder="Enter answer text..."></textarea>
+                    <input type="checkbox" id="q4a">
+                </div>
+                <div class="questionActions container">
+                    <button class="new_puffy_button icon"><i class="fa-kit fa-solid-square-check-pen"></i></button>
+                    <button class="new_puffy_button icon"><i class="fa-light fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="caution" style="display:none;"><i class="fa-light fa-circle-exclamation"></i> <span id="problem">aaa</span></div>
+        <!-- <div class="littlespace"></div> -->
         <form method="dialog">
             <button class="new_puffy_button primary" id="createquestion__btn" type="button"><i class="fa-light fa-circle-plus"></i> Create</button>
             <button class="new_puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
@@ -141,44 +198,63 @@
             </div>
         </div>
         <div id="main_container">
-            <div id="basic_info" class="container">
-                <div>
-                    <h2 class="container">Basic info</h2>
-                    <div id="covercontainer" style="background-color: black;width:512px;height: 288px;position: relative;">
-                        <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
-                        <div class="bkptag" hide id="pluskit">PLUS</div>
-                        <div id="cover__overlay">
-                            <button id="changecoverurl" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
-                            <button id="changecoverfile" class="new_puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
+            <div style="display: flex;flex-direction: column;gap:5px;">
+                <div id="basic_info" class="container">
+                    <div>
+                        <h2 class="container">Basic info</h2>
+                        <div id="covercontainer" style="background-color: black;width:512px;height: 288px;position: relative;">
+                            <img id="coverimg" src="../../asset/templates/kit_temp.png" alt="cover" height="288" width="512">
+                            <div class="bkptag" hide id="pluskit">PLUS</div>
+                            <div id="cover__overlay">
+                                <button id="changecoverurl" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload with URL</button>
+                                <button id="changecoverfile" class="new_puffy_button"><i class="fa-light fa-file"></i> Upload file</button>
+                            </div>
+                        </div>
+                        <!-- <div id="button_container">
+                            <button id="share_kit" class="new_puffy_button primary"><i class="fa-light fa-share-from-square"></i> Share</button>
+                            <button id="delete_kit" class="new_puffy_button danger"><i class="fa-light fa-trash-can"></i> Delete</button>
+                        </div> -->
+                        <div style="display:flex;flex-direction: column;">
+                            <div class="inputfield" style="flex:1;">
+                                <input type="text" class="input2 saveableProperty" placeholder="" autocomplete="off" id="kitname" required />
+                                <label for="kitname" class="label"><i class="fa-regular fa-file-signature"></i> Kit name</label>
+                            </div>
+                            <div class="inputfield" style="flex:1;">
+                                <input type="text" class="input2 saveableProperty" placeholder="" autocomplete="off" id="desc" required />
+                                <label for="desc" class="label"><i class="fa-regular fa-file"></i> Description</label>
+                            </div>
+                            <div class="space"></div>
+                            <label for="kit_visibility">Privacy</label>
+                            <select class="new_select saveableProperty" style="font-size: large;" id="kit_visibility">
+                                <option value="public">Public</option>
+                                <option value="friends">Friends</option>
+                                <option value="private" selected>Private</option>
+                            </select>
+                            <div class="space"></div>
+                            <button class="new_puffy_button primary" id="advancedSettingsBtn"><i class="fa-light fa-gears"></i> Advanced settings</button>
+                            <div class="littlespace"></div>
+                            <a href="#" id="viewPublicLink"><button style="width: 100%;" class="new_puffy_button"><i class="fa-light fa-globe"></i> View public link</button></a>
                         </div>
                     </div>
-                    <!-- <div id="button_container">
-                        <button id="share_kit" class="new_puffy_button primary"><i class="fa-light fa-share-from-square"></i> Share</button>
-                        <button id="delete_kit" class="new_puffy_button danger"><i class="fa-light fa-trash-can"></i> Delete</button>
-                    </div> -->
-                    <div style="display:flex;flex-direction: column;">
-                        <div class="inputfield" style="flex:1;">
-                            <input type="text" class="input2 saveableProperty" placeholder="" autocomplete="off" id="kitname" required />
-                            <label for="kitname" class="label"><i class="fa-regular fa-file-signature"></i> Kit name</label>
+                    <!-- <button onclick="document.getElementById('sectioncontent').scrollTo({ top: 0, behavior: 'smooth' })" class="new_puffy_button accent"><i class="fa-light fa-up-to-line"></i> Go to top</button> -->
+                </div>
+                <div class="statContainer container">
+                    <h1>Stats</h1>
+                    <div class="stat">
+                        <i class="fa-light fa-thumbs-up mainIcon container"></i>
+                        <div>
+                            <h1>Likes</h1>
+                            <span><span id="likes">0</span>/<span id="dislikes">0</span> (<span id="likePercentile">0</span>%)</span>
                         </div>
-                        <div class="inputfield" style="flex:1;">
-                            <input type="text" class="input2 saveableProperty" placeholder="" autocomplete="off" id="desc" required />
-                            <label for="desc" class="label"><i class="fa-regular fa-file"></i> Description</label>
+                    </div>
+                    <div class="stat">
+                        <i class="fa-light fa-rectangle-history mainIcon container"></i>
+                        <div>
+                            <h1>Plays</h1>
+                            <span id="plays">0</span>
                         </div>
-                        <div class="space"></div>
-                        <label for="kit_visibility">Privacy</label>
-                        <select class="new_select saveableProperty" style="font-size: large;" id="kit_visibility">
-                            <option value="public">Public</option>
-                            <option value="friends">Friends</option>
-                            <option value="private" selected>Private</option>
-                        </select>
-                        <div class="space"></div>
-                        <button class="new_puffy_button primary" id="advancedSettingsBtn"><i class="fa-light fa-gears"></i> Advanced settings</button>
-                        <div class="littlespace"></div>
-                        <a href="#" id="viewPublicLink"><button style="width: 100%;" class="new_puffy_button"><i class="fa-light fa-globe"></i> View public link</button></a>
                     </div>
                 </div>
-                <!-- <button onclick="document.getElementById('sectioncontent').scrollTo({ top: 0, behavior: 'smooth' })" class="new_puffy_button accent"><i class="fa-light fa-up-to-line"></i> Go to top</button> -->
             </div>
             <div id="questions_container" class="container">
                 <div class="container" style="display: flex;justify-content: space-between;align-items: center;">
@@ -231,6 +307,7 @@
             </label>
         </div>
     </section>
+    <input type="file" id="uploadQuestionImg" style="display: none;">
 
     <script type="module" src="../../js/kits/edit.js"></script>
     <script src="../../js/util/notification.js"></script>

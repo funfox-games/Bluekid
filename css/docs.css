@@ -11,15 +11,15 @@ h1 {
     font-size: 2.75rem;
 }
 .main {
-    padding-top:5.5rem;
     display: flex;
     gap:5px;
-    margin: 0 1rem;
+    margin: 1rem;
 }
 #content {
     flex:1;
     background-color: var(--container);
     border-radius: 5px;
+    padding: 1rem;
 }
 .sidenav {
     font-size: 1.25rem;
@@ -29,7 +29,9 @@ h1 {
     flex-direction: column;
     gap:5px;
     margin: 0;
-    padding: 0;
+    padding: .5rem 0;
+    padding-left: .5rem;
+    border-left: rgba(var(--text-rgb), .5) 2px solid;
     list-style-type:none;
 }
 .sidenav ul li {
@@ -37,4 +39,63 @@ h1 {
     background-color: var(--container);
     border-radius: 5px;
     cursor: pointer;
+    transition-duration: 250ms;
+}
+.sidenav ul li[active] {
+    background-color: rgba(var(--accent-rgb), .4);
+}
+.sidenav ul li:hover {
+    background-color: rgba(var(--container-rgb), .1);
+}
+.actions {
+    display: flex;
+    gap:5px;
+}
+.actions > * {
+    flex:1;
+}
+a {
+    text-decoration: none;
+}
+a button {
+    width: 100%;
+}
+.info, .warning, .caution {
+    padding: .75rem 1rem;
+    background-color: transparent;
+    border-radius: 0px;
+    border-left: var(--color) 3px solid;
+    margin: .25rem 0;
+}
+.info {
+    --color: #007fd4;
+}
+.warning {
+    --color: #d4b400;
+}
+.caution {
+    --color: #ff5151;
+}
+.info > .head, .warning > .head, .caution > .head {
+    display: flex;
+    font-size: .9rem;
+    gap:.3rem;
+    align-items: center;
+    padding-bottom: .25rem;
+    color: var(--color);
+}
+.info > :not(.head), .warning > :not(.head), .caution > :not(.head) {
+    opacity: .7;
+}
+.buttonContainer{
+    display: flex;
+    gap:5px;
+    flex-direction: column;
+}
+.sectionLink {
+    text-decoration: underline;
+    font-style: italic;
+}
+#content > p {
+    margin:.5rem;
 }

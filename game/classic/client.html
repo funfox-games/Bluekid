@@ -1,11 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classic Gamemode | Client</title>
-</head>
-<body>
-    <h1>Hello, client!</h1>
-</body>
-</html>
+<div id="loadingScreen" show>
+    <i class="fa-light fa-spinner-third fa-spin"></i>
+</div>
+<div id="countdownScreen">
+    <div class="countdownBackground"></div>
+    <h1 id="countdownText">5</h1>
+</div>
+<div class="topbar">
+    <p>Question 0/0</p>
+</div>
+<div class="container" id="questionPreview">
+    Question Text
+</div>
+<div id="questionAnswered">
+    <div>
+        <h1><i class="fa-light fa-shield-check"></i> Answer submitted!</h1>
+        <p>Waiting for the others to catch up...</p>
+    </div>
+</div>
+<div class="questionContainer" inactive>
+    <div class="questionTextContainer">
+        <h1 id="questionText">Question</h1>
+    </div>
+    <div class="imageContainer">
+        <div class="kitImage">
+            <img src="../asset/templates/kit_temp.png" id="kitimg" alt="kit_img">
+        </div>
+    </div>
+    <div class="answers">
+        <div class="answerContainer">
+            <p>Answer 1</p>
+        </div>
+        <div class="answerContainer">
+            <p>Answer 2</p>
+        </div>
+        <div class="answerContainer">
+            <p>Answer 3</p>
+        </div>
+        <div class="answerContainer">
+            <p>Answer 4</p>
+        </div>
+    </div>
+</div>
+<div id="scoreboardContainer" inactive>
+    <div>
+        <i id="correctSymbol" style="fill: rgb(152, 255, 152);font-size: 4rem;" class="fa-solid fa-light fa-circle-check"></i>
+        <div class="littlespace"></div>
+        <h1 class="container"><span id="scoreboard__place">0th</span> place</h1>
+        <p class="subtitle"><span id="scoreboard__score">0</span> points, <span>right behind <span id="person_behind">unknown.</span></span></p>
+        <p>Waiting for host to continue...</p>
+    </div>
+</div>

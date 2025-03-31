@@ -293,6 +293,8 @@ body {
 #plrex {
     display: none;
 }
+
+/* GAME */
 #game {
     position: absolute;
     left:0;
@@ -309,4 +311,273 @@ body {
     width: 100%;
     height: 100%;
     color: var(--text);
+    /* padding: .5rem; */
+    display: flex;
+    flex-direction: column;
+    /* gap:5px; */
+}
+
+#game .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--container);
+    padding: .5rem;
+}
+@keyframes countdownSpin {
+    0% {
+        rotate: 0deg;
+    }
+    35% {
+        rotate: 0deg;
+    }
+    50% {
+        rotate: 45deg;
+    }
+    85% {
+        rotate: 45deg;
+    }
+    100% {
+        rotate: 90deg;
+    }
+}
+
+#gamecontent #countdownScreen {
+    z-index: 9;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#gamecontent #loadingScreen {
+    z-index: 9;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem;
+}
+#gamecontent #loadingScreen[show] {
+    display: flex;
+}
+#gamecontent #countdownScreen[show] {
+    display: flex;
+}
+#gamecontent #countdownScreen[show] > .countdownBackground {
+    /* position: absolute;
+    left: 50%;
+    top: 50%; */
+    transform-origin: 50% 50%;
+    width: 10rem;
+    height: 10rem;
+    background-color: rgba(var(--container-rgb), .1);
+    border-radius: 5px;
+    animation: countdownSpin 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes countdownPulse {
+    0% {
+        font-size: 5rem;
+    }
+    50% {
+        font-size: 7.5rem;
+    }
+    100% {
+        font-size: 5rem;
+    }
+}
+#gamecontent #countdownScreen[show] > #countdownText {
+    position: absolute;
+    left:50%;
+    top:50%;
+    font-size: 5rem;
+    transform: translate(-50%, -50%);
+    animation: countdownPulse 1s infinite cubic-bezier(.67,-0.01,.34,.99);
+
+}
+#game * {
+    box-sizing: border-box;
+}
+#gamecontent #questionPreview {
+    transition-duration: 1s;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    opacity: 0;
+    font-size: 3.5rem;
+    z-index: 9;
+    /* background-color: var(--background); */
+    padding: 2rem;
+    width: 50vw;
+    text-align: center;
+    border-radius: 1rem;
+    transform: translate(-50%, -30%);
+    user-select: none;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:5px;
+}
+#gamecontent #questionPreview[show] {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    scale: 1;
+}
+
+#gamecontent .questionContainer {
+    /* position: absolute;
+    left:0;
+    top:0; */
+    /* width: 100%;
+    height: 100%; */
+
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    padding: .25rem;
+    flex:1;
+    transition-duration: 500ms;
+}
+#gamecontent .questionContainer[inactive] {
+    display: none;
+}
+#gamecontent .questionContainer .question {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    flex:2;
+}
+#gamecontent .questionContainer .questionTextContainer {
+    background-color: var(--container);
+    padding: 1rem;
+    border-radius: .5rem;
+    font-size: 2rem;
+    flex:0;
+    text-align: center;
+}
+#gamecontent .questionContainer .answers {
+    display: grid;
+    grid-template-columns: 50vw auto;
+    /* grid-template-rows: auto auto; */
+    flex:1;
+    /* padding: 0 1rem; */
+    gap:.5rem;
+}
+#gamecontent .questionContainer .answers > * {
+    flex:1;
+    background-color: var(--container);
+    padding: 1rem;
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    cursor: pointer;
+    transition: background 250ms;
+    /* max-width: 50vw; */
+}
+#gamecontent .questionContainer .answers > *[selected] {
+    background-color: rgba(var(--container-rgb), .1);
+}
+#gamecontent .questionContainer .answers > *:hover {
+    background-color: rgba(var(--container-rgb), .075);
+}
+#gamecontent .questionContainer > * {
+    flex:1;
+}
+#gamecontent .imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex:1;
+    gap:1rem;
+}
+.kitImage{
+    /* width: 512px;
+    height: 288px; */
+    aspect-ratio: 16/9;
+    background-color: black;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    height: 50vh;
+    width: 50vw;
+}
+.kitImage > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+#gamecontent #questionAnswered {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition-duration: 500ms;
+    opacity: 0;
+}
+#gamecontent #questionAnswered[show] {
+    opacity: 1;
+    pointer-events:unset;
+}
+#gamecontent #questionAnswered[show] > div {
+    opacity: 1;
+    transform: translateY(0);
+}
+#gamecontent #questionAnswered > div {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    background-color: var(--background);
+    transition-duration: 500ms;
+    opacity: 0;
+    transform: translateY(30%);
+}
+#gamecontent #scoreboardContainer {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#gamecontent #scoreboardContainer > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    > img {
+        aspect-ratio: 1/1;
+        width: 10vw;
+    }
+}
+#gamecontent #scoreboardContainer[inactive] {
+    display: none;
 }

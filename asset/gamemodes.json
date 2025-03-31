@@ -57,15 +57,19 @@
             "consideredNewUntil": "Wednesday, 17-Sep-2025 20:28:45 GMT+0000",
             "ideaCreator":"funfoxrr",
             "idealPlaytime": 10,
-            "minimumPlayerCount":2,
+            "minimumPlayerCount":1,
             "scoring": {
                 "multiplier": 1.25
             },
             "server": {
                 "data": {
-                    "activeQuestionIdx": 0,
+                    "activeQuestionIdx": -1,
                     "timer": 0,
-                    "completedActiveQuestion": []
+                    "completedActiveQuestion": [],
+                    "questionActive": false,
+                    "countdownToQuestion": false,
+                    "scoring": [],
+                    "scoreboardActive": false
                 }
             },
             "settings": {

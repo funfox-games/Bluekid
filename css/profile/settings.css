@@ -3,7 +3,7 @@
     flex-direction: row;
     overflow: hidden;
 }
-#settings_sidebar {
+#default[active] {
     display:flex;
     --padding: 10px;
     padding: 20px;
@@ -12,19 +12,39 @@
     text-align: center;
     flex-direction: column;
     gap:5px;
-
-    border-right: 1px solid var(--text);
-    border-radius: 10px;
+    flex:1;
     overflow-y: auto;
 }
-#content {
+/* #content {
     flex: 1;
     overflow-y: scroll;
     border-left: 1px solid var(--text);
     padding-left: 15px;
     border-radius: 10px;
+} */
+.section {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 2rem;
 }
-#settings_sidebar > a {
+.section[active] {
+    display: block;
+}
+.goBack{
+    position: fixed;
+    top: 1.75rem;
+    display: inline-block;
+    color: var(--text);
+    font-size: 1.25rem;
+    padding: .5rem 1rem;
+    background-color: var(--background);
+    border-radius: 5px;
+    /* margin: 3rem 0; */
+    font-weight: bold;
+    z-index: 18;
+}
+#default > a {
     padding: 15px 25px;
     background-color: var(--container);
     border-radius: 10px;
@@ -37,11 +57,11 @@
     align-items: center;
 
 }
-#settings_sidebar > a[disabled] {
+#default > a[disabled] {
     color: var(--text);
     opacity: .5;
 }
-#settings_sidebar > a:after {
+/* #default > a:after {
     --thickness: 3px;
     content: "";
     position:absolute;
@@ -54,31 +74,29 @@
     border-right: var(--thickness) solid var(--text);
     opacity: 0;
     transition-duration: 250ms;
-}
+} */
 
-#settings_sidebar > a[disabled]:hover {
-    scale: .97;
+#default > a:hover:not([disabled]) {
+    /* transform: translateX(10px); */
+    background-color: rgba(var(--container-rgb), .1);
 }
-#settings_sidebar > a:hover:not([disabled]) {
-    transform: translateX(10px);
-}
-#settings_sidebar > a:hover:not([disabled]):after {
+/* #default > a:hover:not([disabled]):after {
     opacity: 1;
-}
+} */
 
-#settings_sidebar > a.bkp {
+#default > a.bkp {
     background-color: rgba(229, 255, 0, 0.356);
 
 }
 
-#settings_sidebar h2 {
+#default h2 {
     margin-top: 10px;
     font-size: 1.75rem;
 }
-#settings_sidebar h2[nospacing] {
+#default h2[nospacing] {
     margin: 0;
 }
-#content > div {
+/* #content > div {
     display: none;
 }
 #content > div[active] {
@@ -95,7 +113,7 @@
 }
 #content > div.center[active] h1 {
     font-size: 3rem;
-}
+} */
 .inner {
     border-radius: 10px;
     overflow: hidden;

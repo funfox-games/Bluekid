@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/kit/edit.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <dialog class="newdialog" id="createquestionpopup">
+        <div id="questioncontainer">
+            <div class="container" style="text-align: center;">
+                <p style="opacity: .5;"><i class="fa-light fa-square-question"></i> Question text</p>
+                <div class="inputfield" style="margin-top: 0;padding-top: 0;">
+                    <input type="text" style="text-align: center;font-size: 2rem;font-weight: bold;" class="input2" placeholder="" autocomplete="off" id="questiontext" required />
+                    <!-- <label for="questionText" class="label"><i class="fa-light fa-square-question"></i> Question text</label> -->
+                </div>
+            </div>
+            <div id="imageoptions">
+                <div class="questionImageContainer">
+                    <div id="imgDragDrop">
+                        <p>Drop images here!</p>
+                    </div>
+                    <div class="centerImageOptions">
+                        <h1>Image Options</h1>
+                        <button class="new_puffy_button primary" id="uploadImgBtn"><i class="fa-light fa-upload"></i> Upload</button>
+                        <button class="new_puffy_button" id="uploadImgUrlBtn"><i class="fa-light fa-link-simple"></i> From link</button>
+                    </div>
+                    <img id="qimg" src="./asset/templates/kit_temp.png" alt="cover">
+                </div>
+                <!-- <div id="questioncontainer_imgoptions">
+                    <button id="uploadurlquestion" class="new_puffy_button primary"><i class="fa-light fa-link"></i> Upload URL</button>
+                    <button class="new_puffy_button"><i class="fa-light fa-file-import"></i> Upload file</button>
+                </div> -->
+            </div>
+            <div id="questions" style="margin-top: 5px;">
+                <div class="questionbox container">
+                    <textarea id="q1" autocomplete="off" placeholder="*Enter answer text..."></textarea>
+                    <!-- <input type="checkbox" id="q1a"> -->
+                </div>
+                <div class="questionbox container">
+                    <textarea id="q2" autocomplete="off" placeholder="*Enter answer text..."></textarea>
+                    <!-- <input type="checkbox" id="q2a"> -->
+                </div>
+                <div class="questionbox container">
+                    <textarea id="q3" autocomplete="off" placeholder="Enter answer text..."></textarea>
+                    <!-- <input type="checkbox" id="q3a"> -->
+                </div>
+                <div class="questionbox container">
+                    <textarea id="q4" autocomplete="off" placeholder="Enter answer text..."></textarea>
+                    <!-- <input type="checkbox" id="q4a"> -->
+                </div>
+                <div class="questionActions container">
+                    <button class="new_puffy_button icon"><i class="fa-kit fa-solid-square-check-pen"></i></button>
+                    <button class="new_puffy_button icon"><i class="fa-light fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="caution" style="display:none;"><i class="fa-light fa-circle-exclamation"></i> <span id="problem">aaa</span></div>
+        <!-- <div class="littlespace"></div> -->
+        <form method="dialog">
+            <button class="new_puffy_button primary" id="createquestion__btn" type="button"><i class="fa-light fa-circle-plus"></i> Create</button>
+            <button class="new_puffy_button danger"><i class="fa-light fa-circle-xmark"></i> Close</button>
+        </form>
+    </dialog>
+
+    <button class="new_puffy_button primary"
+    style="position: absolute;left:50%;top:50%;transform: translate(-50%, -50%);"
+    onclick="document.getElementById('createquestionpopup').showModal();">
+        Open dialog
+    </button>
+
+
+    <input type="file" id="uploadQuestionImg" style="display: none;">
+    <script type="module">
+        function updateQuestionImg(file) {
+            // const file = document.getElementById("uploadQuestionImg").files[0];
+            document.getElementById("imgDragDrop").removeAttribute("show");
+            const objectURL = window.URL.createObjectURL(file);
+            document.getElementById("qimg").src = objectURL;
+        }
+        document.getElementById("uploadImgBtn").addEventListener("click", () => {
+            document.getElementById("uploadQuestionImg").click();
+        });
+        document.getElementById("qimg").parentElement.addEventListener("dragover", (e) => {
+            // Alert
+            e.preventDefault();
+            document.getElementById("imgDragDrop").setAttribute("show", "");
+        });
+        // document.getElementById("qimg").parentElement.addEventListener("drag", () => {
+        //     e.preventDefault();
+        //     document.getElementById("imgDragDrop").removeAttribute("show");
+        // })
+        document.getElementById("qimg").parentElement.addEventListener("drop", (e) => {
+            e.preventDefault();
+
+            if (e.dataTransfer.items) {
+                // Use DataTransferItemList interface to access the file(s)
+                [...e.dataTransfer.items].forEach((item, i) => {
+                    // If dropped items aren't files, reject them
+                    if (item.kind === "file") {
+                        // alert("A 1")
+                        const file = item.getAsFile();
+                        // new HTMLInputElement().files[0]
+                        // document.getElementById('uploadQuestionImg').files = file;
+                        updateQuestionImg(file);
+                    }
+                });
+            } else {
+                // Use DataTransfer interface to access the file(s)
+                [...e.dataTransfer.files].forEach((file, i) => {
+                    // console.log(`… file[${i}].name = ${file.name}`);
+                    // new HTMLInputElement().files
+                    // alert("A 2")
+                    // document.getElementById('uploadQuestionImg').files = [file];
+                    updateQuestionImg(file);
+                });
+            }
+        });
+
+        document.getElementById("uploadQuestionImg").addEventListener("change", (e) => updateQuestionImg(document.getElementById("uploadQuestionImg").files[0]));
+    </script>
+</body>
+</html>

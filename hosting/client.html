@@ -46,6 +46,15 @@
         
         <button class="puffy_button primary" id="confirmJoin">Join</button>
     </dialog> -->
+    <dialog id="notLoggedIn" style="align-items: center;" class="newdialog">
+        <h1>Not logged in</h1>
+        <p>Bluekid is the best place for having fun and learning. Create a free account to collect coins, keep your game history, and more!</p>
+        <div class="actions" style="align-self: stretch;">
+            <button style="flex-grow: 1;" class="new_puffy_button primary" id="login"><i class="fa-light fa-address-book"></i> Log in</button>
+            <button class="new_puffy_button" style="flex-grow:1;" id="joinAnyway">Join anyway</button>
+        </div>
+        <a href="../auth/signup.html" target="_blank" style="opacity: .5;"><i class="fa-light fa-arrow-right-to-bracket"></i> Sign up</a>
+    </dialog>
     <dialog id="chooseBlue" class="newdialog">
         <h1 class="container">Choose a blue:</h1>
         <div id="blueContainer">
@@ -175,5 +184,6 @@
     </div> -->
 
     <script src="../js/hosting/client.js" type="module"></script>
+    <script src="../js/util/notification.js"></script>
 </body>
 </html>

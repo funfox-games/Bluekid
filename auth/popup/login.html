@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluekid sign up</title>
+    <link rel="stylesheet" href="../../css/all.css">
+    <script src="https://kit.fontawesome.com/44f1506527.js" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            /* background-image: linear-gradient(#ebf5ff, #85c4ff); */
+            background-color: var(--background);
+            --other: hsl(from var(--background) h s calc(l + 5));
+            background-image: linear-gradient(var(--other), var(--background));
+            height: 100vh;
+            color: var(--text);
+        }
+        .content {
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%, -50%);
+            padding: .5rem;
+            border-radius: 10px;
+            width: 90vw;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap:1rem
+        }
+        .innercontent {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            gap:5px;
+            font-size: 1.25rem;
+        }
+        .innercontent a {
+            font-size: 1rem;
+            text-align: left;
+            opacity: .5;
+        }
+        #agreementParent {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <form class="content" action="#" id="login" novalidate>
+        <div class="container" style="width: 100%;display: flex;justify-content: space-between;align-items: center;">
+            <h1>Login</h1>
+            <button class="new_puffy_button danger" onclick="window.close()"><i class="fa-light fa-xmark"></i> Cancel</button>
+        </div>
+        <div class="innercontent">
+            <div class="inputfield">
+                <input type="email" class="input2" placeholder="" autocomplete="off" id="email" required />
+                <label for="name" class="label"><i class="fa-light fa-envelopes"></i> Email</label>
+            </div>
+            <div class="inputfield">
+                <input type="password" class="input2" placeholder="" autocomplete="off" id="password" required />
+                <label for="password" class="label"><i class="fa-light fa-key"></i> Password</label>
+            </div>
+            <div class="littlespace"></div>
+            <button class="new_puffy_button primary pilled medium" id="loginbutton" type="submit"><i class="fa-light fa-door-open"></i> Log in</button>
+            <div style="display:flex;width:100%;align-items: center;gap:10px;color:white;opacity: .5;">
+                <div style="width:50%;height:3px;background-color: white;border-radius: 3px;"></div>
+                <b>OR</b>
+                <div style="width:50%;height:3px;background-color: white;border-radius: 3px;"></div>
+            </div>
+            <button class="new_puffy_button primary pilled" id="google" type="button" style="align-items: center;font-size: large;display:flex;gap:7px;color: black;background-image: linear-gradient(45deg, #fff, #cfcfcf);"><img src="../../asset/google.webp" alt="googleLogo" width="22"> Login with Google</button>
+        </div>
+        
+        <script type="module">
+            import { onAuthStateChanged, auth, db, doc, getDoc, setDoc, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "../../js/util/firebase.js";
+            document.getElementById("login").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+                document.getElementById("loginbutton").setAttribute("disabled", "");
+                document.getElementById("loginbutton").innerHTML = "Logging in...";
+                const res = await signInWithEmailAndPassword(auth, email, password).catch((err) => {
+                    const code = err.code;
+                    const msg = err.message;
+                    console.error("(" +code + ") LOG IN ERROR: " + msg);
+                    if (code == "auth/user-not-found") {
+                        showNotification(3, "User email doesn't exist. <a href='#'>Need signed up?</a>");
+                    }
+                    else if (code == "auth/wrong-password") {
+                        showNotification(3, "Wrong password.");
+                    } else {
+                        showNotification(3, "Something went wrong. Check the console for more details.");
+                    }
+                    document.getElementById("loginbutton").removeAttribute("disabled");
+                    document.getElementById("loginbutton").innerHTML = `<i class="fa-light fa-door-open"></i> Log in`;
+                    return null;
+                });
+                if (res == null) {return;}
+                window.close();
+            });
+            document.getElementById("google").addEventListener("click", async () => {
+                var provider = new GoogleAuthProvider();
+                auth.useDeviceLanguage();
+                var res = await signInWithPopup(auth, provider).catch((err) => {
+                    const code = err.code;
+                    const msg = err.message;
+                    var email = err.email;
+                    // var credential = GoogleAuthProvider.credentialFromError(error);
+                    if (code == "auth/popup-closed-by-user") {
+                        showNotification(3, "Prompt canceled.");
+                    } else {
+                        showNotification(3, "Something went wrong.");
+                    }
+                    console.log(code, msg);
+                    return null;
+                });
+                if (res == null) {return;}
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(res);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = res.user;
+                const data = await getDoc(doc(db, "users", user.uid));
+                if (data.exists() == false) {
+                    await signOut(auth);
+                    showNotification(3, "No account found. Please close this popup and sign up.");
+                    return;
+                }
+            });
+        </script>
+        <script src="../../js/util/notification.js"></script>
+    </form>
+</body>
+</html>

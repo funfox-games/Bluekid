@@ -4,6 +4,11 @@
             "cost": 0,
             "bluedata": "Alien Cat",
             "endsOn": "Fri Feb 28 2025 00:00:00 GMT-0400 (Eastern Daylight Time)"
+        },
+        "Fool": {
+            "cost": 0,
+            "bluedata": "Fool",
+            "endsOn": "Tue Apr 2 2025 00:00:00 GMT-0400 (Eastern Daylight Time)"
         }
     },
     "packs": {
@@ -219,6 +224,12 @@
             "chance": 0,
             "rarity": "Mystical",
             "imgPath": "secret/aliencat_blue.png",
+            "pack": "secret"
+        },
+        "Fool": {
+            "chance": 0,
+            "rarity": "Mystical",
+            "imgPath": "secret/fool_blue.png",
             "pack": "secret"
         }
     }
